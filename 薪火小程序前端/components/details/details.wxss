@@ -1,0 +1,96 @@
+/* components/details/details.wxss */
+.outer-box{/*定义外部边框，便于使用百分比宽高，适应不同机型*/
+  width: 100vw;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.inner-box{
+  width: 90.66vw;/*根据蓝湖上的尺寸3，换算为百分比得到的比例*/
+  height: 100%;
+  border: 1.4px solid black;
+  border-radius: 2vw;
+  margin: 0 auto;
+}
+.label-image{
+  width: 21px;
+  height: 40px;
+  float: right;
+  margin-right: 35px;
+  position: relative;
+  z-index: 100;/*由于样式层叠，使用z-index提高层级*/
+}
+.label-image image{
+  width: 100%;
+}
+.label-text{
+  padding-top: 2px;
+  font-size: 11px;
+  text-align: center;
+  line-height: 130%;/*设置字体上下间距*/
+  color: white;
+  position: absolute;/*用于和label定位*/
+  top: 0;
+  left: 0;
+}
+.box{
+  width: 94.1%;
+  margin: 0 auto;
+}
+.picture{
+  height: 17.7vh;/*图片占总框高度的57.1%，31vh*57.1%=17.7vh*/
+  width: 100%;
+  margin: 0 auto;
+  background-color: #cccccc;
+  margin-top: 1vh;
+  position: relative;
+}
+.picture image{
+  width: 100%;
+  height: 100%;
+  position: absolute;/*用于和picture定位*/
+}
+.location{
+  margin-top: 5px;
+  height: 20px;
+}
+.loca-text1{
+  font-size: 17px;
+  font-family: 'PingFang-SC-Regular';/*字体貌似无法显示*/
+}
+.loca-text2{
+  font-size: 12px;
+  margin-left: 4px;
+}
+.dingwei-image{
+  width: 14px;
+  height: 16px;
+  padding-top: 1px;
+  margin-left: 5px;
+}
+.time{
+  font-size: 14px;
+  color: #43499B;
+  margin-top: 5px;
+}
+.peo-num{
+  height: 50px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;/*两边对齐*/
+}
+.num{
+  font-size: 15px;
+  padding-bottom: 3px;
+}
+.but{
+  margin-top: 6px;
+  width: 76px !important;
+  height: 40px;
+  line-height: 40px;
+  border-radius: 10px;
+  color: white;
+  font-weight: 500;
+  padding: 0;/*这里由于button默认存在padding值，故需要修改*/
+  font-size: 15px;
+  background-color: #5566CD;
+}
