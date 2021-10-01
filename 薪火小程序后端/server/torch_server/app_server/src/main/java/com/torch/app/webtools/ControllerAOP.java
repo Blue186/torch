@@ -19,7 +19,7 @@ public class ControllerAOP {
     @Value("${log.cost.time.enable:true}")
     private boolean logCostTimeEnable;
 
-    @Pointcut("@annotation(com.torch.server.webtools.annotation.LogCostTime)")
+    @Pointcut("@annotation(com.torch.app.webtools.annotation.LogCostTime)")
     public void costTimePointCut() {
 
     }
