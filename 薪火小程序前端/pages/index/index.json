@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "details":"/components/details/details"
+  }
+}

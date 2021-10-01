@@ -1,0 +1,33 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/logs/logs",
+    "pages/person/person"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "薪火志愿者协会",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#999999",
+    "selectedColor": "#010101",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "images/首页-选中@2x.png",
+        "selectedIconPath": "images/首页-选中@2x.png"
+      },
+      {
+        "pagePath": "pages/person/person",
+        "text": "个人",
+        "iconPath": "images/个人-默认@2x.png",
+        "selectedIconPath": "images/个人-默认@2x.png"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

@@ -1,0 +1,120 @@
+/* components/innerDetails/innerDetails.wxss */
+/* 外层框架 */
+.continer{
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.outer-box{
+  width: 90vw;
+  height: 96vh;
+  border: 1pt solid black;
+  border-radius: 16pt;
+}
+/* 标签 */
+.label-image{
+  width: 21px;
+  height: 40px;
+  float: right;
+  margin-right: 35px;
+  position: relative;
+  z-index: 100;/*由于样式层叠，使用z-index提高层级*/
+}
+.label-image image{
+  width: 100%;
+}
+.label-text{
+  padding-top: 2px;
+  font-size: 11px;
+  text-align: center;
+  line-height: 130%;/*设置字体上下间距*/
+  color: white;
+  position: absolute;/*用于和label定位*/
+  top: 0;
+  left: 0;
+}
+/* 详情 */
+.detail{
+  background-color: #FFFBDD;
+  height: 90%;
+  width: 100%;
+  border-radius: 16pt 16pt 0 0;
+  border-bottom: 1pt solid black;
+}
+.title{
+  width: 90vw;
+  position: absolute;/*定位到主容器*/
+  padding-top: 10pt;
+  font-size: 16pt;
+  text-align: center;
+}
+.volun-detail{
+  padding-top: 15%;
+  padding-left: 4%;
+  width: 100%;
+  height: 25%;
+}
+.volun-detail-title{
+  font-size: 15pt;
+}
+.volun-detail-text{
+  font-size: 12pt;
+}
+.volun-detail-status{
+  float: right;
+  padding-right: 15%;
+}
+/* 报名 */
+.sign{
+  width: 100%;
+  height: 10%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.sign-a{
+  width: 40%;
+  display: flex;
+  margin-left: 10%;
+  margin-right: 10%;
+  justify-content: space-between;
+}
+.sign-image{
+  width: 21pt;
+  height: 24pt;
+}
+.sign-text{
+  display: flex;
+  flex-direction: column;
+  font-size: 12pt;
+}
+.sign-button{
+  display: flex;
+  flex-direction: row;
+  width: 108pt;
+  height: 28pt;
+  border-radius: 16pt;
+  margin-right: 20pt;
+}
+.sign-button button:nth-child(1){
+  padding: 0;
+  width: 54pt;
+  height: 28pt;
+  text-align: center;
+  line-height: 28pt;
+  background-color: rgb(85,102,205);
+  color: white;
+  border-radius: 16pt 0 0 16pt ;
+}
+.sign-button button:nth-child(2){
+  padding: 0;
+  width: 54pt;
+  height: 28pt;
+  text-align: center;
+  line-height: 28pt;
+  background-color: rgb(255,73,86);
+  border-radius: 0 16pt 16pt 0;
+}

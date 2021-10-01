@@ -1,0 +1,26 @@
+server:
+  port: 8080
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://www.torchcqs.cn:3306/torch?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8
+    username: root
+    password: cjsd10-3
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+#  redis:
+#    host:
+#    port: 6379
+#    password:
+#    lettuce:
+#      pool:
+#        max-active:
+#        max-idle:
+#        max-wait:
+#      shutdown-timeout:
+mybatis-plus:
+  mapper-locations: classpath:mapper/*.xml #  xml文件所在位置
+  type-aliases-package: com/torch/app/entity #别名文件位置
+
+wx-appid: weixinxiaochengxudeappid

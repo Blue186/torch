@@ -1,0 +1,1 @@
+<details wx:for="{{5}}" wx:key="index"></details>
