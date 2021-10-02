@@ -1,4 +1,4 @@
-package com.torch.admin.controller;
+package com.torch.admin.controller.robot;
 
 import com.torch.admin.service.EnterGroupService;
 import commonutils.R;

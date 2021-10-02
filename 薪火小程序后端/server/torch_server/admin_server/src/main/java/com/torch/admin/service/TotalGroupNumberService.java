@@ -1,7 +1,7 @@
 package com.torch.admin.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.torch.admin.entity.TotalGroupNumber;
+import com.torch.admin.entity.robot.TotalGroupNumber;
 
 public interface TotalGroupNumberService extends IService<TotalGroupNumber> {
 

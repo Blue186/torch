@@ -2,7 +2,7 @@ package com.torch.admin.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.torch.admin.entity.TotalGroupNumber;
+import com.torch.admin.entity.robot.TotalGroupNumber;
 import com.torch.admin.mapper.TotalGroupNumberMapper;
 import com.torch.admin.service.TotalGroupNumberService;
 import org.springframework.stereotype.Service;

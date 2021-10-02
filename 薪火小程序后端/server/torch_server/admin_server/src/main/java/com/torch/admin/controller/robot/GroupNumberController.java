@@ -1,4 +1,4 @@
-package com.torch.admin.controller;
+package com.torch.admin.controller.robot;
 
 import com.torch.admin.service.GroupNumberService;
 import commonutils.R;
@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@Api(tags = "GroupNumber", value = "各个群群人数")
+@Api(tags = "GroupNumberController", value = "各个群群人数")
 @RestController
 @RequestMapping("/admin/groupNumber")
-public class GroupNumber {
+public class GroupNumberController {
 
     @Autowired
     private GroupNumberService service;

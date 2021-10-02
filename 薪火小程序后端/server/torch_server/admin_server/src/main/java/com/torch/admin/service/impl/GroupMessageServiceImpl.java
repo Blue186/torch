@@ -1,7 +1,7 @@
 package com.torch.admin.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.torch.admin.entity.GroupMessage;
+import com.torch.admin.entity.robot.GroupMessage;
 import com.torch.admin.mapper.GroupMessageMapper;
 import com.torch.admin.service.GroupMessageService;
 import org.springframework.stereotype.Service;

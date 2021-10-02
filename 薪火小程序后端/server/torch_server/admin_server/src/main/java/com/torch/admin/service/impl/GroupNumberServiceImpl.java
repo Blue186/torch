@@ -1,8 +1,7 @@
 package com.torch.admin.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.torch.admin.entity.GroupNumber;
+import com.torch.admin.entity.robot.GroupNumber;
 import com.torch.admin.mapper.GroupNumberMapper;
 import com.torch.admin.service.GroupNumberService;
 import org.springframework.stereotype.Service;

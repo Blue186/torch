@@ -1,7 +1,7 @@
 package com.torch.admin.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.torch.admin.entity.EnterGroup;
+import com.torch.admin.entity.robot.EnterGroup;
 
 import java.util.List;
 

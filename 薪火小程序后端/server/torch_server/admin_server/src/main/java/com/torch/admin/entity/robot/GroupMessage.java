@@ -1,4 +1,4 @@
-package com.torch.admin.entity;
+package com.torch.admin.entity.robot;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
