@@ -1,4 +1,4 @@
-package com.torch.admin.mapper;
+package com.torch.admin.mapper.robot;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.torch.admin.entity.robot.GroupReduce;

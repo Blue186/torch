@@ -1,6 +1,6 @@
 package com.torch.admin.controller.robot;
 
-import com.torch.admin.service.GroupMessageService;
+import com.torch.admin.service.robot.GroupMessageService;
 import commonutils.R;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

@@ -1,4 +1,4 @@
-package com.torch.admin.service;
+package com.torch.admin.service.robot;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.torch.admin.entity.robot.TotalGroupNumber;

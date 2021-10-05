@@ -1,6 +1,6 @@
 package com.torch.admin.controller.robot;
 
-import com.torch.admin.service.GroupNumberService;
+import com.torch.admin.service.robot.GroupNumberService;
 import commonutils.R;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
