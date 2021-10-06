@@ -3,6 +3,7 @@ package com.torch.admin.service.torch.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.torch.admin.entity.torch.TorchMember;
+import com.torch.admin.entity.torch.vo.TorchUserRegister;
 import com.torch.admin.mapper.torch.TorchMemberMapper;
 import com.torch.admin.service.torch.TorchMemberService;
 import org.springframework.stereotype.Service;
@@ -24,5 +25,16 @@ public class TorchMemberServiceImpl extends ServiceImpl<TorchMemberMapper, Torch
             return -2;  // 多半是 base64 解码出现问题
         }
         return -1;
+    }
+
+    @Override
+    public void addTorchMember(TorchUserRegister register) {
+        TorchMember member = new TorchMember();
+        member.setAccountCode(register.getAccount());
+        member.setNickname(register.getName());
+        member.setDepartment(register.getDepartment());
+        member.setBirthday(register.getBirthday());
+        member.setPhone(register.getPhone());
+        baseMapper.insert(member);
     }
 }

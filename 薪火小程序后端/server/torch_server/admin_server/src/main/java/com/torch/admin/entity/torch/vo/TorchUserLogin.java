@@ -6,7 +6,7 @@ import lombok.Data;
 import java.io.Serializable;
 
 @Data
-public class TorchUser implements Serializable {
+public class TorchUserLogin implements Serializable {
 
     @ApiModelProperty(value = "登录账号,一般是QQ号,base64格式")
     private String account;
