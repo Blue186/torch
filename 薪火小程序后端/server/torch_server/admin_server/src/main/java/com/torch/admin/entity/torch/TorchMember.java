@@ -5,6 +5,9 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
+/**
+ * 成员信息表
+ */
 @TableName("torch_member")
 @Data
 public class TorchMember {
@@ -18,5 +21,5 @@ public class TorchMember {
     private String department;
     private String identifier;
     private String phone;
-
+    private Integer powerId;
 }

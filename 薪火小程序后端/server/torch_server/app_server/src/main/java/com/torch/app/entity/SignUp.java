@@ -7,6 +7,9 @@ import lombok.Data;
 
 import java.util.Date;
 
+/**
+ * 用户登录信息表
+ */
 @TableName("sign_up")
 @Data
 public class SignUp {

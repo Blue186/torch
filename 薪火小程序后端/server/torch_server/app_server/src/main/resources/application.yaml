@@ -9,6 +9,19 @@ spring:
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
+  #邮件发送配置，目前是小码
+  mail:
+    host: smtp.qq.com
+    username: 3057179865@qq.com
+    password: lyduypdnolpodcfj
+    default-encoding: utf-8
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
 #  redis:
 #    host:
 #    port: 6379

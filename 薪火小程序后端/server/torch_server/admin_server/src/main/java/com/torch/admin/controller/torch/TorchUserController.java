@@ -9,12 +9,14 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
+
 @Api(tags = "TorchUserController", value = "登录注册修改密码相关接口")
 @RestController
 @RequestMapping("/admin/user")
 public class TorchUserController {
 
-    @Autowired
+    @Resource
     private TorchMemberService memberService;
 
     @ApiOperation("登录接口")

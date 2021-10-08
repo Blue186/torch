@@ -7,6 +7,9 @@ import lombok.Data;
 
 import java.util.Date;
 
+/**
+ * 用户评论信息表
+ */
 @TableName("comment")
 @Data
 public class Comment {

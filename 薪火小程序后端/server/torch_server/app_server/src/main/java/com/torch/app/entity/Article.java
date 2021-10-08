@@ -7,6 +7,10 @@ import lombok.Data;
 
 import java.util.Date;
 
+/**
+ * 推文信息表
+ */
+
 @TableName("article")
 @Data
 public class Article {

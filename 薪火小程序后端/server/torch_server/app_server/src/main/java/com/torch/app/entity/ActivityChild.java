@@ -7,6 +7,9 @@ import lombok.Data;
 
 import java.util.Date;
 
+/**
+ * 子活动信息表
+ */
 @TableName("activity_child")
 @Data
 public class ActivityChild {
