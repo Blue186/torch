@@ -15,12 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class GroupReduceController {
 
     @Autowired
-    private GroupReduceService service;
+    private GroupReduceService groupReduceService;
 
     @ApiOperation("获取所有群离群信息")
     @GetMapping("/getAllGroupReduce")
     public R getAllGroupReduce() {
-        return R.ok().data("content", service.getAllGroupReduce());
+        return R.ok().data("content", groupReduceService.getAllGroupReduce());
     }
 
 }

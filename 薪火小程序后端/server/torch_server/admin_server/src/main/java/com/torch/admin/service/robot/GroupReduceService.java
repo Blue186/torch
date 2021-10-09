@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface GroupReduceService extends IService<GroupReduce> {
 
-    public List<GroupReduce> getAllGroupReduce();
+    List<GroupReduce> getAllGroupReduce();
 
 }

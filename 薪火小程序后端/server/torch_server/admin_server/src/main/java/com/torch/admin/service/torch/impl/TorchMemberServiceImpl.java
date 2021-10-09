@@ -1,5 +1,6 @@
 package com.torch.admin.service.torch.impl;
 
+import com.baomidou.dynamic.datasource.annotation.DS;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.torch.admin.entity.torch.TorchMember;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.Base64;
 
 @Service
+@DS("admin")
 public class TorchMemberServiceImpl extends ServiceImpl<TorchMemberMapper, TorchMember> implements TorchMemberService {
     @Override
     public Integer getIdByAccountCodeAndPassword(String accountCode, String password) {

@@ -62,7 +62,6 @@ public class TorchMemberController {
     @GetMapping("/{id}")
     public R selectMember(@ApiParam(name = "",value = "",required = true)@PathVariable Integer id){
         TorchMember member = memberService.getBaseMapper().selectById(id);
-
         return R.ok().data((Map<String, Object>) member);
     }
 }
