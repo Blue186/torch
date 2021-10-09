@@ -23,15 +23,7 @@ public class TorchBirthLevelController {
 //    @PutMapping("/endowSee")
 //    public R endowSeeLevel(@ApiParam(name = "id",value = "用户的id",required = true) Integer id){
 //        TorchBirthLevel birthLevel = new TorchBirthLevel();
-//        birthLevel.setSee(1);
-//        UpdateWrapper<TorchBirthLevel> updateWrapper = new UpdateWrapper<>();
-//        updateWrapper.eq("id",id);
-//        int update = birthLevelService.getBaseMapper().update(birthLevel, updateWrapper);
-//        if (update==1){
-//            return R.ok();
-//        }else {
-//            return R.error().message("权限赋予失败");
-//        }
+//
 //    }
 
 }
