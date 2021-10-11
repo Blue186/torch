@@ -19,11 +19,6 @@ public class TorchBirthLevelController {
     @Resource
     private TorchBirthLevelService birthLevelService;
 
-//    @ApiOperation("赋予see的权限接口")
-//    @PutMapping("/endowSee")
-//    public R endowSeeLevel(@ApiParam(name = "id",value = "用户的id",required = true) Integer id){
-//        TorchBirthLevel birthLevel = new TorchBirthLevel();
-//
-//    }
+
 
 }

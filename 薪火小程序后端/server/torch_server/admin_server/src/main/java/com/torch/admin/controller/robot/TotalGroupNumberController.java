@@ -19,7 +19,7 @@ public class TotalGroupNumberController {
 
     @ApiOperation(value = "统计总人数")
     @GetMapping("/getLast")
-    public R getLast() {
+    public R<?> getLast() {
         return R.ok().data("content", service.getLast());
     }
 

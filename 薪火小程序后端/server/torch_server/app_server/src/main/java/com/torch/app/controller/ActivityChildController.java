@@ -26,7 +26,7 @@ public class ActivityChildController {
      */
     @ApiOperation(value = "志愿详情页志愿信息")
     @GetMapping("/{activityId}")
-    public R getChild(@ApiParam(name = "activityId", value = "父活动id",required = true) @PathVariable Integer activityId){
+    public R<?> getChild(@ApiParam(name = "activityId", value = "父活动id",required = true) @PathVariable Integer activityId){
         return R.ok().data("content", activityChildService.selectChild(activityId));
     }
 }

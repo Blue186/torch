@@ -19,7 +19,7 @@ public class GroupMessageController {
 
     @ApiOperation("获取所有群消息")
     @GetMapping("/admin/getAllGroupMessage")
-    public R getAllGroupMessage() {
+    public R<?> getAllGroupMessage() {
         return R.ok().data("content", service.getAllGroupMessage());
     }
 

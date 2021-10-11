@@ -19,7 +19,7 @@ public class EnterGroupController {
 
     @ApiOperation("获取所有入群消息")
     @GetMapping("/getAllEnterGroup")
-    public R getAllEnterGroup() {
+    public R<?> getAllEnterGroup() {
         return R.ok().data("content", enterGroupService.getAllEnterGroup());
     }
 

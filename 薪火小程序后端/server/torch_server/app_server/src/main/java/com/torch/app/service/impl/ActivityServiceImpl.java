@@ -7,9 +7,11 @@ import com.torch.app.service.ActivityService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service
 public class ActivityServiceImpl extends ServiceImpl<ActivityMapper, Activity> implements ActivityService {
     @Resource
     private ActivityMapper activityMapper;
+
 }

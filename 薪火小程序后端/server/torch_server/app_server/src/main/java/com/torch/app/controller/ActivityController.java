@@ -23,7 +23,7 @@ public class ActivityController {
 
     @ApiOperation(value = "首页获取志愿信息")
     @GetMapping("/index/{current}/{limit}")
-    public R getActivities(@ApiParam(name = "current", value = "当前已经获取的数量", required = true) @PathVariable long current,
+    public R<?> getActivities(@ApiParam(name = "current", value = "当前已经获取的数量", required = true) @PathVariable long current,
                            @ApiParam(name = "limit", value = "要获取的数量", required = true) @PathVariable long limit) {
         Page<Activity> page = new Page<>(current, limit);
 

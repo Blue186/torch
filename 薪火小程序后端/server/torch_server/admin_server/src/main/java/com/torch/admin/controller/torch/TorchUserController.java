@@ -21,7 +21,7 @@ public class TorchUserController {
 
     @ApiOperation("登录接口")
     @PostMapping("/login")
-    public R login(@RequestBody(required = true) TorchUserLogin torchUser) {
+    public R<?> login(@RequestBody(required = true) TorchUserLogin torchUser) {
         // 获取用户id
         Integer id = memberService.getIdByAccountCodeAndPassword(torchUser.getAccount(), torchUser.getPassword());
         if (id == -1) return R.error().data("message", "账号或者密码错误");
@@ -32,7 +32,7 @@ public class TorchUserController {
 
     @ApiOperation("添加新成员接口")
     @PostMapping("/register")
-    public R register(@RequestBody(required = true) TorchUserRegister register) {
+    public R<?> register(@RequestBody(required = true) TorchUserRegister register) {
         memberService.addTorchMember(register);
         return R.ok().data("message", "添加成功");
     }

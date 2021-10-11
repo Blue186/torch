@@ -19,7 +19,7 @@ public class GroupReduceController {
 
     @ApiOperation("获取所有群离群信息")
     @GetMapping("/getAllGroupReduce")
-    public R getAllGroupReduce() {
+    public R<?> getAllGroupReduce() {
         return R.ok().data("content", groupReduceService.getAllGroupReduce());
     }
 

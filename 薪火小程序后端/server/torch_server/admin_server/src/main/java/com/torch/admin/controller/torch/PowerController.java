@@ -31,11 +31,14 @@ public class PowerController {
     @Resource
     private TorchSuggestLevelService suggestLevelService;
 
-    public PowerController() {
-    }
+    /**
+     * 成员权限信息更改接口
+     * @param memberInfo 成员的权限信息
+     * @return 状态
+     */
     @ApiOperation(value = "权限更改接口")
     @PutMapping("/updatePower")
-    public R updatePower(@ApiParam(name = "member",value = "成员的权限信息",required = true)ViewTorchMemberInfo memberInfo){
+    public R<?> updatePower(@ApiParam(name = "member",value = "成员的权限信息",required = true)ViewTorchMemberInfo memberInfo){
       //传给我的是一个map集合，那么我要怎么每个权限修改到具体的表呢，根据service每个进行比对？试一试吧
         TorchBirthLevel birthLevel = new TorchBirthLevel();
         TorchPublishLevel publishLevel = new TorchPublishLevel();
