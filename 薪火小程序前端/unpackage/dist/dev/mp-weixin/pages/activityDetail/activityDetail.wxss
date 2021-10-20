@@ -1,0 +1,133 @@
+@charset "UTF-8";
+/**
+ * 这里是uni-app内置的常用样式变量
+ *
+ * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量
+ * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App
+ *
+ */
+/**
+ * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能
+ *
+ * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件
+ */
+/* 颜色变量 */
+/* 行为相关颜色 */
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+.title {
+  display: inline-block;
+  padding: 0 40rpx;
+  height: 70rpx;
+  line-height: 70rpx;
+  font-weight: 600;
+  background-color: #ffdc88;
+  border: 5rpx solid #000;
+  border-left: none;
+  border-radius: 0  10rpx 10rpx 0;
+}
+.content {
+  width: 80%;
+  margin: 20rpx auto;
+  border: 2rpx solid #fd8933;
+  border-radius: 10rpx;
+  background-color: #eefdff;
+}
+.detailPage {
+  width: 95%;
+  border: 5rpx solid #000;
+  margin: 20rpx auto;
+  border-radius: 15rpx;
+  background-color: #fffbdf;
+}
+.detailPage .header {
+  margin-top: 20rpx;
+  height: 100rpx;
+  border-bottom: 2rpx solid #ffc43a;
+  font-size: 50rpx;
+  font-weight: 500;
+  text-align: center;
+}
+.detailPage .header .tag {
+  position: absolute;
+  top: 20rpx;
+  right: 100rpx;
+}
+.detailPage .activityMessage {
+  margin-top: 50rpx;
+}
+.detailPage .activityMessage .content .messageItem .messageName {
+  width: 25%;
+  text-align: right;
+}
+.detailPage .announcements {
+  margin-top: 50rpx;
+}
+.detailPage .apply .deadline {
+  font-size: 24rpx;
+  padding-left: 20rpx;
+}
+.detailPage .apply .applyDate {
+  display: flex;
+  margin-top: 20rpx;
+  border: 2rpx solid #fd8933;
+  border-radius: 10rpx;
+  background-color: #f0ffed;
+}
+.detailPage .apply .applyDate .dateBox {
+  border: 1rpx solid #000;
+  border-radius: 40rpx;
+  background-color: #fff;
+  padding: 0 10rpx;
+  margin: 20rpx;
+}
+.detailPage .apply .applyDate .active {
+  background-color: #fd8933;
+}
+.detailPage .apply .applyTime {
+  width: 90%;
+  margin: 0 auto;
+}
+.detailPage .apply .applyTime .timeBox {
+  background-color: #fff;
+  margin-top: 30rpx;
+  border: 1rpx solid #000;
+  display: flex;
+  padding: 40rpx 10rpx;
+  border-radius: 10rpx;
+  align-items: center;
+}
+.detailPage .apply .applyTime .timeBox .time {
+  text-align: right;
+  width: 100rpx;
+  font-size: 40rpx;
+}
+.detailPage .apply .applyTime .timeBox .myButton {
+  margin-left: 30rpx;
+}
+.detailPage .apply .applyTime .timeBox .arrow {
+  width: 120rpx;
+  margin: 0 20rpx;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  font-size: 20rpx;
+}
+.detailPage .apply .applyTime .timeBox .arrow .line {
+  border: 1rpx solid #000;
+}
+.detailPage .apply .note {
+  color: #c3c3c3;
+  font-size: 25rpx;
+  margin: 40rpx 35rpx;
+}
+

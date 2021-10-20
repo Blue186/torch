@@ -1,0 +1,1 @@
+<view class="indexPage"><slide-show vue-id="8dd740cc-1" bind:__l="__l"></slide-show><view class="recruitmentInformation">志愿招募信息</view><view class="activities"><activity vue-id="8dd740cc-2" bind:__l="__l"></activity></view></view>

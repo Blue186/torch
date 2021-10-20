@@ -1,0 +1,14 @@
+
+.tag {
+	
+	text-align: center;
+	color: white;
+	font-size: 29rpx;
+	
+	width: 55rpx;
+	height: 130rpx;
+	background: linear-gradient(-45deg, transparent 22rpx, red 0) right, linear-gradient(45deg, transparent 22rpx, red 0) left;
+	background-size: 50% 100%;
+	background-repeat: no-repeat;
+}
+
