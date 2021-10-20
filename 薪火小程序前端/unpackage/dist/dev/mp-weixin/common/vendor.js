@@ -8529,7 +8529,7 @@ function walkJsonObj(jsonObj, walk) {
 /***/ }),
 /* 5 */
 /*!******************************************************!*\
-  !*** D:/Code/front_end/小程序/薪火小程序前端/薪火小程序/pages.json ***!
+  !*** D:/Code/front_end/小程序/薪火小程序/薪火小程序前端/pages.json ***!
   \******************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
