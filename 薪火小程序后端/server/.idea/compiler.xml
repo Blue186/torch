@@ -13,9 +13,9 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="admin_server" target="8" />
-      <module name="app_server" target="8" />
-      <module name="common_utils" target="8" />
+      <module name="admin_server" target="1.8" />
+      <module name="app_server" target="1.8" />
+      <module name="common_utils" target="1.8" />
       <module name="torch_server" target="1.8" />
     </bytecodeTargetLevel>
   </component>
