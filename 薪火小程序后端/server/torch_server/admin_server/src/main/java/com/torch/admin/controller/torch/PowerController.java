@@ -8,7 +8,7 @@ import com.torch.admin.entity.torch.ViewTorchMemberInfo;
 import com.torch.admin.service.torch.TorchBirthLevelService;
 import com.torch.admin.service.torch.TorchPublishLevelService;
 import com.torch.admin.service.torch.TorchSuggestLevelService;
-import commonutils.R;
+import com.torch.admin.utils.R;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -20,7 +20,7 @@ import javax.annotation.Resource;
 /**
  * 用于统一分配权限，权限同意提交
  */
-@Api(tags = "PowerController", value = "权限统一修改")
+@Api(tags = {"权限统一修改"}, value = "权限统一修改")
 @RestController
 @RequestMapping("/admin/power")
 public class PowerController {
@@ -61,9 +61,9 @@ public class PowerController {
         int updateS = suggestLevelService.getBaseMapper().update(suggestLevel, updateWrapperS);
 
         if (updateB==1&&updateP==1&&updateS==1){
-            return R.ok();
+            return R.ok().message("权限设置成功!");
         }else {
-            return R.error().message("权限赋予失败！");
+            return R.error().message("权限赋予失败!");
         }
     }
 

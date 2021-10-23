@@ -3,7 +3,7 @@ package com.torch.admin.controller.torch;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.torch.admin.entity.torch.ViewTorchMemberInfo;
 import com.torch.admin.service.torch.ViewTorchMemberInfoService;
-import commonutils.R;
+import com.torch.admin.utils.R;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 
-@Api(tags = "ViewTorchMemberInfoController",value = "成员信息视图相关接口（主要信息查看在此）")
+@Api(tags = {"成员信息视图相关接口（主要信息查看在此）"},value = "成员信息视图相关接口（主要信息查看在此）")
 @RestController
 @RequestMapping("/admin/viewTorchMemberInfo")
 public class ViewTorchMemberInfoController {

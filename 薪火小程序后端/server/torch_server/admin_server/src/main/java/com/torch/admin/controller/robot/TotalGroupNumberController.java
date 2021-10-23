@@ -1,7 +1,7 @@
 package com.torch.admin.controller.robot;
 
 import com.torch.admin.service.robot.TotalGroupNumberService;
-import commonutils.R;
+import com.torch.admin.utils.R;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

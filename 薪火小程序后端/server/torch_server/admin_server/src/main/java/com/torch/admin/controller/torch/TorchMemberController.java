@@ -2,23 +2,18 @@ package com.torch.admin.controller.torch;
 
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.torch.admin.entity.torch.TorchMember;
-import com.torch.admin.service.torch.TorchBirthLevelService;
 import com.torch.admin.service.torch.TorchMemberService;
-import com.torch.admin.service.torch.TorchPublishLevelService;
-import com.torch.admin.service.torch.TorchSuggestLevelService;
-import commonutils.R;
+import com.torch.admin.utils.R;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import net.sf.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.Map;
 
-@Api(tags = "TorchMemberController", value = "成员相关接口")
+@Api(tags = {"成员相关接口"}, value = "成员相关接口")
 @RestController
 @RequestMapping("/admin/torchMember")
 public class TorchMemberController {
