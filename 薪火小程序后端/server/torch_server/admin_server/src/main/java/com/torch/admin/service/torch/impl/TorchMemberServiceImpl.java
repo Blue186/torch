@@ -2,6 +2,8 @@ package com.torch.admin.service.torch.impl;
 
 import com.baomidou.dynamic.datasource.annotation.DS;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.torch.admin.entity.torch.TorchMember;
 import com.torch.admin.entity.torch.vo.TorchUserRegister;
@@ -10,6 +12,7 @@ import com.torch.admin.service.torch.TorchMemberService;
 import org.springframework.stereotype.Service;
 
 import java.util.Base64;
+import java.util.List;
 
 @Service
 @DS("admin")
@@ -38,5 +41,12 @@ public class TorchMemberServiceImpl extends ServiceImpl<TorchMemberMapper, Torch
         member.setBirthday(register.getBirthday());
         member.setPhone(register.getPhone());
         baseMapper.insert(member);
+    }
+
+    @Override
+    public List<TorchMember> getAllTorchMember(Integer page, Integer limit) {
+        IPage<TorchMember> memberIPage = new Page<>(page, limit);
+        memberIPage = baseMapper.selectPage(memberIPage, null);
+        return memberIPage.getRecords();
     }
 }

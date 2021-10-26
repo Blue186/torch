@@ -43,7 +43,6 @@ public class R<T> {
     }
 
     public R<T> data(String key, Object value) {
-
         this.setData(key,value);
         return this;
     }

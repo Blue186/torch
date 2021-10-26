@@ -4,10 +4,14 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.torch.admin.entity.torch.TorchMember;
 import com.torch.admin.entity.torch.vo.TorchUserRegister;
 
+import java.util.List;
+
 public interface TorchMemberService extends IService<TorchMember> {
 
     Integer getIdByAccountCodeAndPassword(String accountCode, String password);
 
     void addTorchMember(TorchUserRegister register);
+
+    List<TorchMember> getAllTorchMember(Integer page, Integer limit);
 
 }
