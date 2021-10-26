@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface EventLogService extends IService<EventLog> {
 
-    public List<EventLog> getEventLog(Integer page, Integer limit);
+    List<EventLog> getEventLog(Integer page, Integer limit);
 
 }
