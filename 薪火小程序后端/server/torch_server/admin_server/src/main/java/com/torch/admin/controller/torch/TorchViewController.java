@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
-
+@Api(tags = {"路由添加相关接口"},value ="路由添加相关接口")
 @RestController
 @RequestMapping("/torchView")
 public class TorchViewController {

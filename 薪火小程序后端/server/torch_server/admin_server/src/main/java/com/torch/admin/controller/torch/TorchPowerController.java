@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 
-@Api(tags = "TorchPowerController",value = "权限表相关接口")
+@Api(tags = {"用户权限相关"},value = "权限表相关接口")
 @RestController
 @RequestMapping("/admin/torchPower")
 public class TorchPowerController {

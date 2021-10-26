@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 
-@Api(tags = "TorchSuggestLevelController",value = "建议查看相关接口")
+@Api(tags = {"建议查看相关接口"},value = "建议查看相关接口")
 @RestController
 @RequestMapping("/admin/torchSuggestLevel")
 public class TorchSuggestLevelController {

@@ -5,6 +5,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
+import javax.annotation.Resource;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -18,7 +19,8 @@ import java.util.concurrent.TimeUnit;
  */
 @Component
 public final class RedisUtil {
-    @Autowired
+//    @Autowired
+    @Resource
     private RedisTemplate<String, Object> redisTemplate;
 
     /**

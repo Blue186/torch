@@ -10,6 +10,7 @@ import com.torch.app.service.SignUpService;
 import com.torch.app.service.UserService;
 import com.torch.app.util.tools.EmailSendUtil;
 import commonutils.R;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
-
+@Api(tags = {"用户报名志愿活动相关接口"},value = "用户报名志愿活动相关接口")
 @RestController
 @RequestMapping("/signUp")
 public class SignUpController {

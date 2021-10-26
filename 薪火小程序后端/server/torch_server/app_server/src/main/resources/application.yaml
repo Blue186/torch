@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8002
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -22,9 +22,9 @@ spring:
           starttls:
             enable: true
             required: true
-#  redis:
-#    host:
-#    port: 6379
+  redis:
+    host: localhost
+    port: 6379
 #    password:
 #    lettuce:
 #      pool:
@@ -37,3 +37,4 @@ mybatis-plus:
   type-aliases-package: com/torch/app/entity #别名文件位置
 
 wx-appid: weixinxiaochengxudeappid
+wx-secret: itisasecret

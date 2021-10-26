@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 
-@Api(tags = "TorchPublishLevelController",value = "志愿任务发布权限相关接口")
+@Api(tags = {"志愿任务发布权限相关接口"},value = "志愿任务发布权限相关接口")
 @RestController
 @RequestMapping("/admin/torchPublishLevel")
 public class TorchPublishLevelController {

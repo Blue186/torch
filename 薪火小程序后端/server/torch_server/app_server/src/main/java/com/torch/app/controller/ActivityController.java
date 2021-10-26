@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.torch.app.entity.Activity;
 import com.torch.app.service.ActivityService;
 import commonutils.R;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.util.List;
-
+@Api(tags = {"父活动相关接口"},value = "父活动相关接口")
 @RestController
 @RequestMapping("/activity")
 public class ActivityController {
