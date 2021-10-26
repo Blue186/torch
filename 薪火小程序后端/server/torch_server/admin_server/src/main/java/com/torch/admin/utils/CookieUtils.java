@@ -15,6 +15,7 @@ public class CookieUtils {
     // cookie 字符串长度
     private static final int COOKIE_LENGTH = 24;
 
+
     @Autowired
     RedisUtil redisUtil;
 
@@ -65,6 +66,7 @@ public class CookieUtils {
     public Integer getUidByCookie(HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
         String cookie = "";
+        if (cookies == null) return -1;
         for (Cookie c : cookies) {
             if (c.getName().equals("c")) {
                 cookie = c.getValue();

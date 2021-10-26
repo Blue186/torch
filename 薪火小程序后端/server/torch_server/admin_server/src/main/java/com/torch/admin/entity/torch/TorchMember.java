@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
+import java.util.Date;
+
 /**
  * 成员信息表
  */
@@ -18,8 +20,11 @@ public class TorchMember {
     private String accountCode;
     private String birthday;
     private String password;
+    private String position;
     private String department;
     private String identifier;
     private String phone;
     private Integer powerId;
+    private Date enterTime;
+
 }

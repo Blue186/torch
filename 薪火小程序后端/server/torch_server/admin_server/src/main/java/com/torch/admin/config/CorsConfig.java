@@ -11,8 +11,10 @@ import org.springframework.web.filter.CorsFilter;
  */
 @Configuration
 public class CorsConfig {
-    private static final long Max_Age = 24*60*60;
-    private CorsConfiguration buildConfig(){
+
+    private static final long Max_Age = 24 * 60 * 60;
+
+    private CorsConfiguration buildConfig() {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
         corsConfiguration.addAllowedHeader("*");
         corsConfiguration.addAllowedMethod("*");
@@ -20,10 +22,11 @@ public class CorsConfig {
         corsConfiguration.setMaxAge(Max_Age);
         return corsConfiguration;
     }
+
     @Bean
-    public CorsFilter corsFilter(){
+    public CorsFilter corsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**",buildConfig());
+        source.registerCorsConfiguration("/**", buildConfig());
         return new CorsFilter(source);
     }
 }
