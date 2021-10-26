@@ -30,6 +30,9 @@ public class TorchMemberController {
     @Resource
     private EventLogService eventLogService;
 
+    @Resource
+    private CookieUtils cookieUtils;
+
 //    @ApiOperation(tags = "insertMember",value = "后台管理新增成员接口")
 //    @PostMapping()
 //    public R<?> insertMember(@ApiParam(name = "member",value = "成员信息",required = true)TorchMemberList member){
@@ -85,7 +88,7 @@ public class TorchMemberController {
     @ApiOperation(tags = "getInfo", value = "获取成员个人信息接口")
     @GetMapping("/getInfo")
     public R<Object> getInfo(HttpServletRequest request) {
-        Integer uid = new CookieUtils().getUidByCookie(request);
+        Integer uid = cookieUtils.getUidByCookie(request);
         if (uid == -1) return R.error().message("请先正确登录!").data(new TorchUserInfo());
         TorchMember member = memberService.getBaseMapper().selectById(uid);
         TorchUserInfo info = new TorchUserInfo(member);
@@ -97,7 +100,7 @@ public class TorchMemberController {
     public R<Object> getMemberList(HttpServletRequest request,
                                    @ApiParam(name = "page", value = "1", required = true) @RequestParam(defaultValue = "1") @PathVariable Integer page,
                                    @ApiParam(name = "limit", value = "10", required = true) @RequestParam(defaultValue = "10") @PathVariable Integer limit) {
-        Integer uid = new CookieUtils().getUidByCookie(request);
+        Integer uid = cookieUtils.getUidByCookie(request);
         if (uid == -1) return R.error().message("请先正确登录!").data(new TorchUserInfo());
         List<TorchMember> allTorchMember = memberService.getAllTorchMember(page, limit);
         return R.ok().data(allTorchMember);

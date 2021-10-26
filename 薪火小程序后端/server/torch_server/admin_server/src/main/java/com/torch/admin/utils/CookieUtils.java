@@ -1,8 +1,8 @@
 package com.torch.admin.utils;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,8 +16,8 @@ public class CookieUtils {
     private static final int COOKIE_LENGTH = 24;
 
 
-    @Autowired
-    RedisUtil redisUtil;
+    @Resource
+    private RedisUtil redisUtil;
 
     private static String randomStr() {
         StringBuilder sb = new StringBuilder();
@@ -73,6 +73,7 @@ public class CookieUtils {
                 break;
             }
         }
+        System.out.println("收到cookie为:" + cookie);
         if (cookie.length() != 0) {
             return (Integer) redisUtil.get(cookie);
         } else {
