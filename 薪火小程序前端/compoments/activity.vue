@@ -6,7 +6,7 @@
 			<view class="nameAndLocation">
 				<text class="activityName">解放碑街道清理</text>
 				<view class="location">
-					<image src="../static/首页_slices/mipmap-xhdpi/dingwei%20拷贝%202.png" mode=""></image>
+					<image class="image" src="../static/首页_slices/mipmap-xhdpi/dingwei%20拷贝%202.png" mode=""></image>
 					解放碑
 				</view>
 			</view>
@@ -104,7 +104,7 @@
 					align-items: center;
 					font-size: 30rpx;
 
-					image {
+					.image {
 						width: 35rpx;
 						height: 35rpx;
 					}

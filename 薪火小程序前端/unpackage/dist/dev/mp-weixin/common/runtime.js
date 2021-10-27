@@ -105,11 +105,11 @@
 /******/
 /******/
 /******/ 		// mini-css-extract-plugin CSS loading
-/******/ 		var cssChunks = {"compoments/activity":1,"compoments/slideShow":1,"compoments/myButton":1,"compoments/tag":1};
+/******/ 		var cssChunks = {"compoments/activity":1,"compoments/slideShow":1,"compoments/myButton":1,"compoments/volunteerRecords":1,"compoments/associationMessage":1,"compoments/tag":1};
 /******/ 		if(installedCssChunks[chunkId]) promises.push(installedCssChunks[chunkId]);
 /******/ 		else if(installedCssChunks[chunkId] !== 0 && cssChunks[chunkId]) {
 /******/ 			promises.push(installedCssChunks[chunkId] = new Promise(function(resolve, reject) {
-/******/ 				var href = "" + ({"compoments/activity":"compoments/activity","compoments/slideShow":"compoments/slideShow","compoments/myButton":"compoments/myButton","compoments/tag":"compoments/tag"}[chunkId]||chunkId) + ".wxss";
+/******/ 				var href = "" + ({"compoments/activity":"compoments/activity","compoments/slideShow":"compoments/slideShow","compoments/myButton":"compoments/myButton","compoments/volunteerRecords":"compoments/volunteerRecords","compoments/associationMessage":"compoments/associationMessage","compoments/tag":"compoments/tag"}[chunkId]||chunkId) + ".wxss";
 /******/ 				var fullhref = __webpack_require__.p + href;
 /******/ 				var existingLinkTags = document.getElementsByTagName("link");
 /******/ 				for(var i = 0; i < existingLinkTags.length; i++) {

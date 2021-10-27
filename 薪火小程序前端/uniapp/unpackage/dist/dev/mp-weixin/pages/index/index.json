@@ -1,9 +1,0 @@
-{
-  "navigationBarTitleText": "uni-app",
-  "usingComponents": {
-    "title": "/component/title",
-    "brief": "/component/brief",
-    "now-volunter": "/component/nowVolunter",
-    "time-axis": "/component/timeAxis"
-  }
-}
