@@ -4,15 +4,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.*;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 @Service
 public class RedisUtil {
-    @Autowired
-    private RedisTemplate redisTemplate;
+//    @Autowired
+    @Resource
+    private RedisTemplate<String,Object> redisTemplate;
 
     /**
      * 写入缓存
@@ -24,7 +27,7 @@ public class RedisUtil {
     public boolean set(final String key, Object value) {
         boolean result = false;
         try {
-            ValueOperations<Serializable, Object> operations = redisTemplate.opsForValue();
+            ValueOperations<String, Object> operations = redisTemplate.opsForValue();
             operations.set(key, value);
             result = true;
         } catch (Exception e) {
@@ -62,7 +65,7 @@ public class RedisUtil {
     public boolean set(final String key, Object value, Long expireTime, TimeUnit timeUnit) {
         boolean result = false;
         try {
-            ValueOperations<Serializable, Object> operations = redisTemplate.opsForValue();
+            ValueOperations<String, Object> operations = redisTemplate.opsForValue();
             operations.set(key, value);
             redisTemplate.expire(key, expireTime, timeUnit);
             result = true;
@@ -89,7 +92,7 @@ public class RedisUtil {
      * @param pattern
      */
     public void removePattern(final String pattern) {
-        Set<Serializable> keys = redisTemplate.keys(pattern);
+        Set<String> keys = redisTemplate.keys(pattern);
         if (keys.size() > 0) {
             redisTemplate.delete(keys);
         }
@@ -124,7 +127,7 @@ public class RedisUtil {
      */
     public Object get(final String key) {
         Object result = null;
-        ValueOperations<Serializable, Object> operations = redisTemplate.opsForValue();
+        ValueOperations<String, Object> operations = redisTemplate.opsForValue();
         result = operations.get(key);
         return result;
     }
@@ -133,12 +136,11 @@ public class RedisUtil {
      * 哈希 添加
      *
      * @param key
-     * @param hashKey
-     * @param value
+
      */
-    public void hmSet(String key, Object hashKey, Object value) {
-        HashOperations<String, Object, Object> hash = redisTemplate.opsForHash();
-        hash.put(key, hashKey, value);
+    public void hmSet(String key, Map<String,Object> map) {
+        redisTemplate.opsForHash().putAll(key,map);
+        redisTemplate.expire(key,60,TimeUnit.MINUTES);
     }
 
     /**
