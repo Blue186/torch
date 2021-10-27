@@ -136,7 +136,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var slideShow = function slideShow() {__webpack_require__.e(/*! require.ensure | compoments/slideShow */ "compoments/slideShow").then((function () {return resolve(__webpack_require__(/*! ../../compoments/slideShow.vue */ 40));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var activity = function activity() {__webpack_require__.e(/*! require.ensure | compoments/activity */ "compoments/activity").then((function () {return resolve(__webpack_require__(/*! ../../compoments/activity.vue */ 47));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
 
 
@@ -152,6 +152,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
 
+var _index = __webpack_require__(/*! ../../models/index.js */ 126);var slideShow = function slideShow() {__webpack_require__.e(/*! require.ensure | compoments/slideShow */ "compoments/slideShow").then((function () {return resolve(__webpack_require__(/*! ../../compoments/slideShow.vue */ 70));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var activity = function activity() {__webpack_require__.e(/*! require.ensure | compoments/activity */ "compoments/activity").then((function () {return resolve(__webpack_require__(/*! ../../compoments/activity.vue */ 77));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 {
   components: {
     slideShow: slideShow,
@@ -162,7 +163,42 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
   },
-  methods: {} };exports.default = _default;
+  onLoad: function onLoad() {
+    this.login();
+  },
+  methods: {
+    login: function login() {
+      uni.login({
+        provider: 'weixin',
+        success: function success(res) {
+          console.log(res);
+        } });
+
+    },
+    getUserProfile: function getUserProfile() {
+      console.log("调用成功");
+      // 推荐使用wx.getUserProfile获取用户信息，开发者每次通过该接口获取用户个人信息均需用户确认
+      // 开发者妥善保管用户快速填写的头像昵称，避免重复弹窗
+      wx.getUserProfile({
+        desc: '用于完善会员资料', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
+        success: function success(res) {
+          console.log(res);
+          // this.setData({
+          //   userInfo: res.userInfo,
+          //   hasUserInfo: true
+          // })
+        } });
+
+      // this.apiTest()  
+    },
+    apiTest: function apiTest() {
+      (0, _index.login)("123").then(function (res) {
+        console.log(res);
+      }).catch(function (err) {
+        console.log(err);
+      });
+    } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 /* 18 */
