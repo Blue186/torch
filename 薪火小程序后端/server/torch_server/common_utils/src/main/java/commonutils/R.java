@@ -3,8 +3,6 @@ package commonutils;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import java.util.HashMap;
-import java.util.Map;
 
 @Data
 public class R<T> {
@@ -19,7 +17,6 @@ public class R<T> {
     private String message;
 
     @ApiModelProperty(value = "返回数据")
-//    private Map<String, Object> data = new HashMap<String, Object>();
     private T data;
 
     public R() {
@@ -55,22 +52,16 @@ public class R<T> {
         return this;
     }
 
-    public R<T> data(String key, Object value) {
-
-        this.setData(key,value);
-        return this;
+    public void setData(T data) {
+        this.data = data;
     }
-
-    private void setData(String key, Object value) {
-    }
-
 
     public  R<T> data(T data) {
         this.setData(data);
         return this;
     }
 
-    //-----------------------------------------------------------------------
+//-----------------------------------------------------------------------
 //        private R() {
 //    }
 //

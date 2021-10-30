@@ -21,17 +21,17 @@ public class JudgeCookieToken {
 //     * @param request 用户请求
 //     * @return 用户的cookie
 //     */
-//    public String getCookie(HttpServletRequest request){
-//        Cookie[] cookies = request.getCookies();
-//        if (cookies!=null&&cookies.length>0){
-//            for (Cookie cookie : cookies) {
-//                if (cookie.getName().equals("c")){
-//                    userCookie = cookie.getValue();
-//                }
-//            }
-//        }
-//        return userCookie;
-//    }
+    public String getCookie(HttpServletRequest request){
+        Cookie[] cookies = request.getCookies();
+        if (cookies!=null&&cookies.length>0){
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("c")){
+                    userCookie = cookie.getValue();
+                }
+            }
+        }
+        return userCookie;
+    }
 //
 //    /**
 //     * 判断用户请求是否合法，验证cookie，token

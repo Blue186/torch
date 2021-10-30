@@ -1,5 +1,6 @@
 server:
   port: 8002
+  address: 0.0.0.0
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -23,7 +24,7 @@ spring:
             enable: true
             required: true
   redis:
-    host: localhost
+    host: 127.0.0.1
     port: 6379
 #    password:
 #    lettuce:

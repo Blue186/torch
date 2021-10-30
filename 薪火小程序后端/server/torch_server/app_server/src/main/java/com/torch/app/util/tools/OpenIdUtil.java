@@ -23,10 +23,10 @@ public class OpenIdUtil {
 
 //    @Value("${wx.secret}")
     private String secret = "a382df1cb070d7754fb2023dfe209b8b";
+//    private String secret = "44f414d6c5b0f92e998d99b32c2fb2b1";
 //    @Value("${wx.appid}")
     private String appid = "wx49292af0e1fb1fc4";
-//    private String secret;
-//    private String appid;
+//    private String appid = "wx9e563fb3b3e19d91";
     /**
      * 读取 resources 下 application 的 wx-appid
      * @return appId
@@ -78,6 +78,7 @@ public class OpenIdUtil {
             while ((line = in.readLine()) != null) {
                 sb.append(line);
             }
+            System.out.println("code:-------"+code);
             System.out.println("appid:-----------"+appid);
             System.out.println("secret:-----------"+secret);
             System.out.println("openid:-----------"+sb.toString());

@@ -51,7 +51,7 @@ public class CookieUtils {
      * @param response 返回对象
      * @param uid 用户数据库 id
      */
-    public String setCookie(HttpServletResponse response, Integer uid) {
+    public String setCookie(HttpServletResponse response) {
         String c = randomStr();
         Cookie cookie = new Cookie("c", c);
         response.addCookie(cookie);

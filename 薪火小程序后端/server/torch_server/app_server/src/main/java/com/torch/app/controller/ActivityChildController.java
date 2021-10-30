@@ -2,6 +2,7 @@ package com.torch.app.controller;
 
 import com.torch.app.entity.ActivityChild;
 import com.torch.app.service.ActivityChildService;
+import com.torch.app.util.tools.JudgeCookieToken;
 import commonutils.R;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 @Api(tags = {"获取子活动相关接口"}, value = "获取子活动相关接口")
 @RestController
@@ -27,7 +29,14 @@ public class ActivityChildController {
      */
     @ApiOperation(value = "志愿详情页志愿信息")
     @GetMapping("/{activityId}")
-    public R<?> getChild(@ApiParam(name = "activityId", value = "父活动id",required = true) @PathVariable Integer activityId){
-        return R.ok().data("content", activityChildService.selectChild(activityId));
+    public R<?> getChild(@ApiParam(name = "activityId", value = "父活动id",required = true) @PathVariable Integer activityId,
+                         HttpServletRequest request){
+        JudgeCookieToken judgeCookieToken = new JudgeCookieToken();
+        Boolean judge = judgeCookieToken.judge(request);
+        if (judge){
+            return R.ok().data(activityChildService.selectChild(activityId));
+        }else {
+            return R.error().code(-100);
+        }
     }
 }
