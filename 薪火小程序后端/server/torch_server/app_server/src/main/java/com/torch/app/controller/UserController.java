@@ -66,6 +66,7 @@ public class UserController {
             }
             Map<String,Object> map_R = new HashMap<>();
             map_R.put("c",cookie);
+            map_R.put("status",true);
             return R.ok().message("注册成功").data(map_R);
         }else {
 //            这里登录成功后，我们返回一个cookie和token用于校验用户登录安全，以后每次用户请求接口时，都需要将cookie和token携带上
@@ -75,6 +76,7 @@ public class UserController {
             System.out.println(redisUtil.hmGet(cookie,"openid").toString());;
             Map<String,Object> map_R = new HashMap<>();
             map_R.put("c",cookie);
+            map_R.put("status",false);
             return R.ok().message("登录成功").data(map_R);
         }
 
@@ -123,6 +125,8 @@ public class UserController {
             user.setSchool(userInfo.getSchool());
             user.setGrade(userInfo.getGrade());
             user.setVolAccount(user.getVolAccount());
+            user.setNickName(userInfo.getNickName());
+            user.setAvatarImage(userInfo.getAvatarImage());
             int res = userService.getBaseMapper().updateById(user);
             if (res==1){
                 return R.ok();

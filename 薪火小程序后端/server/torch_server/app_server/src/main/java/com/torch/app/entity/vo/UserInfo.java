@@ -24,4 +24,8 @@ public class UserInfo implements Serializable {
     private String grade;
     @ApiModelProperty(value = "用户的志愿账号",name = "id")
     private String volAccount;
+    @ApiModelProperty(value = "用户的微信名",name = "id")
+    private String nickName;
+    @ApiModelProperty(value = "用户的微信头像",name = "id")
+    private String avatarImage;
 }

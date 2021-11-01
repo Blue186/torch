@@ -26,4 +26,5 @@ public class Activity {
     private String content;
     private Integer totalNumber;
     private String attention;
+    private String actImage;
 }

@@ -35,12 +35,6 @@
             <scope>compile</scope>
         </dependency>
 
-        <dependency>
-            <groupId>com.torch</groupId>
-            <artifactId>common_utils</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
 
         <!--邮件发送-->
         <dependency>
@@ -48,6 +42,7 @@
             <artifactId>spring-boot-starter-mail</artifactId>
             <version>2.5.5</version>
         </dependency>
+
 
     </dependencies>
 
