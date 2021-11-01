@@ -22,11 +22,16 @@ public class TorchMemberServiceImpl extends ServiceImpl<TorchMemberMapper, Torch
         try {
             Base64.Decoder decoder = Base64.getDecoder();
             QueryWrapper<TorchMember> wrapper = new QueryWrapper<>();
-            wrapper.eq("account_code", decoder.decode(accountCode));
-            wrapper.eq("password", decoder.decode(password));
+            accountCode = new String(decoder.decode(accountCode), "UTF-8");
+            password = new String(decoder.decode(password), "UTF-8");
+            System.out.println(accountCode);
+            System.out.println(password);
+            wrapper.eq("account_code", accountCode);
+            wrapper.eq("password", password);
             TorchMember torchMember = baseMapper.selectOne(wrapper);
             if (torchMember != null) return torchMember.getId();
         } catch (Exception e) {
+            System.out.println(e);
             return -2;  // 多半是 base64 解码出现问题
         }
         return -1;
@@ -48,5 +53,11 @@ public class TorchMemberServiceImpl extends ServiceImpl<TorchMemberMapper, Torch
         IPage<TorchMember> memberIPage = new Page<>(page, limit);
         memberIPage = baseMapper.selectPage(memberIPage, null);
         return memberIPage.getRecords();
+    }
+
+    @Override
+    public TorchMember selectById(Integer id) {
+        TorchMember torchMember = baseMapper.selectById(id);
+        return torchMember;
     }
 }

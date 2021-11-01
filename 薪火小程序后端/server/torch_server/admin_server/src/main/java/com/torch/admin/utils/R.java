@@ -1,7 +1,11 @@
 package com.torch.admin.utils;
 
+import cn.hutool.core.lang.copier.SrcToDestCopier;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Data
 public class R<T> {
@@ -42,17 +46,15 @@ public class R<T> {
         return this;
     }
 
-    public R<T> data(String key, Object value) {
-        this.setData(key,value);
+    public  R<T> data(T data) {
+        this.setData(data);
         return this;
     }
 
-    private void setData(String key, Object value) {
-    }
-
-
-    public  R<T> data(T data) {
-        this.setData(data);
+    public R<T> setReLoginData() {
+        Map<String, Integer> resultMap = new HashMap<>();
+        resultMap.put("code", -100);
+        this.data((T) resultMap);
         return this;
     }
 
