@@ -9,6 +9,7 @@ import com.torch.app.service.ActivityService;
 import com.torch.app.service.SignUpService;
 import com.torch.app.service.UserService;
 import com.torch.app.util.tools.EmailSendUtil;
+import com.torch.app.util.tools.JudgeCookieToken;
 import commonutils.R;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -16,6 +17,7 @@ import io.swagger.annotations.ApiParam;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 @Api(tags = {"用户报名志愿活动相关接口"},value = "用户报名志愿活动相关接口")
@@ -35,17 +37,30 @@ public class SignUpController {
      */
     @ApiOperation("添加用户报名信息")
     @PostMapping()
-    public R<?> sign(@ApiParam(name = "signUp", value = "用户的报名信息", required = true) @RequestBody SignUp signUp){
-        EmailSendUtil sendEmail = new EmailSendUtil();
-        User user = userService.getBaseMapper().selectById(signUp.getUserId());
-        int res = signUpService.getBaseMapper().insert(signUp);
-        if (res==1){
+    public R<?> sign(@ApiParam(name = "signUp", value = "用户的报名信息", required = true) @RequestBody SignUp signUp,
+                     HttpServletRequest request){
+        JudgeCookieToken judgeCookieToken = new JudgeCookieToken();
+        String cookie = judgeCookieToken.getCookie(request);
+        Boolean judge = judgeCookieToken.judge(request);
+        if (judge){
+
+
+
+            EmailSendUtil sendEmail = new EmailSendUtil();
+            User user = userService.getBaseMapper().selectById(signUp.getUserId());
+            int res = signUpService.getBaseMapper().insert(signUp);
+            if (res==1){
 //            这里可以添加邮件发送类，发送邮件，后续添加
-            sendEmail.simpleEmail("3057179865",user,"薪火志愿报名成功通知","xxxxx报名成功");
-            return R.ok();
+                sendEmail.simpleEmail("3057179865",user,"薪火志愿报名成功通知","xxxxx报名成功");
+                return R.ok();
+            }else {
+                return R.error();
+            }
         }else {
-            return R.error();
+            return R.error().code(-100);
         }
+
+
     }
 
     /**
@@ -55,38 +70,52 @@ public class SignUpController {
      */
     @ApiOperation("删除用户的报名信息")
     @DeleteMapping()
-    public R<?> unSign(@ApiParam(name = "unSignUp", value = "删除用户的报名", required = true) @RequestBody SignUp unSignUp){
-        int res = signUpService.getBaseMapper().deleteById(unSignUp.getId());
-        if (res==1){
-            return R.ok();
+    public R<?> unSign(@ApiParam(name = "unSignUp", value = "删除用户的报名", required = true) @RequestBody SignUp unSignUp,
+                       HttpServletRequest request){
+        JudgeCookieToken judgeCookieToken = new JudgeCookieToken();
+        Boolean judge = judgeCookieToken.judge(request);
+        if (judge){
+            int res = signUpService.getBaseMapper().deleteById(unSignUp.getId());
+            if (res==1){
+                return R.ok();
+            }else {
+                return R.error();
+            }
         }else {
-            return R.error();
+            return R.error().code(-100);
         }
+
     }
 
     @ApiOperation("获取用户报名和做过的志愿活动")
     @GetMapping("/{userId}/{current}/{limit}")
     public R<?> getVolInfo(@ApiParam(name = "userId",value = "用户的id",required = true) @PathVariable Integer userId,
             @ApiParam(name = "current", value = "当前已经获取的数量", required = true) @PathVariable long current, 
-           @ApiParam(name = "limit", value = "要获取的数量", required = true) @PathVariable long limit){
-
-        QueryWrapper<SignUp> signUpQueryWrapper = new QueryWrapper<>();
-        signUpQueryWrapper.eq("userId",userId);
+           @ApiParam(name = "limit", value = "要获取的数量", required = true) @PathVariable long limit,
+            HttpServletRequest request){
+        JudgeCookieToken judgeCookieToken = new JudgeCookieToken();
+        Boolean judge = judgeCookieToken.judge(request);
+        if (judge){
+            QueryWrapper<SignUp> signUpQueryWrapper = new QueryWrapper<>();
+            signUpQueryWrapper.eq("userId",userId);
 //        得到了用户参加的所有的志愿活动id
-        List<SignUp> signUps = signUpService.getBaseMapper().selectList(signUpQueryWrapper);
-        List<Integer> idList = new ArrayList<>();
-        for (SignUp signUp : signUps) {
-            idList.add(signUp.getId());
-        }
-        Page<Activity> page = new Page<>(current, limit);
+            List<SignUp> signUps = signUpService.getBaseMapper().selectList(signUpQueryWrapper);
+            List<Integer> idList = new ArrayList<>();
+            for (SignUp signUp : signUps) {
+                idList.add(signUp.getId());
+            }
+            Page<Activity> page = new Page<>(current, limit);
 
-        QueryWrapper<Activity> wrapper = new QueryWrapper<>();
-        wrapper.orderByDesc("create_time");
-        wrapper.eq("is_pass", 1);
-        for (Integer id : idList) {
-            wrapper.or().eq("id",id);
+            QueryWrapper<Activity> wrapper = new QueryWrapper<>();
+            wrapper.orderByDesc("create_time");
+            wrapper.eq("is_pass", 1);
+            for (Integer id : idList) {
+                wrapper.or().eq("id",id);
+            }
+            Page<Activity> activityPage = activityService.getBaseMapper().selectPage(page, wrapper);
+            return R.ok().data(activityPage);
+        }else {
+            return R.error().code(-100);
         }
-        Page<Activity> activityPage = activityService.getBaseMapper().selectPage(page, wrapper);
-        return R.ok().data(activityPage);
     }
 }

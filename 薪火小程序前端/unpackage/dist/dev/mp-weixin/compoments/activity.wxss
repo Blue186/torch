@@ -81,7 +81,7 @@
   font-size: 30rpx;
   margin-left: 20rpx;
 }
-.activity .activityInformation .nameAndLocation .location image {
+.activity .activityInformation .nameAndLocation .location .image {
   width: 35rpx;
   height: 35rpx;
 }

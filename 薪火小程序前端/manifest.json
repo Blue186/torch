@@ -73,5 +73,13 @@
     },
     "appid" : "__UNI__9FC5434",
     "name" : "薪火小程序",
-    "versionName" : "最初版"
+    "versionName" : "最初版",
+    "mp-weixin" : {
+        "setting" : {
+            "postcss" : false,
+            "es6" : false
+        },
+        "appid" : "wx49292af0e1fb1fc4",
+        "permission" : {}
+    }
 }

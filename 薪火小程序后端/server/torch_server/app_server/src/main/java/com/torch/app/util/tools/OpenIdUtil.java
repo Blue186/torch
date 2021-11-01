@@ -3,9 +3,10 @@ package com.torch.app.util.tools;
 
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.stereotype.Component;
 import org.yaml.snakeyaml.Yaml;
 
-import javax.annotation.Resource;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,26 +18,27 @@ import java.util.Map;
 /**
  * 处理获取用户 openid 的 util
  */
+@Component
 public class OpenIdUtil {
-    // openid 存在时间
-    private static final int OPENID_TIME = 60;
 
-    @Value("${wx-secret}")
-    private String secret;
-    @Resource
-    RedisUtil redisUtil;
+//    @Value("${wx.secret}")
+    private String secret = "a382df1cb070d7754fb2023dfe209b8b";
+//    private String secret = "44f414d6c5b0f92e998d99b32c2fb2b1";
+//    @Value("${wx.appid}")
+    private String appid = "wx49292af0e1fb1fc4";
+//    private String appid = "wx9e563fb3b3e19d91";
     /**
      * 读取 resources 下 application 的 wx-appid
      * @return appId
      */
-    private String getAppId() {
-        Yaml yaml = new Yaml();
-        InputStream in = OpenIdUtil.class.getClassLoader().getResourceAsStream("../resources/application.yaml");
-        Map<String, Object> map = yaml.loadAs(in, Map.class);
-        String appId = map.getOrDefault("wx-appid", "").toString();
-        System.out.println(appId);
-        return appId;
-    }
+//    private String getAppId() {
+//        Yaml yaml = new Yaml();
+//        InputStream in = OpenIdUtil.class.getClassLoader().getResourceAsStream("../resources/application.yaml");
+//        Map<String, Object> map = yaml.loadAs(in, Map.class);
+//        String appId = map.getOrDefault("wx-appid", "").toString();
+//        System.out.println(appId);
+//        return appId;
+//    }
 
     /**
      * 读取 resources 下 application 的 wx-secret
@@ -53,63 +55,51 @@ public class OpenIdUtil {
      * @param code wx.login 接口得到的 code
      * @return openid
      */
-    public String getOpenid(String code) {
-        String appId = getAppId();
+
+
+    public  String getOpenid(String code) {
         BufferedReader in = null;
-        String url = "https://api.weixin.qq.com/sns/jscode2session?appid="
-                + appId + "&secret=" + secret + "&js_code=" + code + "&grant_type=authorization_code";
-        System.out.println("secret:-----------------------------"+secret);
+        //appid和secret是开发者分别是小程序ID和小程序密钥，开发者通过微信公众平台-》设置-》开发设置就可以直接获取，
+        String url="https://api.weixin.qq.com/sns/jscode2session?appid="
+                +appid+"&secret="+secret+"&js_code="+code+"&grant_type=authorization_code";
         try {
             URL weChatUrl = new URL(url);
-            // 打开和URL之间的连接
+        // 打开和URL之间的连接
             URLConnection connection = weChatUrl.openConnection();
-            // 设置通用的请求属性
+        // 设置通用的请求属性
             connection.setConnectTimeout(5000);
             connection.setReadTimeout(5000);
-            // 建立实际的连接
+        // 建立实际的连接
             connection.connect();
-            // 定义 BufferedReader输入流来读取URL的响应
+        // 定义 BufferedReader输入流来读取URL的响应
             in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             StringBuffer sb = new StringBuffer();
             String line;
             while ((line = in.readLine()) != null) {
                 sb.append(line);
             }
-            String jsonStr = sb.toString();
-            JSONObject jsonObject = JSONObject.fromObject(jsonStr);
-            return jsonObject.getString("openid");
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
+            System.out.println("code:-------"+code);
+            System.out.println("appid:-----------"+appid);
+            System.out.println("secret:-----------"+secret);
+            System.out.println("openid:-----------"+sb.toString());
+            JSONObject jsonObject = JSONObject.fromObject(sb.toString());
+            Object openid = jsonObject.get("openid");
+            System.out.println("openid---------------"+openid.toString());
+            return openid.toString();
+        } catch (Exception e1) {
+            throw new RuntimeException(e1);
+        }
+        // 使用finally块来关闭输入流
+        finally {
             try {
                 if (in != null) {
                     in.close();
                 }
-            } catch (IOException e2) {
+            } catch (Exception e2) {
                 e2.printStackTrace();
             }
         }
-        return null;
     }
 
-
-    /**
-     * 设置 openid
-     * @param openid 用户的openid
-     * @param uid 用户编号
-     */
-    public void setOpenid(Integer uid,String openid){
-        redisUtil.set(uid.toString(),openid,OPENID_TIME);
-    }
-
-    public String getOpenidByUid(Integer uid){
-        boolean exists = redisUtil.exists(uid.toString());
-        if (exists){
-            return (String) redisUtil.get(uid.toString());
-
-        }else{
-            return null;//再定夺
-        }
-    }
 
 }

@@ -12,13 +12,13 @@ import javax.servlet.http.HttpServletResponse;
 public class CookieUtils {
 
     // cookie 存在时间
-    private static final int COOKIE_TIME = 60;
+//    private static final int COOKIE_TIME = 60;
 
     // cookie 字符串长度
     private static final int COOKIE_LENGTH = 24;
 
     @Resource
-    RedisUtil redisUtil;
+    private RedisUtil redisUtil;
 
     public  String randomStr() {
         StringBuilder sb = new StringBuilder();
@@ -51,11 +51,11 @@ public class CookieUtils {
      * @param response 返回对象
      * @param uid 用户数据库 id
      */
-    public String setCookie(HttpServletResponse response, Integer uid) {
+    public String setCookie(HttpServletResponse response) {
         String c = randomStr();
         Cookie cookie = new Cookie("c", c);
         response.addCookie(cookie);
-        redisUtil.set(c, uid, COOKIE_TIME);
+//        redisUtil.set(c, uid, COOKIE_TIME);
         return c;
     }
 
@@ -64,14 +64,14 @@ public class CookieUtils {
      * @param cookie cookie
      * @return 存在及返回cookie
      */
-    public String getCookie(String cookie){
-        boolean exists = redisUtil.exists(cookie);
-        if (exists){
-            return cookie;
-        }else {
-            return null;//再定夺
-        }
-    }
+//    public String getCookie(String cookie){
+//        boolean exists = redisUtil.exists(cookie);
+//        if (exists){
+//            return cookie;
+//        }else {
+//            return null;//再定夺
+//        }
+//    }
     /**
      * 通过 cookie 获取用户 id, 如果 cookie 过期或不存在则返回 -1
      * @param request 请求对象

@@ -1,5 +1,8 @@
 {
-  "navigationBarTitleText": "",
+  "navigationBarTitleText": "动态",
   "enablePullDownRefresh": false,
-  "usingComponents": {}
+  "usingComponents": {
+    "association": "/pages/dynamic/association/association",
+    "message": "/pages/dynamic/message/message"
+  }
 }

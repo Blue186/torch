@@ -1,9 +1,12 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/activityDetail/activityDetail",
+    "pages/userImformationEdit/userImformationEdit",
     "pages/user/user",
-    "pages/dynamic/dynamic"
+    "pages/dynamic/dynamic",
+    "pages/activityDetail/activityDetail",
+    "pages/dynamic/association/association",
+    "pages/dynamic/message/message"
   ],
   "subPackages": [],
   "window": {
@@ -36,5 +39,7 @@
       }
     ]
   },
-  "usingComponents": {}
+  "permission": {},
+  "usingComponents": {},
+  "sitemapLocation": "sitemap.json"
 }
