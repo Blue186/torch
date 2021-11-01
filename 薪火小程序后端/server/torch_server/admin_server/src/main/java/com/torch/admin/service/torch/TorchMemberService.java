@@ -14,4 +14,6 @@ public interface TorchMemberService extends IService<TorchMember> {
 
     List<TorchMember> getAllTorchMember(Integer page, Integer limit);
 
+    TorchMember selectById(Integer id);
+
 }

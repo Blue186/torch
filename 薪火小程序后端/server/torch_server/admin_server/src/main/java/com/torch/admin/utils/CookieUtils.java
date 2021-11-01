@@ -75,7 +75,9 @@ public class CookieUtils {
         }
         System.out.println("收到cookie为:" + cookie);
         if (cookie.length() != 0) {
-            return (Integer) redisUtil.get(cookie);
+            Integer uid = (Integer) redisUtil.get(cookie);
+            if (uid == null) uid = -1;
+            return uid;
         } else {
             return -1;
         }

@@ -90,7 +90,7 @@ public class TorchMemberController {
     public R<Object> getInfo(HttpServletRequest request) {
         Integer uid = cookieUtils.getUidByCookie(request);
         if (uid == -1) return R.error().message("请先正确登录!").data(new TorchUserInfo());
-        TorchMember member = memberService.getBaseMapper().selectById(uid);
+        TorchMember member = memberService.selectById(uid);
         TorchUserInfo info = new TorchUserInfo(member);
         return R.ok().data(info);
     }
@@ -101,7 +101,7 @@ public class TorchMemberController {
                                    @ApiParam(name = "page", value = "1", required = true) @RequestParam(defaultValue = "1") @PathVariable Integer page,
                                    @ApiParam(name = "limit", value = "10", required = true) @RequestParam(defaultValue = "10") @PathVariable Integer limit) {
         Integer uid = cookieUtils.getUidByCookie(request);
-        if (uid == -1) return R.error().message("请先正确登录!").data(new TorchUserInfo());
+        if (uid == -1) return R.error().message("请先正确登录!").setReLoginData();
         List<TorchMember> allTorchMember = memberService.getAllTorchMember(page, limit);
         return R.ok().data(allTorchMember);
     }
@@ -112,7 +112,7 @@ public class TorchMemberController {
                                  @ApiParam(name = "page", value = "1", required = true) @RequestParam(defaultValue = "1") @PathVariable Integer page,
                                  @ApiParam(name = "limit", value = "10", required = true) @RequestParam(defaultValue = "10") @PathVariable Integer limit) {
         Integer uid = new CookieUtils().getUidByCookie(request);
-        if (uid == -1) return R.error().message("请先正确登录!").data(new TorchUserInfo());
+        if (uid == -1) return R.error().message("请先正确登录!").setReLoginData();
         List<EventLog> eventLog = eventLogService.getEventLog(page, limit);
         return R.ok().data(eventLog);
     }

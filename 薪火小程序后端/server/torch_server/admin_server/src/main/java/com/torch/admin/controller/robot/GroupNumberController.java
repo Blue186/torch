@@ -20,7 +20,7 @@ public class GroupNumberController {
     @ApiOperation("获取群人数所有信息")
     @GetMapping("/getAllGroupNumber")
     public R<?> getAllGroupNumber() {
-        return R.ok().data("content", service.getGroupNumberList());
+        return R.ok().data(service.getGroupNumberList());
     }
 
 }

@@ -54,4 +54,10 @@ public class TorchMemberServiceImpl extends ServiceImpl<TorchMemberMapper, Torch
         memberIPage = baseMapper.selectPage(memberIPage, null);
         return memberIPage.getRecords();
     }
+
+    @Override
+    public TorchMember selectById(Integer id) {
+        TorchMember torchMember = baseMapper.selectById(id);
+        return torchMember;
+    }
 }

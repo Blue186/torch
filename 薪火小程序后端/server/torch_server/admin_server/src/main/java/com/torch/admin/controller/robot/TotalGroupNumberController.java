@@ -1,5 +1,6 @@
 package com.torch.admin.controller.robot;
 
+import com.torch.admin.entity.robot.TotalGroupNumber;
 import com.torch.admin.service.robot.TotalGroupNumberService;
 import com.torch.admin.utils.R;
 import io.swagger.annotations.Api;
@@ -8,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.HashMap;
 
 @Api(tags = "TotalGroupNumberController", value = "所有群人数统计")
 @RestController
@@ -20,7 +23,7 @@ public class TotalGroupNumberController {
     @ApiOperation(value = "统计总人数")
     @GetMapping("/getLast")
     public R<?> getLast() {
-        return R.ok().data("content", service.getLast());
+        return R.ok().data(service.getLast());
     }
 
 }
