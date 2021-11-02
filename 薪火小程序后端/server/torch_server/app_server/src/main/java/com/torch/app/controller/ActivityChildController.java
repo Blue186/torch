@@ -1,6 +1,5 @@
 package com.torch.app.controller;
 
-import com.torch.app.entity.ActivityChild;
 import com.torch.app.service.ActivityChildService;
 import com.torch.app.util.tools.JudgeCookieToken;
 import commonutils.R;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 @Api(tags = {"获取子活动相关接口"}, value = "获取子活动相关接口")
 @RestController
 @RequestMapping("/activityChild")

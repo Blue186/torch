@@ -8,24 +8,22 @@ import java.io.Serializable;
 @Data
 public class UserInfo implements Serializable {
 
-    @ApiModelProperty(value = "用户的id",name = "id")
-    private Integer id;
     @ApiModelProperty(value = "用户的姓名",name = "name")
     private String name;
     @ApiModelProperty(value = "用户的电话",name = "phone")
     private String phone;
-    @ApiModelProperty(value = "用户的qq",name = "id")
+    @ApiModelProperty(value = "用户的qq",name = "qq")
     private String qq;
-    @ApiModelProperty(value = "用户的email",name = "id")
+    @ApiModelProperty(value = "用户的email",name = "email")
     private String email;
-    @ApiModelProperty(value = "用户的学校",name = "id")
+    @ApiModelProperty(value = "用户的学校",name = "school")
     private String school;
-    @ApiModelProperty(value = "用户的年级",name = "id")
+    @ApiModelProperty(value = "用户的年级",name = "grade")
     private String grade;
-    @ApiModelProperty(value = "用户的志愿账号",name = "id")
+    @ApiModelProperty(value = "用户的志愿账号",name = "volAccount")
     private String volAccount;
-    @ApiModelProperty(value = "用户的微信名",name = "id")
+    @ApiModelProperty(value = "用户的微信名",name = "nickName")
     private String nickName;
-    @ApiModelProperty(value = "用户的微信头像",name = "id")
+    @ApiModelProperty(value = "用户的微信头像",name = "avatarImage")
     private String avatarImage;
 }

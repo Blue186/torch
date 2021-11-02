@@ -11,11 +11,8 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.condition.RequestConditionHolder;
 
 import javax.annotation.Resource;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.Serializable;
@@ -62,7 +59,6 @@ public class UserController {
                 redisUtil.hmSet(cookie,map);//完成cookie、openid和token的缓存填入
 //            tokenUtil.setToken(token, user.getId());//设置token在Redis中
                 System.out.println(redisUtil.hmGet(cookie,"openid").toString());;
-
             }
             Map<String,Object> map_R = new HashMap<>();
             map_R.put("c",cookie);
@@ -79,7 +75,6 @@ public class UserController {
             map_R.put("status",false);
             return R.ok().message("登录成功").data(map_R);
         }
-
     }
 
     /**
@@ -100,8 +95,6 @@ public class UserController {
         }else {
             return R.error().code(-100);//这里有误的情况下就要进行重新登录操作，我返回一个login_error,-100进行判断
         }
-
-
     }
 
     /**

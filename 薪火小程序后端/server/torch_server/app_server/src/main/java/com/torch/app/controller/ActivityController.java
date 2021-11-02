@@ -3,7 +3,9 @@ package com.torch.app.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.torch.app.entity.Activity;
+import com.torch.app.entity.SignUp;
 import com.torch.app.service.ActivityService;
+import com.torch.app.service.SignUpService;
 import com.torch.app.util.tools.JudgeCookieToken;
 import commonutils.R;
 import io.swagger.annotations.Api;
@@ -31,16 +33,14 @@ public class ActivityController {
                               HttpServletRequest request) {
         JudgeCookieToken judgeCookieToken = new JudgeCookieToken();
         Boolean judge = judgeCookieToken.judge(request);
+
         if (judge){
             Page<Activity> page = new Page<>(current, limit);
-
             QueryWrapper<Activity> wrapper = new QueryWrapper<>();
             wrapper.orderByDesc("create_time");
             wrapper.eq("is_pass", 1);
-
             activityService.page(page, wrapper);
             List<Activity> records = page.getRecords();
-
             return R.ok().data(records);
         }else {
             return R.error().code(-100);
