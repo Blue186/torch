@@ -1,6 +1,7 @@
 package com.torch.app.controller;
 
 import com.torch.app.service.ArticleService;
+import com.torch.app.util.tools.RedisUtil;
 import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,5 +13,9 @@ import javax.annotation.Resource;
 public class ArticleController {
     @Resource
     private ArticleService articleService;
+    @Resource
+    private RedisUtil redisUtil;
 
 }
+
+

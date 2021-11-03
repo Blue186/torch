@@ -25,4 +25,6 @@ public class User {
     private String password;
     private String volAccount;
     private String openid;
+    private String nickName;
+    private String avatarImage;
 }
