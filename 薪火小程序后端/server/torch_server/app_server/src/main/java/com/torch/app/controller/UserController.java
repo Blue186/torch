@@ -33,7 +33,7 @@ public class UserController {
 
     @ApiOperation(value = "用户登录注册接口")
     @PostMapping("/login")
-    public R<?> loginUser(@ApiParam(value = "用户登录信息",name = "userLogin",required = true) @RequestBody UserLogin userLogin,
+    public R loginUser(@ApiParam(value = "用户登录信息",name = "userLogin",required = true) @RequestBody UserLogin userLogin,
                           HttpServletResponse response){
 //        先获取openid
         OpenIdUtil openIdUtil = new OpenIdUtil();
@@ -86,7 +86,7 @@ public class UserController {
      */
     @ApiOperation(value = "通过用户id获取用户基本信息")
     @GetMapping()
-    public R<?> getUser(@ApiParam(name = "request",value = "请求携带cookie即可") HttpServletRequest request) {
+    public R getUser(@ApiParam(name = "request",value = "请求携带cookie即可") HttpServletRequest request) {
 //        获取用户请求中的cookie，并进行校验，可以封装成一个工具类。
         JudgeCookieToken judgeCookieToken = new JudgeCookieToken();
         Boolean judge = judgeCookieToken.judge(request);//判断请求是否合法
@@ -108,7 +108,7 @@ public class UserController {
      */
     @ApiOperation(value = "用户修改自己的个人信息")
     @PutMapping()
-    public R<?> updateUser(@ApiParam(name = "user", value = "用户提交个人信息", required = true)@RequestBody UserInfo userInfo,
+    public R updateUser(@ApiParam(name = "user", value = "用户提交个人信息", required = true)@RequestBody UserInfo userInfo,
                            HttpServletRequest request){
         JudgeCookieToken judgeCookieToken = new JudgeCookieToken();
         Boolean judge = judgeCookieToken.judge(request);
