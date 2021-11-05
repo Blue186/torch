@@ -25,15 +25,11 @@ public class TokenUtil {
         String md5 = DigestUtils.md5DigestAsHex(mix.getBytes(StandardCharsets.UTF_8));
         return md5;
     }
-//    public void setToken(String token,Integer uid){
-//        redisUtil.set(token,uid,TOKEN_TIME);
-//    }
-//    public String getToken(String token){
-//        boolean exists = redisUtil.exists(token);
-//        if (exists){
-//            return token;
-//        }else {
-//            return null;
-//        }
-//    }
+
+    public String generateMd5(String mail,String cookie,String code){
+        String mix = mail+cookie+code;
+        String md5 = DigestUtils.md5DigestAsHex(mix.getBytes(StandardCharsets.UTF_8));
+        return md5;
+    }
+
 }

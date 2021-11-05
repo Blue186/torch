@@ -49,13 +49,11 @@ public class CookieUtils {
     /**
      * 设置 cookie
      * @param response 返回对象
-     * @param uid 用户数据库 id
      */
     public String setCookie(HttpServletResponse response) {
         String c = randomStr();
         Cookie cookie = new Cookie("c", c);
         response.addCookie(cookie);
-//        redisUtil.set(c, uid, COOKIE_TIME);
         return c;
     }
 

@@ -14,8 +14,6 @@ public class UserInfo implements Serializable {
     private String phone;
     @ApiModelProperty(value = "用户的qq",name = "qq")
     private String qq;
-    @ApiModelProperty(value = "用户的email",name = "email")
-    private String email;
     @ApiModelProperty(value = "用户的学校",name = "school")
     private String school;
     @ApiModelProperty(value = "用户的年级",name = "grade")
