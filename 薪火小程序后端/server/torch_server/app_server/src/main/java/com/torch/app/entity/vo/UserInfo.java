@@ -18,6 +18,8 @@ public class UserInfo implements Serializable {
     private String school;
     @ApiModelProperty(value = "用户的年级",name = "grade")
     private String grade;
+    @ApiModelProperty(value = "用户邮箱",name = "email")
+    private String email;
     @ApiModelProperty(value = "用户的志愿账号",name = "volAccount")
     private String volAccount;
     @ApiModelProperty(value = "用户的微信名",name = "nickName")

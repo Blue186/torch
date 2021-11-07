@@ -7,6 +7,11 @@ spring:
     url: jdbc:mysql://www.torchcqs.cn:3306/torch?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8
     username: root
     password: cjsd10-3
+    hikari:
+      minimum-idle : 3
+      maximum-pool-size: 5
+      max-lifetime: 0
+
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
@@ -38,5 +43,5 @@ mybatis-plus:
   type-aliases-package: com/torch/app/entity #别名文件位置
 
 wx:
-  appid: wx49292af0e1fb1fc4
-  secret: a382df1cb070d7754fb2023dfe209b8b
+  appid: wx340fc38eece916c2
+  secret: ad527c3572bd15f95a47df54aa47e25c

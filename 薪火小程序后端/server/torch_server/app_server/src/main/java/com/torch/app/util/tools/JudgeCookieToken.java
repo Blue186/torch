@@ -1,10 +1,15 @@
 package com.torch.app.util.tools;
 
+import com.torch.app.entity.User;
+import commonutils.R;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * author:A Handsome Cat
@@ -13,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 public class JudgeCookieToken {
 
     private String userCookie = null;
+
     @Resource
     private RedisUtil redisUtil;
 
@@ -61,13 +67,17 @@ public class JudgeCookieToken {
     public Boolean judge(HttpServletRequest request){
 //        拿到user的cookie
         Cookie[] cookies = request.getCookies();
+//        String cookie1 = request.getHeader("cookie");
+        System.out.println("---------------------"+Arrays.toString(cookies));
         if (cookies!=null&&cookies.length>0){
             for (Cookie cookie : cookies) {
                 if (cookie.getName().equals("c")){
                     userCookie = cookie.getValue();
+                    System.out.println("---------------c:"+userCookie);
                 }
             }
         }
+        System.out.println(redisUtil+"-----=--==========");
 //        判断user的cookie
         boolean exists = redisUtil.exists(userCookie);//判断cookie是否存在，存在及没有过期
         if (exists){
@@ -82,4 +92,5 @@ public class JudgeCookieToken {
             return false;
         }
     }
+
 }

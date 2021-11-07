@@ -1,5 +1,6 @@
 package com.torch.app.util.tools;
 
+import org.springframework.stereotype.Component;
 import org.springframework.util.DigestUtils;
 
 import javax.annotation.Resource;
@@ -8,6 +9,7 @@ import java.nio.charset.StandardCharsets;
 /**
  * 生成 token 及验证 token 的工具类
  */
+@Component
 public class TokenUtil {
     private static final int TOKEN_TIME = 60;
     @Resource
