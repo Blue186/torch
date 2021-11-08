@@ -1,16 +1,9 @@
 package com.torch.app.util.tools;
 
-import com.torch.app.entity.User;
-import commonutils.R;
 import org.springframework.stereotype.Component;
-
 import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * author:A Handsome Cat
  */
@@ -22,11 +15,6 @@ public class JudgeCookieToken {
     @Resource
     private RedisUtil redisUtil;
 
-//    /**
-//     * 获取用户请求中的cookie
-//     * @param request 用户请求
-//     * @return 用户的cookie
-//     */
     public String getCookie(HttpServletRequest request){
         Cookie[] cookies = request.getCookies();
         if (cookies!=null&&cookies.length>0){
@@ -38,26 +26,7 @@ public class JudgeCookieToken {
         }
         return userCookie;
     }
-//
-//    /**
-//     * 判断用户请求是否合法，验证cookie，token
-//     * @param cookie 用户cookie
-//     * @return
-//     */
-//    public Boolean judge(String cookie){
-//        boolean exists = redisUtil.exists(cookie);//判断cookie是否存在，存在及没有过期
-//        if (exists){
-////            如果未过期，且cookie正确，则拿到tk,openid
-//            String openid = redisUtil.hmGet(cookie, "openid").toString();
-//            String tk = redisUtil.hmGet(cookie, "tk").toString();
-////            比较
-//            TokenUtil tokenUtil = new TokenUtil();
-//            String token = tokenUtil.generateToken(cookie, openid);
-//            return tk.equals(token);
-//        }else {
-//            return false;
-//        }
-//    }
+
 
     /**
      * 判断用户请求的合法性
@@ -65,21 +34,12 @@ public class JudgeCookieToken {
      * @return true/false
      */
     public Boolean judge(HttpServletRequest request){
-//        拿到user的cookie
-        Cookie[] cookies = request.getCookies();
-//        String cookie1 = request.getHeader("cookie");
-        System.out.println("---------------------"+Arrays.toString(cookies));
-        if (cookies!=null&&cookies.length>0){
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("c")){
-                    userCookie = cookie.getValue();
-                    System.out.println("---------------c:"+userCookie);
-                }
-            }
-        }
-        System.out.println(redisUtil+"-----=--==========");
+
+        userCookie = request.getHeader("c");
+        System.out.println("---------------------CCCCCCCCC"+userCookie);
+
 //        判断user的cookie
-        boolean exists = redisUtil.exists(userCookie);//判断cookie是否存在，存在及没有过期
+        boolean exists = redisUtil.exists(userCookie);
         if (exists){
 //            如果未过期，且cookie正确，则拿到tk,openid
             String openid = redisUtil.hmGet(userCookie, "openid").toString();

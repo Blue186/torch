@@ -1,5 +1,6 @@
 package com.torch.app.controller;
 
+import cn.hutool.json.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.torch.app.entity.User;
 import com.torch.app.entity.vo.UserInfo;
@@ -31,21 +32,26 @@ public class UserController {
     private TokenUtil tokenUtil;
     @Resource
     private JudgeCookieToken judgeCookieToken;
+    @Resource
+    private EmailSendUtil emailSendUtil;
+    @Resource
+    private CookieUtils cookieUtils;
+    @Resource
+    private OpenIdUtil openIdUtil;
 
     @ApiOperation(value = "用户登录注册接口")
     @PostMapping("/login")
     public R<?> loginUser(@ApiParam(value = "用户登录信息",name = "userLogin",required = true) @RequestBody UserLogin userLogin,
                           HttpServletResponse response){
 //        先获取openid
-        OpenIdUtil openIdUtil = new OpenIdUtil();
         String openId = openIdUtil.getOpenid(userLogin.getCode());
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("openid",openId);
         User user = userService.getBaseMapper().selectOne(queryWrapper);
 
-        CookieUtils cookieUtils = new CookieUtils();
         String cookie = cookieUtils.setCookie(response);
-        TokenUtil tokenUtil = new TokenUtil();
+        System.out.println("login!!!!");
+        System.out.println("cookie = " + cookie);
         String token = tokenUtil.generateToken(cookie, openId);
         Map<String,Object> map = new HashMap<>();
         map.put("openid",openId);
@@ -147,13 +153,18 @@ public class UserController {
      */
     @ApiOperation(value = "发送邮箱验证码")
     @PostMapping("/mailVerify")
-    public R<?> mailVerify(@ApiParam(name = "mail",value = "邮箱",required = true) String mail,
+    public R<?> mailVerify(@ApiParam(name = "mail",value = "邮箱",required = true)@RequestBody String mail,
                            HttpServletRequest request){
         Boolean judge = judgeCookieToken.judge(request);
         if (judge){
+
+            JSONObject jsonObject = new JSONObject(mail);
+            String userMail = jsonObject.getStr("mail");
+            System.out.println("userMail = " + userMail);
+
             String cookie = judgeCookieToken.getCookie(request);
-            EmailSendUtil emailSendUtil = new EmailSendUtil();
-            emailSendUtil.sendMailVerify("3057179865", mail,cookie);
+            System.out.println("mail ======= " + userMail);
+            emailSendUtil.sendMailVerify("3057179865@qq.com", userMail,cookie);
             return R.ok().message("验证码成功发送");
         }else {
             return R.error().code(-100);
@@ -167,13 +178,17 @@ public class UserController {
      */
     @ApiOperation(value = "邮箱验证码校验")
     @PostMapping("/codeCheck")
-    public R<?> codeCheck(@ApiParam(name = "mail",value = "邮箱",required = true)String mail,
-                          @ApiParam(name = "code",value = "邮箱验证码",required = true) String code,HttpServletRequest request){
+    public R<?> codeCheck(@ApiParam(name = "mail",value = "邮箱",required = true)@RequestBody String mail,
+                          @ApiParam(name = "code",value = "邮箱验证码",required = true) @RequestBody String code,HttpServletRequest request){
         Boolean judge = judgeCookieToken.judge(request);
         if (judge){
+
+            JSONObject jsonObject = new JSONObject(code);
+            String mailCode = jsonObject.getStr("code");
+            System.out.println("mailCode = " + mailCode);
             String cookie = judgeCookieToken.getCookie(request);
             String md5_R = redisUtil.get(mail).toString();
-            String md5 = tokenUtil.generateMd5(mail, cookie,code);
+            String md5 = tokenUtil.generateMd5(mail, cookie,mailCode);
             if (md5_R==null){
                 Map<String,Object> map = new HashMap<>();
                 map.put("timeout",40);

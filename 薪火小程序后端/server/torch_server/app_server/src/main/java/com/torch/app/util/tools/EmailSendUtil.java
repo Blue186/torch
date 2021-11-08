@@ -1,19 +1,19 @@
 package com.torch.app.util.tools;
 
 
+
 import com.torch.app.entity.User;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.stereotype.Service;
-
+import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.util.Random;
 
 //邮件发送类
-@Service
+@Component
 public class EmailSendUtil {
     @Resource
     private JavaMailSenderImpl mailSender;
@@ -48,6 +48,9 @@ public class EmailSendUtil {
             sb.append(String.valueOf(ran1));
         }
         String code = sb.toString();
+        System.out.println("token+"+tokenUtil);
+
+
         String md5 = tokenUtil.generateMd5(mail, cookie,code);
         redisUtil.set(mail,md5,60);//将mail和cookie加密的md5上传redis。
 

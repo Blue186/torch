@@ -7,22 +7,14 @@ import lombok.Data;
 
 import java.util.Date;
 
-/**
- * 推文信息表
- */
-
-@TableName("article")
 @Data
-public class Article {
+@TableName("contact_us")
+public class ContactUs {
     @TableId(type = IdType.AUTO)
     private Integer id;
-    private Integer authorId;
+    private Integer userId;
+    private String content;
     private Date createTime;
     private Date updateTime;
-    private String content;
-    private Integer commentId;
-    private Integer thumbsUp;
-    private Integer type;
-    private Integer views;
-    private String artImage;
+    private String resContent;
 }

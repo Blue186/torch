@@ -11,39 +11,8 @@ import java.net.URLConnection;
 @Component
 public class OpenIdUtil {
 
-//    @Value("${wx.secret}")
     private String secret = "ad527c3572bd15f95a47df54aa47e25c";
-//    @Value("${wx.appid}")
     private String appid = "wx340fc38eece916c2";
-    /**
-     * 读取 resources 下 application 的 wx-appid
-     * @return appId
-     */
-//    private String getAppId() {
-//        Yaml yaml = new Yaml();
-//        InputStream in = OpenIdUtil.class.getClassLoader().getResourceAsStream("../resources/application.yaml");
-//        Map<String, Object> map = yaml.loadAs(in, Map.class);
-//        String appId = map.getOrDefault("wx-appid", "").toString();
-//        System.out.println(appId);
-//        return appId;
-//    }
-
-    /**
-     * 读取 resources 下 application 的 wx-secret
-     * @return secret
-     */
-//    private String getSecret(){
-//        Yaml yaml = new Yaml();
-//        InputStream in = OpenIdUtil.class.getClassLoader().getResourceAsStream("../resources/application.yaml");
-//        Map<String,Object> map = yaml.loadAs(in,Map.class);
-//        return map.getOrDefault("wx-appid","").toString();
-//    }
-    /**
-     * 通过 appid code secret 得到 openid
-     * @param code wx.login 接口得到的 code
-     * @return openid
-     */
-
 
     public  String getOpenid(String code) {
         BufferedReader in = null;

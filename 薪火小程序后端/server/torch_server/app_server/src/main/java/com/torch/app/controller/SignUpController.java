@@ -21,10 +21,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Api(tags = {"用户报名志愿活动相关接口"},value = "用户报名志愿活动相关接口")
 @RestController
@@ -57,23 +54,16 @@ public class SignUpController {
             Object uid = redisUtil.hmGet(cookie, "uid");
 
             User user = userService.getBaseMapper().selectById(uid.toString());//拿到用户信息
-//            判断用户是否能报名，发消息，即是用户并未成功注册。
-//            Boolean register = judgeCookieToken.register(user);
-//            if (!register){
-//                Map<String,Object> map = new HashMap<>();
-//                map.put("register",false);//如果未填必要信息，将直接拒绝此请求。
-//                return R.error().data(map);
-//            }
             if (user.getIsActive()==0){
                 Map<String,Object> map = new HashMap<>();
                 map.put("register",false);//如果未激活，将直接拒绝此请求。
                 return R.error().data(map);
             }
-
             ActivityChild activityChild = activityChildService.getBaseMapper().selectById(signUp.getActChiId());
             Activity activity = activityService.getBaseMapper().selectById(activityChild.getActivityId());
             if (activity.getTotalNumber()<activity.getHeadcount()){
                 signUp.setUserId((Integer) uid);//设置用户id
+                signUp.setCreateTime(new Date());
                 int res = signUpService.getBaseMapper().insert(signUp);//插入报名信息
                 activity.setTotalNumber(activity.getTotalNumber()+1);//报名实现对应报名人数加一
                 if (res==1){
@@ -89,7 +79,6 @@ public class SignUpController {
                 map.put("signNum",60);//如果报名人数满了，返回signNum
                 return R.error().data(map);
             }
-
         }else {
             return R.error().code(-100);
         }
