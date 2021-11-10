@@ -1,107 +1,137 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
-		// {
-		//     "path" : "pages/createActivityInformation/createActivityInformation",
-		//     "style" :                                                                                    
-		//     {
-		//         "navigationBarTitleText": "",
-		//         "enablePullDownRefresh": false
-		//     }
-		    
-		// },
-        {
-		
+		{
+
 			"path": "pages/index/index",
 			"style": {
 				"navigationBarTitleText": "薪火志愿者协会"
 			}
 		},
-        {
-            "path" : "pages/userImformationEdit/userImformationEdit",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "信息编辑",
-                "enablePullDownRefresh": false
-            }
-            
-        },
-	    {
-            "path" : "pages/user/user",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "我的",
-                "enablePullDownRefresh": false
-            }
-            
-        },
-        {
-            "path" : "pages/dynamic/dynamic",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "动态",
-                "enablePullDownRefresh": false
-            }
-            
-        },
+		
 		{
-		    "path" : "pages/activityDetail/activityDetail",
-		    "style" :                                                                                    
-		    {
-		        "navigationBarTitleText": "志愿活动详情",
-		        "enablePullDownRefresh": false
-		    }
-		    
+			"path": "pages/user/user",
+			"style": {
+				"navigationBarTitleText": "我的",
+				"enablePullDownRefresh": false
+			}
+
 		},
 		{
-            "path" : "pages/dynamic/association/association",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-        },
-        {
-            "path" : "pages/dynamic/message/message",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-    ],
+			"path": "pages/dynamic/dynamic",
+			"style": {
+				"navigationBarTitleText": "动态",
+				"enablePullDownRefresh": false
+			}
+
+		}
+
+
+
+	],
+	"condition": { //模式配置，仅开发期间生效
+	    "current": 0, //当前激活的模式（list 的索引项）
+	    "list": [{
+	            "name": "ing", //模式名称
+	            "path": "package2/pages/ing/ing", //启动页面，必选
+	            "query": "interval=4000&autoplay=false" //启动参数，在页面的onLoad函数里面得到。
+	        },
+	        {
+	            "name": "user",
+	            "path": "pages/user/user"
+	        }
+	    ]
+	},
+	"subPackages": [
+		{
+		"root": "package1",
+		"pages": [
+
+			{
+				"path": "pages/activityDetail/activityDetail",
+				"style": {
+					"navigationBarTitleText": "活动详情",
+					"enablePullDownRefresh": false
+				}
+
+			},
+			{
+				"path": "pages/userInformationEdit/userInformationEdit",
+				"style": {
+					"navigationBarTitleText": "信息修改",
+					"enablePullDownRefresh": false
+				}
+
+			}
+		]
+	},
+	{
+		"root": "package2",
+		"pages": [
+	
+			{
+				"path": "pages/ing/ing",
+				"style": {
+					"navigationBarTitleText": "薪火小程序",
+					"enablePullDownRefresh": false
+				}
+	
+			}
+		]
+	},
+	{
+		"root":"package3",
+		"pages":[
+			{
+				"path": "pages/myFeeling/myFeeling",
+				"style": {
+					"navigationBarTitleText": "活动详情",
+					"enablePullDownRefresh": false
+				}
+			},
+			{
+				"path": "pages/myVolunteer/myVolunteer",
+				"style": {
+					"navigationBarTitleText": "活动详情",
+					"enablePullDownRefresh": false
+				}
+			}
+		]
+	}
+	],
+	
+
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",
-		"navigationBarBackgroundColor": "#F8F8F8",
+		"navigationBarBackgroundColor": "#fff",
 		"enablePullDownRefresh": true,
-		"mp-weixin":{
+		"mp-weixin": {
 			"backgroundColor": "#F8F8F8",
-		"backgroundColor":"#808080",
-		"backgroundTextStyle":"light"
+			"backgroundColor": "#808080",
+			"backgroundTextStyle": "light"
 		}
 	},
+
 	"tabBar": {
-		"list": [
+		"list": [{
+				"text": "首页",
+				"pagePath": "pages/index/index",
+				"iconPath": "static/images/index.png",
+				"selectedIconPath": "static/images/index-active.png"
+			},
 			{
-			"text":"首页",
-			"pagePath":"pages/index/index",
-			"iconPath":"static/动态-协会_slices/mipmap-xhdpi/首页-默认.png",
-			"selectedIconPath":"static/首页_slices/mipmap-hdpi/首页-选中.png"
-		},
-		{
-			"text":"动态",
-			"pagePath":"pages/dynamic/dynamic",
-			"iconPath":"static/志愿详情页_slices/mipmap-hdpi/动态-默认.png",
-			"selectedIconPath":"static/动态-协会_slices/mipmap-xhdpi/动态-选中.png"
-		},
-		{
-			"text":"我的",
-			"pagePath":"pages/user/user",
-			"iconPath":"static/首页_slices/mipmap-hdpi/个人-默认.png",
-			"selectedIconPath":"./static/个人_slices/mipmap-xhdpi/个人-选中.png"
-		}
-		
+				"text": "动态",
+				"pagePath": "pages/dynamic/dynamic",
+				"iconPath": "static/images/dynamic.png",
+				"selectedIconPath": "static/images/dynamic-active.png"
+			},
+			{
+				"text": "我的",
+				"pagePath": "pages/user/user",
+				"iconPath": "static/images/user.png",
+				"selectedIconPath": "static/images/user-active.png"
+			}
+
 		]
 	}
 }

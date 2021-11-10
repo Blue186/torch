@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "薪火志愿者协会",
+  "usingComponents": {
+    "slide-show": "/compoments/slideShow",
+    "activity": "/compoments/activity"
+  }
+}

@@ -12,11 +12,11 @@
 			</view>
 		</view>
 		<view class="writeFeeling" v-if="haveFeeling">
-			<image src="../static/个人_slices/mipmap-xhdpi/书%20(1).png" mode=""></image>
+			<image src="/static/images/book.png" mode="" @click="goMyFeeling" class="image"></image>
 			<view>我的心得</view>
 		</view>
 		<view class="myFeeling" v-if="!haveFeeling">
-			<image src="../static/个人_slices/mipmap-xhdpi/pencil.png" mode=""></image>
+			<image src="/static/images/pencil.png" mode=""  @click="goMyFeeling" class="image"></image>
 			<view>填写心得</view>
 		</view>
 	</view>
@@ -29,6 +29,13 @@
 				haveFeeling:1
 			}
 		},
+		methods: {
+			goMyFeeling() {
+				uni.navigateTo({
+					url:'/package3/pages/myFeeling/myFeeling'
+				})
+			}
+		}
 		
 	}
 </script>
@@ -77,11 +84,12 @@
 			flex-direction: column;
 			justify-content: center;
 			align-items: center;
-			image {
+		
+		}
+		.image {
 				margin-bottom: 10rpx;
 				width: 45rpx;
 				height: 45rpx;
 			}
-		}
 	}
 </style>

@@ -71,15 +71,21 @@
         },
         "vueVersion" : "2"
     },
-    "appid" : "__UNI__9FC5434",
+    "appid" : "__UNI__1037311",
     "name" : "薪火小程序",
     "versionName" : "最初版",
     "mp-weixin" : {
         "setting" : {
             "postcss" : false,
-            "es6" : false
+            "es6" : true,
+            "urlCheck" : false,
+            "minified" : true
         },
-        "appid" : "wx49292af0e1fb1fc4",
-        "permission" : {}
+        "appid" : "wx340fc38eece916c2",
+        "permission" : {
+            "scope.userLocation" : {
+                "desc" : "调试"
+            }
+        }
     }
 }

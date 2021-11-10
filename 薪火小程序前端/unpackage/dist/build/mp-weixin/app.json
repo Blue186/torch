@@ -1,0 +1,61 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/ing/ing",
+    "pages/user/user",
+    "pages/dynamic/dynamic"
+  ],
+  "subPackages": [
+    {
+      "root": "package1",
+      "pages": [
+        "pages/activityDetail/activityDetail",
+        "pages/userInformationEdit/userInformationEdit"
+      ]
+    },
+    {
+      "root": "package3",
+      "pages": [
+        "pages/myFeeling/myFeeling",
+        "pages/myVolunteer/myVolunteer"
+      ]
+    }
+  ],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "uni-app",
+    "navigationBarBackgroundColor": "#fff",
+    "enablePullDownRefresh": true,
+    "backgroundColor": "#808080",
+    "backgroundTextStyle": "light"
+  },
+  "tabBar": {
+    "list": [
+      {
+        "text": "首页",
+        "pagePath": "pages/index/index",
+        "iconPath": "static/动态-协会_slices/mipmap-xhdpi/首页-默认.png",
+        "selectedIconPath": "static/首页_slices/mipmap-xhdpi/首页-选中.png"
+      },
+      {
+        "text": "动态",
+        "pagePath": "pages/dynamic/dynamic",
+        "iconPath": "static/志愿详情页_slices/mipmap-xhdpi/动态-默认.png",
+        "selectedIconPath": "static/动态-协会_slices/mipmap-xhdpi/动态-选中.png"
+      },
+      {
+        "text": "我的",
+        "pagePath": "pages/user/user",
+        "iconPath": "static/首页_slices/mipmap-xhdpi/个人-默认.png",
+        "selectedIconPath": "./static/个人_slices/mipmap-xhdpi/个人-选中.png"
+      }
+    ]
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "调试"
+    }
+  },
+  "usingComponents": {},
+  "sitemapLocation": "sitemap.json"
+}

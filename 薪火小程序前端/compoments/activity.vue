@@ -1,12 +1,13 @@
 <template>
 	<view class="activity">
 		<view class="pic">
+			<image :src="info.activityImage" mode="aspectFill" class="image"></image>
 		</view>
 		<view class="activityInformation">
 			<view class="nameAndLocation">
-				<text class="activityName">解放碑街道清理</text>
+				<text class="activityName">{{info.activityName}}</text>
 				<view class="location">
-					<image class="image" src="../static/首页_slices/mipmap-xhdpi/dingwei%20拷贝%202.png" mode=""></image>
+					<image class="image" src="/static/images/dingwei@2x.png" mode=""></image>
 					解放碑
 				</view>
 			</view>
@@ -14,9 +15,7 @@
 			<text class="activityTime">全天</text>
 			<text class="activityNumber">招募人数：2/5人</text>
 		</view>
-		<!-- <view class="tag">
-			招募中
-		</view> -->
+		
 		<tag class="tag" name="招募中"></tag>
 		
 		<button type="default" class="btn" @click="goDetail">详情</button>
@@ -27,6 +26,7 @@
 <script>
 	import tag from "./tag.vue"
 	export default {
+		props:['info'],
 		components:{
 			tag
 		},
@@ -39,14 +39,14 @@
 			goDetail(){
 				console.log("点到我了")
 				uni.navigateTo({
-					url:'/pages/activityDetail/activityDetail'
+					url:'/package1/pages/activityDetail/activityDetail'
 				})
 			}
 		}
 	}
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 	.activity {
 		position: relative;
 		border: 1rpx solid #808080;
@@ -78,7 +78,10 @@
 			width: 95%;
 			height: 60%;
 			background-color: #4CD964;
-
+			.image {
+				height: 100%;
+				width: 100%;
+			}
 		}
 
 		.activityInformation {
@@ -100,16 +103,14 @@
 					font-weight: bold;
 				}
 				.location {
+					margin-left: 20rpx;
 					display: flex;
 					align-items: center;
 					font-size: 30rpx;
-
 					.image {
 						width: 35rpx;
 						height: 35rpx;
 					}
-
-					margin-left: 20rpx;
 				}
 			}
 		}

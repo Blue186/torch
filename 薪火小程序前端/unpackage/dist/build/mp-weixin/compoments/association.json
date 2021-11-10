@@ -1,0 +1,7 @@
+{
+  "component": true,
+  "usingComponents": {
+    "slide-show": "/compoments/slideShow",
+    "association-message": "/compoments/associationMessage"
+  }
+}

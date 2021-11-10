@@ -1,0 +1,1 @@
+.container{margin-top:150rpx;display:flex;align-items:center;flex-direction:column}.code image{width:250rpx;height:250rpx}.icon image{width:300rpx;height:300rpx}.header{font-size:30rpx;color:orange;font-style:normal;margin-bottom:30rpx}.content{color:orange;margin-bottom:10rpx}
