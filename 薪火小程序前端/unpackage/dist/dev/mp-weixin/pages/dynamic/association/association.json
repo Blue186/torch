@@ -1,8 +1,0 @@
-{
-  "navigationBarTitleText": "",
-  "enablePullDownRefresh": false,
-  "usingComponents": {
-    "slide-show": "/compoments/slideShow",
-    "association-message": "/compoments/associationMessage"
-  }
-}

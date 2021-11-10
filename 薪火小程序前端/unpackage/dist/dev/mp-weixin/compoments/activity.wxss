@@ -24,7 +24,7 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
-.activity {
+.activity.data-v-3c94e5ab {
   position: relative;
   border: 1rpx solid #808080;
   width: 90vw;
@@ -34,7 +34,7 @@
   flex-direction: column;
   align-items: center;
 }
-.activity .btn {
+.activity .btn.data-v-3c94e5ab {
   position: absolute;
   bottom: 20rpx;
   right: 20rpx;
@@ -44,44 +44,48 @@
   background-color: #5566cd;
   color: white;
 }
-.activity .tag {
+.activity .tag.data-v-3c94e5ab {
   position: absolute;
   right: 40rpx;
   width: 55rpx;
 }
-.activity .pic {
+.activity .pic.data-v-3c94e5ab {
   margin-top: 10rpx;
   width: 95%;
   height: 60%;
   background-color: #4CD964;
 }
-.activity .activityInformation {
+.activity .pic .image.data-v-3c94e5ab {
+  height: 100%;
+  width: 100%;
+}
+.activity .activityInformation.data-v-3c94e5ab {
   width: 95%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 }
-.activity .activityInformation .activityTime {
+.activity .activityInformation .activityTime.data-v-3c94e5ab {
   font-size: 28rpx;
   color: #5566cd;
 }
-.activity .activityInformation .activityNumber {
+.activity .activityInformation .activityNumber.data-v-3c94e5ab {
   font-size: 32rpx;
 }
-.activity .activityInformation .nameAndLocation {
+.activity .activityInformation .nameAndLocation.data-v-3c94e5ab {
   display: flex;
   align-items: center;
 }
-.activity .activityInformation .nameAndLocation .activityName {
+.activity .activityInformation .nameAndLocation .activityName.data-v-3c94e5ab {
   font-weight: bold;
 }
-.activity .activityInformation .nameAndLocation .location {
+.activity .activityInformation .nameAndLocation .location.data-v-3c94e5ab {
+  margin-left: 20rpx;
   display: flex;
   align-items: center;
   font-size: 30rpx;
-  margin-left: 20rpx;
 }
-.activity .activityInformation .nameAndLocation .location .image {
+.activity .activityInformation .nameAndLocation .location .image.data-v-3c94e5ab {
   width: 35rpx;
   height: 35rpx;
 }

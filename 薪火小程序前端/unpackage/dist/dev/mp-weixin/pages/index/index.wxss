@@ -29,12 +29,38 @@
   flex-direction: column;
   align-items: center;
 }
-.indexPage .activities {
-  margin-top: 40rpx;
+.recruitmentImformation {
+  width: 95%;
+  min-height: 70vh;
+  margin-top: 50rpx;
+  background-color: #eee;
+  border-radius: 20rpx;
+  display: flex;
+  flex-direction: column;
 }
-.recruitmentInformation {
-  width: 80%;
-  background-color: pink;
-  margin-top: 20rpx;
+.recruitmentImformation .title {
+  padding: 20rpx 10rpx;
+  background-color: #5566cd;
+  border-radius: 20rpx 20rpx 0 0;
+  color: white;
+}
+.recruitmentImformation .activities {
+  width: 100%;
+  margin-top: 30rpx;
+}
+.recruitmentImformation .activities .activity {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.recruitmentImformation .bottom {
+  margin: 100rpx auto;
+}
+.cover {
+  background-color: #eee;
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  opacity: 0;
 }
 

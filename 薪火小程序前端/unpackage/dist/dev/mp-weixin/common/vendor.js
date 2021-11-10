@@ -8,11 +8,39 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.createApp = createApp;exports.createComponent = createComponent;exports.createPage = createPage;exports.createPlugin = createPlugin;exports.createSubpackageApp = createSubpackageApp;exports.default = void 0;var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
+/* WEBPACK VAR INJECTION */(function(global) {Object.defineProperty(exports, "__esModule", { value: true });exports.createApp = createApp;exports.createComponent = createComponent;exports.createPage = createPage;exports.createPlugin = createPlugin;exports.createSubpackageApp = createSubpackageApp;exports.default = void 0;var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 3));
 var _uniI18n = __webpack_require__(/*! @dcloudio/uni-i18n */ 4);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _slicedToArray(arr, i) {return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();}function _nonIterableRest() {throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}function _iterableToArrayLimit(arr, i) {if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;var _arr = [];var _n = true;var _d = false;var _e = undefined;try {for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {_arr.push(_s.value);if (i && _arr.length === i) break;}} catch (err) {_d = true;_e = err;} finally {try {if (!_n && _i["return"] != null) _i["return"]();} finally {if (_d) throw _e;}}return _arr;}function _arrayWithHoles(arr) {if (Array.isArray(arr)) return arr;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}function _toConsumableArray(arr) {return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();}function _nonIterableSpread() {throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(o);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _iterableToArray(iter) {if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter);}function _arrayWithoutHoles(arr) {if (Array.isArray(arr)) return _arrayLikeToArray(arr);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;}
 
+var realAtob;
+
+var b64 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
+var b64re = /^(?:[A-Za-z\d+/]{4})*?(?:[A-Za-z\d+/]{2}(?:==)?|[A-Za-z\d+/]{3}=?)?$/;
+
+if (typeof atob !== 'function') {
+  realAtob = function realAtob(str) {
+    str = String(str).replace(/[\t\n\f\r ]+/g, '');
+    if (!b64re.test(str)) {throw new Error("Failed to execute 'atob' on 'Window': The string to be decoded is not correctly encoded.");}
+
+    // Adding the padding if missing, for semplicity
+    str += '=='.slice(2 - (str.length & 3));
+    var bitmap;var result = '';var r1;var r2;var i = 0;
+    for (; i < str.length;) {
+      bitmap = b64.indexOf(str.charAt(i++)) << 18 | b64.indexOf(str.charAt(i++)) << 12 |
+      (r1 = b64.indexOf(str.charAt(i++))) << 6 | (r2 = b64.indexOf(str.charAt(i++)));
+
+      result += r1 === 64 ? String.fromCharCode(bitmap >> 16 & 255) :
+      r2 === 64 ? String.fromCharCode(bitmap >> 16 & 255, bitmap >> 8 & 255) :
+      String.fromCharCode(bitmap >> 16 & 255, bitmap >> 8 & 255, bitmap & 255);
+    }
+    return result;
+  };
+} else {
+  // 注意atob只能在全局对象上调用，例如：`const Base64 = {atob};Base64.atob('xxxx')`是错误的用法
+  realAtob = atob;
+}
+
 function b64DecodeUnicode(str) {
-  return decodeURIComponent(atob(str).split('').map(function (c) {
+  return decodeURIComponent(realAtob(str).split('').map(function (c) {
     return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
   }).join(''));
 }
@@ -441,6 +469,10 @@ function onLocaleChange(fn) {
   if (onLocaleChangeCallbacks.indexOf(fn) === -1) {
     onLocaleChangeCallbacks.push(fn);
   }
+}
+
+if (typeof global !== 'undefined') {
+  global.getLocale = getLocale;
 }
 
 var interceptors = {
@@ -914,7 +946,7 @@ function initData(vueOptions, context) {
     try {
       data = data.call(context); // 支持 Vue.prototype 上挂的数据
     } catch (e) {
-      if (Object({"NODE_ENV":"development","VUE_APP_NAME":"薪火小程序","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"VUE_APP_NAME":"薪火小程序","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.warn('根据 Vue 的 data 函数初始化小程序 data 失败，请尽量确保 data 函数中不访问 vm 对象，否则可能影响首次数据渲染速度。', data);
       }
     }
@@ -2019,6 +2051,7 @@ wx.createPlugin = createPlugin;
 var uni$1 = uni;var _default =
 
 uni$1;exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../webpack/buildin/global.js */ 2)))
 
 /***/ }),
 
@@ -2151,7 +2184,149 @@ function normalizeComponent (
 
 /***/ }),
 
-/***/ 126:
+/***/ 147:
+/*!***********************************************************************************************!*\
+  !*** D:/Code/front_end/小程序/薪火小程序/薪火小程序前端/uni_modules/uni-icons/components/uni-icons/icons.js ***!
+  \***********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = {
+  "pulldown": "\uE588",
+  "refreshempty": "\uE461",
+  "back": "\uE471",
+  "forward": "\uE470",
+  "more": "\uE507",
+  "more-filled": "\uE537",
+  "scan": "\uE612",
+  "qq": "\uE264",
+  "weibo": "\uE260",
+  "weixin": "\uE261",
+  "pengyouquan": "\uE262",
+  "loop": "\uE565",
+  "refresh": "\uE407",
+  "refresh-filled": "\uE437",
+  "arrowthindown": "\uE585",
+  "arrowthinleft": "\uE586",
+  "arrowthinright": "\uE587",
+  "arrowthinup": "\uE584",
+  "undo-filled": "\uE7D6",
+  "undo": "\uE406",
+  "redo": "\uE405",
+  "redo-filled": "\uE7D9",
+  "bars": "\uE563",
+  "chatboxes": "\uE203",
+  "camera": "\uE301",
+  "chatboxes-filled": "\uE233",
+  "camera-filled": "\uE7EF",
+  "cart-filled": "\uE7F4",
+  "cart": "\uE7F5",
+  "checkbox-filled": "\uE442",
+  "checkbox": "\uE7FA",
+  "arrowleft": "\uE582",
+  "arrowdown": "\uE581",
+  "arrowright": "\uE583",
+  "smallcircle-filled": "\uE801",
+  "arrowup": "\uE580",
+  "circle": "\uE411",
+  "eye-filled": "\uE568",
+  "eye-slash-filled": "\uE822",
+  "eye-slash": "\uE823",
+  "eye": "\uE824",
+  "flag-filled": "\uE825",
+  "flag": "\uE508",
+  "gear-filled": "\uE532",
+  "reload": "\uE462",
+  "gear": "\uE502",
+  "hand-thumbsdown-filled": "\uE83B",
+  "hand-thumbsdown": "\uE83C",
+  "hand-thumbsup-filled": "\uE83D",
+  "heart-filled": "\uE83E",
+  "hand-thumbsup": "\uE83F",
+  "heart": "\uE840",
+  "home": "\uE500",
+  "info": "\uE504",
+  "home-filled": "\uE530",
+  "info-filled": "\uE534",
+  "circle-filled": "\uE441",
+  "chat-filled": "\uE847",
+  "chat": "\uE263",
+  "mail-open-filled": "\uE84D",
+  "email-filled": "\uE231",
+  "mail-open": "\uE84E",
+  "email": "\uE201",
+  "checkmarkempty": "\uE472",
+  "list": "\uE562",
+  "locked-filled": "\uE856",
+  "locked": "\uE506",
+  "map-filled": "\uE85C",
+  "map-pin": "\uE85E",
+  "map-pin-ellipse": "\uE864",
+  "map": "\uE364",
+  "minus-filled": "\uE440",
+  "mic-filled": "\uE332",
+  "minus": "\uE410",
+  "micoff": "\uE360",
+  "mic": "\uE302",
+  "clear": "\uE434",
+  "smallcircle": "\uE868",
+  "close": "\uE404",
+  "closeempty": "\uE460",
+  "paperclip": "\uE567",
+  "paperplane": "\uE503",
+  "paperplane-filled": "\uE86E",
+  "person-filled": "\uE131",
+  "contact-filled": "\uE130",
+  "person": "\uE101",
+  "contact": "\uE100",
+  "images-filled": "\uE87A",
+  "phone": "\uE200",
+  "images": "\uE87B",
+  "image": "\uE363",
+  "image-filled": "\uE877",
+  "location-filled": "\uE333",
+  "location": "\uE303",
+  "plus-filled": "\uE439",
+  "plus": "\uE409",
+  "plusempty": "\uE468",
+  "help-filled": "\uE535",
+  "help": "\uE505",
+  "navigate-filled": "\uE884",
+  "navigate": "\uE501",
+  "mic-slash-filled": "\uE892",
+  "search": "\uE466",
+  "settings": "\uE560",
+  "sound": "\uE590",
+  "sound-filled": "\uE8A1",
+  "spinner-cycle": "\uE465",
+  "download-filled": "\uE8A4",
+  "personadd-filled": "\uE132",
+  "videocam-filled": "\uE8AF",
+  "personadd": "\uE102",
+  "upload": "\uE402",
+  "upload-filled": "\uE8B1",
+  "starhalf": "\uE463",
+  "star-filled": "\uE438",
+  "star": "\uE408",
+  "trash": "\uE401",
+  "phone-filled": "\uE230",
+  "compose": "\uE400",
+  "videocam": "\uE300",
+  "trash-filled": "\uE8DC",
+  "download": "\uE403",
+  "chatbubble-filled": "\uE232",
+  "chatbubble": "\uE202",
+  "cloud-download": "\uE8E4",
+  "cloud-upload-filled": "\uE8E5",
+  "cloud-upload": "\uE8E6",
+  "cloud-download-filled": "\uE8E9",
+  "headphones": "\uE8BF",
+  "shop": "\uE609" };exports.default = _default;
+
+/***/ }),
+
+/***/ 18:
 /*!***********************************************************!*\
   !*** D:/Code/front_end/小程序/薪火小程序/薪火小程序前端/models/index.js ***!
   \***********************************************************/
@@ -2159,14 +2334,56 @@ function normalizeComponent (
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.login = void 0;var _http = __webpack_require__(/*! ../utils/http.js */ 127);function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}
+Object.defineProperty(exports, "__esModule", { value: true });exports.postEmailCode = exports.postEmail = exports.getUserImformation = exports.postUserImformation = exports.signUp = exports.login = void 0;var _http = __webpack_require__(/*! ../utils/http.js */ 19);
 //POST 请求案例
 
+// 用户登录注册
 var login = function login(query) {
   return (0, _http.apiResquest)({
-    url: '/appLogin',
+    url: '/user/login',
     method: 'POST',
-    query: _objectSpread({}, query) });
+    query: query });
+
+};exports.login = login;
+
+var signUp = function signUp(query) {
+  return (0, _http.apiResquest)({
+    url: '/signUp',
+    method: 'POST',
+    query: query });
+
+};
+
+// 上传用户信息
+exports.signUp = signUp;var postUserImformation = function postUserImformation(query) {
+  return (0, _http.apiResquest)({
+    url: '/user',
+    method: 'PUT',
+    query: query });
+
+};
+// 获取用户信息
+exports.postUserImformation = postUserImformation;var getUserImformation = function getUserImformation(query) {
+  return (0, _http.apiResquest)({
+    url: '/user',
+    method: 'GET',
+    query: query });
+
+};
+// 传邮箱信息
+exports.getUserImformation = getUserImformation;var postEmail = function postEmail(query) {
+  return (0, _http.apiResquest)({
+    url: '/user/mailVerify',
+    method: 'POST',
+    query: query });
+
+};exports.postEmail = postEmail;
+
+var postEmailCode = function postEmailCode(query) {
+  return (0, _http.apiResquest)({
+    url: '/user/codeCheck',
+    method: 'POST',
+    query: query });
 
 };
 
@@ -2178,11 +2395,11 @@ var login = function login(query) {
 // 		method: 'GET'
 // 	})
 // }
-exports.login = login;
+exports.postEmailCode = postEmailCode;
 
 /***/ }),
 
-/***/ 127:
+/***/ 19:
 /*!*********************************************************!*\
   !*** D:/Code/front_end/小程序/薪火小程序/薪火小程序前端/utils/http.js ***!
   \*********************************************************/
@@ -2190,7 +2407,7 @@ exports.login = login;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.apiResquest = void 0;var _config = __webpack_require__(/*! ./config.js */ 128);
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.apiResquest = void 0;var _config = __webpack_require__(/*! ./config.js */ 20);
 
 
 
@@ -2198,7 +2415,8 @@ var apiResquest = function apiResquest(prams) {//prams 为我们需要调用的�
 
   // 判断请求类型
   var headerData = {
-    'content-type': 'application/json' };
+    'content-type': 'application/json',
+    'c': uni.getStorageSync('cookie').cookie };
 
 
   var dataObj = null;
@@ -2206,13 +2424,10 @@ var apiResquest = function apiResquest(prams) {//prams 为我们需要调用的�
   if (prams.method === "GET") {
     headerData = {
       'content-type': 'application/json',
-      'token': uni.getStorageSync('token') };
+      'c': uni.getStorageSync('cookie').cookie };
 
   } else {
-    dataObj = {
-      'data': prams.query,
-      'token': uni.getStorageSync('token') };
-
+    dataObj = prams.query;
   }
   return new Promise(function (resolve, reject) {
     var url = _config.config.base_url + prams.url; //请求的网络地址和局地的api地址组合
@@ -2226,26 +2441,28 @@ var apiResquest = function apiResquest(prams) {//prams 为我们需要调用的�
       method: prams.method,
       header: headerData,
       success: function success(res) {
-        uni.hideLoading();
-        //这里是成功的返回码，大家根据自己的实际情况调整
-        if (res.data.code !== '00000') {
-          uni.showToast({
-            title: '获取数据失败:' + res.data.msg,
-            duration: 1000,
-            icon: "none" });
 
-          return;
-        }
+        uni.hideLoading();
+        console.log("调用成功");
+        //这里是成功的返回码，大家根据自己的实际情况调整
+        // if (res.data.code !== '00000') {
+        // 	uni.showToast({
+        // 		title: '获取数据失败:' + res.data.msg,
+        // 		duration: 1000,
+        // 		icon: "none"
+        // 	})
+        // 	return;
+        // }
         resolve(res.data);
-        console.log(res.data);
       },
       fail: function fail(err) {
         reject(err);
         console.log(err);
+        console.log("调用失败");
         uni.hideLoading();
       },
       complete: function complete() {
-        console.log('请求完成');
+        // console.log('请求完成')
         uni.hideLoading();
       } });
 
@@ -2255,7 +2472,38 @@ var apiResquest = function apiResquest(prams) {//prams 为我们需要调用的�
 
 /***/ }),
 
-/***/ 128:
+/***/ 2:
+/*!***********************************!*\
+  !*** (webpack)/buildin/global.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || new Function("return this")();
+} catch (e) {
+	// This works if the window reference is available
+	if (typeof window === "object") g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ }),
+
+/***/ 20:
 /*!***********************************************************!*\
   !*** D:/Code/front_end/小程序/薪火小程序/薪火小程序前端/utils/config.js ***!
   \***********************************************************/
@@ -2264,11 +2512,11 @@ var apiResquest = function apiResquest(prams) {//prams 为我们需要调用的�
 
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });exports.config = void 0;var config = {
-  base_url: 'http://192.168.55.230:3000' };exports.config = config;
+  base_url: 'http://192.168.10.67:8002' };exports.config = config;
 
 /***/ }),
 
-/***/ 2:
+/***/ 3:
 /*!******************************************************************************************!*\
   !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/mp-vue/dist/mp.runtime.esm.js ***!
   \******************************************************************************************/
@@ -7795,7 +8043,7 @@ function type(obj) {
 
 function flushCallbacks$1(vm) {
     if (vm.__next_tick_callbacks && vm.__next_tick_callbacks.length) {
-        if (Object({"NODE_ENV":"development","VUE_APP_NAME":"薪火小程序","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
+        if (Object({"VUE_APP_NAME":"薪火小程序","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:flushCallbacks[' + vm.__next_tick_callbacks.length + ']');
@@ -7816,14 +8064,14 @@ function nextTick$1(vm, cb) {
     //1.nextTick 之前 已 setData 且 setData 还未回调完成
     //2.nextTick 之前存在 render watcher
     if (!vm.__next_tick_pending && !hasRenderWatcher(vm)) {
-        if(Object({"NODE_ENV":"development","VUE_APP_NAME":"薪火小程序","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"VUE_APP_NAME":"薪火小程序","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:nextVueTick');
         }
         return nextTick(cb, vm)
     }else{
-        if(Object({"NODE_ENV":"development","VUE_APP_NAME":"薪火小程序","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"VUE_APP_NAME":"薪火小程序","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance$1 = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance$1.is || mpInstance$1.route) + '][' + vm._uid +
                 ']:nextMPTick');
@@ -7909,7 +8157,7 @@ var patch = function(oldVnode, vnode) {
     });
     var diffData = this.$shouldDiffData === false ? data : diff(data, mpData);
     if (Object.keys(diffData).length) {
-      if (Object({"NODE_ENV":"development","VUE_APP_NAME":"薪火小程序","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"VUE_APP_NAME":"薪火小程序","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + this._uid +
           ']差量更新',
           JSON.stringify(diffData));
@@ -8313,60 +8561,7 @@ internalMixin(Vue);
 
 /* harmony default export */ __webpack_exports__["default"] = (Vue);
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../../webpack/buildin/global.js */ 3)))
-
-/***/ }),
-
-/***/ 24:
-/*!************************************************************!*\
-  !*** D:/Code/front_end/小程序/薪火小程序/薪火小程序前端/images/我的@3x.png ***!
-  \************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "data:image/png;base64,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"
-
-/***/ }),
-
-/***/ 3:
-/*!***********************************!*\
-  !*** (webpack)/buildin/global.js ***!
-  \***********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || new Function("return this")();
-} catch (e) {
-	// This works if the window reference is available
-	if (typeof window === "object") g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-
-/***/ }),
-
-/***/ 33:
-/*!************************************************************!*\
-  !*** D:/Code/front_end/小程序/薪火小程序/薪火小程序前端/images/文宣部头像.png ***!
-  \************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "/images/文宣部头像.png";
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../../webpack/buildin/global.js */ 2)))
 
 /***/ }),
 
@@ -8378,7 +8573,7 @@ module.exports = "/images/文宣部头像.png";
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.compileI18nJsonStr = compileI18nJsonStr;exports.hasI18nJson = hasI18nJson;exports.initVueI18n = initVueI18n;exports.isI18nStr = isI18nStr;exports.normalizeLocale = normalizeLocale;exports.parseI18nJson = parseI18nJson;exports.isString = exports.LOCALE_ZH_HANT = exports.LOCALE_ZH_HANS = exports.LOCALE_FR = exports.LOCALE_ES = exports.LOCALE_EN = exports.I18n = exports.Formatter = void 0;function _slicedToArray(arr, i) {return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();}function _nonIterableRest() {throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(o);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;}function _iterableToArrayLimit(arr, i) {if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;var _arr = [];var _n = true;var _d = false;var _e = undefined;try {for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {_arr.push(_s.value);if (i && _arr.length === i) break;}} catch (err) {_d = true;_e = err;} finally {try {if (!_n && _i["return"] != null) _i["return"]();} finally {if (_d) throw _e;}}return _arr;}function _arrayWithHoles(arr) {if (Array.isArray(arr)) return arr;}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}function _createClass(Constructor, protoProps, staticProps) {if (protoProps) _defineProperties(Constructor.prototype, protoProps);if (staticProps) _defineProperties(Constructor, staticProps);return Constructor;}var isArray = Array.isArray;
+/* WEBPACK VAR INJECTION */(function(uni, global) {Object.defineProperty(exports, "__esModule", { value: true });exports.compileI18nJsonStr = compileI18nJsonStr;exports.hasI18nJson = hasI18nJson;exports.initVueI18n = initVueI18n;exports.isI18nStr = isI18nStr;exports.normalizeLocale = normalizeLocale;exports.parseI18nJson = parseI18nJson;exports.resolveLocale = resolveLocale;exports.isString = exports.LOCALE_ZH_HANT = exports.LOCALE_ZH_HANS = exports.LOCALE_FR = exports.LOCALE_ES = exports.LOCALE_EN = exports.I18n = exports.Formatter = void 0;function _slicedToArray(arr, i) {return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();}function _nonIterableRest() {throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(o);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;}function _iterableToArrayLimit(arr, i) {if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;var _arr = [];var _n = true;var _d = false;var _e = undefined;try {for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {_arr.push(_s.value);if (i && _arr.length === i) break;}} catch (err) {_d = true;_e = err;} finally {try {if (!_n && _i["return"] != null) _i["return"]();} finally {if (_d) throw _e;}}return _arr;}function _arrayWithHoles(arr) {if (Array.isArray(arr)) return arr;}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}function _createClass(Constructor, protoProps, staticProps) {if (protoProps) _defineProperties(Constructor.prototype, protoProps);if (staticProps) _defineProperties(Constructor, staticProps);return Constructor;}var isArray = Array.isArray;
 var isObject = function isObject(val) {return val !== null && typeof val === 'object';};
 var defaultDelimiters = ['{', '}'];var
 BaseFormatter = /*#__PURE__*/function () {
@@ -8502,10 +8697,10 @@ function normalizeLocale(locale, messages) {
   }
   locale = locale.toLowerCase();
   if (locale.indexOf('zh') === 0) {
-    if (locale.indexOf('-hans') !== -1) {
+    if (locale.indexOf('-hans') > -1) {
       return LOCALE_ZH_HANS;
     }
-    if (locale.indexOf('-hant') !== -1) {
+    if (locale.indexOf('-hant') > -1) {
       return LOCALE_ZH_HANT;
     }
     if (include(locale, ['-tw', '-hk', '-mo', '-cht'])) {
@@ -8597,11 +8792,29 @@ I18n = /*#__PURE__*/function () {
     } }]);return I18n;}();exports.I18n = I18n;
 
 
-var ignoreVueI18n = true;
 function watchAppLocale(appVm, i18n) {
-  appVm.$watch(function () {return appVm.$locale;}, function (newLocale) {
-    i18n.setLocale(newLocale);
-  });
+  // 需要保证 watch 的触发在组件渲染之前
+  if (appVm.$watchLocale) {
+    // vue2
+    appVm.$watchLocale(function (newLocale) {
+      i18n.setLocale(newLocale);
+    });
+  } else
+  {
+    appVm.$watch(function () {return appVm.$locale;}, function (newLocale) {
+      i18n.setLocale(newLocale);
+    });
+  }
+}
+function getDefaultLocale() {
+  if (typeof uni !== 'undefined' && uni.getLocale) {
+    return uni.getLocale();
+  }
+  // 小程序平台，uni 和 uni-i18n 互相引用，导致访问不到 uni，故在 global 上挂了 getLocale
+  if (typeof global !== 'undefined' && global.getLocale) {
+    return global.getLocale();
+  }
+  return LOCALE_EN;
 }
 function initVueI18n(locale) {var messages = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};var fallbackLocale = arguments.length > 2 ? arguments[2] : undefined;var watcher = arguments.length > 3 ? arguments[3] : undefined;
   // 兼容旧版本入参
@@ -8612,9 +8825,8 @@ function initVueI18n(locale) {var messages = arguments.length > 1 && arguments[1
 
   }
   if (typeof locale !== 'string') {
-    locale =
-    typeof uni !== 'undefined' && uni.getLocale && uni.getLocale() ||
-    LOCALE_EN;
+    // 因为小程序平台，uni-i18n 和 uni 互相引用，导致此时访问 uni 时，为 undefined
+    locale = getDefaultLocale();
   }
   if (typeof fallbackLocale !== 'string') {
     fallbackLocale =
@@ -8636,33 +8848,32 @@ function initVueI18n(locale) {var messages = arguments.length > 1 && arguments[1
       };
     } else
     {
-      var appVm = getApp().$vm;
-      watchAppLocale(appVm, i18n);
-      if (!appVm.$t || !appVm.$i18n || ignoreVueI18n) {
-        // if (!locale) {
-        //   i18n.setLocale(getDefaultLocale())
-        // }
-        /* eslint-disable no-func-assign */
-        _t = function t(key, values) {
+      var isWatchedAppLocale = false;
+      _t = function t(key, values) {
+        var appVm = getApp().$vm;
+        // 可能$vm还不存在，比如在支付宝小程序中，组件定义较早，在props的default里使用了t()函数（如uni-goods-nav），此时app还未初始化
+        // options: {
+        // 	type: Array,
+        // 	default () {
+        // 		return [{
+        // 			icon: 'shop',
+        // 			text: t("uni-goods-nav.options.shop"),
+        // 		}, {
+        // 			icon: 'cart',
+        // 			text: t("uni-goods-nav.options.cart")
+        // 		}]
+        // 	}
+        // },
+        if (appVm) {
           // 触发响应式
           appVm.$locale;
-          return i18n.t(key, values);
-        };
-      } else
-      {
-        /* eslint-disable no-func-assign */
-        _t = function t(key, values) {
-          var $i18n = appVm.$i18n;
-          var silentTranslationWarn = $i18n.silentTranslationWarn;
-          $i18n.silentTranslationWarn = true;
-          var msg = appVm.$t(key, values);
-          $i18n.silentTranslationWarn = silentTranslationWarn;
-          if (msg !== key) {
-            return msg;
+          if (!isWatchedAppLocale) {
+            isWatchedAppLocale = true;
+            watchAppLocale(appVm, i18n);
           }
-          return i18n.t(key, $i18n.locale, values);
-        };
-      }
+        }
+        return i18n.t(key, values);
+      };
     }
     return _t(key, values);
   };
@@ -8795,7 +9006,26 @@ function walkJsonObj(jsonObj, walk) {
   }
   return false;
 }
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
+
+function resolveLocale(locales) {
+  return function (locale) {
+    if (!locale) {
+      return locale;
+    }
+    locale = normalizeLocale(locale) || locale;
+    return resolveLocaleChain(locale).find(function (locale) {return locales.indexOf(locale) > -1;});
+  };
+}
+function resolveLocaleChain(locale) {
+  var chain = [];
+  var tokens = locale.split('-');
+  while (tokens.length) {
+    chain.push(tokens.join('-'));
+    tokens.pop();
+  }
+  return chain;
+}
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"], __webpack_require__(/*! ./../../../webpack/buildin/global.js */ 2)))
 
 /***/ }),
 

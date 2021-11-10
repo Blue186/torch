@@ -1,0 +1,1 @@
+<view class="page"><block wx:if="{{none}}"><view class="nonePage"><view class="img"><image src="../../static/上传图片.png" mode></image></view><view class="content"><text>你还没有志愿记录喔~</text><text>赶紧前往首页报名吧</text></view></view></block><block wx:else><view class="have"><activity vue-id="6113ce10-1" bind:__l="__l"></activity><text>--end--</text></view></block></view>

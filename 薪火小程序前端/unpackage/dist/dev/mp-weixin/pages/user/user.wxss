@@ -41,6 +41,7 @@
 .userPage .identity .userInformation.data-v-80842834 {
   display: flex;
   align-items: center;
+  width: 90%;
 }
 .userPage .identity .userInformation .avatar ._img.data-v-80842834 {
   width: 200rpx;
@@ -55,20 +56,19 @@
 .userPage .identity .userInformation .other .information.data-v-80842834 {
   position: relative;
 }
-.userPage .identity .userInformation .other .information .role.data-v-80842834 {
-  position: absolute;
+.userPage .identity .userInformation .other .information .nickname.data-v-80842834 {
+  display: flex;
+  font-size: 40rpx;
+  font-weight: 400;
+}
+.userPage .identity .userInformation .other .information .nickname .role.data-v-80842834 {
   background-color: #5c69bb;
   border-radius: 40rpx;
   color: #fff;
   font-size: 25rpx;
   padding: 10rpx 20rpx;
-  top: 0;
-  left: 90rpx;
+  margin-left: 20rpx;
   min-width: 75rpx;
-}
-.userPage .identity .userInformation .other .information .nickname.data-v-80842834 {
-  font-size: 40rpx;
-  font-weight: 400;
 }
 .userPage .identity .userInformation .other .information .id.data-v-80842834 {
   color: #bababa;
@@ -86,9 +86,14 @@
   color: #bababa;
   font-size: 25rpx;
 }
+.userPage .identity .userInformation .other .information .sexAndBirthday text.data-v-80842834 {
+  margin-left: 10rpx;
+}
 .userPage .identity .userInformation .other .editInformation.data-v-80842834 {
+  position: absolute;
+  top: 120rpx;
+  right: 20rpx;
   font-size: 25rpx;
-  margin-left: 200rpx;
 }
 .userPage .identity .userInformation .other .editInformation image.data-v-80842834 {
   vertical-align: text-bottom;

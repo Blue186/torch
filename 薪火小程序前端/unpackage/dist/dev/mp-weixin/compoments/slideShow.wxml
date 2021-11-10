@@ -1,1 +1,12 @@
-<view><swiper class="swiper" indicator-dots="{{true}}" autoplay="{{true}}" interval="{{3000}}" duration="{{1000}}" indicator-color="#eee" indicator-active-color="#fff" circular="true"><swiper-item><view class="swiper-item">薪火真棒</view></swiper-item><swiper-item><view class="swiper-item">薪火YYDS</view></swiper-item><swiper-item><view class="swiper-item">这是第三章图</view></swiper-item></swiper></view>
+<view class="page">
+  <swiper class="swiper" indicator-dots="{{true}}" autoplay="{{true}}" interval="{{3000}}" duration="{{1000}}"
+    indicator-color="#eee" indicator-active-color="#fff" circular="true">
+    <block wx:for="{{images}}" wx:for-item="image" wx:for-index="__i0__" wx:key="name">
+      <swiper-item>
+        <view class="swiper-item">
+          <image class="image" src="{{image.url}}" mode="aspectFill"></image>
+        </view>
+      </swiper-item>
+    </block>
+  </swiper>
+</view>
