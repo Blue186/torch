@@ -17,4 +17,5 @@ public class ContactUs {
     private Date createTime;
     private Date updateTime;
     private String resContent;
+    private Date resTime;
 }
