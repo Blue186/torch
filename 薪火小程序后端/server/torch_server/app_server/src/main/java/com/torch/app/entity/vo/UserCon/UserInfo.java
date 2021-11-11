@@ -1,4 +1,4 @@
-package com.torch.app.entity.vo;
+package com.torch.app.entity.vo.UserCon;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

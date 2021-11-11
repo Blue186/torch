@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.torch.app.entity.Article;
 import com.torch.app.entity.Impressions;
+import com.torch.app.entity.vo.ImpressionsCon.PublishImpressions;
+import com.torch.app.entity.vo.ImpressionsCon.UpdateImpressions;
 import com.torch.app.service.ArticleService;
 import com.torch.app.service.ImpressionsService;
 import com.torch.app.util.tools.FileUtil;
@@ -22,7 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.List;
 
-@Api(tags = "{用户心得体会相关接口}",value = "用户心得体会相关接口")
+@Api(tags = {"用户心得体会相关接口"},value = "用户心得体会相关接口")
 @RestController
 @RequestMapping("/impressions")
 public class ImpressionsController {
@@ -40,24 +42,20 @@ public class ImpressionsController {
      */
     @ApiOperation(value = "用户发布文章接口")
     @PostMapping()
-    public R<?> publishImpressions(@ApiParam(name = "impressions",value = "用户心得信息",required = true) @RequestBody String content,
-                               @ApiParam(name = "images",value = "图片流",required = true)@RequestBody MultipartFile[] images,
-                                   @ApiParam(name = "actStars",value = "对志愿活动的评价等级")@RequestBody Integer actStars,
-                                   @ApiParam(name = "actId",value = "志愿活动的id",required = true) Integer actId,
-
+    public R<?> publishImpressions(@ApiParam(name = "impressions",value = "用户心得信息",required = true) @RequestBody PublishImpressions publishImp,
                                    HttpServletRequest request){
         Boolean judge = judgeCookieToken.judge(request);
         if (judge){
             String cookie = judgeCookieToken.getCookie(request);
             Object uid = redisUtil.hmGet(cookie, "uid");
             Impressions impressions = new Impressions();
-            impressions.setContent(content);
-            impressions.setActId(actId);
-            impressions.setActStars(actStars);
+            impressions.setContent(publishImp.getContent());
+            impressions.setActId(publishImp.getActId());
+            impressions.setActStars(publishImp.getActStars());
             impressions.setUserId((Integer) uid);
             impressions.setCreateTime(new Date());
             impressions.setUpdateTime(new Date());
-            String[] urls = fileUtil.uploadImage(images);
+            String[] urls = fileUtil.uploadImage(publishImp.getImages());
             String join = StringUtils.join(urls, ";");
             impressions.setActImages(join);
 
@@ -74,7 +72,8 @@ public class ImpressionsController {
 
     @ApiOperation(value = "用户删除已发布的文章接口")
     @DeleteMapping()
-    public R<?> deleteImpressions(@ApiParam(name = "id",value = "心得的id")@RequestBody Integer id, HttpServletRequest request){
+    public R<?> deleteImpressions(@ApiParam(name = "id",value = "心得的id")@RequestBody Integer id,
+                                  HttpServletRequest request){
         Boolean judge = judgeCookieToken.judge(request);
         if (judge){
             int res = impressionsService.getBaseMapper().deleteById(id);
@@ -90,21 +89,17 @@ public class ImpressionsController {
 
     @ApiOperation(value = "用户修改心得")
     @PutMapping()
-    public R<?> updateImpressions(@ApiParam(name = "impressions",value = "用户心得信息",required = true) @RequestBody String content,
-                                  @ApiParam(name = "images",value = "图片流",required = true)@RequestBody MultipartFile[] images,
-                                  @ApiParam(name = "actStars",value = "对志愿活动的评价等级")@RequestBody Integer actStars,
-                                  @ApiParam(name = "actId",value = "志愿活动的id",required = true) Integer actId,
-                              @ApiParam(name = "id",value = "心得id",required = true) Integer id,
-                              HttpServletRequest request){
+    public R<?> updateImpressions(@ApiParam(name = "impressions",value = "用户心得信息",required = true) @RequestBody UpdateImpressions updateImp,
+                                  HttpServletRequest request){
         Boolean judge = judgeCookieToken.judge(request);
         if (judge){
-            Impressions impressions = impressionsService.getBaseMapper().selectById(id);
+            Impressions impressions = impressionsService.getBaseMapper().selectById(updateImp.getId());
             impressions.setUpdateTime(new Date());
-            impressions.setActStars(actStars);
-            impressions.setContent(content);
-            impressions.setActId(actId);
+            impressions.setActStars(updateImp.getActStars());
+            impressions.setContent(updateImp.getContent());
+            impressions.setActId(updateImp.getActId());
 
-            String[] urls = fileUtil.uploadImage(images);
+            String[] urls = fileUtil.uploadImage(updateImp.getImages());
             String join = StringUtils.join(urls, ";");
             impressions.setActImages(join);
             int res = impressionsService.getBaseMapper().updateById(impressions);
@@ -140,7 +135,8 @@ public class ImpressionsController {
     }
     @ApiOperation(value = "获取单篇心得的内容")
     @GetMapping("/{id}")
-    public R<?> getOneImpressions(@ApiParam(name = "id",value = "心得的id",required = true)@PathVariable Integer id,HttpServletRequest request){
+    public R<?> getOneImpressions(@ApiParam(name = "id",value = "心得的id",required = true)@PathVariable Integer id,
+                                  HttpServletRequest request){
         Boolean judge = judgeCookieToken.judge(request);
         if (judge){
             Impressions impressions = impressionsService.getBaseMapper().selectById(id);

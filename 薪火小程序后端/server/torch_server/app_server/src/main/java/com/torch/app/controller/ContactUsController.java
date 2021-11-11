@@ -3,6 +3,7 @@ package com.torch.app.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.torch.app.entity.ContactUs;
+import com.torch.app.entity.vo.ContactUsCon.UpdateMessage;
 import com.torch.app.service.ContactUsService;
 import com.torch.app.util.tools.FileUtil;
 import com.torch.app.util.tools.JudgeCookieToken;
@@ -18,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.List;
 
-@Api(tags = "{联系我们相关接口}",value = "联系我们")
+@Api(tags = {"联系我们相关接口"},value = "联系我们")
 @RestController
 @RequestMapping("/contactUs")
 public class ContactUsController {
@@ -75,13 +76,12 @@ public class ContactUsController {
 //    若设置撤回，则不需要修改接口，可以先写着，后面再更改
     @ApiOperation(value = "修改信息")
     @PutMapping()
-    public R<?> updateMessage(@ApiParam(name = "id",value = "消息编号",required = true)@RequestBody Integer id,
-                              @ApiParam(name = "content",value = "内容",required = true)@RequestBody String content,
+    public R<?> updateMessage(@ApiParam(name = "id",value = "消息编号",required = true)@RequestBody UpdateMessage updateMes,
                               HttpServletRequest request){
         Boolean judge = judgeCookieToken.judge(request);
         if (judge){
-            ContactUs contactUs = contactUsService.getBaseMapper().selectById(id);
-            contactUs.setContent(content);
+            ContactUs contactUs = contactUsService.getBaseMapper().selectById(updateMes.getId());
+            contactUs.setContent(updateMes.getContent());
             contactUs.setUpdateTime(new Date());
             int res = contactUsService.getBaseMapper().insert(contactUs);
             if (res==1){

@@ -3,8 +3,9 @@ package com.torch.app.controller;
 import cn.hutool.json.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.torch.app.entity.User;
-import com.torch.app.entity.vo.UserInfo;
-import com.torch.app.entity.vo.UserLogin;
+import com.torch.app.entity.vo.UserCon.CodeCheck;
+import com.torch.app.entity.vo.UserCon.UserInfo;
+import com.torch.app.entity.vo.UserCon.UserLogin;
 import com.torch.app.service.UserService;
 import com.torch.app.util.tools.*;
 import commonutils.R;
@@ -68,7 +69,7 @@ public class UserController {
                 map.put("uid",user_N.getId());
                 redisUtil.hmSet(cookie,map);//完成cookie、openid和token的缓存填入
 
-                System.out.println(redisUtil.hmGet(cookie,"openid").toString());;
+                System.out.println(redisUtil.hmGet(cookie,"openid").toString());
             }
             Map<String,Object> map_R = new HashMap<>();
             map_R.put("c",cookie);
@@ -178,17 +179,17 @@ public class UserController {
      */
     @ApiOperation(value = "邮箱验证码校验")
     @PostMapping("/codeCheck")
-    public R<?> codeCheck(@ApiParam(name = "mail",value = "邮箱",required = true)@RequestBody String mail,
-                          @ApiParam(name = "code",value = "邮箱验证码",required = true) @RequestBody String code,HttpServletRequest request){
+    public R<?> codeCheck(@ApiParam(name = "codeCheck",value = "邮箱校验类") @RequestBody CodeCheck codeCheck,
+                          HttpServletRequest request){
         Boolean judge = judgeCookieToken.judge(request);
         if (judge){
+//            JSONObject jsonObject = new JSONObject(code);
+//            String mailCode = jsonObject.getStr("code");
 
-            JSONObject jsonObject = new JSONObject(code);
-            String mailCode = jsonObject.getStr("code");
-            System.out.println("mailCode = " + mailCode);
+            System.out.println("codeCheck = " + codeCheck);
             String cookie = judgeCookieToken.getCookie(request);
-            String md5_R = redisUtil.get(mail).toString();
-            String md5 = tokenUtil.generateMd5(mail, cookie,mailCode);
+            String md5_R = redisUtil.get(codeCheck.getMail()).toString();
+            String md5 = tokenUtil.generateMd5(codeCheck.getMail(), cookie, codeCheck.getCode());
             if (md5_R==null){
                 Map<String,Object> map = new HashMap<>();
                 map.put("timeout",40);
@@ -197,7 +198,7 @@ public class UserController {
                 if (md5.equals(md5_R)){
                     String uid = redisUtil.hmGet(cookie, "uid").toString();
                     User user = userService.getBaseMapper().selectById(uid);
-                    user.setEmail(mail);
+                    user.setEmail(codeCheck.getMail());
                     int res = userService.getBaseMapper().updateById(user);
                     if (res==1){
                         return R.ok().message("用户邮箱更新成功");

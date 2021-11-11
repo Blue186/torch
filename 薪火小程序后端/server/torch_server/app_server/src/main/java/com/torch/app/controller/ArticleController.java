@@ -4,6 +4,8 @@ package com.torch.app.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.torch.app.entity.Article;
+import com.torch.app.entity.vo.ArticleCon.PublishArticle;
+import com.torch.app.entity.vo.ArticleCon.UpdateArticle;
 import com.torch.app.service.ArticleService;
 import com.torch.app.util.tools.FileUtil;
 import com.torch.app.util.tools.JudgeCookieToken;
@@ -40,17 +42,16 @@ public class ArticleController {
  */
     @ApiOperation(value = "用户发布文章接口")
     @PostMapping()
-    public R<?> publishArticle(@ApiParam(name = "article",value = "用户文章信息",required = true) @RequestBody String content,
-                               @ApiParam(name = "images",value = "图片流",required = true)@RequestBody MultipartFile[] images,
+    public R<?> publishArticle(@ApiParam(name = "publishArticle",value = "用户文章信息",required = true) @RequestBody PublishArticle publishArt,
                                HttpServletRequest request){
         Boolean judge = judgeCookieToken.judge(request);
         if (judge){
-            String[] urls = fileUtil.uploadImage(images);
+            String[] urls = fileUtil.uploadImage(publishArt.getImages());
 
             String cookie = judgeCookieToken.getCookie(request);
             Object uid = redisUtil.hmGet(cookie, "uid");
             Article article = new Article();
-            article.setContent(content);
+            article.setContent(publishArt.getContent());
             article.setAuthorId((Integer) uid);
             article.setCreateTime(new Date());
             article.setUpdateTime(new Date());
@@ -72,7 +73,8 @@ public class ArticleController {
 
     @ApiOperation(value = "用户删除已发布的文章接口")
     @DeleteMapping()
-    public R<?> deleteArticle(@ApiParam(name = "id",value = "文章的id")@RequestBody Integer id, HttpServletRequest request){
+    public R<?> deleteArticle(@ApiParam(name = "id",value = "文章的id")@RequestBody Integer id,
+                              HttpServletRequest request){
         Boolean judge = judgeCookieToken.judge(request);
         if (judge){
             int res = articleService.getBaseMapper().deleteById(id);
@@ -88,15 +90,13 @@ public class ArticleController {
 
     @ApiOperation(value = "用户修改")
     @PutMapping()
-    public R<?> updateArticle(@ApiParam(name = "id",value = "文章id",required = true)@RequestBody Integer id,
-                              @ApiParam(name = "content",value = "文章内容",required = true)@RequestBody String content,
-                              @ApiParam(name = "images",value = "图片流",required = true)@RequestBody MultipartFile[] images,
+    public R<?> updateArticle(@ApiParam(name = "id",value = "文章id",required = true)@RequestBody UpdateArticle updateArt,
                               HttpServletRequest request){
         Boolean judge = judgeCookieToken.judge(request);
         if (judge){
-            Article article = articleService.getBaseMapper().selectById(id);
-            article.setContent(content);
-            String[] urls = fileUtil.uploadImage(images);
+            Article article = articleService.getBaseMapper().selectById(updateArt.getId());
+            article.setContent(updateArt.getContent());
+            String[] urls = fileUtil.uploadImage(updateArt.getImages());
             String join = StringUtils.join(urls, ";");
             article.setArtImage(join);
             article.setUpdateTime(new Date());
@@ -130,7 +130,8 @@ public class ArticleController {
     }
     @ApiOperation(value = "获取一篇文章的内容")
     @GetMapping("/{id}")
-    public R<?> getOneArticle(@ApiParam(name = "id",value = "文章id",required = true)@PathVariable Integer id,HttpServletRequest request){
+    public R<?> getOneArticle(@ApiParam(name = "id",value = "文章id",required = true)@PathVariable Integer id,
+                              HttpServletRequest request){
         Boolean judge = judgeCookieToken.judge(request);
         if (judge){
             Article article = articleService.getBaseMapper().selectById(id);
@@ -138,6 +139,26 @@ public class ArticleController {
         }else {
             return R.error().code(-100);
         }
+    }
+
+    @ApiOperation(value = "点开文章后，浏览次数加一")
+    @PutMapping("{id}")
+    public R<?> viewNum(@ApiParam(name = "id",value = "文章的id",required = true)@PathVariable Integer id,
+                        HttpServletRequest request){
+        Boolean judge = judgeCookieToken.judge(request);
+        if (judge){
+            Article article = articleService.getBaseMapper().selectById(id);
+            article.setViews(article.getViews()+1);
+            int res = articleService.getBaseMapper().updateById(article);
+            if (res==1){
+                return R.ok().message("用户浏览文章加1");
+            }else {
+                return R.error().message("失败");
+            }
+        }else {
+            return R.error().code(-100);
+        }
+
     }
 }
 
