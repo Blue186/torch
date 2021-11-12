@@ -20,7 +20,7 @@ public class Article {
     private Date createTime;
     private Date updateTime;
     private String content;
-    private Integer commentId;
+    private Integer commentId;//这个可能不需要，应该是在comment表中设置artId
     private Integer thumbsUp;
     private Integer type;
     private Integer views;

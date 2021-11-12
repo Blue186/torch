@@ -21,4 +21,5 @@ public class Comment {
     private String content;
     private Integer nextId;
     private Integer thumbsUp;
+    private Integer artId;
 }
