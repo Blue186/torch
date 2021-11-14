@@ -10,10 +10,8 @@ import com.torch.app.service.UserService;
 import com.torch.app.util.tools.JudgeCookieToken;
 import com.torch.app.util.tools.RedisUtil;
 import commonutils.R;
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import org.springframework.beans.propertyeditors.ReaderEditor;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -56,6 +54,28 @@ public class ThumbsController {
                 Article article = articleService.getBaseMapper().selectById(id);
                 article.setThumbsUp(article.getThumbsUp()+1);
                 return R.ok().message("点赞成功");
+            }else {
+                return R.error().message("失败");
+            }
+        }else {
+            return R.error().code(-100);
+        }
+    }
+
+    @ApiOperation(value = "取消点赞")
+    @DeleteMapping("/{id}")
+    public R<?> deleteThumbs(@ApiParam(name = "id",value = "文章id",required = true)@PathVariable Integer id,
+                             HttpServletRequest request){
+        Boolean judge = judgeCookieToken.judge(request);
+        if (judge){
+            String cookie = judgeCookieToken.getCookie(request);
+            Object uid = redisUtil.hmGet(cookie, "uid");
+            QueryWrapper<Thumbs> wrapper = new QueryWrapper<>();
+            wrapper.eq("userId",uid);
+            wrapper.eq("artId",id);
+            int res = thumbsService.getBaseMapper().delete(wrapper);
+            if (res==1){
+                return R.ok().message("取消点赞");
             }else {
                 return R.error().message("失败");
             }

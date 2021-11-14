@@ -71,8 +71,8 @@ public class ImpressionsController {
     }
 
     @ApiOperation(value = "用户删除已发布的文章接口")
-    @DeleteMapping()
-    public R<?> deleteImpressions(@ApiParam(name = "id",value = "心得的id")@RequestBody Integer id,
+    @DeleteMapping("/{id}")
+    public R<?> deleteImpressions(@ApiParam(name = "id",value = "心得的id")@PathVariable Integer id,
                                   HttpServletRequest request){
         Boolean judge = judgeCookieToken.judge(request);
         if (judge){

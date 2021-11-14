@@ -19,7 +19,7 @@ import java.util.List;
 
 @Api(tags = {"评论发布相关接口"},value = "评论发布相关接口")
 @RestController
-@RequestMapping()
+@RequestMapping("/comments")
 public class CommentController {
     @Resource
     private CommentService commentService;

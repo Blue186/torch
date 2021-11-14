@@ -57,8 +57,8 @@ public class ContactUsController {
     }
 
     @ApiOperation(value = "用户删除已发送信息")
-    @DeleteMapping()
-    public R<?> deleteMessage(@ApiParam(name = "id",value = "此消息的id",required = true)@RequestBody Integer id,
+    @DeleteMapping("/{id}")
+    public R<?> deleteMessage(@ApiParam(name = "id",value = "此消息的id",required = true)@PathVariable Integer id,
                               HttpServletRequest request){
         Boolean judge = judgeCookieToken.judge(request);
         if (judge){

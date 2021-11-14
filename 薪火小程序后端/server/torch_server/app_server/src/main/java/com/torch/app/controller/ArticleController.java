@@ -72,8 +72,8 @@ public class ArticleController {
     }
 
     @ApiOperation(value = "用户删除已发布的文章接口")
-    @DeleteMapping()
-    public R<?> deleteArticle(@ApiParam(name = "id",value = "文章的id")@RequestBody Integer id,
+    @DeleteMapping("/{id}")
+    public R<?> deleteArticle(@ApiParam(name = "id",value = "文章的id")@PathVariable Integer id,
                               HttpServletRequest request){
         Boolean judge = judgeCookieToken.judge(request);
         if (judge){
@@ -90,7 +90,7 @@ public class ArticleController {
 
     @ApiOperation(value = "用户修改")
     @PutMapping()
-    public R<?> updateArticle(@ApiParam(name = "id",value = "文章id",required = true)@RequestBody UpdateArticle updateArt,
+    public R<?> updateArticle(@ApiParam(name = "updateArt",value = "文章修改内容",required = true)@RequestBody UpdateArticle updateArt,
                               HttpServletRequest request){
         Boolean judge = judgeCookieToken.judge(request);
         if (judge){
@@ -142,8 +142,8 @@ public class ArticleController {
     }
 
     @ApiOperation(value = "点开文章后，浏览次数加一")
-    @PutMapping("{id}")
-    public R<?> viewNum(@ApiParam(name = "id",value = "文章的id",required = true)@PathVariable Integer id,
+    @PutMapping("/viewNum")
+    public R<?> viewNum(@ApiParam(name = "id",value = "文章的id",required = true) @RequestBody Integer id,
                         HttpServletRequest request){
         Boolean judge = judgeCookieToken.judge(request);
         if (judge){
