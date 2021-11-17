@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "association-message": "/compoments/associationMessage"
+  }
+}

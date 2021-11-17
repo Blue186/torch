@@ -20,5 +20,6 @@ public class Comment {
     private Date updateTime;
     private String content;
     private Integer nextId;
-    private Integer good;
+    private Integer thumbsUp;
+    private Integer artId;
 }

@@ -2,27 +2,27 @@
 	<view class="associationMessage">
 		<view class="identity">
 			<view class="avatar">
-				<img src="../images/文宣部头像.png" mode="aspectFit"></img>
+				<image :src="message.avatarUrl" mode="aspectFit"></image>
 			</view>
 			<view class="nameAndTime">
 				<view class="poster">
-					{{poster}}
+					{{message.poster}}
 				</view>
 				<view class="postTime">
-					{{postTime}}
+					{{message.postTime}}
 				</view>
 
 			</view>
 		</view>
 		<view class="content">
-			{{content}}
+			{{message.content}}
 		</view>
 	</view>
 </template>
 
 <script>
 	export default {
-		props: ['poster', 'postTime', 'content'],
+		props: ['message'],
 		data() {
 			return {
 

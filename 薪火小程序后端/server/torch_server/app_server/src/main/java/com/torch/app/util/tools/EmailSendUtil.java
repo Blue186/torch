@@ -1,21 +1,26 @@
 package com.torch.app.util.tools;
 
 
+
 import com.torch.app.entity.User;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.stereotype.Service;
-
+import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import java.util.Random;
 
 //邮件发送类
-@Service
+@Component
 public class EmailSendUtil {
     @Resource
-    JavaMailSenderImpl mailSender;
+    private JavaMailSenderImpl mailSender;
+    @Resource
+    private RedisUtil redisUtil;
+    @Resource
+    private TokenUtil tokenUtil;
 
     /**
      * 简易样式邮箱
@@ -34,6 +39,31 @@ public class EmailSendUtil {
         mailSender.send(simpleMailMessage);
     }
 
+    public void sendMailVerify(String from, String mail,String cookie){
+        String subject = "薪火邮箱验证码";
+        Random r = new Random();
+        StringBuffer sb =new StringBuffer();
+        for(int i = 0;i < 6;i ++){
+            int ran1 = r.nextInt(10);
+            sb.append(String.valueOf(ran1));
+        }
+        String code = sb.toString();
+        System.out.println("token+"+tokenUtil);
+
+
+        String md5 = tokenUtil.generateMd5(mail, cookie,code);
+        redisUtil.set(mail,md5,60);//将mail和cookie加密的md5上传redis。
+
+
+        String text = "薪火邮箱验证码："+code+",请在60秒内完成注册。";
+        SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
+        simpleMailMessage.setFrom(from);
+        simpleMailMessage.setTo(mail);
+        simpleMailMessage.setSubject(subject);
+        simpleMailMessage.setText(text);
+
+        mailSender.send(simpleMailMessage);
+    }
     /**
      * html样式邮件
      * @param from 发送者

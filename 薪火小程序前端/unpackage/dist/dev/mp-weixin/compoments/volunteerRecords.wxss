@@ -64,7 +64,7 @@
   justify-content: center;
   align-items: center;
 }
-.volunteerRecord .writeFeeling image.data-v-49f92518 {
+.volunteerRecord .image.data-v-49f92518 {
   margin-bottom: 10rpx;
   width: 45rpx;
   height: 45rpx;

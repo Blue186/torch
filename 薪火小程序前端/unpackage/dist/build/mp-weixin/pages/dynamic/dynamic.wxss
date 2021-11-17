@@ -1,0 +1,1 @@
+.active{color:#51579f;font-size:40rpx}.header{width:70%;display:flex;color:#cfcfea;font-size:40rpx;justify-content:space-around;margin:40rpx auto}.header .underline{margin-top:6rpx;border:3.8rpx solid #4d5e9f;background-color:#4d5e9f}

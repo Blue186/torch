@@ -1,61 +1,18 @@
 package com.torch.app.util.tools;
-
-
 import net.sf.json.JSONObject;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
-import org.yaml.snakeyaml.Yaml;
-
 import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.Map;
-
 /**
  * 处理获取用户 openid 的 util
  */
 @Component
 public class OpenIdUtil {
 
-//    @Value("${wx.secret}")
-    private String secret = "a382df1cb070d7754fb2023dfe209b8b";
-//    private String secret = "44f414d6c5b0f92e998d99b32c2fb2b1";
-//    @Value("${wx.appid}")
-    private String appid = "wx49292af0e1fb1fc4";
-//    private String appid = "wx9e563fb3b3e19d91";
-    /**
-     * 读取 resources 下 application 的 wx-appid
-     * @return appId
-     */
-//    private String getAppId() {
-//        Yaml yaml = new Yaml();
-//        InputStream in = OpenIdUtil.class.getClassLoader().getResourceAsStream("../resources/application.yaml");
-//        Map<String, Object> map = yaml.loadAs(in, Map.class);
-//        String appId = map.getOrDefault("wx-appid", "").toString();
-//        System.out.println(appId);
-//        return appId;
-//    }
-
-    /**
-     * 读取 resources 下 application 的 wx-secret
-     * @return secret
-     */
-//    private String getSecret(){
-//        Yaml yaml = new Yaml();
-//        InputStream in = OpenIdUtil.class.getClassLoader().getResourceAsStream("../resources/application.yaml");
-//        Map<String,Object> map = yaml.loadAs(in,Map.class);
-//        return map.getOrDefault("wx-appid","").toString();
-//    }
-    /**
-     * 通过 appid code secret 得到 openid
-     * @param code wx.login 接口得到的 code
-     * @return openid
-     */
-
+    private String secret = "ad527c3572bd15f95a47df54aa47e25c";
+    private String appid = "wx340fc38eece916c2";
 
     public  String getOpenid(String code) {
         BufferedReader in = null;

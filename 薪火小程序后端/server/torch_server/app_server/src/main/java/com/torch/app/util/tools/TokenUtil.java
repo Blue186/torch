@@ -1,5 +1,6 @@
 package com.torch.app.util.tools;
 
+import org.springframework.stereotype.Component;
 import org.springframework.util.DigestUtils;
 
 import javax.annotation.Resource;
@@ -8,6 +9,7 @@ import java.nio.charset.StandardCharsets;
 /**
  * 生成 token 及验证 token 的工具类
  */
+@Component
 public class TokenUtil {
     private static final int TOKEN_TIME = 60;
     @Resource
@@ -25,15 +27,11 @@ public class TokenUtil {
         String md5 = DigestUtils.md5DigestAsHex(mix.getBytes(StandardCharsets.UTF_8));
         return md5;
     }
-//    public void setToken(String token,Integer uid){
-//        redisUtil.set(token,uid,TOKEN_TIME);
-//    }
-//    public String getToken(String token){
-//        boolean exists = redisUtil.exists(token);
-//        if (exists){
-//            return token;
-//        }else {
-//            return null;
-//        }
-//    }
+
+    public String generateMd5(String mail,String cookie,String code){
+        String mix = mail+cookie+code;
+        String md5 = DigestUtils.md5DigestAsHex(mix.getBytes(StandardCharsets.UTF_8));
+        return md5;
+    }
+
 }

@@ -1,8 +1,0 @@
-{
-  "navigationBarTitleText": "志愿活动详情",
-  "enablePullDownRefresh": false,
-  "usingComponents": {
-    "tag": "/compoments/tag",
-    "my-button": "/compoments/myButton"
-  }
-}

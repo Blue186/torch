@@ -20,8 +20,8 @@
 </template>
 
 <script>
-	import message from './message/message.vue'
-	import association from './association/association.vue'
+	import message from '../../compoments/message.vue'
+	import association from '../../compoments/association.vue'
 	export default {
 		components:{
 			association,
@@ -29,7 +29,7 @@
 		},
 		data() {
 			return {
-				currentPage:'message'
+				currentPage:'association'
 			}
 		},
 		methods: {

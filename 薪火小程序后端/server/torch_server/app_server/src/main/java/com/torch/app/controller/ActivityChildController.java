@@ -19,6 +19,8 @@ import javax.servlet.http.HttpServletRequest;
 public class ActivityChildController {
     @Resource
     private ActivityChildService activityChildService;
+    @Resource
+    private JudgeCookieToken judgeCookieToken;
 
     /**
      * 获取志愿详情的子志愿活动
@@ -29,7 +31,6 @@ public class ActivityChildController {
     @GetMapping("/{activityId}")
     public R<?> getChild(@ApiParam(name = "activityId", value = "父活动id",required = true) @PathVariable Integer activityId,
                          HttpServletRequest request){
-        JudgeCookieToken judgeCookieToken = new JudgeCookieToken();
         Boolean judge = judgeCookieToken.judge(request);
         if (judge){
             return R.ok().data(activityChildService.selectChild(activityId));

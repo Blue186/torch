@@ -21,10 +21,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Api(tags = {"用户报名志愿活动相关接口"},value = "用户报名志愿活动相关接口")
 @RestController
@@ -40,6 +37,8 @@ public class SignUpController {
     private UserService userService;
     @Resource
     private RedisUtil redisUtil;
+    @Resource
+    private JudgeCookieToken judgeCookieToken;
     /**
      * 添加用户报名信息
      * @param signUp 报名信息
@@ -49,32 +48,36 @@ public class SignUpController {
     @PostMapping()
     public R<?> sign(@ApiParam(name = "signUp", value = "用户的报名信息", required = true) @RequestBody SignUp signUp,
                      HttpServletRequest request){
-        JudgeCookieToken judgeCookieToken = new JudgeCookieToken();
         Boolean judge = judgeCookieToken.judge(request);
         if (judge){
             String cookie = judgeCookieToken.getCookie(request);
             Object uid = redisUtil.hmGet(cookie, "uid");
-            EmailSendUtil sendEmail = new EmailSendUtil();
-            User user = userService.getBaseMapper().selectById(uid.toString());
-            signUp.setId((Integer) uid);
-            int res = signUpService.getBaseMapper().insert(signUp);
 
+            User user = userService.getBaseMapper().selectById(uid.toString());//拿到用户信息
+            if (user.getIsActive()==0){
+                Map<String,Object> map = new HashMap<>();
+                map.put("register",false);//如果未激活，将直接拒绝此请求。
+                return R.error().data(map);
+            }
             ActivityChild activityChild = activityChildService.getBaseMapper().selectById(signUp.getActChiId());
             Activity activity = activityService.getBaseMapper().selectById(activityChild.getActivityId());
             if (activity.getTotalNumber()<activity.getHeadcount()){
+                signUp.setUserId((Integer) uid);//设置用户id
+                signUp.setCreateTime(new Date());
+                int res = signUpService.getBaseMapper().insert(signUp);//插入报名信息
                 activity.setTotalNumber(activity.getTotalNumber()+1);//报名实现对应报名人数加一
+                if (res==1){
+                    EmailSendUtil sendEmail = new EmailSendUtil();
+//            这里可以添加邮件发送类，发送邮件，后续添加
+                    sendEmail.simpleEmail("3057179865",user,"薪火志愿报名成功通知","xxxxx报名成功");
+                    return R.ok();
+                }else {
+                    return R.error().message("未拿到用户信息");
+                }
             }else {
                 Map<String,Object> map = new HashMap<>();
-                map.put("signNum",60);
+                map.put("signNum",60);//如果报名人数满了，返回signNum
                 return R.error().data(map);
-            }
-
-            if (res==1){
-//            这里可以添加邮件发送类，发送邮件，后续添加
-                sendEmail.simpleEmail("3057179865",user,"薪火志愿报名成功通知","xxxxx报名成功");
-                return R.ok();
-            }else {
-                return R.error().message("未拿到用户信息");
             }
         }else {
             return R.error().code(-100);
@@ -90,7 +93,6 @@ public class SignUpController {
     @DeleteMapping()
     public R<?> unSign(@ApiParam(name = "unSignUp", value = "删除用户的报名", required = true) @RequestBody SignUp unSignUp,
                        HttpServletRequest request){
-        JudgeCookieToken judgeCookieToken = new JudgeCookieToken();
         Boolean judge = judgeCookieToken.judge(request);
         if (judge){
             String cookie = judgeCookieToken.getCookie(request);
@@ -122,7 +124,6 @@ public class SignUpController {
     public R<?> getVolInfo(@ApiParam(name = "current", value = "当前已经获取的数量", required = true) @PathVariable long current,
            @ApiParam(name = "limit", value = "要获取的数量", required = true) @PathVariable long limit,
             HttpServletRequest request){
-        JudgeCookieToken judgeCookieToken = new JudgeCookieToken();
         Boolean judge = judgeCookieToken.judge(request);
         if (judge){
             String cookie = judgeCookieToken.getCookie(request);

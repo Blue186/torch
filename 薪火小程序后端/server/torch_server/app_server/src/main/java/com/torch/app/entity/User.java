@@ -27,4 +27,6 @@ public class User {
     private String openid;
     private String nickName;
     private String avatarImage;
+    private Integer sex;
+    private String selfIntro;
 }
