@@ -10,4 +10,12 @@ import org.springframework.stereotype.Service;
 @Service
 @DS("admin")
 public class TorchBirthLevelServiceImpl extends ServiceImpl<TorchBirthLevelMapper, TorchBirthLevel> implements TorchBirthLevelService {
+    @Override
+    public Integer add(Integer see, Integer uid) {
+        TorchBirthLevel torchBirthLevel = new TorchBirthLevel();
+        torchBirthLevel.setSee(see);
+        torchBirthLevel.setUid(uid);
+        baseMapper.insert(torchBirthLevel);
+        return torchBirthLevel.getId();
+    }
 }

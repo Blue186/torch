@@ -21,7 +21,7 @@ public class ViewTorchMemberInfo {
     private String identifier;
     private String phone;
     private Integer bSee;
-    private Integer write;
+    private Integer edit;
     private Integer pSee;
     private Integer level;
 }

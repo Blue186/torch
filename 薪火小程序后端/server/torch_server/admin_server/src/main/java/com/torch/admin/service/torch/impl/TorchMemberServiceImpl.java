@@ -38,14 +38,16 @@ public class TorchMemberServiceImpl extends ServiceImpl<TorchMemberMapper, Torch
     }
 
     @Override
-    public void addTorchMember(TorchUserRegister register) {
+    public Integer addTorchMember(TorchUserRegister register, String identify) {
         TorchMember member = new TorchMember();
         member.setAccountCode(register.getAccount());
         member.setNickname(register.getName());
         member.setDepartment(register.getDepartment());
         member.setBirthday(register.getBirthday());
         member.setPhone(register.getPhone());
+        member.setIdentifier(identify);
         baseMapper.insert(member);
+        return member.getId();
     }
 
     @Override

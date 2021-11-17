@@ -10,4 +10,14 @@ import org.springframework.stereotype.Service;
 @Service
 @DS("admin")
 public class TorchPowerServiceImpl extends ServiceImpl<TorchPowerMapper, TorchPower> implements TorchPowerService {
+    @Override
+    public Integer add(Integer uid, Integer publish_id, Integer suggest_id, Integer birth_id) {
+        TorchPower torchPower = new TorchPower();
+        torchPower.setBirthId(birth_id);
+        torchPower.setPublishId(publish_id);
+        torchPower.setUid(uid);
+        torchPower.setSuggestId(suggest_id);
+        baseMapper.insert(torchPower);
+        return torchPower.getId();
+    }
 }

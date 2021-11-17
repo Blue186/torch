@@ -13,7 +13,7 @@ import lombok.Data;
 public class TorchPublishLevel {
     @TableId(type = IdType.AUTO)
     private Integer id;
-    private Integer write;
+    private Integer edit;
     private Integer see;
     private Integer uid;
 }

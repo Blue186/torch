@@ -10,7 +10,7 @@ public interface TorchMemberService extends IService<TorchMember> {
 
     Integer getIdByAccountCodeAndPassword(String accountCode, String password);
 
-    void addTorchMember(TorchUserRegister register);
+    Integer addTorchMember(TorchUserRegister register, String identify);
 
     List<TorchMember> getAllTorchMember(Integer page, Integer limit);
 

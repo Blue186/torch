@@ -1,10 +1,11 @@
 package com.torch.admin.entity.app;
 
-import cn.hutool.core.date.DateTime;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
+
+import java.sql.Date;
 
 
 /**
@@ -16,10 +17,10 @@ public class ActivityChild {
     @TableId(type = IdType.AUTO)
     private Integer id;
     private Integer activityId;
-    private DateTime createTime;
-    private DateTime updateTime;
+    private Date createTime;
+    private Date updateTime;
     private Integer number;
-    private Integer volTime;
+    private String volTime;
     private String startTime;
     private String endTime;
     private String address;

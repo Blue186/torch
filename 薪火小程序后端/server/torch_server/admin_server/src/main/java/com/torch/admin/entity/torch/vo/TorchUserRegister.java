@@ -20,9 +20,6 @@ public class TorchUserRegister implements Serializable {
     @ApiModelProperty(value = "职位")
     private String department;
 
-    @ApiModelProperty(value = "成员编号")
-    private String identifier;
-
     @ApiModelProperty(value = "电话号码")
     private String phone;
 

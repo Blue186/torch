@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
+import java.sql.Date;
+
 
 /**
  * 活动信息表
@@ -18,8 +20,8 @@ public class Activity {
     private String identifier;
     private Integer isPass;
     private Integer createrId;
-    private DateTime createTime;
-    private DateTime passTime;
+    private Date createTime;
+    private Date passTime;
     private String organizer;
     private Integer headcount;
     private String remarks;
@@ -27,4 +29,5 @@ public class Activity {
     private Integer totalNumber;
     private String attention;
     private String actImage;
+    private String qqNumber;
 }

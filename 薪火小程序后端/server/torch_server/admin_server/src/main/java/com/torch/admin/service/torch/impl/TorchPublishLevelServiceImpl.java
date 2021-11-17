@@ -10,4 +10,13 @@ import org.springframework.stereotype.Service;
 @Service
 @DS("admin")
 public class TorchPublishLevelServiceImpl extends ServiceImpl<TorchPublishLevelMapper, TorchPublishLevel> implements TorchPublishLevelService {
+    @Override
+    public Integer add(Integer edit, Integer see, Integer uid) {
+        TorchPublishLevel publishLevel = new TorchPublishLevel();
+        publishLevel.setSee(see);
+        publishLevel.setUid(uid);
+        publishLevel.setEdit(edit);
+        baseMapper.insert(publishLevel);
+        return publishLevel.getId();
+    }
 }
