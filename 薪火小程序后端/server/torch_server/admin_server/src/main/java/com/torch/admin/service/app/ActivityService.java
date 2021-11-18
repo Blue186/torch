@@ -12,5 +12,9 @@ public interface ActivityService extends IService<Activity> {
 
     List<Activity> getWaitForPass();
 
+    List<Activity> getPassed(Integer page, Integer limit);
+
+    List<Activity> getUnPass();
+
     boolean changePass(Integer activityId, Integer isPass);
 }

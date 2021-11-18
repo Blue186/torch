@@ -1,8 +1,9 @@
 package com.torch.admin.service.app.impl;
 
-import cn.hutool.core.date.DateTime;
 import com.baomidou.dynamic.datasource.annotation.DS;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.torch.admin.entity.app.Activity;
 import com.torch.admin.entity.app.vo.PublishActivity;
@@ -43,6 +44,25 @@ public class ActivityServiceImpl extends ServiceImpl<ActivityMapper, Activity> i
     public List<Activity> getWaitForPass() {
         QueryWrapper<Activity> wrapper = new QueryWrapper<>();
         wrapper.eq("is_pass", 0);
+        List<Activity> activities = baseMapper.selectList(wrapper);
+        return activities;
+    }
+
+    @Override
+    public List<Activity> getPassed(Integer page, Integer limit) {
+        IPage<Activity> activityPage = new Page<>(page, limit);
+        QueryWrapper<Activity> wrapper = new QueryWrapper<>();
+        wrapper.eq("is_pass", 1);
+        wrapper.orderByDesc("id");
+        activityPage = baseMapper.selectPage(activityPage, wrapper);
+        List<Activity> activities = activityPage.getRecords();
+        return activities;
+    }
+
+    @Override
+    public List<Activity> getUnPass() {
+        QueryWrapper<Activity> wrapper = new QueryWrapper<>();
+        wrapper.eq("is_pass", -1);
         List<Activity> activities = baseMapper.selectList(wrapper);
         return activities;
     }

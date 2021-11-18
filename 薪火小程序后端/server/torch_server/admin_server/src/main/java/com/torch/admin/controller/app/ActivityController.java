@@ -2,10 +2,7 @@ package com.torch.admin.controller.app;
 
 import com.torch.admin.entity.app.Activity;
 import com.torch.admin.entity.app.ActivityChild;
-import com.torch.admin.entity.app.vo.PublishActivity;
-import com.torch.admin.entity.app.vo.PublishActivityChild;
-import com.torch.admin.entity.app.vo.WaitForPassActivity;
-import com.torch.admin.entity.app.vo.WaitForPassActivityChild;
+import com.torch.admin.entity.app.vo.*;
 import com.torch.admin.entity.torch.TorchMember;
 import com.torch.admin.service.app.ActivityChildService;
 import com.torch.admin.service.app.ActivityService;
@@ -101,6 +98,31 @@ public class ActivityController {
         boolean changePass = activityService.changePass(activityId, isPass);
         if (changePass) return R.ok().message("操作成功!");
         return R.error().message("操作失败!");
+    }
+
+    @ApiOperation("获取已发布志愿活动接口")
+    @GetMapping("/getPassed/{page}/{limit}")
+    public R<Object> getPassed(HttpServletRequest request,
+                               @ApiParam(name = "page", value = "第几页", required = true) @PathVariable Integer page,
+                               @ApiParam(name = "limit", value = "每页数量", required = true) @PathVariable Integer limit) {
+        Integer uid = cookieUtils.getUidByCookie(request);
+        if (uid == -1) return R.error().message("请先正确登录!").setReLoginData();
+        // 权限判断
+
+        // 组成数据
+        List<Activity> passed = activityService.getPassed(page, limit);
+        List<PassedActivity> passedActivities = new ArrayList<>();
+        for (Activity activity : passed) {
+            TorchMember torchMember = torchMemberService.selectById(activity.getCreaterId());
+            PassedActivity passedActivity = new PassedActivity(activity.getId(), activity.getIdentifier(), torchMember, activity.getCreateTime(), activity.getPassTime(), activity.getOrganizer(), activity.getHeadcount(), activity.getRemarks(), activity.getContent(), activity.getTotalNumber(), activity.getAttention(), activity.getActImage(), activity.getQqNumber());
+            List<ActivityChild> activityChildren = activityChildService.getByParentId(activity.getId());
+            for (ActivityChild activityChild : activityChildren) {
+                PassedActivityChild passedActivityChild = new PassedActivityChild(activityChild.getId(), activityChild.getCreateTime(), activityChild.getUpdateTime(), activityChild.getNumber(), activityChild.getVolTime(), activityChild.getStartTime(), activityChild.getEndTime(), activityChild.getAddress(), activity.getActImage());
+                passedActivity.children.add(passedActivityChild);
+            }
+            passedActivities.add(passedActivity);
+        }
+        return R.ok().data(passedActivities);
     }
 
 }
