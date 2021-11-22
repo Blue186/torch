@@ -18,4 +18,5 @@ public class SignUp {
     private Integer userId;
     private Integer actChiId;
     private Date createTime;
+    private Integer isOver;
 }

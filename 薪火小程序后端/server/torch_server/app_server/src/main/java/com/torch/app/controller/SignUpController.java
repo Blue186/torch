@@ -63,6 +63,7 @@ public class SignUpController {
             Activity activity = activityService.getBaseMapper().selectById(activityChild.getActivityId());
             if (activity.getTotalNumber()<activity.getHeadcount()){
                 signUp.setUserId((Integer) uid);//设置用户id
+                signUp.setIsOver(0);
                 signUp.setCreateTime(new Date());
                 int res = signUpService.getBaseMapper().insert(signUp);//插入报名信息
                 activity.setTotalNumber(activity.getTotalNumber()+1);//报名实现对应报名人数加一
@@ -119,9 +120,9 @@ public class SignUpController {
 
     }
 
-    @ApiOperation("获取用户报名和做过的志愿活动")
-    @GetMapping("/{current}/{limit}")
-    public R<?> getVolInfo(@ApiParam(name = "current", value = "当前已经获取的数量", required = true) @PathVariable long current,
+    @ApiOperation("获取用户做过的志愿活动")
+    @GetMapping("/over/{current}/{limit}")
+    public R<?> getVolInfoOver(@ApiParam(name = "current", value = "当前已经获取的数量", required = true) @PathVariable long current,
            @ApiParam(name = "limit", value = "要获取的数量", required = true) @PathVariable long limit,
             HttpServletRequest request){
         Boolean judge = judgeCookieToken.judge(request);
@@ -130,9 +131,45 @@ public class SignUpController {
             Object uid = redisUtil.hmGet(cookie, "uid");
             QueryWrapper<SignUp> signUpQueryWrapper = new QueryWrapper<>();
             signUpQueryWrapper.eq("userId",uid);
+            signUpQueryWrapper.eq("is_over",1);
 //        得到了用户参加的所有的志愿活动id
             List<SignUp> signUps = signUpService.getBaseMapper().selectList(signUpQueryWrapper);
             List<Integer> idList = new ArrayList<>();
+            //获得用户做过的志愿活动的id，添加到list中
+            for (SignUp signUp : signUps) {
+                idList.add(signUp.getId());
+            }
+            Page<Activity> page = new Page<>(current, limit);
+
+            QueryWrapper<Activity> wrapper = new QueryWrapper<>();
+            wrapper.orderByDesc("create_time");
+            wrapper.eq("is_pass", 1);
+            for (Integer id : idList) {
+                wrapper.or().eq("id",id);
+            }
+            Page<Activity> activityPage = activityService.getBaseMapper().selectPage(page, wrapper);
+            return R.ok().data(activityPage);
+        }else {
+            return R.error().code(-100);
+        }
+    }
+
+    @ApiOperation("获取用户报名但还未完成的志愿活动")
+    @GetMapping("/{current}/{limit}")
+    public R<?> getVolInfo(@ApiParam(name = "current", value = "当前已经获取的数量", required = true) @PathVariable long current,
+                           @ApiParam(name = "limit", value = "要获取的数量", required = true) @PathVariable long limit,
+                           HttpServletRequest request){
+        Boolean judge = judgeCookieToken.judge(request);
+        if (judge){
+            String cookie = judgeCookieToken.getCookie(request);
+            Object uid = redisUtil.hmGet(cookie, "uid");
+            QueryWrapper<SignUp> signUpQueryWrapper = new QueryWrapper<>();
+            signUpQueryWrapper.eq("userId",uid);
+            signUpQueryWrapper.eq("is_over",0);
+//        得到了用户参加的所有的志愿活动id
+            List<SignUp> signUps = signUpService.getBaseMapper().selectList(signUpQueryWrapper);
+            List<Integer> idList = new ArrayList<>();
+            //获得用户做过的志愿活动的id，添加到list中
             for (SignUp signUp : signUps) {
                 idList.add(signUp.getId());
             }

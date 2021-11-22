@@ -26,4 +26,6 @@ public class UserInfo implements Serializable {
     private String nickName;
     @ApiModelProperty(value = "用户的微信头像",name = "avatarImage")
     private String avatarImage;
+    @ApiModelProperty(value = "用户的自我介绍",name = "selfIntro")
+    private String selfIntro;
 }

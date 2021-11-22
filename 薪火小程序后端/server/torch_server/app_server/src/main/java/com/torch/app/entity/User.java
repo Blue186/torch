@@ -29,4 +29,5 @@ public class User {
     private String avatarImage;
     private Integer sex;
     private String selfIntro;
+    private Integer totalTime;
 }

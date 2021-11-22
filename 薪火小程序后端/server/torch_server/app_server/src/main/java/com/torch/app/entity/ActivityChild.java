@@ -18,10 +18,11 @@ public class ActivityChild {
     private Integer activityId;
     private Date createTime;
     private Date updateTime;
-    private Integer number;
+    private Integer recruiting;
     private Integer volTime;
     private String startTime;
     private String endTime;
     private String address;
     private String distinct;
+    private Integer recruited;
 }

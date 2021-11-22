@@ -40,7 +40,7 @@ public class ImpressionsController {
     /**
      * 薪火推文在管理端接口，此处为用户所发文章相应接口
      */
-    @ApiOperation(value = "用户发布文章接口")
+    @ApiOperation(value = "用户发布心得接口")
     @PostMapping()
     public R<?> publishImpressions(@ApiParam(name = "impressions",value = "用户心得信息",required = true) @RequestBody PublishImpressions publishImp,
                                    HttpServletRequest request){
@@ -70,7 +70,7 @@ public class ImpressionsController {
         }
     }
 
-    @ApiOperation(value = "用户删除已发布的文章接口")
+    @ApiOperation(value = "用户删除已发布的心得接口")
     @DeleteMapping("/{id}")
     public R<?> deleteImpressions(@ApiParam(name = "id",value = "心得的id")@PathVariable Integer id,
                                   HttpServletRequest request){

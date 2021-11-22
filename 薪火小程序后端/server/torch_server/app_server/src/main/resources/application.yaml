@@ -10,7 +10,7 @@ spring:
     hikari:
       minimum-idle : 3
       maximum-pool-size: 5
-      max-lifetime: 0
+      max-lifetime: 1800000
 
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss

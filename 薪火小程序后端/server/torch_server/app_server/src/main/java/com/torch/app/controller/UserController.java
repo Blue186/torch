@@ -120,7 +120,7 @@ public class UserController {
             User user = userService.getBaseMapper().selectById((Serializable) redisUtil.hmGet(cookie, "uid"));
         //必要信息作为判断，是否激活，将用于判断用户是否拥有权限调用某些接口。
             //0,不能调用，1可以调用
-            if (userInfo.getPhone()==null||userInfo.getQq()==null||userInfo.getVolAccount()==null||userInfo.getEmail()==null){
+            if (userInfo.getPhone()==null||userInfo.getQq()==null||userInfo.getVolAccount()==null||userInfo.getEmail()==null||userInfo.getName()==null){
                 user.setIsActive(0);
             }else {
                 user.setIsActive(1);
@@ -131,9 +131,10 @@ public class UserController {
             user.setQq(userInfo.getQq());
             user.setSchool(userInfo.getSchool());
             user.setGrade(userInfo.getGrade());
-            user.setVolAccount(user.getVolAccount());
+            user.setVolAccount(userInfo.getVolAccount());
             user.setNickName(userInfo.getNickName());
             user.setAvatarImage(userInfo.getAvatarImage());
+            user.setSelfIntro(userInfo.getSelfIntro());
             int res = userService.getBaseMapper().updateById(user);
             if (res==1){
                 return R.ok();
