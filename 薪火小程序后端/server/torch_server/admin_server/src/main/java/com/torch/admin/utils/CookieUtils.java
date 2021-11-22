@@ -53,6 +53,7 @@ public class CookieUtils {
     public String setCookie(HttpServletResponse response, Integer uid) {
         String c = randomStr();
         Cookie cookie = new Cookie("c", c);
+        cookie.setMaxAge(7200);
         response.addCookie(cookie);
         redisUtil.set(c, uid, COOKIE_TIME);
         return c;
@@ -64,15 +65,16 @@ public class CookieUtils {
      * @return 用户 id
      */
     public Integer getUidByCookie(HttpServletRequest request) {
-        Cookie[] cookies = request.getCookies();
-        String cookie = "";
-        if (cookies == null) return -1;
-        for (Cookie c : cookies) {
-            if (c.getName().equals("c")) {
-                cookie = c.getValue();
-                break;
-            }
-        }
+        String cookie = request.getHeader("c");
+//        Cookie[] cookies = request.getCookies();
+//        String cookie = "";
+//        if (cookies == null) return -1;
+//        for (Cookie c : cookies) {
+//            if (c.getName().equals("c")) {
+//                cookie = c.getValue();
+//                break;
+//            }
+//        }
         System.out.println("收到cookie为:" + cookie);
         if (cookie.length() != 0) {
             Integer uid = (Integer) redisUtil.get(cookie);

@@ -18,4 +18,6 @@ public class TorchPower {
     private Integer publishId;
     private Integer suggestId;
     private Integer birthId;
+
+    private Integer isRoot;
 }

@@ -49,7 +49,7 @@ public class PowerController {
         updateWrapperB.eq("uid",memberInfo.getId());//获取该用户和的id
         int updateB = birthLevelService.getBaseMapper().update(birthLevel, updateWrapperB);
 
-        publishLevel.setWrite(memberInfo.getWrite());
+        publishLevel.setEdit(memberInfo.getEdit());
         publishLevel.setSee(memberInfo.getPSee());
         UpdateWrapper<TorchPublishLevel> updateWrapperP = new UpdateWrapper<>();
         updateWrapperP.eq("uid",memberInfo.getId());

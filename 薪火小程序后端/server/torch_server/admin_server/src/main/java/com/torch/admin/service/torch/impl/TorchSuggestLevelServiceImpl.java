@@ -10,4 +10,12 @@ import org.springframework.stereotype.Service;
 @Service
 @DS("admin")
 public class TorchSuggestLevelServiceImpl extends ServiceImpl<TorchSuggestLevelMapper, TorchSuggestLevel> implements TorchSuggestLevelService {
+    @Override
+    public Integer add(Integer level, Integer uid) {
+        TorchSuggestLevel torchSuggestLevel = new TorchSuggestLevel();
+        torchSuggestLevel.setLevel(level);
+        torchSuggestLevel.setUid(uid);
+        baseMapper.insert(torchSuggestLevel);
+        return torchSuggestLevel.getId();
+    }
 }
