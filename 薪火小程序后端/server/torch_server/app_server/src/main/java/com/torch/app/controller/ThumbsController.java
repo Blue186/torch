@@ -10,6 +10,7 @@ import com.torch.app.service.UserService;
 import com.torch.app.util.tools.JudgeCookieToken;
 import com.torch.app.util.tools.RedisUtil;
 import commonutils.R;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+@Api(tags = {"文章点赞相关接口"},value = "文章点赞相关接口")
 @RestController
 @RequestMapping("/thumbs")
 public class ThumbsController {

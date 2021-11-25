@@ -10,9 +10,9 @@ import java.util.Date;
 /**
  * 用户评论信息表
  */
-@TableName("comment")
+@TableName("art_comment")
 @Data
-public class Comment {
+public class ArtComment {
     @TableId(type = IdType.AUTO)
     private Integer id;
     private Integer authorId;

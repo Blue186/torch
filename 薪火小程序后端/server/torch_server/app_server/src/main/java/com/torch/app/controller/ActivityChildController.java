@@ -1,6 +1,11 @@
 package com.torch.app.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.torch.app.entity.ActivityChild;
+import com.torch.app.entity.ActivityTimes;
+import com.torch.app.entity.vo.ActivityChildCon.GetChild;
 import com.torch.app.service.ActivityChildService;
+import com.torch.app.service.ActivityTimesService;
 import com.torch.app.util.tools.JudgeCookieToken;
 import commonutils.R;
 import io.swagger.annotations.Api;
@@ -13,6 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
+
 @Api(tags = {"获取子活动相关接口"}, value = "获取子活动相关接口")
 @RestController
 @RequestMapping("/activityChild")
@@ -21,6 +29,8 @@ public class ActivityChildController {
     private ActivityChildService activityChildService;
     @Resource
     private JudgeCookieToken judgeCookieToken;
+    @Resource
+    private ActivityTimesService activityTimesService;
 
     /**
      * 获取志愿详情的子志愿活动
@@ -33,9 +43,26 @@ public class ActivityChildController {
                          HttpServletRequest request){
         Boolean judge = judgeCookieToken.judge(request);
         if (judge){
-            return R.ok().data(activityChildService.selectChild(activityId));
+            List<GetChild> getChildren = new ArrayList<>();
+            List<ActivityChild> activityChildren = activityChildService.selectChild(activityId);//这是子活动
+            for (ActivityChild activityChild : activityChildren) {
+                QueryWrapper<ActivityTimes> wrapper = new QueryWrapper<>();
+                wrapper.eq("act_chi_id",activityChild.getId());
+                wrapper.eq("act_id",activityChild.getActivityId());
+                List<ActivityTimes> activityTimes = activityTimesService.getBaseMapper().selectList(wrapper);
+                GetChild getChild = new GetChild();
+                getChild.setId(activityChild.getId());
+                getChild.setActivityId(activityChild.getActivityId());
+                getChild.setCreateTime(activityChild.getCreateTime());
+                getChild.setUpdateTime(activityChild.getUpdateTime());
+                getChild.setServicePeriod(activityChild.getServicePeriod());
+                getChild.setActivityTimes(activityTimes);
+                getChildren.add(getChild);
+            }
+            return R.ok().data(getChildren);
         }else {
             return R.error().code(-100);
         }
     }
+
 }

@@ -23,10 +23,10 @@ public class Activity {
     private String organizer;
     private Integer headcount;
     private String remarks;
-    private String content;
     private Integer totalNumber;
     private String attention;
     private String actImage;
     private String name;
     private String address;
+    private String deadline;
 }

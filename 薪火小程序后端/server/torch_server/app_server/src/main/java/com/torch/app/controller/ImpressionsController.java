@@ -115,7 +115,7 @@ public class ImpressionsController {
 
     @ApiOperation(value = "获取所有心得")
     @GetMapping("/{current}/{limit}")
-    public R<?> getAllImpressions(@ApiParam(name = "current", value = "当前已经获取的数量", required = true) @PathVariable long current,
+    public R<?> getAllImpressions(@ApiParam(name = "current", value = "当前页码", required = true) @PathVariable long current,
                                @ApiParam(name = "limit", value = "要获取的数量", required = true) @PathVariable long limit,
                                HttpServletRequest request){
         Boolean judge = judgeCookieToken.judge(request);

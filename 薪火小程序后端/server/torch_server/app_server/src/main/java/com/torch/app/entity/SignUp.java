@@ -19,4 +19,6 @@ public class SignUp {
     private Integer actChiId;
     private Date createTime;
     private Integer isOver;
+    private Integer actId;
+    private Integer actTimesId;
 }

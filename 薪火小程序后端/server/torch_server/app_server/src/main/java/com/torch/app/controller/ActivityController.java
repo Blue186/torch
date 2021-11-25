@@ -2,6 +2,7 @@ package com.torch.app.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.sun.xml.internal.ws.policy.EffectiveAlternativeSelector;
 import com.torch.app.entity.Activity;
 import com.torch.app.entity.SignUp;
 import com.torch.app.service.ActivityService;
@@ -19,6 +20,9 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Random;
+import java.util.concurrent.Semaphore;
+
 @Api(tags = {"父活动相关接口"},value = "父活动相关接口")
 @RestController
 @RequestMapping("/activity")
@@ -30,7 +34,7 @@ public class ActivityController {
 
     @ApiOperation(value = "首页获取志愿信息")
     @GetMapping("/index/{current}/{limit}")
-    public R<?> getActivities(@ApiParam(name = "current", value = "当前已经获取的数量", required = true) @PathVariable long current,
+    public R<?> getActivities(@ApiParam(name = "current", value = "当前页码", required = true) @PathVariable long current,
                               @ApiParam(name = "limit", value = "要获取的数量", required = true) @PathVariable long limit,
                               HttpServletRequest request) {
         Boolean judge = judgeCookieToken.judge(request);
