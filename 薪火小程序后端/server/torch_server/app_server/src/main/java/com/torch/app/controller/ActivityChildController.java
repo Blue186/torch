@@ -1,11 +1,8 @@
 package com.torch.app.controller;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.torch.app.entity.ActivityChild;
-import com.torch.app.entity.ActivityTimes;
 import com.torch.app.entity.vo.ActivityChildCon.GetChild;
 import com.torch.app.service.ActivityChildService;
-import com.torch.app.service.ActivityTimesService;
 import com.torch.app.util.tools.JudgeCookieToken;
 import commonutils.R;
 import io.swagger.annotations.Api;
@@ -29,8 +26,6 @@ public class ActivityChildController {
     private ActivityChildService activityChildService;
     @Resource
     private JudgeCookieToken judgeCookieToken;
-    @Resource
-    private ActivityTimesService activityTimesService;
 
     /**
      * 获取志愿详情的子志愿活动
@@ -43,26 +38,24 @@ public class ActivityChildController {
                          HttpServletRequest request){
         Boolean judge = judgeCookieToken.judge(request);
         if (judge){
-            List<GetChild> getChildren = new ArrayList<>();
-            List<ActivityChild> activityChildren = activityChildService.selectChild(activityId);//这是子活动
-            for (ActivityChild activityChild : activityChildren) {
-                QueryWrapper<ActivityTimes> wrapper = new QueryWrapper<>();
-                wrapper.eq("act_chi_id",activityChild.getId());
-                wrapper.eq("act_id",activityChild.getActivityId());
-                List<ActivityTimes> activityTimes = activityTimesService.getBaseMapper().selectList(wrapper);
-                GetChild getChild = new GetChild();
-                getChild.setId(activityChild.getId());
-                getChild.setActivityId(activityChild.getActivityId());
-                getChild.setCreateTime(activityChild.getCreateTime());
-                getChild.setUpdateTime(activityChild.getUpdateTime());
-                getChild.setServicePeriod(activityChild.getServicePeriod());
-                getChild.setActivityTimes(activityTimes);
-                getChildren.add(getChild);
-            }
-            return R.ok().data(getChildren);
-        }else {
             return R.error().code(-100);
         }
+        List<GetChild> getChildren = new ArrayList<>();
+        List<ActivityChild> activityChildren = activityChildService.selectChild(activityId);//这是子活动
+        for (ActivityChild activityChild : activityChildren) {
+            getChildren.add(activityChildService.setGetChild(activityChild));
+        }
+        return R.ok().data(getChildren);
     }
-
+//    @ApiOperation(value = "志愿详情页志愿信息")
+//    @GetMapping("/{activityId}")
+//    public R<?> getChild(@ApiParam(name = "activityId", value = "父活动id",required = true) @PathVariable Integer activityId){
+//
+//        List<GetChild> getChildren = new ArrayList<>();
+//        List<ActivityChild> activityChildren = activityChildService.selectChild(activityId);//这是子活动
+//        for (ActivityChild activityChild : activityChildren) {
+//            getChildren.add(activityChildService.setGetChild(activityChild));
+//        }
+//        return R.ok().data(getChildren);
+//    }
 }

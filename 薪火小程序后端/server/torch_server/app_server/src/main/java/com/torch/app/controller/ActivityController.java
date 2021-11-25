@@ -38,19 +38,15 @@ public class ActivityController {
                               @ApiParam(name = "limit", value = "要获取的数量", required = true) @PathVariable long limit,
                               HttpServletRequest request) {
         Boolean judge = judgeCookieToken.judge(request);
-
         if (judge){
-            Page<Activity> page = new Page<>(current, limit);
-            QueryWrapper<Activity> wrapper = new QueryWrapper<>();
-            wrapper.orderByDesc("create_time");
-            wrapper.eq("is_pass", 1);
-            activityService.page(page, wrapper);
-            List<Activity> records = page.getRecords();
-            return R.ok().data(records);
-        }else {
             return R.error().code(-100);
         }
-
+        Page<Activity> page = new Page<>(current, limit);
+        QueryWrapper<Activity> wrapper = new QueryWrapper<>();
+        wrapper.orderByDesc("create_time");
+        wrapper.eq("is_pass", 1);
+        activityService.page(page, wrapper);
+        List<Activity> records = page.getRecords();
+        return R.ok().data(records);
     }
-
 }

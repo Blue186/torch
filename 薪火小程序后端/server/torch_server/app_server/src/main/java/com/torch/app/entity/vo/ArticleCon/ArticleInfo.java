@@ -1,20 +1,13 @@
-package com.torch.app.entity;
+package com.torch.app.entity.vo.ArticleCon;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.torch.app.entity.ArtImages;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 
-/**
- * 推文信息表
- */
-
-@TableName("article")
 @Data
-public class Article {
-    @TableId(type = IdType.AUTO)
+public class ArticleInfo {
     private Integer id;
     private Integer authorId;
     private Date createTime;
@@ -24,4 +17,5 @@ public class Article {
     private Integer thumbsUp;
     private Integer type;
     private Integer views;
+    private List<ArtImages> artImages;
 }

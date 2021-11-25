@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
 import java.util.List;
+import java.util.concurrent.Semaphore;
 
 @Api(tags = {"文章评论发布相关接口"},value = "文章评论发布相关接口")
 @RestController
@@ -34,24 +34,28 @@ public class ArtCommentController {
                                HttpServletRequest request){
         Boolean judge = judgeCookieToken.judge(request);
         if (judge){
-            String cookie = judgeCookieToken.getCookie(request);
-            Object uid = redisUtil.hmGet(cookie, "uid");
-
-            ArtComment artComment = artCommentService.getBaseMapper().selectById((Integer) uid);
-            artComment.setContent(publishCom.getContent());
-            artComment.setArtId(publishCom.getArtId());
-            artComment.setAuthorId((Integer) uid);
-            artComment.setCreateTime(new Date());
-            artComment.setUpdateTime(new Date());
-            artComment.setThumbsUp(0);
-            int res = artCommentService.getBaseMapper().insert(artComment);
-            if (res==1){
-                return R.ok().message("评论成功");
-            }else {
-                return R.error().message("评论失败");
-            }
-        }else {
             return R.error().code(-100);
+        }
+        Semaphore semaphore = new Semaphore(1);
+        if (semaphore.availablePermits()==0){
+            return R.error().message("线程占用中");
+        }
+        int res = 0;
+        String cookie = judgeCookieToken.getCookie(request);
+        Object uid = redisUtil.hmGet(cookie, "uid");
+        ArtComment artComment = artCommentService.setArtCommit((Integer) uid,publishCom);
+        try {
+            semaphore.acquire(1);
+            res = artCommentService.getBaseMapper().insert(artComment);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }finally {
+            semaphore.release(1);
+        }
+        if (res==1){
+            return R.ok().message("评论成功");
+        }else {
+            return R.error().message("评论失败");
         }
     }
 
@@ -61,14 +65,25 @@ public class ArtCommentController {
                               HttpServletRequest request){
         Boolean judge = judgeCookieToken.judge(request);
         if (judge){
-            int res = artCommentService.getBaseMapper().deleteById(id);
-            if (res==1){
-                return R.ok().message("删除成功");
-            }else {
-                return R.error().message("删除失败");
-            }
-        }else {
             return R.error().code(-100);
+        }
+        Semaphore semaphore = new Semaphore(1);
+        if (semaphore.availablePermits()==0){
+            return R.error().message("线程占用中");
+        }
+        int res = 0;
+        try {
+            semaphore.acquire(1);
+            res = artCommentService.getBaseMapper().deleteById(id);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }finally {
+            semaphore.release(1);
+        }
+        if (res==1){
+            return R.ok().message("删除成功");
+        }else {
+            return R.error().message("删除失败");
         }
     }
 
@@ -85,6 +100,7 @@ public class ArtCommentController {
         if (judge){
             QueryWrapper<ArtComment> wrapper = new QueryWrapper<>();
             wrapper.eq("art_id",artId);
+            wrapper.orderByDesc("create_time");
             List<ArtComment> artComments = artCommentService.getBaseMapper().selectList(wrapper);
             return R.ok().data(artComments);
         }else {
