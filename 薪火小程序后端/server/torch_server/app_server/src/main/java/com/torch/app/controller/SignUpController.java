@@ -51,7 +51,7 @@ public class SignUpController {
     public R<?> sign(@ApiParam(name = "sign", value = "用户的报名信息", required = true) @RequestBody Sign sign,
                      HttpServletRequest request){
         Boolean judge = judgeCookieToken.judge(request);
-        if (judge){
+        if (!judge){
             return R.error().code(-100);
         }
         Semaphore semaphore = new Semaphore(1);
@@ -162,32 +162,31 @@ public class SignUpController {
            @ApiParam(name = "limit", value = "要获取的数量", required = true) @PathVariable long limit,
             HttpServletRequest request){
         Boolean judge = judgeCookieToken.judge(request);
-        if (judge){
-            String cookie = judgeCookieToken.getCookie(request);
-            Object uid = redisUtil.hmGet(cookie, "uid");
-            QueryWrapper<SignUp> signUpQueryWrapper = new QueryWrapper<>();
-            signUpQueryWrapper.eq("userId",uid);
-            signUpQueryWrapper.eq("is_over",1);
-//        得到了用户参加的所有的志愿活动id
-            List<SignUp> signUps = signUpService.getBaseMapper().selectList(signUpQueryWrapper);
-            List<Integer> idList = new ArrayList<>();
-            //获得用户做过的志愿活动的id，添加到list中
-            for (SignUp signUp : signUps) {
-                idList.add(signUp.getId());
-            }
-            Page<Activity> page = new Page<>(current, limit);
-
-            QueryWrapper<Activity> wrapper = new QueryWrapper<>();
-            wrapper.orderByDesc("create_time");
-            wrapper.eq("is_pass", 1);
-            for (Integer id : idList) {
-                wrapper.or().eq("id",id);
-            }
-            Page<Activity> activityPage = activityService.getBaseMapper().selectPage(page, wrapper);
-            return R.ok().data(activityPage);
-        }else {
+        if (!judge) {
             return R.error().code(-100);
         }
+        String cookie = judgeCookieToken.getCookie(request);
+        Object uid = redisUtil.hmGet(cookie, "uid");
+        QueryWrapper<SignUp> signUpQueryWrapper = new QueryWrapper<>();
+        signUpQueryWrapper.eq("userId",uid);
+        signUpQueryWrapper.eq("is_over",1);
+//        得到了用户参加的所有的志愿活动id
+        List<SignUp> signUps = signUpService.getBaseMapper().selectList(signUpQueryWrapper);
+        List<Integer> idList = new ArrayList<>();
+        //获得用户做过的志愿活动的id，添加到list中
+        for (SignUp signUp : signUps) {
+            idList.add(signUp.getId());
+        }
+        Page<Activity> page = new Page<>(current, limit);
+
+        QueryWrapper<Activity> wrapper = new QueryWrapper<>();
+        wrapper.orderByDesc("create_time");
+        wrapper.eq("is_pass", 1);
+        for (Integer id : idList) {
+            wrapper.or().eq("id",id);
+        }
+        Page<Activity> activityPage = activityService.getBaseMapper().selectPage(page, wrapper);
+        return R.ok().data(activityPage);
     }
 
     @ApiOperation("获取用户报名但还未完成的志愿活动")
@@ -196,31 +195,30 @@ public class SignUpController {
                            @ApiParam(name = "limit", value = "要获取的数量", required = true) @PathVariable long limit,
                            HttpServletRequest request){
         Boolean judge = judgeCookieToken.judge(request);
-        if (judge){
-            String cookie = judgeCookieToken.getCookie(request);
-            Object uid = redisUtil.hmGet(cookie, "uid");
-            QueryWrapper<SignUp> signUpQueryWrapper = new QueryWrapper<>();
-            signUpQueryWrapper.eq("userId",uid);
-            signUpQueryWrapper.eq("is_over",0);
-//        得到了用户参加的所有的志愿活动id
-            List<SignUp> signUps = signUpService.getBaseMapper().selectList(signUpQueryWrapper);
-            List<Integer> idList = new ArrayList<>();
-            //获得用户做过的志愿活动的id，添加到list中
-            for (SignUp signUp : signUps) {
-                idList.add(signUp.getId());
-            }
-            Page<Activity> page = new Page<>(current, limit);
-
-            QueryWrapper<Activity> wrapper = new QueryWrapper<>();
-            wrapper.orderByDesc("create_time");
-            wrapper.eq("is_pass", 1);
-            for (Integer id : idList) {
-                wrapper.or().eq("id",id);
-            }
-            Page<Activity> activityPage = activityService.getBaseMapper().selectPage(page, wrapper);
-            return R.ok().data(activityPage);
-        }else {
+        if (judge) {
             return R.error().code(-100);
         }
+        String cookie = judgeCookieToken.getCookie(request);
+        Object uid = redisUtil.hmGet(cookie, "uid");
+        QueryWrapper<SignUp> signUpQueryWrapper = new QueryWrapper<>();
+        signUpQueryWrapper.eq("userId",uid);
+        signUpQueryWrapper.eq("is_over",0);
+//        得到了用户参加的所有的志愿活动id
+        List<SignUp> signUps = signUpService.getBaseMapper().selectList(signUpQueryWrapper);
+        List<Integer> idList = new ArrayList<>();
+        //获得用户做过的志愿活动的id，添加到list中
+        for (SignUp signUp : signUps) {
+            idList.add(signUp.getId());
+        }
+        Page<Activity> page = new Page<>(current, limit);
+
+        QueryWrapper<Activity> wrapper = new QueryWrapper<>();
+        wrapper.orderByDesc("create_time");
+        wrapper.eq("is_pass", 1);
+        for (Integer id : idList) {
+            wrapper.or().eq("id",id);
+        }
+        Page<Activity> activityPage = activityService.getBaseMapper().selectPage(page, wrapper);
+        return R.ok().data(activityPage);
     }
 }

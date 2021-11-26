@@ -37,7 +37,7 @@ public class ActivityChildController {
     public R<?> getChild(@ApiParam(name = "activityId", value = "父活动id",required = true) @PathVariable Integer activityId,
                          HttpServletRequest request){
         Boolean judge = judgeCookieToken.judge(request);
-        if (judge){
+        if (!judge){
             return R.error().code(-100);
         }
         List<GetChild> getChildren = new ArrayList<>();

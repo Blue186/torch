@@ -41,25 +41,24 @@ public class ThumbsController {
     public R<?> thumbsUp(@ApiParam(name = "id",value = "文章id",required = true)@PathVariable Integer id,
                          HttpServletRequest request){
         Boolean judge = judgeCookieToken.judge(request);
-        if (judge){
-            String cookie = judgeCookieToken.getCookie(request);
-            Object uid = redisUtil.hmGet(cookie, "uid");
-            User user = userService.getBaseMapper().selectById((Integer) uid);
-
-            Thumbs thumbs = new Thumbs();
-            thumbs.setUserId(user.getId());
-            thumbs.setUserName(user.getNickName());
-            thumbs.setArtId(id);
-            int res = thumbsService.getBaseMapper().insert(thumbs);
-            if (res==1){
-                Article article = articleService.getBaseMapper().selectById(id);
-                article.setThumbsUp(article.getThumbsUp()+1);
-                return R.ok().message("点赞成功");
-            }else {
-                return R.error().message("失败");
-            }
-        }else {
+        if (!judge){
             return R.error().code(-100);
+        }
+        String cookie = judgeCookieToken.getCookie(request);
+        Object uid = redisUtil.hmGet(cookie, "uid");
+        User user = userService.getBaseMapper().selectById((Integer) uid);
+
+        Thumbs thumbs = new Thumbs();
+        thumbs.setUserId(user.getId());
+        thumbs.setUserName(user.getNickName());
+        thumbs.setArtId(id);
+        int res = thumbsService.getBaseMapper().insert(thumbs);
+        if (res==1){
+            Article article = articleService.getBaseMapper().selectById(id);
+            article.setThumbsUp(article.getThumbsUp()+1);
+            return R.ok().message("点赞成功");
+        }else {
+            return R.error().message("失败");
         }
     }
 
@@ -68,20 +67,19 @@ public class ThumbsController {
     public R<?> deleteThumbs(@ApiParam(name = "id",value = "文章id",required = true)@PathVariable Integer id,
                              HttpServletRequest request){
         Boolean judge = judgeCookieToken.judge(request);
-        if (judge){
-            String cookie = judgeCookieToken.getCookie(request);
-            Object uid = redisUtil.hmGet(cookie, "uid");
-            QueryWrapper<Thumbs> wrapper = new QueryWrapper<>();
-            wrapper.eq("userId",uid);
-            wrapper.eq("artId",id);
-            int res = thumbsService.getBaseMapper().delete(wrapper);
-            if (res==1){
-                return R.ok().message("取消点赞");
-            }else {
-                return R.error().message("失败");
-            }
-        }else {
+        if (!judge) {
             return R.error().code(-100);
+        }
+        String cookie = judgeCookieToken.getCookie(request);
+        Object uid = redisUtil.hmGet(cookie, "uid");
+        QueryWrapper<Thumbs> wrapper = new QueryWrapper<>();
+        wrapper.eq("userId",uid);
+        wrapper.eq("artId",id);
+        int res = thumbsService.getBaseMapper().delete(wrapper);
+        if (res==1){
+            return R.ok().message("取消点赞");
+        }else {
+            return R.error().message("失败");
         }
     }
 
@@ -91,23 +89,22 @@ public class ThumbsController {
     public R<?> getThumbsInfo(@ApiParam(name = "id",value = "文章id",required = true)@PathVariable Integer id,
                               HttpServletRequest request){
         Boolean judge = judgeCookieToken.judge(request);
-        if (judge){
-            QueryWrapper<Thumbs> wrapper = new QueryWrapper<>();
-            wrapper.eq("art_id",id);
-            Integer thumbsNum = thumbsService.getBaseMapper().selectCount(wrapper);
-
-            List<Thumbs> thumbs = thumbsService.getBaseMapper().selectList(wrapper);
-            String[] names = new String[thumbs.size()];
-            for (int i = 0; i < thumbs.size(); i++) {
-                names[i] = thumbs.get(i).getUserName();
-            }
-
-            Map<String,Object> map = new HashMap<>();
-            map.put("nums",thumbsNum);
-            map.put("names",names);
-            return R.ok().data(map);
-        }else {
+        if (!judge){
             return R.error().code(-100);
         }
+        QueryWrapper<Thumbs> wrapper = new QueryWrapper<>();
+        wrapper.eq("art_id",id);
+        Integer thumbsNum = thumbsService.getBaseMapper().selectCount(wrapper);
+
+        List<Thumbs> thumbs = thumbsService.getBaseMapper().selectList(wrapper);
+        String[] names = new String[thumbs.size()];
+        for (int i = 0; i < thumbs.size(); i++) {
+            names[i] = thumbs.get(i).getUserName();
+        }
+
+        Map<String,Object> map = new HashMap<>();
+        map.put("nums",thumbsNum);
+        map.put("names",names);
+        return R.ok().data(map);
     }
 }

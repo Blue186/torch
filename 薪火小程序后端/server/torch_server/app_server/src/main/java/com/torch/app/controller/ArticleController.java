@@ -45,7 +45,7 @@ public class ArticleController {
     public R<?> publishArticle(@ApiParam(name = "publishArticle",value = "用户文章信息",required = true) @RequestBody PublishArticle publishArt,
                                HttpServletRequest request){
         Boolean judge = judgeCookieToken.judge(request);
-        if (judge){
+        if (!judge){
             return R.error().code(-100);
         }
         String cookie = judgeCookieToken.getCookie(request);
@@ -67,7 +67,7 @@ public class ArticleController {
     public R<?> deleteArticle(@ApiParam(name = "id",value = "文章的id")@PathVariable Integer id,
                               HttpServletRequest request){
         Boolean judge = judgeCookieToken.judge(request);
-        if (judge){
+        if (!judge){
             return R.error().code(-100);
         }
         int res = articleService.getBaseMapper().deleteById(id);
@@ -83,7 +83,7 @@ public class ArticleController {
     public R<?> updateArticle(@ApiParam(name = "updateArt",value = "文章修改内容",required = true)@RequestBody UpdateArticle updateArt,
                               HttpServletRequest request){
         Boolean judge = judgeCookieToken.judge(request);
-        if (judge) {
+        if (!judge) {
             return R.error().code(-100);
         }
         Article article = articleService.getBaseMapper().selectById(updateArt.getId());
@@ -106,7 +106,7 @@ public class ArticleController {
                                @ApiParam(name = "limit", value = "要获取的数量", required = true) @PathVariable long limit,
                                HttpServletRequest request){
         Boolean judge = judgeCookieToken.judge(request);
-        if (judge){
+        if (!judge){
             return R.error().code(-100);
         }
         Page<Article> page = new Page<>(current,limit);
@@ -123,7 +123,7 @@ public class ArticleController {
     public R<?> getOneArticle(@ApiParam(name = "id",value = "文章id",required = true)@PathVariable Integer id,
                               HttpServletRequest request){
         Boolean judge = judgeCookieToken.judge(request);
-        if (judge){
+        if (!judge){
             return R.error().code(-100);
         }
         Article article = articleService.getBaseMapper().selectById(id);
@@ -136,7 +136,7 @@ public class ArticleController {
     public R<?> viewNum(@ApiParam(name = "id",value = "文章的id",required = true) @RequestBody Integer id,
                         HttpServletRequest request){
         Boolean judge = judgeCookieToken.judge(request);
-        if (judge){
+        if (!judge){
             return R.error().code(-100);
         }
 

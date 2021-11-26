@@ -37,7 +37,7 @@ public class ContactUsController {
     public R<?> SendMessage(@ApiParam(name = "content",value = "信息内容",required = true)@RequestBody String content,
                             HttpServletRequest request){
         Boolean judge = judgeCookieToken.judge(request);
-        if (judge){
+        if (!judge){
             String cookie = judgeCookieToken.getCookie(request);
             Object uid = redisUtil.hmGet(cookie, "uid");
             ContactUs contactUs = new ContactUs();
@@ -61,7 +61,7 @@ public class ContactUsController {
     public R<?> deleteMessage(@ApiParam(name = "id",value = "此消息的id",required = true)@PathVariable Integer id,
                               HttpServletRequest request){
         Boolean judge = judgeCookieToken.judge(request);
-        if (judge){
+        if (!judge){
 //            这里可以模仿消息撤回，超过2分钟，不允许撤回
             int res = contactUsService.getBaseMapper().deleteById(id);
             if (res==1){
@@ -79,7 +79,7 @@ public class ContactUsController {
     public R<?> updateMessage(@ApiParam(name = "id",value = "消息编号",required = true)@RequestBody UpdateMessage updateMes,
                               HttpServletRequest request){
         Boolean judge = judgeCookieToken.judge(request);
-        if (judge){
+        if (!judge){
             ContactUs contactUs = contactUsService.getBaseMapper().selectById(updateMes.getId());
             contactUs.setContent(updateMes.getContent());
             contactUs.setUpdateTime(new Date());
@@ -100,7 +100,7 @@ public class ContactUsController {
                                @ApiParam(name = "limit", value = "要获取的数量", required = true) @PathVariable long limit,
                                HttpServletRequest request){
         Boolean judge = judgeCookieToken.judge(request);
-        if (judge){
+        if (!judge){
             String cookie = judgeCookieToken.getCookie(request);
             Object uid = redisUtil.hmGet(cookie, "uid");
             Page<ContactUs> page = new Page<>(current,limit);
@@ -121,7 +121,7 @@ public class ContactUsController {
     public R<?> getOneMessage(@ApiParam(name = "id",value = "信息的编号",required = true)@PathVariable Integer id,
                               HttpServletRequest request){
         Boolean judge = judgeCookieToken.judge(request);
-        if (judge){
+        if (!judge){
             ContactUs contactUs = contactUsService.getBaseMapper().selectById(id);
             return R.ok().data(contactUs);
         }else {

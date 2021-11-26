@@ -33,7 +33,7 @@ public class ArtCommentController {
     public R<?> publishComment(@ApiParam(name = "publishCom",value = "评论发布信息",required = true) PublishComment publishCom,
                                HttpServletRequest request){
         Boolean judge = judgeCookieToken.judge(request);
-        if (judge){
+        if (!judge){
             return R.error().code(-100);
         }
         Semaphore semaphore = new Semaphore(1);
@@ -64,7 +64,7 @@ public class ArtCommentController {
     public R<?> deleteComment(@ApiParam(name = "id",value = "评论id",required = true)@PathVariable Integer id,
                               HttpServletRequest request){
         Boolean judge = judgeCookieToken.judge(request);
-        if (judge){
+        if (!judge){
             return R.error().code(-100);
         }
         Semaphore semaphore = new Semaphore(1);
@@ -97,7 +97,7 @@ public class ArtCommentController {
     public R<?> selectComments(@ApiParam(name = "artId",value = "文章id",required = true)@PathVariable Integer artId,
                                HttpServletRequest request){
         Boolean judge = judgeCookieToken.judge(request);
-        if (judge){
+        if (!judge){
             QueryWrapper<ArtComment> wrapper = new QueryWrapper<>();
             wrapper.eq("art_id",artId);
             wrapper.orderByDesc("create_time");

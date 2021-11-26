@@ -87,7 +87,7 @@ public class UserController {
     public R<?> getUser(@ApiParam(name = "request",value = "请求携带cookie即可") HttpServletRequest request) {
 //        获取用户请求中的cookie，并进行校验，可以封装成一个工具类。
         Boolean judge = judgeCookieToken.judge(request);//判断请求是否合法
-        if (judge){
+        if (!judge){
             return R.error().code(-100);//这里有误的情况下就要进行重新登录操作，我返回一个login_error,-100进行判断
         }
         String cookie = judgeCookieToken.getCookie(request);
@@ -105,7 +105,7 @@ public class UserController {
     public R<?> updateUser(@ApiParam(name = "user", value = "用户提交个人信息", required = true)@RequestBody UserInfo userInfo,
                            HttpServletRequest request){
         Boolean judge = judgeCookieToken.judge(request);
-        if (judge){
+        if (!judge){
             return R.error().code(-100);
         }
         String cookie = judgeCookieToken.getCookie(request);
@@ -129,7 +129,7 @@ public class UserController {
     public R<?> mailVerify(@ApiParam(name = "mail",value = "邮箱",required = true)@RequestBody String mail,
                            HttpServletRequest request){
         Boolean judge = judgeCookieToken.judge(request);
-        if (judge){
+        if (!judge){
             return R.error().code(-100);
         }
         JSONObject jsonObject = new JSONObject(mail);
@@ -149,7 +149,7 @@ public class UserController {
     public R<?> codeCheck(@ApiParam(name = "codeCheck",value = "邮箱校验类") @RequestBody CodeCheck codeCheck,
                           HttpServletRequest request){
         Boolean judge = judgeCookieToken.judge(request);
-        if (judge){
+        if (!judge){
             return R.error().code(-100);
         }
         System.out.println("codeCheck = " + codeCheck);
