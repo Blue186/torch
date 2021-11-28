@@ -12,9 +12,9 @@ spring:
       maximum-pool-size: 5
       max-lifetime: 1800000
 
-  jackson:
-    date-format: yyyy-MM-dd HH:mm:ss
-    time-zone: GMT+8
+#  jackson:
+#    date-format: yyyy-MM-dd HH:mm:ss
+#    time-zone: GMT+8
   #邮件发送配置，目前是小码
   mail:
     host: smtp.qq.com

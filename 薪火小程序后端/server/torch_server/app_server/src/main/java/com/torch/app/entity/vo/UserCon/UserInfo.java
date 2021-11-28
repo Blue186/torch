@@ -28,4 +28,6 @@ public class UserInfo implements Serializable {
     private String avatarImage;
     @ApiModelProperty(value = "用户的自我介绍",name = "selfIntro")
     private String selfIntro;
+    @ApiModelProperty(value = "用户的性别",name = "sex")
+    private Integer sex;
 }

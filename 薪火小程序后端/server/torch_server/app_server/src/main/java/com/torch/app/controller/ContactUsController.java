@@ -43,8 +43,8 @@ public class ContactUsController {
             ContactUs contactUs = new ContactUs();
             contactUs.setContent(content);
             contactUs.setUserId((Integer)uid);
-            contactUs.setCreateTime(new Date());
-            contactUs.setUpdateTime(new Date());
+            contactUs.setCreateTime(new Date().getTime());
+            contactUs.setUpdateTime(new Date().getTime());
             int res = contactUsService.getBaseMapper().insert(contactUs);
             if (res==1){
                 return R.ok().message("发送成功");
@@ -82,7 +82,7 @@ public class ContactUsController {
         if (!judge){
             ContactUs contactUs = contactUsService.getBaseMapper().selectById(updateMes.getId());
             contactUs.setContent(updateMes.getContent());
-            contactUs.setUpdateTime(new Date());
+            contactUs.setUpdateTime(new Date().getTime());
             int res = contactUsService.getBaseMapper().insert(contactUs);
             if (res==1){
                 return R.ok().message("更新成功");

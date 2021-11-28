@@ -21,8 +21,8 @@ public class ArtCommentServiceImpl extends ServiceImpl<ArtCommentMapper, ArtComm
         artComment.setContent(publishCom.getContent());
         artComment.setArtId(publishCom.getArtId());
         artComment.setAuthorId(id);
-        artComment.setCreateTime(new Date());
-        artComment.setUpdateTime(new Date());
+        artComment.setCreateTime(new Date().getTime());
+        artComment.setUpdateTime(new Date().getTime());
         artComment.setThumbsUp(0);
         return artComment;
     }

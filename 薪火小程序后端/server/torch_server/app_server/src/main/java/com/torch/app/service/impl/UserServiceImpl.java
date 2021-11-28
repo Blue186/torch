@@ -31,7 +31,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         user.setNickName(userInfo.getNickName());
         user.setAvatarImage(userInfo.getAvatarImage());
         user.setSelfIntro(userInfo.getSelfIntro());
-
+        user.setSex(userInfo.getSex());
         return user;
     }
 }

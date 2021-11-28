@@ -14,8 +14,8 @@ public class ContactUs {
     private Integer id;
     private Integer userId;
     private String content;
-    private Date createTime;
-    private Date updateTime;
+    private Long createTime;
+    private Long updateTime;
     private String resContent;
-    private Date resTime;
+    private Long resTime;
 }

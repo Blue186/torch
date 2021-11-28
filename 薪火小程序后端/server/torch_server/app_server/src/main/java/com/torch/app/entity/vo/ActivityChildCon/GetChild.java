@@ -12,8 +12,8 @@ import java.util.Map;
 public class GetChild {
     private Integer id;
     private Integer activityId;
-    private Date createTime;
-    private Date updateTime;
+    private Long createTime;
+    private Long updateTime;
     private String servicePeriod;
     private List<ActivityTimes> activityTimes;
 }

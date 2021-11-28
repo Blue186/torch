@@ -16,8 +16,8 @@ public class ArtComment {
     @TableId(type = IdType.AUTO)
     private Integer id;
     private Integer authorId;
-    private Date createTime;
-    private Date updateTime;
+    private Long createTime;
+    private Long updateTime;
     private String content;
     private Integer nextId;
     private Integer thumbsUp;

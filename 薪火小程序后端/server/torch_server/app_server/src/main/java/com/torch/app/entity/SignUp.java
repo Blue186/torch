@@ -17,7 +17,7 @@ public class SignUp {
     private Integer id;
     private Integer userId;
     private Integer actChiId;
-    private Date createTime;
+    private Long createTime;
     private Integer isOver;
     private Integer actId;
     private Integer actTimesId;

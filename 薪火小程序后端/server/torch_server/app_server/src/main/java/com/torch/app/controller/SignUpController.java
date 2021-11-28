@@ -76,7 +76,7 @@ public class SignUpController {
             signUp.setActId(sign.getActId());
             signUp.setUserId((Integer) uid);//设置用户id
             signUp.setIsOver(0);
-            signUp.setCreateTime(new Date());
+            signUp.setCreateTime(new Date().getTime());
             int res=0;
             try {
                 semaphore.acquire(1);

@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.torch.app.entity.Article;
 import com.torch.app.entity.Impressions;
+import com.torch.app.entity.vo.ImpressionsCon.ImpressionsInfo;
 import com.torch.app.entity.vo.ImpressionsCon.PublishImpressions;
 import com.torch.app.entity.vo.ImpressionsCon.UpdateImpressions;
 import com.torch.app.service.ArticleService;
@@ -55,13 +56,10 @@ public class ImpressionsController {
         impressions.setActId(publishImp.getActId());
         impressions.setActStars(publishImp.getActStars());
         impressions.setUserId((Integer) uid);
-        impressions.setCreateTime(new Date());
-        impressions.setUpdateTime(new Date());
-        String[] urls = fileUtil.uploadImage(publishImp.getImages());
-        String join = StringUtils.join(urls, ";");
-        impressions.setActImages(join);
-
+        impressions.setCreateTime(new Date().getTime());
+        impressions.setUpdateTime(new Date().getTime());
         int res = impressionsService.getBaseMapper().insert(impressions);
+        impressionsService.insertImages(publishImp.getImages(), impressions.getId());
         if (res==1){
             return R.ok().message("发布成功");
         }else {
@@ -94,15 +92,13 @@ public class ImpressionsController {
             return R.error().code(-100);
         }
         Impressions impressions = impressionsService.getBaseMapper().selectById(updateImp.getId());
-        impressions.setUpdateTime(new Date());
+        impressions.setUpdateTime(new Date().getTime());
         impressions.setActStars(updateImp.getActStars());
         impressions.setContent(updateImp.getContent());
         impressions.setActId(updateImp.getActId());
 
-        String[] urls = fileUtil.uploadImage(updateImp.getImages());
-        String join = StringUtils.join(urls, ";");
-        impressions.setActImages(join);
         int res = impressionsService.getBaseMapper().updateById(impressions);
+        impressionsService.updateImages(updateImp.getImages(), impressions.getId());
         if (res==1){
             return R.ok().message("更新成功");
         }else {
@@ -127,7 +123,10 @@ public class ImpressionsController {
         wrapper.eq("user_id",uid);
         impressionsService.page(page,wrapper);
         List<Impressions> records = page.getRecords();
-        return R.ok().message("查询成功").data(records);
+
+        List<ImpressionsInfo> impressionsInfos = impressionsService.getImpressionsInfo(records);
+
+        return R.ok().message("查询成功").data(impressionsInfos);
     }
     @ApiOperation(value = "获取单篇心得的内容")
     @GetMapping("/{id}")
@@ -138,6 +137,7 @@ public class ImpressionsController {
             return R.error().code(-100);
         }
         Impressions impressions = impressionsService.getBaseMapper().selectById(id);
-        return R.ok().data(impressions);
+        ImpressionsInfo impressionsInfo = impressionsService.getImpressionsInfo(impressions);
+        return R.ok().data(impressionsInfo);
     }
 }

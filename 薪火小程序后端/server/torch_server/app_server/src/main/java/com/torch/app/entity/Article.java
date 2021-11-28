@@ -17,8 +17,8 @@ public class Article {
     @TableId(type = IdType.AUTO)
     private Integer id;
     private Integer authorId;
-    private Date createTime;
-    private Date updateTime;
+    private Long createTime;
+    private Long updateTime;
     private String content;
     private Integer commentId;//这个可能不需要，应该是在comment表中设置artId
     private Integer thumbsUp;

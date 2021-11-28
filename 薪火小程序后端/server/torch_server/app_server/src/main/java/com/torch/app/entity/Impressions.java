@@ -16,8 +16,7 @@ public class Impressions {
     private Integer userId;
     private Integer actId;
     private String content;
-    private Date createTime;
-    private Date updateTime;
+    private Long createTime;
+    private Long updateTime;
     private Integer actStars;
-    private String actImages;
 }

@@ -12,12 +12,11 @@ import java.util.Date;
 public class ActivityTimes {
     @TableId(type = IdType.AUTO)
     private Integer id;
-    private String startTime;
-    private String endTime;
+    private Long startTime;
+    private Long endTime;
     private String address;
     private Integer recruiting;
     private Integer recruited;
-    private Integer hours;
     private Integer actChiId;
     private Integer actId;
 }

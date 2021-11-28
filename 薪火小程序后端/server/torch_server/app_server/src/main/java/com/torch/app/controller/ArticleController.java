@@ -88,11 +88,9 @@ public class ArticleController {
         }
         Article article = articleService.getBaseMapper().selectById(updateArt.getId());
         article.setContent(updateArt.getContent());
-        article.setUpdateTime(new Date());
+        article.setUpdateTime(new Date().getTime());
         int res = articleService.getBaseMapper().updateById(article);
-        String cookie = judgeCookieToken.getCookie(request);
-        Object uid = redisUtil.hmGet(cookie, "uid");
-        articleService.updateImages(updateArt.getImages(), (Integer) uid);
+        articleService.updateImages(updateArt.getImages(), article.getId());
         if (res==1){
             return R.ok().message("修改成功");
         }else {

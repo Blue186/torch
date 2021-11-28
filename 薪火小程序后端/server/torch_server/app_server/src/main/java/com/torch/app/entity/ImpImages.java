@@ -5,18 +5,11 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
-import java.util.Date;
-
-/**
- * 子活动信息表
- */
-@TableName("activity_child")
 @Data
-public class ActivityChild {
+@TableName("imp_images")
+public class ImpImages {
     @TableId(type = IdType.AUTO)
     private Integer id;
-    private Integer activityId;
-    private Long createTime;
-    private Long updateTime;
-    private String servicePeriod;
+    private String url;
+    private Integer impId;
 }

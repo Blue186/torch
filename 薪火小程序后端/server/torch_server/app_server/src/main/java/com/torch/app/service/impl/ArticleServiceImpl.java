@@ -31,8 +31,8 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         Article article = new Article();
         article.setContent(publishArt.getContent());
         article.setAuthorId(id);
-        article.setCreateTime(new Date());
-        article.setUpdateTime(new Date());
+        article.setCreateTime(new Date().getTime());
+        article.setUpdateTime(new Date().getTime());
         article.setThumbsUp(0);
         article.setViews(0);
         return article;
@@ -47,7 +47,6 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
             artImages.setArtId(artId);
             artImagesService.getBaseMapper().insert(artImages);
         }
-
     }
 
     @Override
@@ -67,13 +66,10 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     @Override
     public List<ArticleInfo> getArticleInfos(List<Article> records) {
         List<ArticleInfo> articleInfos = new ArrayList<>();
-        System.out.println("records:"+records);
         for (Article record : records) {
             QueryWrapper<ArtImages> wrapper = new QueryWrapper<>();
             wrapper.eq("art_id", record.getId());
             List<ArtImages> artImages = artImagesService.getBaseMapper().selectList(wrapper);
-            System.out.println("id:" + record.getId());
-            System.out.println("all:" + record);
             ArticleInfo articleInfo = new ArticleInfo();
 
             articleInfo.setId(record.getId());
@@ -94,7 +90,6 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     @Override
     public ArticleInfo getArticleInfos(Article article) {
         ArticleInfo articleInfo = new ArticleInfo();
-        System.out.println("article:"+article);
         QueryWrapper<ArtImages> wrapper = new QueryWrapper<>();
         wrapper.eq("art_id",article.getId());
         List<ArtImages> artImages = artImagesService.getBaseMapper().selectList(wrapper);

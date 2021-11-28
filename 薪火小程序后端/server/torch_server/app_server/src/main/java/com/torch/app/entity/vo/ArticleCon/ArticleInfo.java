@@ -1,21 +1,15 @@
 package com.torch.app.entity.vo.ArticleCon;
 
 import com.torch.app.entity.ArtImages;
+import com.torch.app.entity.Article;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
-import java.util.Date;
+import java.io.Serializable;
 import java.util.List;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
-public class ArticleInfo {
-    private Integer id;
-    private Integer authorId;
-    private Date createTime;
-    private Date updateTime;
-    private String content;
-    private Integer commentId;//这个可能不需要，应该是在comment表中设置artId
-    private Integer thumbsUp;
-    private Integer type;
-    private Integer views;
+public class ArticleInfo extends Article implements Serializable {
     private List<ArtImages> artImages;
 }
