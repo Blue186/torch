@@ -3,7 +3,6 @@ package com.torch.admin.entity.app.vo;
 import com.torch.admin.entity.torch.TorchMember;
 import lombok.Data;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,8 +12,8 @@ public class PassedActivity {
     private Integer id;
     private String identifier;
     private TorchMember torchMember;
-    private Date createTime;
-    private Date passTime;
+    private long createTime;
+    private long passTime;
     private String organizer;
     private Integer headcount;
     private String remarks;
@@ -29,7 +28,7 @@ public class PassedActivity {
     public PassedActivity() {
     }
 
-    public PassedActivity(Integer id, String identifier, TorchMember torchMember, Date createTime, Date passTime, String organizer, Integer headcount, String remarks, String content, Integer totalNumber, String attention, String actImage, String qqNumber) {
+    public PassedActivity(Integer id, String identifier, TorchMember torchMember, long createTime, long passTime, String organizer, Integer headcount, String remarks, String content, Integer totalNumber, String attention, String actImage, String qqNumber) {
         this.id = id;
         this.identifier = identifier;
         this.torchMember = torchMember;
