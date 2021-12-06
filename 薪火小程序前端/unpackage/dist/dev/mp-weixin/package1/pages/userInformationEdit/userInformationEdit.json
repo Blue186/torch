@@ -1,5 +1,8 @@
 {
   "navigationBarTitleText": "信息修改",
   "enablePullDownRefresh": false,
-  "usingComponents": {}
+  "usingComponents": {
+    "school-picker": "/compoments/schoolPicker/schoolPicker",
+    "edit-image": "/compoments/editImage"
+  }
 }

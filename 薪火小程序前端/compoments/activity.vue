@@ -1,22 +1,24 @@
 <template>
 	<view class="activity">
 		<view class="pic">
-			<image :src="info.activityImage" mode="aspectFill" class="image"></image>
+			<image :src="info.actImage" mode="aspectFill" class="image"></image>
 		</view>
 		<view class="activityInformation">
 			<view class="nameAndLocation">
-				<text class="activityName">{{info.activityName}}</text>
+				<text class="activityName">{{info.name}}</text>
 				<view class="location">
 					<image class="image" src="/static/images/dingwei@2x.png" mode=""></image>
-					解放碑
+					{{info.address}}
 				</view>
 			</view>
-
-			<text class="activityTime">全天</text>
-			<text class="activityNumber">招募人数：2/5人</text>
+			<view class="time">
+				<!-- <text class="activityTime">{{info.time}}</text> -->
+				<text class="activityDate">{{info.volTimePeriod}} </text>
+			</view>
+			<text class="activityNumber">招募人数：{{info.totalNumber}}/{{info.headcount}}人</text>
 		</view>
 		
-		<tag class="tag" name="招募中"></tag>
+		<tag class="tag" name="招募中" color='orange'></tag>
 		
 		<button type="default" class="btn" @click="goDetail">详情</button>
 
@@ -24,6 +26,7 @@
 </template>
 
 <script>
+	
 	import tag from "./tag.vue"
 	export default {
 		props:['info'],
@@ -35,13 +38,33 @@
 				
 			}
 		},
+		
 		methods: {
 			goDetail(){
 				console.log("点到我了")
+				
+				
 				uni.navigateTo({
-					url:'/package1/pages/activityDetail/activityDetail'
+					url:'/package1/pages/activityDetail/activityDetail?id=999',
+					animationType:"slide-in-right",
+					 // events: {
+					 //    // 为指定事件添加一个监听器，获取被打开页面传送到当前页面的数据
+					 //    acceptDataFromOpenedPage: function(data) {
+					 //      console.log(data)
+					 //    },
+					 //    someEvent: function(data) {
+					 //      console.log(data)
+					 //    }
+					    
+					 //  },
+					success: (res)=> {
+						 res.eventChannel.emit('postActivityInformation', this.info)
+					 
+					}
 				})
-			}
+			},
+			// 获取活动细节
+			
 		}
 	}
 </script>
@@ -92,6 +115,11 @@
 			.activityTime{
 				font-size: 28rpx;
 				color: rgb(85,102,205);
+				margin-right: 20rpx;
+			}
+			.activityDate {
+				font-size: 28rpx;
+				
 			}
 			.activityNumber {
 				font-size: 32rpx;

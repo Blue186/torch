@@ -1,1 +1,1 @@
-<button class="btn data-v-0e6c131a" type="default">{{name}}</button>
+<button class="btn data-v-0e6c131a" style="{{'background-color:'+(backgroundColor)+';'}}" type="default">{{name}}</button>

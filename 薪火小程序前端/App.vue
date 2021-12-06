@@ -1,7 +1,9 @@
 <script>
+	import login from './utils/login.js'
 	export default {
 		onLaunch: function() {
 			console.log('App Launch')
+			login()
 		},
 		onShow: function() {
 			console.log('App Show')

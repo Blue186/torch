@@ -1,17 +1,17 @@
 <template>
 	<view class="indexPage">
 		<!-- 蒙层 -->
-		<view class="cover" @click="getUserProfile" v-show="cover">
-		</view>
+		<!-- <view class="cover" @click="getUserProfile" v-show="cover"> -->
+		<!-- 	</view> -->
 		<!-- 轮播图 -->
 		<slide-show :images='indexSlideImages'></slide-show>
 		<!-- 招募信息 -->
-		<view class="recruitmentImformation" >
+		<view class="recruitmentImformation">
 			<view class="title" @longpress="goIng">志愿招募</view>
 			<view class="activities">
-				<activity class="activity" :info='activityInformations'></activity>
+				<activity class="activity" :info='info' v-for="info in activityInformations" :key='info.id'></activity>
 			</view>
-			<view class="bottom">
+			<view class="bottom" v-if="loadDone">
 				---别划了，到底了~---
 			</view>
 		</view>
@@ -20,14 +20,12 @@
 </template>
 
 <script>
+	import {
+		getVolunteer
+	} from '../../models/indexModel.js'
 	import slideShow from '../../compoments/slideShow.vue'
 	import activity from '../../compoments/activity.vue'
-	import {
-		login
-	} from '../../models/index.js'
-	import {
-		postUserImformation
-	} from '../../models/index.js'
+
 	export default {
 		components: {
 			slideShow,
@@ -35,8 +33,12 @@
 		},
 		data() {
 			return {
+
 				code: null,
+				loadedNumber: 0,
 				cover: false,
+				loadDone: false,
+				//轮播图图片
 				indexSlideImages: [{
 					url: 'https://www.torchcqs.cn:8080/lxj/allMeeting.jpg',
 					name: 'allMeeting'
@@ -47,20 +49,20 @@
 					url: 'https://www.torchcqs.cn:8080/lxj/preach.jpg',
 					name: 'preach'
 				}],
-				activityInformations:[{
-					activityName:'解放碑街道清理',
-					activityImage:'/static/images/dingwei@2x.png',
-					activityTime:'全天',
-					activityNumber:'5',
-					
-				}]
+				// 活动信息
+				activityInformations: []
+
 			}
 		},
 		onLoad() {
-			// uni.navigateTo({
-			// 	url:'/package1/pages/userInformationEdit/userInformationEdit'
-			// })
-			// this.login()
+			this.getActivityInformations()
+		},
+		// 页面拉到低了
+		onReachBottom() {
+			if (!this.loadDone) {
+				this.getActivityInformations();
+			}
+			// console.log("到底了")
 		},
 		methods: {
 			//进入开发中的页面（暂时）
@@ -69,93 +71,23 @@
 					url: '/package2/pages/ing/ing'
 				})
 			},
-			//登陆获得id
-			login() {
-				uni.login({
-					provider: 'weixin',
-					success: res => {
-						console.log(res)
-						this.code = res.code
-						this.apiLogin()
+			// 下拉刷新
+			onPullDownRefresh() {
+				this.getActivityInformations()
+			},
+			getActivityInformations() {
+				getVolunteer(`${this.loadedNumber}/4`).then(res => {
+					console.log('活动信息', res.data)
+					if (res.data&&res.data.length > 0) {
+						this.loadedNumber += 4;
+						this.activityInformations = this.activityInformations.concat(res.data)
+					} else {
+						this.loadDone = true
 					}
-				});
-			},
-			// 获取用户信息
-			getUserProfile() {
-				console.log("调用成功")
-				// 推荐使用wx.getUserProfile获取用户信息，开发者每次通过该接口获取用户个人信息均需用户确认
-				// 开发者妥善保管用户快速填写的头像昵称，避免重复弹窗
-				wx.getUserProfile({
-					desc: '用于完善会员资料', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
-					success: (res) => {
-						console.log(res)
-						this.postUserImformation(res.userInfo)
-						// uni.setStorage({
-						//     key: 'userInfo',
-						//     data: {
-						//   nickName: res.userInfo.nickName,
-						//   avatarUrl: res.userInfo.avatarUrl
-						//  },
-						//     success: function () {
-						//         console.log('存储用户数据成功');
-						//     },
-						//  fail(){
-						//   console.log("存储用户数据失败")
-						//  }
-						// });
-						// this.setData({
-						//   userInfo: res.userInfo,
-						//   hasUserInfo: true
-						// })
-					}
-				})
-				// this.apiTest()  
-				this.cover = false
-			},
 
-			apiLogin() {
-
-				login({
-					code: this.code
-				}).then(res => {
-					console.log(res)
-					this.cover = res.data.status
-					console.log(res.data.c)
-					uni.setStorage({
-						key: 'cookie',
-						data: {
-							cookie: res.data.c
-						},
-						success: function() {
-							if (this.cover) {
-								console.log('注册成功');
-							} else {
-								console.log('登陆成功');
-							}
-							console.log(uni.getStorageSync("获取到的cookie", 'cookie'))
-						},
-						fail() {}
-					});
-				}).catch(err => {
-					console.log('登陆失败', err)
-				})
-			},
-			postUserImformation(userInfo) {
-
-				postUserImformation({
-					"avatarImage": "这是一张图",
-					"grade": "",
-					"name": "",
-					"nickName": userInfo.nickName,
-					"phone": "",
-					"qq": "",
-					"school": "",
-					"volAccount": ""
-
-				}).then(res => {
-					console.log(res)
 				})
 			}
+
 		}
 	}
 </script>
@@ -193,6 +125,7 @@
 				display: flex;
 				flex-direction: column;
 				align-items: center;
+				margin-bottom: 40rpx;
 			}
 		}
 

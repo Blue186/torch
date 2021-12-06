@@ -1,21 +1,21 @@
 <template>
 	<view class="volunteerRecord">
 		<view class="dateTag">
-			2021/10/22
+			{{record.volTimePeriod}}
 		</view>
 		<view class="activity">
 			<view class="activityName">
-				爱心亭志愿活动
+				{{record.name}}
 			</view>
 			<view class="activityHours">
-				3.0h
+				{{record.volTimeDesc}}
 			</view>
 		</view>
 		<view class="writeFeeling" v-if="haveFeeling">
 			<image src="/static/images/book.png" mode="" @click="goMyFeeling" class="image"></image>
 			<view>我的心得</view>
 		</view>
-		<view class="myFeeling" v-if="!haveFeeling">
+		<view class=" writeFeeling" v-if="!haveFeeling">
 			<image src="/static/images/pencil.png" mode=""  @click="goMyFeeling" class="image"></image>
 			<view>填写心得</view>
 		</view>
@@ -23,16 +23,29 @@
 </template>
 
 <script>
+	
 	export default {
 		data() {
 			return {
-				haveFeeling:1
+				haveFeeling:0
+			}
+		}, 
+		props:{
+			record:{
+				type:Object,
+				default:{
+					volTimePeriod:'2021/10/22',
+					name:'爱心亭志愿活动',
+					volTimeDesc:4
+					
+				}
 			}
 		},
 		methods: {
 			goMyFeeling() {
 				uni.navigateTo({
-					url:'/package3/pages/myFeeling/myFeeling'
+					url:`/package3/pages/myFeeling/myFeeling?name=${this.record.name}&actId=${this.record.id}`,
+					
 				})
 			}
 		}

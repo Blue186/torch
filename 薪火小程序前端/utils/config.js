@@ -1,4 +1,4 @@
 const config = {
-base_url: 'http://192.168.10.67:8002'
+base_url: 'http://127.0.0.1:8002'
 }
 export { config }

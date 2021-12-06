@@ -68,6 +68,10 @@
 .activity .activityInformation .activityTime.data-v-3c94e5ab {
   font-size: 28rpx;
   color: #5566cd;
+  margin-right: 20rpx;
+}
+.activity .activityInformation .activityDate.data-v-3c94e5ab {
+  font-size: 28rpx;
 }
 .activity .activityInformation .activityNumber.data-v-3c94e5ab {
   font-size: 32rpx;
