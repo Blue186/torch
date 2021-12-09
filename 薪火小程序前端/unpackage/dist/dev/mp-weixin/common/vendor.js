@@ -2058,7 +2058,7 @@ uni$1;exports.default = _default;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.cancelSignUp = exports.getActivityDetail = exports.getVolunteer = exports.postUserImformation = exports.postEmailCode = exports.postEmail = exports.getUserImformation = exports.loginApi = void 0;var _http = __webpack_require__(/*! ../utils/http.js */ 11);
+Object.defineProperty(exports, "__esModule", { value: true });exports.signUp = exports.cancelSignUp = exports.getActivityDetail = exports.getVolunteer = exports.postUserImformation = exports.postEmailCode = exports.postEmail = exports.getUserImformation = exports.loginApi = void 0;var _http = __webpack_require__(/*! ../utils/http.js */ 11);
 
 
 //POST 请求案例
@@ -2134,6 +2134,16 @@ exports.getActivityDetail = getActivityDetail;var cancelSignUp = function cancel
 
 };
 
+// 报名
+exports.cancelSignUp = cancelSignUp;var signUp = function signUp(query) {
+  return (0, _http.apiResquest)({
+    url: '/signUp',
+    method: 'POST',
+    query: query });
+
+};
+
+
 
 //GET 请求案例可以传递参数也可以不传递
 // export const validateCode  = (query) => {
@@ -2143,7 +2153,7 @@ exports.getActivityDetail = getActivityDetail;var cancelSignUp = function cancel
 // 		method: 'GET'
 // 	})
 // }
-exports.cancelSignUp = cancelSignUp;
+exports.signUp = signUp;
 
 /***/ }),
 
@@ -2237,11 +2247,12 @@ var apiResquest = function apiResquest(prams) {//prams 为我们需要调用的�
 
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });exports.config = void 0;var config = {
-  base_url: 'http://127.0.0.1:8002' };exports.config = config;
+  // base_url: 'http://192.168.10.9:8002'
+  base_url: 'http://139.186.170.118:8002' };exports.config = config;
 
 /***/ }),
 
-/***/ 143:
+/***/ 145:
 /*!*****************************************************************************************!*\
   !*** D:/Code/front_end/小程序/薪火小程序/薪火小程序前端/compoments/schoolPicker/city-data/province.js ***!
   \*****************************************************************************************/
@@ -2391,7 +2402,7 @@ provinceData;exports.default = _default;
 
 /***/ }),
 
-/***/ 144:
+/***/ 146:
 /*!*************************************************************************************!*\
   !*** D:/Code/front_end/小程序/薪火小程序/薪火小程序前端/compoments/schoolPicker/city-data/city.js ***!
   \*************************************************************************************/
@@ -3901,7 +3912,7 @@ cityData;exports.default = _default;
 
 /***/ }),
 
-/***/ 145:
+/***/ 147:
 /*!*************************************************************************************!*\
   !*** D:/Code/front_end/小程序/薪火小程序/薪火小程序前端/compoments/schoolPicker/city-data/area.js ***!
   \*************************************************************************************/
@@ -16454,7 +16465,7 @@ areaData;exports.default = _default;
 
 /***/ }),
 
-/***/ 146:
+/***/ 148:
 /*!******************************************************************************************!*\
   !*** D:/Code/front_end/小程序/薪火小程序/薪火小程序前端/compoments/schoolPicker/school-data/schools.js ***!
   \******************************************************************************************/
@@ -28071,24 +28082,6 @@ data;exports.default = _default;
 
 /***/ }),
 
-/***/ 149:
-/*!*********************************************************!*\
-  !*** D:/Code/front_end/小程序/薪火小程序/薪火小程序前端/utils/uuid.js ***!
-  \*********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = guid2;
-function guid2() {
-  function S4() {
-    return ((1 + Math.random()) * 0x10000 | 0).toString(16).substring(1);
-  }
-  return S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4();
-}
-
-/***/ }),
-
 /***/ 15:
 /*!**********************************************************************************************************!*\
   !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/runtime/componentNormalizer.js ***!
@@ -28218,7 +28211,7 @@ function normalizeComponent (
 
 /***/ }),
 
-/***/ 168:
+/***/ 170:
 /*!***********************************************************************************************!*\
   !*** D:/Code/front_end/小程序/薪火小程序/薪火小程序前端/uni_modules/uni-icons/components/uni-icons/icons.js ***!
   \***********************************************************************************************/
@@ -28357,49 +28350,6 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
   "cloud-download-filled": "\uE8E9",
   "headphones": "\uE8BF",
   "shop": "\uE609" };exports.default = _default;
-
-/***/ }),
-
-/***/ 192:
-/*!***************************************************************!*\
-  !*** D:/Code/front_end/小程序/薪火小程序/薪火小程序前端/models/uesrModel.js ***!
-  \***************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.getActicityFeeling = exports.postActicityFeeling = exports.getVolunteerRecords = void 0;var _http = __webpack_require__(/*! ../utils/http.js */ 11);
-
-
-
-//获取做过志愿记录
-var getVolunteerRecords = function getVolunteerRecords(query) {
-  var str = query;
-  return (0, _http.apiResquest)({
-    url: "/signUp/over/".concat(str),
-    method: 'GET' });
-
-
-};
-
-//发布志愿心得
-exports.getVolunteerRecords = getVolunteerRecords;var postActicityFeeling = function postActicityFeeling(query) {
-  return (0, _http.apiResquest)({
-    url: '/impressions',
-    method: 'POST',
-    query: query });
-
-};
-
-// 获取志愿心得
-exports.postActicityFeeling = postActicityFeeling;var getActicityFeeling = function getActicityFeeling(query) {
-  var str = query;
-  return (0, _http.apiResquest)({
-    url: "/impressions/".concat(str),
-    method: 'GET' });
-
-
-};exports.getActicityFeeling = getActicityFeeling;
 
 /***/ }),
 
@@ -34483,6 +34433,57 @@ internalMixin(Vue);
 
 /***/ }),
 
+/***/ 30:
+/*!***************************************************************!*\
+  !*** D:/Code/front_end/小程序/薪火小程序/薪火小程序前端/models/uesrModel.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.postImages = exports.getActicityFeeling = exports.postActicityFeeling = exports.getVolunteerRecords = void 0;var _http = __webpack_require__(/*! ../utils/http.js */ 11);
+
+
+
+//获取做过志愿记录 参数为1代表已完成的活动
+var getVolunteerRecords = function getVolunteerRecords(query) {
+  var str = query;
+  return (0, _http.apiResquest)({
+    url: "/signUp/signInfo/".concat(str),
+    method: 'GET' });
+
+};
+
+//发布志愿心得
+exports.getVolunteerRecords = getVolunteerRecords;var postActicityFeeling = function postActicityFeeling(query) {
+  return (0, _http.apiResquest)({
+    url: '/impressions',
+    method: 'POST',
+    query: query });
+
+};
+
+// 获取志愿心得
+exports.postActicityFeeling = postActicityFeeling;var getActicityFeeling = function getActicityFeeling(query) {
+  var str = query;
+  return (0, _http.apiResquest)({
+    url: "/impressions/".concat(str),
+    method: 'GET' });
+
+
+};
+
+// 上传图片
+exports.getActicityFeeling = getActicityFeeling;var postImages = function postImages(query) {
+  return (0, _http.apiResquest)({
+    url: '/file/images',
+    method: 'POST',
+    query: query });
+
+};exports.postImages = postImages;
+
+/***/ }),
+
 /***/ 4:
 /*!*************************************************************!*\
   !*** ./node_modules/@dcloudio/uni-i18n/dist/uni-i18n.es.js ***!
@@ -34947,7 +34948,7 @@ function resolveLocaleChain(locale) {
 
 /***/ }),
 
-/***/ 46:
+/***/ 47:
 /*!***************************************************************!*\
   !*** D:/Code/front_end/小程序/薪火小程序/薪火小程序前端/utils/formatTime.js ***!
   \***************************************************************/
@@ -34963,16 +34964,32 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.formatTime
   var hour = date.getHours();
   var minute = date.getMinutes();
   var second = date.getSeconds();
+  // 小时和分钟
   if (format === 'time') {
     return "".concat([hour, minute].map(formatNumber).join(':'));
   }
+  // 年月日时分秒
   if (format === 'year') {
     return "".concat([year, month, day].map(formatNumber).join('/'), " ").concat([hour, minute, second].map(formatNumber).join(':'));
   }
+  // 小时分钟 用h   min
   if (format === 'duration') {
     return "".concat([hour, minute].map(formatNumber).join('h'), "min");
   }
-  return "".concat([year, month, day].map(formatNumber).join('/'), " ").concat([hour, minute, second].map(formatNumber).join(':'));
+  // 年月日
+  if (format === 'Y-M-D') {
+    return "".concat([year, month, day].map(formatNumber).join('/'), " ");
+  }
+  // 月日
+  if (format === 'M-D') {
+    return "".concat([month, day].map(formatNumber).join('月'), "\u65E5 ");
+  }
+  // 年
+  if (format === 'Y') {
+    return "".concat([year].map(formatNumber));
+  }
+  // 年月日时分秒
+  return "".concat([year, month, day].map(formatNumber).join('/')).concat([hour, minute, second].map(formatNumber).join(':'));
 };
 
 
@@ -34997,7 +35014,7 @@ exports.formatTime = formatTime;var formatNumber = function formatNumber(n) {
 
 /***/ }),
 
-/***/ 55:
+/***/ 56:
 /*!*****************************************************************************!*\
   !*** D:/Code/front_end/小程序/薪火小程序/薪火小程序前端/node_modules/image-tools/index.js ***!
   \*****************************************************************************/
@@ -35200,6 +35217,24 @@ function base64ToPath(base64) {
     }
     reject(new Error('not support'));
   });
+}
+
+/***/ }),
+
+/***/ 73:
+/*!*********************************************************!*\
+  !*** D:/Code/front_end/小程序/薪火小程序/薪火小程序前端/utils/uuid.js ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = guid2;
+function guid2() {
+  function S4() {
+    return ((1 + Math.random()) * 0x10000 | 0).toString(16).substring(1);
+  }
+  return S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4();
 }
 
 /***/ }),

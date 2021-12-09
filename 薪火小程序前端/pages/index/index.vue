@@ -105,7 +105,7 @@
 		width: 95%;
 		min-height: 70vh;
 		margin-top: 50rpx;
-		background-color: #eee;
+		background-color: #fcfcfc;
 		border-radius: 20rpx;
 		display: flex;
 		flex-direction: column;
@@ -120,11 +120,12 @@
 		.activities {
 			width: 100%;
 			margin-top: 30rpx;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
 
 			.activity {
-				display: flex;
-				flex-direction: column;
-				align-items: center;
+				
 				margin-bottom: 40rpx;
 			}
 		}

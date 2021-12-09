@@ -12,7 +12,8 @@
 							<text>{{userInfo.nickName}}</text>
 							<view class="role" v-if="userInfo.level === 2">
 								游客
-							</view><view class="role" v-if="userInfo.level === 1">
+							</view>
+							<view class="role" v-if="userInfo.level === 1">
 								志愿者
 							</view>
 						</view>
@@ -48,11 +49,25 @@
 					<image src="/static/images/myHour.png" mode=""></image>
 					<text>{{userInfo.totalTime}}h</text>
 				</view>
+				<!-- 正在进行中的志愿活动 -->
 				<view class="currentVolunteer" @click="goMyVolunteer">
 					<view class="title">
-						我的志愿
+						正在进行
 					</view>
 					<view class="content">
+
+						<swiper :autoplay="true" :interval="3000" :duration="1000" :circular="true" :vertical="true"
+							next-margin="100px " class="swiper">
+							<swiper-item v-for="(item,index) in ongoingActivity" :key='index'>
+								<view class="swiper-item">
+									<view class="">
+										{{format(item.servicePeriod,'M-D')}}
+									</view>
+									<view> {{item.name}}</view>
+								</view>
+							</swiper-item>
+
+						</swiper>
 
 					</view>
 				</view>
@@ -62,16 +77,22 @@
 		<view class="volunteerRecord">
 			<text class="title">志愿记录</text>
 			<view class="content">
+				<!-- 时间线 -->
 				<view class="timeLine">
-					<view class="node">
-
+					<view class="yearLine" v-for="(item,index) in timeLineDate" :key='item.year'>
+						<view class="node">
+							{{item.year}}
+						</view>
+						<view class="line" v-for="(segLine,index) in item.times" :key="index" >
+							
+						</view>
 					</view>
-					<view class="line">
 
-					</view>
 				</view>
+				<!-- 记录 -->
 				<view class="records">
-					<record class="record" v-for="(item,index) in activityRecords" :record="item" :key='item.id'></record>
+					<record class="record" v-for="(item,index) in activityRecords" :record="item" :key='item.id'>
+					</record>
 				</view>
 			</view>
 		</view>
@@ -79,8 +100,13 @@
 </template>
 
 <script>
-	import {getVolunteerRecords} from '../../models/uesrModel.js'
-	
+	import {
+		formatTime
+	} from '../../utils/formatTime.js'
+	import {
+		getVolunteerRecords
+	} from '../../models/uesrModel.js'
+
 	import {
 		getUserImformation
 	} from '../../models/indexModel.js'
@@ -96,47 +122,70 @@
 			return {
 				nickname: '志愿者',
 				avatarUrl: '/static/images/department.png',
-				activityRecords:{},
+				activityRecords: {},
+				ongoingActivity: [],
 				userInfo: {
 					sex: 1,
-					selfIntro:'',
-					totalTime:0
-				}
+					selfIntro: '',
+					totalTime: 0
+				},
+				timeLineDate: []
 			}
 		},
+
 		onLoad() {
 			this.getUserInfo()
+			this.getOngoing()
 			this.getRecords()
 			// 修改数据后刷新
 			uni.$on('updateUserInfo', (res) => {
 				console.log(res)
 				this.getUserInfo()
 			})
+			setInterval(() => {
+
+
+
+
+			}, 1000)
 		},
-		onUnload(){
+		onUnload() {
 			uni.$off('updateUserInfo')
 		},
 		// 下拉刷新
 		onPullDownRefresh() {
-			
+
 			this.getUserInfo()
 			console.log("刷新了")
 			uni.stopPullDownRefresh()
 		},
 		methods: {
-			//获取志愿记录
-			getRecords(){
-				getVolunteerRecords('1/3').then(res=>{
-					this.activityRecords = res.data.records
-					console.log('志愿记录',res)
-				},err=>{
+			// 获取正在进行中的志愿活动
+			getOngoing() {
+				getVolunteerRecords("0").then(res => {
+					console.log("正在进行中的志愿活动", res)
+					this.ongoingActivity = res.data
+				}, err => {
 					console.log(err)
 				})
 			},
+			//获取志愿记录
+			getRecords() {
+				getVolunteerRecords('1').then(res => { //1代表已完成的志愿活动
+					this.activityRecords = res.data
+					console.log('志愿记录', res)
+					this.getTimeLineData()
+				}, err => {
+					console.log(err)
+				})
+			},
+
 			goMyVolunteer() {
 				uni.navigateTo({
-					url: '/package3/pages/myVolunteer/myVolunteer',
-
+					url: `/package3/pages/myVolunteer/myVolunteer`,
+					success: (res) => {
+						res.eventChannel.emit("ongoingActivity", this.ongoingActivity)
+					}
 				})
 			},
 			getUserInfo() {
@@ -161,11 +210,6 @@
 			editInformation() {
 				uni.navigateTo({
 					url: '/package1/pages/userInformationEdit/userInformationEdit?logined=true',
-					events: {
-						test: function(res) {
-							console.log(res)
-						}
-					},
 					success: (res) => {
 						// console.log(this)
 						res.eventChannel.emit('userInfo', this.userInfo)
@@ -179,7 +223,33 @@
 
 				})
 
+			},
+			format(res, method) {
+				return formatTime(res, method)
+			},
+			// 形成时间线数据
+
+			getTimeLineData() {
+				this.activityRecords.forEach((record) => {
+					let flag = 1
+					this.timeLineDate.forEach((line) => {
+						if (this.format(record.servicePeriod, 'Y') === line.year) {
+							flag = 0
+							line.times++
+						}
+					})
+					if (flag) {
+						this.timeLineDate.push({
+							year: this.format(record.servicePeriod, 'Y'),
+							times: 1
+						})
+					}
+
+
+				})
+				console.log("时间线数据", this.timeLineDate)
 			}
+
 		}
 	}
 </script>
@@ -353,6 +423,15 @@
 						border: 2px solid #000000;
 						background-color: #ffdc88;
 						border-radius: 20rpx;
+
+						.swiper {
+							height: 100rpx;
+						}
+
+						.swiper-item {
+							margin: 10rpx 100rpx;
+						}
+
 					}
 				}
 			}
@@ -369,13 +448,28 @@
 			.timeLine {
 				margin-top: 20rpx;
 				float: left;
-				border: 1px solid orange;
+				// border: 1px solid orange;
 				width: 50rpx;
-				height: 500rpx;
+				// height: 500rpx;
+				margin-left: 30rpx;
 
-				.node {}
+				.node {
+					width: 40rpx;
+					height: 40rpx;
+					background-color: #0060c7;
+					border-radius: 50%;
+					font-size: 15rpx;
+					
+					text-align: center;
+					color: #fff ;
+					line-height: 40rpx;
+				}
 
-				.line {}
+				.line {
+					border-right: 5px solid #000;
+					height: 120rpx;
+					margin-right: 28rpx;
+				}
 			}
 
 			.records {

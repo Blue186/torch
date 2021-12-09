@@ -153,6 +153,12 @@
   background-color: #ffdc88;
   border-radius: 20rpx;
 }
+.userPage .userVolunteer .wrap .currentVolunteer .content .swiper.data-v-80842834 {
+  height: 100rpx;
+}
+.userPage .userVolunteer .wrap .currentVolunteer .content .swiper-item.data-v-80842834 {
+  margin: 10rpx 100rpx;
+}
 .userPage .volunteerRecord.data-v-80842834 {
   background-color: #fff;
   margin-top: 20rpx;
@@ -164,9 +170,23 @@
 .userPage .volunteerRecord .timeLine.data-v-80842834 {
   margin-top: 20rpx;
   float: left;
-  border: 1rpx solid orange;
   width: 50rpx;
-  height: 500rpx;
+  margin-left: 30rpx;
+}
+.userPage .volunteerRecord .timeLine .node.data-v-80842834 {
+  width: 40rpx;
+  height: 40rpx;
+  background-color: #0060c7;
+  border-radius: 50%;
+  font-size: 15rpx;
+  text-align: center;
+  color: #fff;
+  line-height: 40rpx;
+}
+.userPage .volunteerRecord .timeLine .line.data-v-80842834 {
+  border-right: 5rpx solid #000;
+  height: 120rpx;
+  margin-right: 28rpx;
 }
 .userPage .volunteerRecord .records.data-v-80842834 {
   margin-top: 20rpx;

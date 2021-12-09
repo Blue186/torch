@@ -2,13 +2,12 @@ import {
 	apiResquest
 } from '../utils/http.js'
 
-//获取做过志愿记录
+//获取做过志愿记录 参数为1代表已完成的活动
 export const getVolunteerRecords = (query) => {
 	let str = query
 	return apiResquest({
-		url: `/signUp/over/${str}`,
+		url: `/signUp/signInfo/${str}`,
 		method: 'GET'
-
 	})
 }
 
@@ -30,3 +29,13 @@ export const getActicityFeeling = (query) => {
 
 	})
 }
+
+// 上传图片
+export const postImages = (query) => {
+	return apiResquest({
+		url: '/file/images',
+		method: 'POST',
+		query:query
+	})
+}
+

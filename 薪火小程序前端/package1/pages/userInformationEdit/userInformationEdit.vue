@@ -8,7 +8,8 @@
 		<!-- 填写的信息 -->
 		<form class="'information ">
 			<!-- 头像 -->
-			<editImage :avatarImage=userInfo.avatarImage></editImage>
+			<editImage :avatarImage=userInfo.avatarImage> </editImage>
+			
 			<!-- 名字 -->
 			<view class="name box" :class="focusStatus.name ? 'getFocus' : ''">
 				<label for="name" class="label">姓名：</label>
@@ -68,7 +69,7 @@
 			<view class="emailConfirm box" :class="focusStatus.email ? 'getFocus' : ''">
 				<label for="email" class="label">邮箱：</label>
 				<input :focus='focusStatus.email' @focus='getFocus' class="input" type="text" value="" id="emile"
-					cursor-spacing=100 confirm-type="next" v-model="userInfo.email" placeholder="请填写你的邮箱" />
+					cursor-spacing=100 confirm-type="next" v-model="userInfo.email" placeholder="请填写你的邮箱"  :disabled="haveEmail">
 				<button type="default" class="sent" @click="sentEmail" v-if="sentEmailButton"
 					:class="emailButtonContent === '发送成功 ' ? 'active' : ''">{{emailButtonContent}}{{countDown}}</button>
 			</view>
@@ -169,7 +170,8 @@
 						this.userInfo = res
 						if (res.email) {
 							this.haveEmail = true
-							this.sentEmailButton = false
+							// this.sentEmailButton = false
+							this.emailButtonContent = "修改"
 						}
 					}
 
@@ -260,8 +262,15 @@
 					this.countDown--
 				}, 1000)
 			},
+			//发送验证码
 			sentEmail() {
-				postEmail({
+				if(this.emailButtonContent === '修改'){
+					this.userInfo.email = '';
+					this.focusStatus.email = true
+					this.emailButtonContent = '发送验证码'
+					this.haveEmail = false
+				}else if(this.emailButtonContent == '发送验证码'){
+					postEmail({
 					'mail': this.email
 				}).then(res => {
 					console.log(res)
@@ -271,6 +280,8 @@
 					} else if (res)
 						console.log(res)
 				})
+				}
+				
 			},
 			verificationCode() {
 				postEmailCode({

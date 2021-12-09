@@ -1,29 +1,29 @@
 <template>
 	<view class="volunteerRecord">
 		<view class="dateTag">
-			{{record.volTimePeriod}}
+			{{format(record.servicePeriod,'Y-M-D')}}
 		</view>
 		<view class="activity">
 			<view class="activityName">
 				{{record.name}}
 			</view>
 			<view class="activityHours">
-				{{record.volTimeDesc}}
+				{{record.volTime}}h
 			</view>
 		</view>
-		<view class="writeFeeling" v-if="haveFeeling">
-			<image src="/static/images/book.png" mode="" @click="goMyFeeling" class="image"></image>
+		<view class="writeFeeling" v-if="impWrote">
+			<image src="/static/images/book.png" mode="" @click="goMyFeeling()" class="image"></image>
 			<view>我的心得</view>
 		</view>
-		<view class=" writeFeeling" v-if="!haveFeeling">
-			<image src="/static/images/pencil.png" mode=""  @click="goMyFeeling" class="image"></image>
+		<view class=" writeFeeling" v-else>
+			<image src="/static/images/pencil.png" mode=""  @click="goMyFeeling()" class="image"></image>
 			<view>填写心得</view>
 		</view>
 	</view>
 </template>
 
 <script>
-	
+	import {formatTime} from '../utils/formatTime.js'
 	export default {
 		data() {
 			return {
@@ -44,10 +44,13 @@
 		methods: {
 			goMyFeeling() {
 				uni.navigateTo({
-					url:`/package3/pages/myFeeling/myFeeling?name=${this.record.name}&actId=${this.record.id}`,
+					url:`/package3/pages/myFeeling/myFeeling?name=${this.record.name}&actId=${this.record.actId}&wrote=${this.record.impWrote}`,
 					
 				})
-			}
+			},
+			format(res, method) {
+				return formatTime(res, method)
+			},
 		}
 		
 	}

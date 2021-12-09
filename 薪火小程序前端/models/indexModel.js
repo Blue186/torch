@@ -74,6 +74,16 @@ export const cancelSignUp = (query) => {
 	})
 }
 
+// 报名
+export const signUp = (query) => {
+	return apiResquest({
+		url: '/signUp',
+		method: 'POST',
+		query: query
+	})
+}
+
+
 
 //GET 请求案例可以传递参数也可以不传递
 // export const validateCode  = (query) => {

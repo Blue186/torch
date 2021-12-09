@@ -42,14 +42,15 @@
 		.box{
 			position: relative;
 			.image {
-				width: 60rpx;
-				height: 140rpx;
+				width: 55rpx;
+				height: 125rpx;
 			}
 			.name {
 				top: 0;
-				left: 14rpx;
+				left: 12rpx;
 				position: absolute;
 				color: #fff ;
+				font-size: 28rpx;
 			}
 		}
 	}

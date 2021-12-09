@@ -18,14 +18,16 @@
 			<text class="activityNumber">招募人数：{{info.totalNumber}}/{{info.headcount}}人</text>
 		</view>
 		
-		<tag class="tag" name="招募中" color='orange'></tag>
+		<tag class="tag" name="招募中" color='orange' v-if="info.isPass === 1"></tag>
+		<tag class="tag" name="预招募" color='green' v-if="info.isPass === 0"></tag>
+		<tag class="tag" name="已结束" color='#eee' v-if="info.isPass === 2"></tag>
 		
 		<button type="default" class="btn" @click="goDetail">详情</button>
 
 	</view>
 </template>
 
-<script>
+<script >
 	
 	import tag from "./tag.vue"
 	export default {
@@ -47,23 +49,14 @@
 				uni.navigateTo({
 					url:'/package1/pages/activityDetail/activityDetail?id=999',
 					animationType:"slide-in-right",
-					 // events: {
-					 //    // 为指定事件添加一个监听器，获取被打开页面传送到当前页面的数据
-					 //    acceptDataFromOpenedPage: function(data) {
-					 //      console.log(data)
-					 //    },
-					 //    someEvent: function(data) {
-					 //      console.log(data)
-					 //    }
-					    
-					 //  },
+					
 					success: (res)=> {
 						 res.eventChannel.emit('postActivityInformation', this.info)
 					 
 					}
 				})
 			},
-			// 获取活动细节
+			
 			
 		}
 	}
@@ -71,14 +64,17 @@
 
 <style lang="scss" scoped>
 	.activity {
+		background-color: #fff;
 		position: relative;
-		border: 1rpx solid #808080;
-		width: 90vw;
+		// border: 1rpx solid #808080;
+		box-shadow: 2px 2px 4px 4px #dadada;
+		width: 674rpx;
 		height: 400rpx;
 		border-radius: 20rpx;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
+		color:#000;
 		.btn {
 			position: absolute;
 			bottom: 20rpx;

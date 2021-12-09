@@ -139,15 +139,7 @@
 			// this.getactivityInfo()
 		},
 		methods: {
-			// getactivityInfo(){
-			// 	this.activityInfo = '22'
-			// 	let that = this
-			// 	uni.$on('postActivityInformation',(res)=>{
-			// 			that.activityInfo = res;
-			// 			that.dateIndex = 100
-			// 		console.log('父活动数据',this.activityInfo)
-			// 	})
-			// },
+		
 			apply(dadId, sonId, id,applyStatus) {
 				
 				signUp({
@@ -164,11 +156,7 @@
 				getActivityDetail('11').then(res => {
 					console.log('活动细节数据', res.data)
 					this.activityDetail = res.data
-					// this.activityDetail.activityTimes.forEach((item)=>{
-					// 	if(item.recruited === item.recruiting)
-					// 		item.
-					// })
-					// if(this.activityDetail.activityTimes.recruited === this.activityDetail.activityTimes.recruiting)
+					
 
 				})
 			},
