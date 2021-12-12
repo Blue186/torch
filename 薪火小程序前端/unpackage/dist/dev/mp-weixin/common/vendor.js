@@ -804,11 +804,6 @@ var customize = cached(function (str) {
 });
 
 function initTriggerEvent(mpInstance) {
-  {
-    if (!wx.canIUse || !wx.canIUse('nextTick')) {
-      return;
-    }
-  }
   var oldTriggerEvent = mpInstance.triggerEvent;
   mpInstance.triggerEvent = function (event) {for (var _len3 = arguments.length, args = new Array(_len3 > 1 ? _len3 - 1 : 0), _key3 = 1; _key3 < _len3; _key3++) {args[_key3 - 1] = arguments[_key3];}
     return oldTriggerEvent.apply(mpInstance, [customize(event)].concat(args));
@@ -946,7 +941,7 @@ function initData(vueOptions, context) {
     try {
       data = data.call(context); // 支持 Vue.prototype 上挂的数据
     } catch (e) {
-      if (Object({"VUE_APP_NAME":"薪火小程序","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"NODE_ENV":"development","VUE_APP_NAME":"薪火小程序","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.warn('根据 Vue 的 data 函数初始化小程序 data 失败，请尽量确保 data 函数中不访问 vm 对象，否则可能影响首次数据渲染速度。', data);
       }
     }
@@ -1480,7 +1475,7 @@ function initScopedSlotsParams() {
     var has = center[vueId];
     if (!has) {
       parents[vueId] = this;
-      this.$on('hook:destory', function () {
+      this.$on('hook:destroyed', function () {
         delete parents[vueId];
       });
     }
@@ -1494,7 +1489,7 @@ function initScopedSlotsParams() {
       return key ? object[key] : object;
     } else {
       parents[vueId] = this;
-      this.$on('hook:destory', function () {
+      this.$on('hook:destroyed', function () {
         delete parents[vueId];
       });
     }
@@ -2055,7 +2050,26039 @@ uni$1;exports.default = _default;
 
 /***/ }),
 
+/***/ 10:
+/*!****************************************************************!*\
+  !*** D:/Code/front_end/小程序/薪火小程序/薪火小程序前端/models/indexModel.js ***!
+  \****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.signUp = exports.cancelSignUp = exports.getActivityDetail = exports.getVolunteer = exports.postUserImformation = exports.postEmailCode = exports.postEmail = exports.getUserImformation = exports.loginApi = void 0;var _http = __webpack_require__(/*! ../utils/http.js */ 11);
+
+
+//POST 请求案例
+
+// 用户登录注册
+var loginApi = function loginApi(query) {
+  return (0, _http.apiResquest)({
+    url: '/user/login',
+    method: 'POST',
+    query: query });
+
+};
+
+
+
+
+// 获取用户信息
+exports.loginApi = loginApi;var getUserImformation = function getUserImformation(query) {
+  return (0, _http.apiResquest)({
+    url: '/user',
+    method: 'GET',
+    query: query });
+
+};
+// 传邮箱信息
+exports.getUserImformation = getUserImformation;var postEmail = function postEmail(query) {
+  return (0, _http.apiResquest)({
+    url: '/user/mailVerify',
+    method: 'POST',
+    query: query });
+
+};
+//发送邮箱验证码
+exports.postEmail = postEmail;var postEmailCode = function postEmailCode(query) {
+  return (0, _http.apiResquest)({
+    url: '/user/codeCheck',
+    method: 'POST',
+    query: query });
+
+};
+
+// 上传用户信息
+exports.postEmailCode = postEmailCode;var postUserImformation = function postUserImformation(query) {
+  return (0, _http.apiResquest)({
+    url: '/user',
+    method: 'PUT',
+    query: query });
+
+};
+//父活动信息
+exports.postUserImformation = postUserImformation;var getVolunteer = function getVolunteer(query) {
+  var str = query;
+  return (0, _http.apiResquest)({
+    url: "/activity/index/".concat(str),
+    method: 'GET' });
+
+};
+//子活动信息
+exports.getVolunteer = getVolunteer;var getActivityDetail = function getActivityDetail(query) {
+  var str = query;
+  return (0, _http.apiResquest)({
+    url: "/activityChild/".concat(str),
+    method: 'GET' });
+
+};
+
+//取消报名
+exports.getActivityDetail = getActivityDetail;var cancelSignUp = function cancelSignUp(query) {
+  return (0, _http.apiResquest)({
+    url: '/signUp',
+    method: 'DELETE',
+    query: query });
+
+};
+
+// 报名
+exports.cancelSignUp = cancelSignUp;var signUp = function signUp(query) {
+  return (0, _http.apiResquest)({
+    url: '/signUp',
+    method: 'POST',
+    query: query });
+
+};
+
+
+
+//GET 请求案例可以传递参数也可以不传递
+// export const validateCode  = (query) => {
+// 	let str = query
+// 	return apiResquest({
+// 		url: `您的API地址 ?${str}`,
+// 		method: 'GET'
+// 	})
+// }
+exports.signUp = signUp;
+
+/***/ }),
+
 /***/ 11:
+/*!*********************************************************!*\
+  !*** D:/Code/front_end/小程序/薪火小程序/薪火小程序前端/utils/http.js ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.apiResquest = void 0;var _config = __webpack_require__(/*! ./config.js */ 12);
+
+
+var _login = _interopRequireDefault(__webpack_require__(/*! ./login.js */ 9));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+var apiResquest = function apiResquest(prams) {//prams 为我们需要调用的接口API的参数 下面会贴具体代码
+
+  // 判断请求类型
+  var headerData = {
+    'content-type': 'application/json',
+    'c': uni.getStorageSync('cookie').cookie };
+
+
+  var dataObj = null;
+  //因为我们的GET和POST请求结构不同这里我们做处理，大家根据自己后台接口所需结构灵活做调整吧
+  if (prams.method === "GET") {
+    headerData = {
+      'content-type': 'application/json',
+      'c': uni.getStorageSync('cookie').cookie };
+
+  } else {
+    dataObj = prams.query;
+  }
+  return new Promise(function (resolve, reject) {
+    var url = _config.config.base_url + prams.url; //请求的网络地址和局地的api地址组合
+    uni.showLoading({
+      title: '加载中',
+      mask: true });
+
+    if (prams.method === '') {
+
+    } else {
+      return uni.request({
+        url: url,
+        data: dataObj,
+        method: prams.method,
+        header: headerData,
+        success: function success(res) {
+          uni.hideLoading();
+          console.log("调用成功");
+          if (res.data.code === -100) {
+            console.log("登陆过期");
+            uni.showLoading({
+              title: "正在重新登陆",
+              mask: true,
+              success: function success() {
+                (0, _login.default)();
+              } });
+
+
+
+          }
+
+          resolve(res.data);
+        },
+        fail: function fail(err) {
+          reject(err);
+          console.log(err);
+          console.log("调用失败");
+          uni.hideLoading();
+        },
+        complete: function complete() {
+          // console.log('请求完成')
+          uni.hideLoading();
+        } });
+
+    }
+
+  });
+};exports.apiResquest = apiResquest;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
+
+/***/ }),
+
+/***/ 12:
+/*!***********************************************************!*\
+  !*** D:/Code/front_end/小程序/薪火小程序/薪火小程序前端/utils/config.js ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.config = void 0;var config = {
+  // base_url: 'http://192.168.10.9:8002'
+  base_url: 'http://139.186.170.118:8002' };exports.config = config;
+
+/***/ }),
+
+/***/ 145:
+/*!*****************************************************************************************!*\
+  !*** D:/Code/front_end/小程序/薪火小程序/薪火小程序前端/compoments/schoolPicker/city-data/province.js ***!
+  \*****************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; /* eslint-disable */
+var provinceData = [{
+  "label": "北京市",
+  "value": "11" },
+
+{
+  "label": "天津市",
+  "value": "12" },
+
+{
+  "label": "河北省",
+  "value": "13" },
+
+{
+  "label": "山西省",
+  "value": "14" },
+
+{
+  "label": "内蒙古自治区",
+  "value": "15" },
+
+{
+  "label": "辽宁省",
+  "value": "21" },
+
+{
+  "label": "吉林省",
+  "value": "22" },
+
+{
+  "label": "黑龙江省",
+  "value": "23" },
+
+{
+  "label": "上海市",
+  "value": "31" },
+
+{
+  "label": "江苏省",
+  "value": "32" },
+
+{
+  "label": "浙江省",
+  "value": "33" },
+
+{
+  "label": "安徽省",
+  "value": "34" },
+
+{
+  "label": "福建省",
+  "value": "35" },
+
+{
+  "label": "江西省",
+  "value": "36" },
+
+{
+  "label": "山东省",
+  "value": "37" },
+
+{
+  "label": "河南省",
+  "value": "41" },
+
+{
+  "label": "湖北省",
+  "value": "42" },
+
+{
+  "label": "湖南省",
+  "value": "43" },
+
+{
+  "label": "广东省",
+  "value": "44" },
+
+{
+  "label": "广西壮族自治区",
+  "value": "45" },
+
+{
+  "label": "海南省",
+  "value": "46" },
+
+{
+  "label": "重庆市",
+  "value": "50" },
+
+{
+  "label": "四川省",
+  "value": "51" },
+
+{
+  "label": "贵州省",
+  "value": "52" },
+
+{
+  "label": "云南省",
+  "value": "53" },
+
+{
+  "label": "西藏自治区",
+  "value": "54" },
+
+{
+  "label": "陕西省",
+  "value": "61" },
+
+{
+  "label": "甘肃省",
+  "value": "62" },
+
+{
+  "label": "青海省",
+  "value": "63" },
+
+{
+  "label": "宁夏回族自治区",
+  "value": "64" },
+
+{
+  "label": "新疆维吾尔自治区",
+  "value": "65" },
+
+{
+  "label": "台湾",
+  "value": "66" },
+
+{
+  "label": "香港",
+  "value": "67" },
+
+{
+  "label": "澳门",
+  "value": "68" }];var _default =
+
+
+provinceData;exports.default = _default;
+
+/***/ }),
+
+/***/ 146:
+/*!*************************************************************************************!*\
+  !*** D:/Code/front_end/小程序/薪火小程序/薪火小程序前端/compoments/schoolPicker/city-data/city.js ***!
+  \*************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; /* eslint-disable */
+var cityData = [
+[{
+  "label": "北京市",
+  "value": "1101" }],
+
+[{
+  "label": "天津市",
+  "value": "1201" }],
+
+[{
+  "label": "石家庄市",
+  "value": "1301" },
+
+{
+  "label": "唐山市",
+  "value": "1302" },
+
+{
+  "label": "秦皇岛市",
+  "value": "1303" },
+
+{
+  "label": "邯郸市",
+  "value": "1304" },
+
+{
+  "label": "邢台市",
+  "value": "1305" },
+
+{
+  "label": "保定市",
+  "value": "1306" },
+
+{
+  "label": "张家口市",
+  "value": "1307" },
+
+{
+  "label": "承德市",
+  "value": "1308" },
+
+{
+  "label": "沧州市",
+  "value": "1309" },
+
+{
+  "label": "廊坊市",
+  "value": "1310" },
+
+{
+  "label": "衡水市",
+  "value": "1311" }],
+
+
+[{
+  "label": "太原市",
+  "value": "1401" },
+
+{
+  "label": "大同市",
+  "value": "1402" },
+
+{
+  "label": "阳泉市",
+  "value": "1403" },
+
+{
+  "label": "长治市",
+  "value": "1404" },
+
+{
+  "label": "晋城市",
+  "value": "1405" },
+
+{
+  "label": "朔州市",
+  "value": "1406" },
+
+{
+  "label": "晋中市",
+  "value": "1407" },
+
+{
+  "label": "运城市",
+  "value": "1408" },
+
+{
+  "label": "忻州市",
+  "value": "1409" },
+
+{
+  "label": "临汾市",
+  "value": "1410" },
+
+{
+  "label": "吕梁市",
+  "value": "1411" }],
+
+
+[{
+  "label": "呼和浩特市",
+  "value": "1501" },
+
+{
+  "label": "包头市",
+  "value": "1502" },
+
+{
+  "label": "乌海市",
+  "value": "1503" },
+
+{
+  "label": "赤峰市",
+  "value": "1504" },
+
+{
+  "label": "通辽市",
+  "value": "1505" },
+
+{
+  "label": "鄂尔多斯市",
+  "value": "1506" },
+
+{
+  "label": "呼伦贝尔市",
+  "value": "1507" },
+
+{
+  "label": "巴彦淖尔市",
+  "value": "1508" },
+
+{
+  "label": "乌兰察布市",
+  "value": "1509" },
+
+{
+  "label": "兴安盟",
+  "value": "1522" },
+
+{
+  "label": "锡林郭勒盟",
+  "value": "1525" },
+
+{
+  "label": "阿拉善盟",
+  "value": "1529" }],
+
+
+[{
+  "label": "沈阳市",
+  "value": "2101" },
+
+{
+  "label": "大连市",
+  "value": "2102" },
+
+{
+  "label": "鞍山市",
+  "value": "2103" },
+
+{
+  "label": "抚顺市",
+  "value": "2104" },
+
+{
+  "label": "本溪市",
+  "value": "2105" },
+
+{
+  "label": "丹东市",
+  "value": "2106" },
+
+{
+  "label": "锦州市",
+  "value": "2107" },
+
+{
+  "label": "营口市",
+  "value": "2108" },
+
+{
+  "label": "阜新市",
+  "value": "2109" },
+
+{
+  "label": "辽阳市",
+  "value": "2110" },
+
+{
+  "label": "盘锦市",
+  "value": "2111" },
+
+{
+  "label": "铁岭市",
+  "value": "2112" },
+
+{
+  "label": "朝阳市",
+  "value": "2113" },
+
+{
+  "label": "葫芦岛市",
+  "value": "2114" }],
+
+
+[{
+  "label": "长春市",
+  "value": "2201" },
+
+{
+  "label": "吉林市",
+  "value": "2202" },
+
+{
+  "label": "四平市",
+  "value": "2203" },
+
+{
+  "label": "辽源市",
+  "value": "2204" },
+
+{
+  "label": "通化市",
+  "value": "2205" },
+
+{
+  "label": "白山市",
+  "value": "2206" },
+
+{
+  "label": "松原市",
+  "value": "2207" },
+
+{
+  "label": "白城市",
+  "value": "2208" },
+
+{
+  "label": "延边朝鲜族自治州",
+  "value": "2224" }],
+
+
+[{
+  "label": "哈尔滨市",
+  "value": "2301" },
+
+{
+  "label": "齐齐哈尔市",
+  "value": "2302" },
+
+{
+  "label": "鸡西市",
+  "value": "2303" },
+
+{
+  "label": "鹤岗市",
+  "value": "2304" },
+
+{
+  "label": "双鸭山市",
+  "value": "2305" },
+
+{
+  "label": "大庆市",
+  "value": "2306" },
+
+{
+  "label": "伊春市",
+  "value": "2307" },
+
+{
+  "label": "佳木斯市",
+  "value": "2308" },
+
+{
+  "label": "七台河市",
+  "value": "2309" },
+
+{
+  "label": "牡丹江市",
+  "value": "2310" },
+
+{
+  "label": "黑河市",
+  "value": "2311" },
+
+{
+  "label": "绥化市",
+  "value": "2312" },
+
+{
+  "label": "大兴安岭地区",
+  "value": "2327" }],
+
+
+[{
+  "label": "上海市",
+  "value": "3101" }],
+
+[{
+  "label": "南京市",
+  "value": "3201" },
+
+{
+  "label": "无锡市",
+  "value": "3202" },
+
+{
+  "label": "徐州市",
+  "value": "3203" },
+
+{
+  "label": "常州市",
+  "value": "3204" },
+
+{
+  "label": "苏州市",
+  "value": "3205" },
+
+{
+  "label": "南通市",
+  "value": "3206" },
+
+{
+  "label": "连云港市",
+  "value": "3207" },
+
+{
+  "label": "淮安市",
+  "value": "3208" },
+
+{
+  "label": "盐城市",
+  "value": "3209" },
+
+{
+  "label": "扬州市",
+  "value": "3210" },
+
+{
+  "label": "镇江市",
+  "value": "3211" },
+
+{
+  "label": "泰州市",
+  "value": "3212" },
+
+{
+  "label": "宿迁市",
+  "value": "3213" }],
+
+
+[{
+  "label": "杭州市",
+  "value": "3301" },
+
+{
+  "label": "宁波市",
+  "value": "3302" },
+
+{
+  "label": "温州市",
+  "value": "3303" },
+
+{
+  "label": "嘉兴市",
+  "value": "3304" },
+
+{
+  "label": "湖州市",
+  "value": "3305" },
+
+{
+  "label": "绍兴市",
+  "value": "3306" },
+
+{
+  "label": "金华市",
+  "value": "3307" },
+
+{
+  "label": "衢州市",
+  "value": "3308" },
+
+{
+  "label": "舟山市",
+  "value": "3309" },
+
+{
+  "label": "台州市",
+  "value": "3310" },
+
+{
+  "label": "丽水市",
+  "value": "3311" }],
+
+
+[{
+  "label": "合肥市",
+  "value": "3401" },
+
+{
+  "label": "芜湖市",
+  "value": "3402" },
+
+{
+  "label": "蚌埠市",
+  "value": "3403" },
+
+{
+  "label": "淮南市",
+  "value": "3404" },
+
+{
+  "label": "马鞍山市",
+  "value": "3405" },
+
+{
+  "label": "淮北市",
+  "value": "3406" },
+
+{
+  "label": "铜陵市",
+  "value": "3407" },
+
+{
+  "label": "安庆市",
+  "value": "3408" },
+
+{
+  "label": "黄山市",
+  "value": "3410" },
+
+{
+  "label": "滁州市",
+  "value": "3411" },
+
+{
+  "label": "阜阳市",
+  "value": "3412" },
+
+{
+  "label": "宿州市",
+  "value": "3413" },
+
+{
+  "label": "六安市",
+  "value": "3415" },
+
+{
+  "label": "亳州市",
+  "value": "3416" },
+
+{
+  "label": "池州市",
+  "value": "3417" },
+
+{
+  "label": "宣城市",
+  "value": "3418" }],
+
+
+[{
+  "label": "福州市",
+  "value": "3501" },
+
+{
+  "label": "厦门市",
+  "value": "3502" },
+
+{
+  "label": "莆田市",
+  "value": "3503" },
+
+{
+  "label": "三明市",
+  "value": "3504" },
+
+{
+  "label": "泉州市",
+  "value": "3505" },
+
+{
+  "label": "漳州市",
+  "value": "3506" },
+
+{
+  "label": "南平市",
+  "value": "3507" },
+
+{
+  "label": "龙岩市",
+  "value": "3508" },
+
+{
+  "label": "宁德市",
+  "value": "3509" }],
+
+
+[{
+  "label": "南昌市",
+  "value": "3601" },
+
+{
+  "label": "景德镇市",
+  "value": "3602" },
+
+{
+  "label": "萍乡市",
+  "value": "3603" },
+
+{
+  "label": "九江市",
+  "value": "3604" },
+
+{
+  "label": "新余市",
+  "value": "3605" },
+
+{
+  "label": "鹰潭市",
+  "value": "3606" },
+
+{
+  "label": "赣州市",
+  "value": "3607" },
+
+{
+  "label": "吉安市",
+  "value": "3608" },
+
+{
+  "label": "宜春市",
+  "value": "3609" },
+
+{
+  "label": "抚州市",
+  "value": "3610" },
+
+{
+  "label": "上饶市",
+  "value": "3611" }],
+
+
+[{
+  "label": "济南市",
+  "value": "3701" },
+
+{
+  "label": "青岛市",
+  "value": "3702" },
+
+{
+  "label": "淄博市",
+  "value": "3703" },
+
+{
+  "label": "枣庄市",
+  "value": "3704" },
+
+{
+  "label": "东营市",
+  "value": "3705" },
+
+{
+  "label": "烟台市",
+  "value": "3706" },
+
+{
+  "label": "潍坊市",
+  "value": "3707" },
+
+{
+  "label": "济宁市",
+  "value": "3708" },
+
+{
+  "label": "泰安市",
+  "value": "3709" },
+
+{
+  "label": "威海市",
+  "value": "3710" },
+
+{
+  "label": "日照市",
+  "value": "3711" },
+
+{
+  "label": "莱芜市",
+  "value": "3712" },
+
+{
+  "label": "临沂市",
+  "value": "3713" },
+
+{
+  "label": "德州市",
+  "value": "3714" },
+
+{
+  "label": "聊城市",
+  "value": "3715" },
+
+{
+  "label": "滨州市",
+  "value": "3716" },
+
+{
+  "label": "菏泽市",
+  "value": "3717" }],
+
+
+[{
+  "label": "郑州市",
+  "value": "4101" },
+
+{
+  "label": "开封市",
+  "value": "4102" },
+
+{
+  "label": "洛阳市",
+  "value": "4103" },
+
+{
+  "label": "平顶山市",
+  "value": "4104" },
+
+{
+  "label": "安阳市",
+  "value": "4105" },
+
+{
+  "label": "鹤壁市",
+  "value": "4106" },
+
+{
+  "label": "新乡市",
+  "value": "4107" },
+
+{
+  "label": "焦作市",
+  "value": "4108" },
+
+{
+  "label": "濮阳市",
+  "value": "4109" },
+
+{
+  "label": "许昌市",
+  "value": "4110" },
+
+{
+  "label": "漯河市",
+  "value": "4111" },
+
+{
+  "label": "三门峡市",
+  "value": "4112" },
+
+{
+  "label": "南阳市",
+  "value": "4113" },
+
+{
+  "label": "商丘市",
+  "value": "4114" },
+
+{
+  "label": "信阳市",
+  "value": "4115" },
+
+{
+  "label": "周口市",
+  "value": "4116" },
+
+{
+  "label": "驻马店市",
+  "value": "4117" },
+
+{
+  "label": "省直辖县级行政区划",
+  "value": "4190" }],
+
+
+[{
+  "label": "武汉市",
+  "value": "4201" },
+
+{
+  "label": "黄石市",
+  "value": "4202" },
+
+{
+  "label": "十堰市",
+  "value": "4203" },
+
+{
+  "label": "宜昌市",
+  "value": "4205" },
+
+{
+  "label": "襄阳市",
+  "value": "4206" },
+
+{
+  "label": "鄂州市",
+  "value": "4207" },
+
+{
+  "label": "荆门市",
+  "value": "4208" },
+
+{
+  "label": "孝感市",
+  "value": "4209" },
+
+{
+  "label": "荆州市",
+  "value": "4210" },
+
+{
+  "label": "黄冈市",
+  "value": "4211" },
+
+{
+  "label": "咸宁市",
+  "value": "4212" },
+
+{
+  "label": "随州市",
+  "value": "4213" },
+
+{
+  "label": "恩施土家族苗族自治州",
+  "value": "4228" },
+
+{
+  "label": "省直辖县级行政区划",
+  "value": "4290" }],
+
+
+[{
+  "label": "长沙市",
+  "value": "4301" },
+
+{
+  "label": "株洲市",
+  "value": "4302" },
+
+{
+  "label": "湘潭市",
+  "value": "4303" },
+
+{
+  "label": "衡阳市",
+  "value": "4304" },
+
+{
+  "label": "邵阳市",
+  "value": "4305" },
+
+{
+  "label": "岳阳市",
+  "value": "4306" },
+
+{
+  "label": "常德市",
+  "value": "4307" },
+
+{
+  "label": "张家界市",
+  "value": "4308" },
+
+{
+  "label": "益阳市",
+  "value": "4309" },
+
+{
+  "label": "郴州市",
+  "value": "4310" },
+
+{
+  "label": "永州市",
+  "value": "4311" },
+
+{
+  "label": "怀化市",
+  "value": "4312" },
+
+{
+  "label": "娄底市",
+  "value": "4313" },
+
+{
+  "label": "湘西土家族苗族自治州",
+  "value": "4331" }],
+
+
+[{
+  "label": "广州市",
+  "value": "4401" },
+
+{
+  "label": "韶关市",
+  "value": "4402" },
+
+{
+  "label": "深圳市",
+  "value": "4403" },
+
+{
+  "label": "珠海市",
+  "value": "4404" },
+
+{
+  "label": "汕头市",
+  "value": "4405" },
+
+{
+  "label": "佛山市",
+  "value": "4406" },
+
+{
+  "label": "江门市",
+  "value": "4407" },
+
+{
+  "label": "湛江市",
+  "value": "4408" },
+
+{
+  "label": "茂名市",
+  "value": "4409" },
+
+{
+  "label": "肇庆市",
+  "value": "4412" },
+
+{
+  "label": "惠州市",
+  "value": "4413" },
+
+{
+  "label": "梅州市",
+  "value": "4414" },
+
+{
+  "label": "汕尾市",
+  "value": "4415" },
+
+{
+  "label": "河源市",
+  "value": "4416" },
+
+{
+  "label": "阳江市",
+  "value": "4417" },
+
+{
+  "label": "清远市",
+  "value": "4418" },
+
+{
+  "label": "东莞市",
+  "value": "4419" },
+
+{
+  "label": "中山市",
+  "value": "4420" },
+
+{
+  "label": "潮州市",
+  "value": "4451" },
+
+{
+  "label": "揭阳市",
+  "value": "4452" },
+
+{
+  "label": "云浮市",
+  "value": "4453" }],
+
+
+[{
+  "label": "南宁市",
+  "value": "4501" },
+
+{
+  "label": "柳州市",
+  "value": "4502" },
+
+{
+  "label": "桂林市",
+  "value": "4503" },
+
+{
+  "label": "梧州市",
+  "value": "4504" },
+
+{
+  "label": "北海市",
+  "value": "4505" },
+
+{
+  "label": "防城港市",
+  "value": "4506" },
+
+{
+  "label": "钦州市",
+  "value": "4507" },
+
+{
+  "label": "贵港市",
+  "value": "4508" },
+
+{
+  "label": "玉林市",
+  "value": "4509" },
+
+{
+  "label": "百色市",
+  "value": "4510" },
+
+{
+  "label": "贺州市",
+  "value": "4511" },
+
+{
+  "label": "河池市",
+  "value": "4512" },
+
+{
+  "label": "来宾市",
+  "value": "4513" },
+
+{
+  "label": "崇左市",
+  "value": "4514" }],
+
+
+[{
+  "label": "海口市",
+  "value": "4601" },
+
+{
+  "label": "三亚市",
+  "value": "4602" },
+
+{
+  "label": "三沙市",
+  "value": "4603" },
+
+{
+  "label": "儋州市",
+  "value": "4604" },
+
+{
+  "label": "省直辖县级行政区划",
+  "value": "4690" }],
+
+
+[{
+  "label": "重庆市",
+  "value": "5001" }],
+
+
+[{
+  "label": "成都市",
+  "value": "5101" },
+
+{
+  "label": "自贡市",
+  "value": "5103" },
+
+{
+  "label": "攀枝花市",
+  "value": "5104" },
+
+{
+  "label": "泸州市",
+  "value": "5105" },
+
+{
+  "label": "德阳市",
+  "value": "5106" },
+
+{
+  "label": "绵阳市",
+  "value": "5107" },
+
+{
+  "label": "广元市",
+  "value": "5108" },
+
+{
+  "label": "遂宁市",
+  "value": "5109" },
+
+{
+  "label": "内江市",
+  "value": "5110" },
+
+{
+  "label": "乐山市",
+  "value": "5111" },
+
+{
+  "label": "南充市",
+  "value": "5113" },
+
+{
+  "label": "眉山市",
+  "value": "5114" },
+
+{
+  "label": "宜宾市",
+  "value": "5115" },
+
+{
+  "label": "广安市",
+  "value": "5116" },
+
+{
+  "label": "达州市",
+  "value": "5117" },
+
+{
+  "label": "雅安市",
+  "value": "5118" },
+
+{
+  "label": "巴中市",
+  "value": "5119" },
+
+{
+  "label": "资阳市",
+  "value": "5120" },
+
+{
+  "label": "阿坝藏族羌族自治州",
+  "value": "5132" },
+
+{
+  "label": "甘孜藏族自治州",
+  "value": "5133" },
+
+{
+  "label": "凉山彝族自治州",
+  "value": "5134" }],
+
+
+[{
+  "label": "贵阳市",
+  "value": "5201" },
+
+{
+  "label": "六盘水市",
+  "value": "5202" },
+
+{
+  "label": "遵义市",
+  "value": "5203" },
+
+{
+  "label": "安顺市",
+  "value": "5204" },
+
+{
+  "label": "毕节市",
+  "value": "5205" },
+
+{
+  "label": "铜仁市",
+  "value": "5206" },
+
+{
+  "label": "黔西南布依族苗族自治州",
+  "value": "5223" },
+
+{
+  "label": "黔东南苗族侗族自治州",
+  "value": "5226" },
+
+{
+  "label": "黔南布依族苗族自治州",
+  "value": "5227" }],
+
+
+[{
+  "label": "昆明市",
+  "value": "5301" },
+
+{
+  "label": "曲靖市",
+  "value": "5303" },
+
+{
+  "label": "玉溪市",
+  "value": "5304" },
+
+{
+  "label": "保山市",
+  "value": "5305" },
+
+{
+  "label": "昭通市",
+  "value": "5306" },
+
+{
+  "label": "丽江市",
+  "value": "5307" },
+
+{
+  "label": "普洱市",
+  "value": "5308" },
+
+{
+  "label": "临沧市",
+  "value": "5309" },
+
+{
+  "label": "楚雄彝族自治州",
+  "value": "5323" },
+
+{
+  "label": "红河哈尼族彝族自治州",
+  "value": "5325" },
+
+{
+  "label": "文山壮族苗族自治州",
+  "value": "5326" },
+
+{
+  "label": "西双版纳傣族自治州",
+  "value": "5328" },
+
+{
+  "label": "大理白族自治州",
+  "value": "5329" },
+
+{
+  "label": "德宏傣族景颇族自治州",
+  "value": "5331" },
+
+{
+  "label": "怒江傈僳族自治州",
+  "value": "5333" },
+
+{
+  "label": "迪庆藏族自治州",
+  "value": "5334" }],
+
+
+[{
+  "label": "拉萨市",
+  "value": "5401" },
+
+{
+  "label": "日喀则市",
+  "value": "5402" },
+
+{
+  "label": "昌都市",
+  "value": "5403" },
+
+{
+  "label": "林芝市",
+  "value": "5404" },
+
+{
+  "label": "山南市",
+  "value": "5405" },
+
+{
+  "label": "那曲地区",
+  "value": "5424" },
+
+{
+  "label": "阿里地区",
+  "value": "5425" }],
+
+
+[{
+  "label": "西安市",
+  "value": "6101" },
+
+{
+  "label": "铜川市",
+  "value": "6102" },
+
+{
+  "label": "宝鸡市",
+  "value": "6103" },
+
+{
+  "label": "咸阳市",
+  "value": "6104" },
+
+{
+  "label": "渭南市",
+  "value": "6105" },
+
+{
+  "label": "延安市",
+  "value": "6106" },
+
+{
+  "label": "汉中市",
+  "value": "6107" },
+
+{
+  "label": "榆林市",
+  "value": "6108" },
+
+{
+  "label": "安康市",
+  "value": "6109" },
+
+{
+  "label": "商洛市",
+  "value": "6110" }],
+
+
+[{
+  "label": "兰州市",
+  "value": "6201" },
+
+{
+  "label": "嘉峪关市",
+  "value": "6202" },
+
+{
+  "label": "金昌市",
+  "value": "6203" },
+
+{
+  "label": "白银市",
+  "value": "6204" },
+
+{
+  "label": "天水市",
+  "value": "6205" },
+
+{
+  "label": "武威市",
+  "value": "6206" },
+
+{
+  "label": "张掖市",
+  "value": "6207" },
+
+{
+  "label": "平凉市",
+  "value": "6208" },
+
+{
+  "label": "酒泉市",
+  "value": "6209" },
+
+{
+  "label": "庆阳市",
+  "value": "6210" },
+
+{
+  "label": "定西市",
+  "value": "6211" },
+
+{
+  "label": "陇南市",
+  "value": "6212" },
+
+{
+  "label": "临夏回族自治州",
+  "value": "6229" },
+
+{
+  "label": "甘南藏族自治州",
+  "value": "6230" }],
+
+
+[{
+  "label": "西宁市",
+  "value": "6301" },
+
+{
+  "label": "海东市",
+  "value": "6302" },
+
+{
+  "label": "海北藏族自治州",
+  "value": "6322" },
+
+{
+  "label": "黄南藏族自治州",
+  "value": "6323" },
+
+{
+  "label": "海南藏族自治州",
+  "value": "6325" },
+
+{
+  "label": "果洛藏族自治州",
+  "value": "6326" },
+
+{
+  "label": "玉树藏族自治州",
+  "value": "6327" },
+
+{
+  "label": "海西蒙古族藏族自治州",
+  "value": "6328" }],
+
+
+[{
+  "label": "银川市",
+  "value": "6401" },
+
+{
+  "label": "石嘴山市",
+  "value": "6402" },
+
+{
+  "label": "吴忠市",
+  "value": "6403" },
+
+{
+  "label": "固原市",
+  "value": "6404" },
+
+{
+  "label": "中卫市",
+  "value": "6405" }],
+
+
+[{
+  "label": "乌鲁木齐市",
+  "value": "6501" },
+
+{
+  "label": "克拉玛依市",
+  "value": "6502" },
+
+{
+  "label": "吐鲁番市",
+  "value": "6504" },
+
+{
+  "label": "哈密市",
+  "value": "6505" },
+
+{
+  "label": "昌吉回族自治州",
+  "value": "6523" },
+
+{
+  "label": "博尔塔拉蒙古自治州",
+  "value": "6527" },
+
+{
+  "label": "巴音郭楞蒙古自治州",
+  "value": "6528" },
+
+{
+  "label": "阿克苏地区",
+  "value": "6529" },
+
+{
+  "label": "克孜勒苏柯尔克孜自治州",
+  "value": "6530" },
+
+{
+  "label": "喀什地区",
+  "value": "6531" },
+
+{
+  "label": "和田地区",
+  "value": "6532" },
+
+{
+  "label": "伊犁哈萨克自治州",
+  "value": "6540" },
+
+{
+  "label": "塔城地区",
+  "value": "6542" },
+
+{
+  "label": "阿勒泰地区",
+  "value": "6543" },
+
+{
+  "label": "自治区直辖县级行政区划",
+  "value": "6590" }],
+
+
+[{
+  "label": "台北",
+  "value": "6601" },
+
+{
+  "label": "高雄",
+  "value": "6602" },
+
+{
+  "label": "基隆",
+  "value": "6603" },
+
+{
+  "label": "台中",
+  "value": "6604" },
+
+{
+  "label": "台南",
+  "value": "6605" },
+
+{
+  "label": "新竹",
+  "value": "6606" },
+
+{
+  "label": "嘉义",
+  "value": "6607" },
+
+{
+  "label": "宜兰",
+  "value": "6608" },
+
+{
+  "label": "桃园",
+  "value": "6609" },
+
+{
+  "label": "苗栗",
+  "value": "6610" },
+
+{
+  "label": "彰化",
+  "value": "6611" },
+
+{
+  "label": "南投",
+  "value": "6612" },
+
+{
+  "label": "云林",
+  "value": "6613" },
+
+{
+  "label": "屏东",
+  "value": "6614" },
+
+{
+  "label": "台东",
+  "value": "6615" },
+
+{
+  "label": "花莲",
+  "value": "6616" },
+
+{
+  "label": "澎湖",
+  "value": "6617" }],
+
+
+[{
+  "label": "香港岛",
+  "value": "6701" },
+
+{
+  "label": "九龙",
+  "value": "6702" },
+
+{
+  "label": "新界",
+  "value": "6703" }],
+
+
+[{
+  "label": "澳门半岛",
+  "value": "6801" },
+
+{
+  "label": "氹仔岛",
+  "value": "6802" },
+
+{
+  "label": "路环岛",
+  "value": "6803" },
+
+{
+  "label": "路氹城",
+  "value": "6804" }]];var _default =
+
+
+
+cityData;exports.default = _default;
+
+/***/ }),
+
+/***/ 147:
+/*!*************************************************************************************!*\
+  !*** D:/Code/front_end/小程序/薪火小程序/薪火小程序前端/compoments/schoolPicker/city-data/area.js ***!
+  \*************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; /* eslint-disable */
+var areaData = [
+[
+[{
+  "label": "东城区",
+  "value": "110101" },
+
+{
+  "label": "西城区",
+  "value": "110102" },
+
+{
+  "label": "朝阳区",
+  "value": "110105" },
+
+{
+  "label": "丰台区",
+  "value": "110106" },
+
+{
+  "label": "石景山区",
+  "value": "110107" },
+
+{
+  "label": "海淀区",
+  "value": "110108" },
+
+{
+  "label": "门头沟区",
+  "value": "110109" },
+
+{
+  "label": "房山区",
+  "value": "110111" },
+
+{
+  "label": "通州区",
+  "value": "110112" },
+
+{
+  "label": "顺义区",
+  "value": "110113" },
+
+{
+  "label": "昌平区",
+  "value": "110114" },
+
+{
+  "label": "大兴区",
+  "value": "110115" },
+
+{
+  "label": "怀柔区",
+  "value": "110116" },
+
+{
+  "label": "平谷区",
+  "value": "110117" },
+
+{
+  "label": "密云区",
+  "value": "110118" },
+
+{
+  "label": "延庆区",
+  "value": "110119" }]],
+
+
+
+[
+[{
+  "label": "和平区",
+  "value": "120101" },
+
+{
+  "label": "河东区",
+  "value": "120102" },
+
+{
+  "label": "河西区",
+  "value": "120103" },
+
+{
+  "label": "南开区",
+  "value": "120104" },
+
+{
+  "label": "河北区",
+  "value": "120105" },
+
+{
+  "label": "红桥区",
+  "value": "120106" },
+
+{
+  "label": "东丽区",
+  "value": "120110" },
+
+{
+  "label": "西青区",
+  "value": "120111" },
+
+{
+  "label": "津南区",
+  "value": "120112" },
+
+{
+  "label": "北辰区",
+  "value": "120113" },
+
+{
+  "label": "武清区",
+  "value": "120114" },
+
+{
+  "label": "宝坻区",
+  "value": "120115" },
+
+{
+  "label": "滨海新区",
+  "value": "120116" },
+
+{
+  "label": "宁河区",
+  "value": "120117" },
+
+{
+  "label": "静海区",
+  "value": "120118" },
+
+{
+  "label": "蓟州区",
+  "value": "120119" }]],
+
+
+
+[
+[{
+  "label": "长安区",
+  "value": "130102" },
+
+{
+  "label": "桥西区",
+  "value": "130104" },
+
+{
+  "label": "新华区",
+  "value": "130105" },
+
+{
+  "label": "井陉矿区",
+  "value": "130107" },
+
+{
+  "label": "裕华区",
+  "value": "130108" },
+
+{
+  "label": "藁城区",
+  "value": "130109" },
+
+{
+  "label": "鹿泉区",
+  "value": "130110" },
+
+{
+  "label": "栾城区",
+  "value": "130111" },
+
+{
+  "label": "井陉县",
+  "value": "130121" },
+
+{
+  "label": "正定县",
+  "value": "130123" },
+
+{
+  "label": "行唐县",
+  "value": "130125" },
+
+{
+  "label": "灵寿县",
+  "value": "130126" },
+
+{
+  "label": "高邑县",
+  "value": "130127" },
+
+{
+  "label": "深泽县",
+  "value": "130128" },
+
+{
+  "label": "赞皇县",
+  "value": "130129" },
+
+{
+  "label": "无极县",
+  "value": "130130" },
+
+{
+  "label": "平山县",
+  "value": "130131" },
+
+{
+  "label": "元氏县",
+  "value": "130132" },
+
+{
+  "label": "赵县",
+  "value": "130133" },
+
+{
+  "label": "石家庄高新技术产业开发区",
+  "value": "130171" },
+
+{
+  "label": "石家庄循环化工园区",
+  "value": "130172" },
+
+{
+  "label": "辛集市",
+  "value": "130181" },
+
+{
+  "label": "晋州市",
+  "value": "130183" },
+
+{
+  "label": "新乐市",
+  "value": "130184" }],
+
+
+[{
+  "label": "路南区",
+  "value": "130202" },
+
+{
+  "label": "路北区",
+  "value": "130203" },
+
+{
+  "label": "古冶区",
+  "value": "130204" },
+
+{
+  "label": "开平区",
+  "value": "130205" },
+
+{
+  "label": "丰南区",
+  "value": "130207" },
+
+{
+  "label": "丰润区",
+  "value": "130208" },
+
+{
+  "label": "曹妃甸区",
+  "value": "130209" },
+
+{
+  "label": "滦县",
+  "value": "130223" },
+
+{
+  "label": "滦南县",
+  "value": "130224" },
+
+{
+  "label": "乐亭县",
+  "value": "130225" },
+
+{
+  "label": "迁西县",
+  "value": "130227" },
+
+{
+  "label": "玉田县",
+  "value": "130229" },
+
+{
+  "label": "唐山市芦台经济技术开发区",
+  "value": "130271" },
+
+{
+  "label": "唐山市汉沽管理区",
+  "value": "130272" },
+
+{
+  "label": "唐山高新技术产业开发区",
+  "value": "130273" },
+
+{
+  "label": "河北唐山海港经济开发区",
+  "value": "130274" },
+
+{
+  "label": "遵化市",
+  "value": "130281" },
+
+{
+  "label": "迁安市",
+  "value": "130283" }],
+
+
+[{
+  "label": "海港区",
+  "value": "130302" },
+
+{
+  "label": "山海关区",
+  "value": "130303" },
+
+{
+  "label": "北戴河区",
+  "value": "130304" },
+
+{
+  "label": "抚宁区",
+  "value": "130306" },
+
+{
+  "label": "青龙满族自治县",
+  "value": "130321" },
+
+{
+  "label": "昌黎县",
+  "value": "130322" },
+
+{
+  "label": "卢龙县",
+  "value": "130324" },
+
+{
+  "label": "秦皇岛市经济技术开发区",
+  "value": "130371" },
+
+{
+  "label": "北戴河新区",
+  "value": "130372" }],
+
+
+[{
+  "label": "邯山区",
+  "value": "130402" },
+
+{
+  "label": "丛台区",
+  "value": "130403" },
+
+{
+  "label": "复兴区",
+  "value": "130404" },
+
+{
+  "label": "峰峰矿区",
+  "value": "130406" },
+
+{
+  "label": "肥乡区",
+  "value": "130407" },
+
+{
+  "label": "永年区",
+  "value": "130408" },
+
+{
+  "label": "临漳县",
+  "value": "130423" },
+
+{
+  "label": "成安县",
+  "value": "130424" },
+
+{
+  "label": "大名县",
+  "value": "130425" },
+
+{
+  "label": "涉县",
+  "value": "130426" },
+
+{
+  "label": "磁县",
+  "value": "130427" },
+
+{
+  "label": "邱县",
+  "value": "130430" },
+
+{
+  "label": "鸡泽县",
+  "value": "130431" },
+
+{
+  "label": "广平县",
+  "value": "130432" },
+
+{
+  "label": "馆陶县",
+  "value": "130433" },
+
+{
+  "label": "魏县",
+  "value": "130434" },
+
+{
+  "label": "曲周县",
+  "value": "130435" },
+
+{
+  "label": "邯郸经济技术开发区",
+  "value": "130471" },
+
+{
+  "label": "邯郸冀南新区",
+  "value": "130473" },
+
+{
+  "label": "武安市",
+  "value": "130481" }],
+
+
+[{
+  "label": "桥东区",
+  "value": "130502" },
+
+{
+  "label": "桥西区",
+  "value": "130503" },
+
+{
+  "label": "邢台县",
+  "value": "130521" },
+
+{
+  "label": "临城县",
+  "value": "130522" },
+
+{
+  "label": "内丘县",
+  "value": "130523" },
+
+{
+  "label": "柏乡县",
+  "value": "130524" },
+
+{
+  "label": "隆尧县",
+  "value": "130525" },
+
+{
+  "label": "任县",
+  "value": "130526" },
+
+{
+  "label": "南和县",
+  "value": "130527" },
+
+{
+  "label": "宁晋县",
+  "value": "130528" },
+
+{
+  "label": "巨鹿县",
+  "value": "130529" },
+
+{
+  "label": "新河县",
+  "value": "130530" },
+
+{
+  "label": "广宗县",
+  "value": "130531" },
+
+{
+  "label": "平乡县",
+  "value": "130532" },
+
+{
+  "label": "威县",
+  "value": "130533" },
+
+{
+  "label": "清河县",
+  "value": "130534" },
+
+{
+  "label": "临西县",
+  "value": "130535" },
+
+{
+  "label": "河北邢台经济开发区",
+  "value": "130571" },
+
+{
+  "label": "南宫市",
+  "value": "130581" },
+
+{
+  "label": "沙河市",
+  "value": "130582" }],
+
+
+[{
+  "label": "竞秀区",
+  "value": "130602" },
+
+{
+  "label": "莲池区",
+  "value": "130606" },
+
+{
+  "label": "满城区",
+  "value": "130607" },
+
+{
+  "label": "清苑区",
+  "value": "130608" },
+
+{
+  "label": "徐水区",
+  "value": "130609" },
+
+{
+  "label": "涞水县",
+  "value": "130623" },
+
+{
+  "label": "阜平县",
+  "value": "130624" },
+
+{
+  "label": "定兴县",
+  "value": "130626" },
+
+{
+  "label": "唐县",
+  "value": "130627" },
+
+{
+  "label": "高阳县",
+  "value": "130628" },
+
+{
+  "label": "容城县",
+  "value": "130629" },
+
+{
+  "label": "涞源县",
+  "value": "130630" },
+
+{
+  "label": "望都县",
+  "value": "130631" },
+
+{
+  "label": "安新县",
+  "value": "130632" },
+
+{
+  "label": "易县",
+  "value": "130633" },
+
+{
+  "label": "曲阳县",
+  "value": "130634" },
+
+{
+  "label": "蠡县",
+  "value": "130635" },
+
+{
+  "label": "顺平县",
+  "value": "130636" },
+
+{
+  "label": "博野县",
+  "value": "130637" },
+
+{
+  "label": "雄县",
+  "value": "130638" },
+
+{
+  "label": "保定高新技术产业开发区",
+  "value": "130671" },
+
+{
+  "label": "保定白沟新城",
+  "value": "130672" },
+
+{
+  "label": "涿州市",
+  "value": "130681" },
+
+{
+  "label": "定州市",
+  "value": "130682" },
+
+{
+  "label": "安国市",
+  "value": "130683" },
+
+{
+  "label": "高碑店市",
+  "value": "130684" }],
+
+
+[{
+  "label": "桥东区",
+  "value": "130702" },
+
+{
+  "label": "桥西区",
+  "value": "130703" },
+
+{
+  "label": "宣化区",
+  "value": "130705" },
+
+{
+  "label": "下花园区",
+  "value": "130706" },
+
+{
+  "label": "万全区",
+  "value": "130708" },
+
+{
+  "label": "崇礼区",
+  "value": "130709" },
+
+{
+  "label": "张北县",
+  "value": "130722" },
+
+{
+  "label": "康保县",
+  "value": "130723" },
+
+{
+  "label": "沽源县",
+  "value": "130724" },
+
+{
+  "label": "尚义县",
+  "value": "130725" },
+
+{
+  "label": "蔚县",
+  "value": "130726" },
+
+{
+  "label": "阳原县",
+  "value": "130727" },
+
+{
+  "label": "怀安县",
+  "value": "130728" },
+
+{
+  "label": "怀来县",
+  "value": "130730" },
+
+{
+  "label": "涿鹿县",
+  "value": "130731" },
+
+{
+  "label": "赤城县",
+  "value": "130732" },
+
+{
+  "label": "张家口市高新技术产业开发区",
+  "value": "130771" },
+
+{
+  "label": "张家口市察北管理区",
+  "value": "130772" },
+
+{
+  "label": "张家口市塞北管理区",
+  "value": "130773" }],
+
+
+[{
+  "label": "双桥区",
+  "value": "130802" },
+
+{
+  "label": "双滦区",
+  "value": "130803" },
+
+{
+  "label": "鹰手营子矿区",
+  "value": "130804" },
+
+{
+  "label": "承德县",
+  "value": "130821" },
+
+{
+  "label": "兴隆县",
+  "value": "130822" },
+
+{
+  "label": "滦平县",
+  "value": "130824" },
+
+{
+  "label": "隆化县",
+  "value": "130825" },
+
+{
+  "label": "丰宁满族自治县",
+  "value": "130826" },
+
+{
+  "label": "宽城满族自治县",
+  "value": "130827" },
+
+{
+  "label": "围场满族蒙古族自治县",
+  "value": "130828" },
+
+{
+  "label": "承德高新技术产业开发区",
+  "value": "130871" },
+
+{
+  "label": "平泉市",
+  "value": "130881" }],
+
+
+[{
+  "label": "新华区",
+  "value": "130902" },
+
+{
+  "label": "运河区",
+  "value": "130903" },
+
+{
+  "label": "沧县",
+  "value": "130921" },
+
+{
+  "label": "青县",
+  "value": "130922" },
+
+{
+  "label": "东光县",
+  "value": "130923" },
+
+{
+  "label": "海兴县",
+  "value": "130924" },
+
+{
+  "label": "盐山县",
+  "value": "130925" },
+
+{
+  "label": "肃宁县",
+  "value": "130926" },
+
+{
+  "label": "南皮县",
+  "value": "130927" },
+
+{
+  "label": "吴桥县",
+  "value": "130928" },
+
+{
+  "label": "献县",
+  "value": "130929" },
+
+{
+  "label": "孟村回族自治县",
+  "value": "130930" },
+
+{
+  "label": "河北沧州经济开发区",
+  "value": "130971" },
+
+{
+  "label": "沧州高新技术产业开发区",
+  "value": "130972" },
+
+{
+  "label": "沧州渤海新区",
+  "value": "130973" },
+
+{
+  "label": "泊头市",
+  "value": "130981" },
+
+{
+  "label": "任丘市",
+  "value": "130982" },
+
+{
+  "label": "黄骅市",
+  "value": "130983" },
+
+{
+  "label": "河间市",
+  "value": "130984" }],
+
+
+[{
+  "label": "安次区",
+  "value": "131002" },
+
+{
+  "label": "广阳区",
+  "value": "131003" },
+
+{
+  "label": "固安县",
+  "value": "131022" },
+
+{
+  "label": "永清县",
+  "value": "131023" },
+
+{
+  "label": "香河县",
+  "value": "131024" },
+
+{
+  "label": "大城县",
+  "value": "131025" },
+
+{
+  "label": "文安县",
+  "value": "131026" },
+
+{
+  "label": "大厂回族自治县",
+  "value": "131028" },
+
+{
+  "label": "廊坊经济技术开发区",
+  "value": "131071" },
+
+{
+  "label": "霸州市",
+  "value": "131081" },
+
+{
+  "label": "三河市",
+  "value": "131082" }],
+
+
+[{
+  "label": "桃城区",
+  "value": "131102" },
+
+{
+  "label": "冀州区",
+  "value": "131103" },
+
+{
+  "label": "枣强县",
+  "value": "131121" },
+
+{
+  "label": "武邑县",
+  "value": "131122" },
+
+{
+  "label": "武强县",
+  "value": "131123" },
+
+{
+  "label": "饶阳县",
+  "value": "131124" },
+
+{
+  "label": "安平县",
+  "value": "131125" },
+
+{
+  "label": "故城县",
+  "value": "131126" },
+
+{
+  "label": "景县",
+  "value": "131127" },
+
+{
+  "label": "阜城县",
+  "value": "131128" },
+
+{
+  "label": "河北衡水经济开发区",
+  "value": "131171" },
+
+{
+  "label": "衡水滨湖新区",
+  "value": "131172" },
+
+{
+  "label": "深州市",
+  "value": "131182" }]],
+
+
+
+[
+[{
+  "label": "小店区",
+  "value": "140105" },
+
+{
+  "label": "迎泽区",
+  "value": "140106" },
+
+{
+  "label": "杏花岭区",
+  "value": "140107" },
+
+{
+  "label": "尖草坪区",
+  "value": "140108" },
+
+{
+  "label": "万柏林区",
+  "value": "140109" },
+
+{
+  "label": "晋源区",
+  "value": "140110" },
+
+{
+  "label": "清徐县",
+  "value": "140121" },
+
+{
+  "label": "阳曲县",
+  "value": "140122" },
+
+{
+  "label": "娄烦县",
+  "value": "140123" },
+
+{
+  "label": "山西转型综合改革示范区",
+  "value": "140171" },
+
+{
+  "label": "古交市",
+  "value": "140181" }],
+
+
+[{
+  "label": "城区",
+  "value": "140202" },
+
+{
+  "label": "矿区",
+  "value": "140203" },
+
+{
+  "label": "南郊区",
+  "value": "140211" },
+
+{
+  "label": "新荣区",
+  "value": "140212" },
+
+{
+  "label": "阳高县",
+  "value": "140221" },
+
+{
+  "label": "天镇县",
+  "value": "140222" },
+
+{
+  "label": "广灵县",
+  "value": "140223" },
+
+{
+  "label": "灵丘县",
+  "value": "140224" },
+
+{
+  "label": "浑源县",
+  "value": "140225" },
+
+{
+  "label": "左云县",
+  "value": "140226" },
+
+{
+  "label": "大同县",
+  "value": "140227" },
+
+{
+  "label": "山西大同经济开发区",
+  "value": "140271" }],
+
+
+[{
+  "label": "城区",
+  "value": "140302" },
+
+{
+  "label": "矿区",
+  "value": "140303" },
+
+{
+  "label": "郊区",
+  "value": "140311" },
+
+{
+  "label": "平定县",
+  "value": "140321" },
+
+{
+  "label": "盂县",
+  "value": "140322" },
+
+{
+  "label": "山西阳泉经济开发区",
+  "value": "140371" }],
+
+
+[{
+  "label": "城区",
+  "value": "140402" },
+
+{
+  "label": "郊区",
+  "value": "140411" },
+
+{
+  "label": "长治县",
+  "value": "140421" },
+
+{
+  "label": "襄垣县",
+  "value": "140423" },
+
+{
+  "label": "屯留县",
+  "value": "140424" },
+
+{
+  "label": "平顺县",
+  "value": "140425" },
+
+{
+  "label": "黎城县",
+  "value": "140426" },
+
+{
+  "label": "壶关县",
+  "value": "140427" },
+
+{
+  "label": "长子县",
+  "value": "140428" },
+
+{
+  "label": "武乡县",
+  "value": "140429" },
+
+{
+  "label": "沁县",
+  "value": "140430" },
+
+{
+  "label": "沁源县",
+  "value": "140431" },
+
+{
+  "label": "山西长治高新技术产业园区",
+  "value": "140471" },
+
+{
+  "label": "潞城市",
+  "value": "140481" }],
+
+
+[{
+  "label": "城区",
+  "value": "140502" },
+
+{
+  "label": "沁水县",
+  "value": "140521" },
+
+{
+  "label": "阳城县",
+  "value": "140522" },
+
+{
+  "label": "陵川县",
+  "value": "140524" },
+
+{
+  "label": "泽州县",
+  "value": "140525" },
+
+{
+  "label": "高平市",
+  "value": "140581" }],
+
+
+[{
+  "label": "朔城区",
+  "value": "140602" },
+
+{
+  "label": "平鲁区",
+  "value": "140603" },
+
+{
+  "label": "山阴县",
+  "value": "140621" },
+
+{
+  "label": "应县",
+  "value": "140622" },
+
+{
+  "label": "右玉县",
+  "value": "140623" },
+
+{
+  "label": "怀仁县",
+  "value": "140624" },
+
+{
+  "label": "山西朔州经济开发区",
+  "value": "140671" }],
+
+
+[{
+  "label": "榆次区",
+  "value": "140702" },
+
+{
+  "label": "榆社县",
+  "value": "140721" },
+
+{
+  "label": "左权县",
+  "value": "140722" },
+
+{
+  "label": "和顺县",
+  "value": "140723" },
+
+{
+  "label": "昔阳县",
+  "value": "140724" },
+
+{
+  "label": "寿阳县",
+  "value": "140725" },
+
+{
+  "label": "太谷县",
+  "value": "140726" },
+
+{
+  "label": "祁县",
+  "value": "140727" },
+
+{
+  "label": "平遥县",
+  "value": "140728" },
+
+{
+  "label": "灵石县",
+  "value": "140729" },
+
+{
+  "label": "介休市",
+  "value": "140781" }],
+
+
+[{
+  "label": "盐湖区",
+  "value": "140802" },
+
+{
+  "label": "临猗县",
+  "value": "140821" },
+
+{
+  "label": "万荣县",
+  "value": "140822" },
+
+{
+  "label": "闻喜县",
+  "value": "140823" },
+
+{
+  "label": "稷山县",
+  "value": "140824" },
+
+{
+  "label": "新绛县",
+  "value": "140825" },
+
+{
+  "label": "绛县",
+  "value": "140826" },
+
+{
+  "label": "垣曲县",
+  "value": "140827" },
+
+{
+  "label": "夏县",
+  "value": "140828" },
+
+{
+  "label": "平陆县",
+  "value": "140829" },
+
+{
+  "label": "芮城县",
+  "value": "140830" },
+
+{
+  "label": "永济市",
+  "value": "140881" },
+
+{
+  "label": "河津市",
+  "value": "140882" }],
+
+
+[{
+  "label": "忻府区",
+  "value": "140902" },
+
+{
+  "label": "定襄县",
+  "value": "140921" },
+
+{
+  "label": "五台县",
+  "value": "140922" },
+
+{
+  "label": "代县",
+  "value": "140923" },
+
+{
+  "label": "繁峙县",
+  "value": "140924" },
+
+{
+  "label": "宁武县",
+  "value": "140925" },
+
+{
+  "label": "静乐县",
+  "value": "140926" },
+
+{
+  "label": "神池县",
+  "value": "140927" },
+
+{
+  "label": "五寨县",
+  "value": "140928" },
+
+{
+  "label": "岢岚县",
+  "value": "140929" },
+
+{
+  "label": "河曲县",
+  "value": "140930" },
+
+{
+  "label": "保德县",
+  "value": "140931" },
+
+{
+  "label": "偏关县",
+  "value": "140932" },
+
+{
+  "label": "五台山风景名胜区",
+  "value": "140971" },
+
+{
+  "label": "原平市",
+  "value": "140981" }],
+
+
+[{
+  "label": "尧都区",
+  "value": "141002" },
+
+{
+  "label": "曲沃县",
+  "value": "141021" },
+
+{
+  "label": "翼城县",
+  "value": "141022" },
+
+{
+  "label": "襄汾县",
+  "value": "141023" },
+
+{
+  "label": "洪洞县",
+  "value": "141024" },
+
+{
+  "label": "古县",
+  "value": "141025" },
+
+{
+  "label": "安泽县",
+  "value": "141026" },
+
+{
+  "label": "浮山县",
+  "value": "141027" },
+
+{
+  "label": "吉县",
+  "value": "141028" },
+
+{
+  "label": "乡宁县",
+  "value": "141029" },
+
+{
+  "label": "大宁县",
+  "value": "141030" },
+
+{
+  "label": "隰县",
+  "value": "141031" },
+
+{
+  "label": "永和县",
+  "value": "141032" },
+
+{
+  "label": "蒲县",
+  "value": "141033" },
+
+{
+  "label": "汾西县",
+  "value": "141034" },
+
+{
+  "label": "侯马市",
+  "value": "141081" },
+
+{
+  "label": "霍州市",
+  "value": "141082" }],
+
+
+[{
+  "label": "离石区",
+  "value": "141102" },
+
+{
+  "label": "文水县",
+  "value": "141121" },
+
+{
+  "label": "交城县",
+  "value": "141122" },
+
+{
+  "label": "兴县",
+  "value": "141123" },
+
+{
+  "label": "临县",
+  "value": "141124" },
+
+{
+  "label": "柳林县",
+  "value": "141125" },
+
+{
+  "label": "石楼县",
+  "value": "141126" },
+
+{
+  "label": "岚县",
+  "value": "141127" },
+
+{
+  "label": "方山县",
+  "value": "141128" },
+
+{
+  "label": "中阳县",
+  "value": "141129" },
+
+{
+  "label": "交口县",
+  "value": "141130" },
+
+{
+  "label": "孝义市",
+  "value": "141181" },
+
+{
+  "label": "汾阳市",
+  "value": "141182" }]],
+
+
+
+[
+[{
+  "label": "新城区",
+  "value": "150102" },
+
+{
+  "label": "回民区",
+  "value": "150103" },
+
+{
+  "label": "玉泉区",
+  "value": "150104" },
+
+{
+  "label": "赛罕区",
+  "value": "150105" },
+
+{
+  "label": "土默特左旗",
+  "value": "150121" },
+
+{
+  "label": "托克托县",
+  "value": "150122" },
+
+{
+  "label": "和林格尔县",
+  "value": "150123" },
+
+{
+  "label": "清水河县",
+  "value": "150124" },
+
+{
+  "label": "武川县",
+  "value": "150125" },
+
+{
+  "label": "呼和浩特金海工业园区",
+  "value": "150171" },
+
+{
+  "label": "呼和浩特经济技术开发区",
+  "value": "150172" }],
+
+
+[{
+  "label": "东河区",
+  "value": "150202" },
+
+{
+  "label": "昆都仑区",
+  "value": "150203" },
+
+{
+  "label": "青山区",
+  "value": "150204" },
+
+{
+  "label": "石拐区",
+  "value": "150205" },
+
+{
+  "label": "白云鄂博矿区",
+  "value": "150206" },
+
+{
+  "label": "九原区",
+  "value": "150207" },
+
+{
+  "label": "土默特右旗",
+  "value": "150221" },
+
+{
+  "label": "固阳县",
+  "value": "150222" },
+
+{
+  "label": "达尔罕茂明安联合旗",
+  "value": "150223" },
+
+{
+  "label": "包头稀土高新技术产业开发区",
+  "value": "150271" }],
+
+
+[{
+  "label": "海勃湾区",
+  "value": "150302" },
+
+{
+  "label": "海南区",
+  "value": "150303" },
+
+{
+  "label": "乌达区",
+  "value": "150304" }],
+
+
+[{
+  "label": "红山区",
+  "value": "150402" },
+
+{
+  "label": "元宝山区",
+  "value": "150403" },
+
+{
+  "label": "松山区",
+  "value": "150404" },
+
+{
+  "label": "阿鲁科尔沁旗",
+  "value": "150421" },
+
+{
+  "label": "巴林左旗",
+  "value": "150422" },
+
+{
+  "label": "巴林右旗",
+  "value": "150423" },
+
+{
+  "label": "林西县",
+  "value": "150424" },
+
+{
+  "label": "克什克腾旗",
+  "value": "150425" },
+
+{
+  "label": "翁牛特旗",
+  "value": "150426" },
+
+{
+  "label": "喀喇沁旗",
+  "value": "150428" },
+
+{
+  "label": "宁城县",
+  "value": "150429" },
+
+{
+  "label": "敖汉旗",
+  "value": "150430" }],
+
+
+[{
+  "label": "科尔沁区",
+  "value": "150502" },
+
+{
+  "label": "科尔沁左翼中旗",
+  "value": "150521" },
+
+{
+  "label": "科尔沁左翼后旗",
+  "value": "150522" },
+
+{
+  "label": "开鲁县",
+  "value": "150523" },
+
+{
+  "label": "库伦旗",
+  "value": "150524" },
+
+{
+  "label": "奈曼旗",
+  "value": "150525" },
+
+{
+  "label": "扎鲁特旗",
+  "value": "150526" },
+
+{
+  "label": "通辽经济技术开发区",
+  "value": "150571" },
+
+{
+  "label": "霍林郭勒市",
+  "value": "150581" }],
+
+
+[{
+  "label": "东胜区",
+  "value": "150602" },
+
+{
+  "label": "康巴什区",
+  "value": "150603" },
+
+{
+  "label": "达拉特旗",
+  "value": "150621" },
+
+{
+  "label": "准格尔旗",
+  "value": "150622" },
+
+{
+  "label": "鄂托克前旗",
+  "value": "150623" },
+
+{
+  "label": "鄂托克旗",
+  "value": "150624" },
+
+{
+  "label": "杭锦旗",
+  "value": "150625" },
+
+{
+  "label": "乌审旗",
+  "value": "150626" },
+
+{
+  "label": "伊金霍洛旗",
+  "value": "150627" }],
+
+
+[{
+  "label": "海拉尔区",
+  "value": "150702" },
+
+{
+  "label": "扎赉诺尔区",
+  "value": "150703" },
+
+{
+  "label": "阿荣旗",
+  "value": "150721" },
+
+{
+  "label": "莫力达瓦达斡尔族自治旗",
+  "value": "150722" },
+
+{
+  "label": "鄂伦春自治旗",
+  "value": "150723" },
+
+{
+  "label": "鄂温克族自治旗",
+  "value": "150724" },
+
+{
+  "label": "陈巴尔虎旗",
+  "value": "150725" },
+
+{
+  "label": "新巴尔虎左旗",
+  "value": "150726" },
+
+{
+  "label": "新巴尔虎右旗",
+  "value": "150727" },
+
+{
+  "label": "满洲里市",
+  "value": "150781" },
+
+{
+  "label": "牙克石市",
+  "value": "150782" },
+
+{
+  "label": "扎兰屯市",
+  "value": "150783" },
+
+{
+  "label": "额尔古纳市",
+  "value": "150784" },
+
+{
+  "label": "根河市",
+  "value": "150785" }],
+
+
+[{
+  "label": "临河区",
+  "value": "150802" },
+
+{
+  "label": "五原县",
+  "value": "150821" },
+
+{
+  "label": "磴口县",
+  "value": "150822" },
+
+{
+  "label": "乌拉特前旗",
+  "value": "150823" },
+
+{
+  "label": "乌拉特中旗",
+  "value": "150824" },
+
+{
+  "label": "乌拉特后旗",
+  "value": "150825" },
+
+{
+  "label": "杭锦后旗",
+  "value": "150826" }],
+
+
+[{
+  "label": "集宁区",
+  "value": "150902" },
+
+{
+  "label": "卓资县",
+  "value": "150921" },
+
+{
+  "label": "化德县",
+  "value": "150922" },
+
+{
+  "label": "商都县",
+  "value": "150923" },
+
+{
+  "label": "兴和县",
+  "value": "150924" },
+
+{
+  "label": "凉城县",
+  "value": "150925" },
+
+{
+  "label": "察哈尔右翼前旗",
+  "value": "150926" },
+
+{
+  "label": "察哈尔右翼中旗",
+  "value": "150927" },
+
+{
+  "label": "察哈尔右翼后旗",
+  "value": "150928" },
+
+{
+  "label": "四子王旗",
+  "value": "150929" },
+
+{
+  "label": "丰镇市",
+  "value": "150981" }],
+
+
+[{
+  "label": "乌兰浩特市",
+  "value": "152201" },
+
+{
+  "label": "阿尔山市",
+  "value": "152202" },
+
+{
+  "label": "科尔沁右翼前旗",
+  "value": "152221" },
+
+{
+  "label": "科尔沁右翼中旗",
+  "value": "152222" },
+
+{
+  "label": "扎赉特旗",
+  "value": "152223" },
+
+{
+  "label": "突泉县",
+  "value": "152224" }],
+
+
+[{
+  "label": "二连浩特市",
+  "value": "152501" },
+
+{
+  "label": "锡林浩特市",
+  "value": "152502" },
+
+{
+  "label": "阿巴嘎旗",
+  "value": "152522" },
+
+{
+  "label": "苏尼特左旗",
+  "value": "152523" },
+
+{
+  "label": "苏尼特右旗",
+  "value": "152524" },
+
+{
+  "label": "东乌珠穆沁旗",
+  "value": "152525" },
+
+{
+  "label": "西乌珠穆沁旗",
+  "value": "152526" },
+
+{
+  "label": "太仆寺旗",
+  "value": "152527" },
+
+{
+  "label": "镶黄旗",
+  "value": "152528" },
+
+{
+  "label": "正镶白旗",
+  "value": "152529" },
+
+{
+  "label": "正蓝旗",
+  "value": "152530" },
+
+{
+  "label": "多伦县",
+  "value": "152531" },
+
+{
+  "label": "乌拉盖管委会",
+  "value": "152571" }],
+
+
+[{
+  "label": "阿拉善左旗",
+  "value": "152921" },
+
+{
+  "label": "阿拉善右旗",
+  "value": "152922" },
+
+{
+  "label": "额济纳旗",
+  "value": "152923" },
+
+{
+  "label": "内蒙古阿拉善经济开发区",
+  "value": "152971" }]],
+
+
+
+[
+[{
+  "label": "和平区",
+  "value": "210102" },
+
+{
+  "label": "沈河区",
+  "value": "210103" },
+
+{
+  "label": "大东区",
+  "value": "210104" },
+
+{
+  "label": "皇姑区",
+  "value": "210105" },
+
+{
+  "label": "铁西区",
+  "value": "210106" },
+
+{
+  "label": "苏家屯区",
+  "value": "210111" },
+
+{
+  "label": "浑南区",
+  "value": "210112" },
+
+{
+  "label": "沈北新区",
+  "value": "210113" },
+
+{
+  "label": "于洪区",
+  "value": "210114" },
+
+{
+  "label": "辽中区",
+  "value": "210115" },
+
+{
+  "label": "康平县",
+  "value": "210123" },
+
+{
+  "label": "法库县",
+  "value": "210124" },
+
+{
+  "label": "新民市",
+  "value": "210181" }],
+
+
+[{
+  "label": "中山区",
+  "value": "210202" },
+
+{
+  "label": "西岗区",
+  "value": "210203" },
+
+{
+  "label": "沙河口区",
+  "value": "210204" },
+
+{
+  "label": "甘井子区",
+  "value": "210211" },
+
+{
+  "label": "旅顺口区",
+  "value": "210212" },
+
+{
+  "label": "金州区",
+  "value": "210213" },
+
+{
+  "label": "普兰店区",
+  "value": "210214" },
+
+{
+  "label": "长海县",
+  "value": "210224" },
+
+{
+  "label": "瓦房店市",
+  "value": "210281" },
+
+{
+  "label": "庄河市",
+  "value": "210283" }],
+
+
+[{
+  "label": "铁东区",
+  "value": "210302" },
+
+{
+  "label": "铁西区",
+  "value": "210303" },
+
+{
+  "label": "立山区",
+  "value": "210304" },
+
+{
+  "label": "千山区",
+  "value": "210311" },
+
+{
+  "label": "台安县",
+  "value": "210321" },
+
+{
+  "label": "岫岩满族自治县",
+  "value": "210323" },
+
+{
+  "label": "海城市",
+  "value": "210381" }],
+
+
+[{
+  "label": "新抚区",
+  "value": "210402" },
+
+{
+  "label": "东洲区",
+  "value": "210403" },
+
+{
+  "label": "望花区",
+  "value": "210404" },
+
+{
+  "label": "顺城区",
+  "value": "210411" },
+
+{
+  "label": "抚顺县",
+  "value": "210421" },
+
+{
+  "label": "新宾满族自治县",
+  "value": "210422" },
+
+{
+  "label": "清原满族自治县",
+  "value": "210423" }],
+
+
+[{
+  "label": "平山区",
+  "value": "210502" },
+
+{
+  "label": "溪湖区",
+  "value": "210503" },
+
+{
+  "label": "明山区",
+  "value": "210504" },
+
+{
+  "label": "南芬区",
+  "value": "210505" },
+
+{
+  "label": "本溪满族自治县",
+  "value": "210521" },
+
+{
+  "label": "桓仁满族自治县",
+  "value": "210522" }],
+
+
+[{
+  "label": "元宝区",
+  "value": "210602" },
+
+{
+  "label": "振兴区",
+  "value": "210603" },
+
+{
+  "label": "振安区",
+  "value": "210604" },
+
+{
+  "label": "宽甸满族自治县",
+  "value": "210624" },
+
+{
+  "label": "东港市",
+  "value": "210681" },
+
+{
+  "label": "凤城市",
+  "value": "210682" }],
+
+
+[{
+  "label": "古塔区",
+  "value": "210702" },
+
+{
+  "label": "凌河区",
+  "value": "210703" },
+
+{
+  "label": "太和区",
+  "value": "210711" },
+
+{
+  "label": "黑山县",
+  "value": "210726" },
+
+{
+  "label": "义县",
+  "value": "210727" },
+
+{
+  "label": "凌海市",
+  "value": "210781" },
+
+{
+  "label": "北镇市",
+  "value": "210782" }],
+
+
+[{
+  "label": "站前区",
+  "value": "210802" },
+
+{
+  "label": "西市区",
+  "value": "210803" },
+
+{
+  "label": "鲅鱼圈区",
+  "value": "210804" },
+
+{
+  "label": "老边区",
+  "value": "210811" },
+
+{
+  "label": "盖州市",
+  "value": "210881" },
+
+{
+  "label": "大石桥市",
+  "value": "210882" }],
+
+
+[{
+  "label": "海州区",
+  "value": "210902" },
+
+{
+  "label": "新邱区",
+  "value": "210903" },
+
+{
+  "label": "太平区",
+  "value": "210904" },
+
+{
+  "label": "清河门区",
+  "value": "210905" },
+
+{
+  "label": "细河区",
+  "value": "210911" },
+
+{
+  "label": "阜新蒙古族自治县",
+  "value": "210921" },
+
+{
+  "label": "彰武县",
+  "value": "210922" }],
+
+
+[{
+  "label": "白塔区",
+  "value": "211002" },
+
+{
+  "label": "文圣区",
+  "value": "211003" },
+
+{
+  "label": "宏伟区",
+  "value": "211004" },
+
+{
+  "label": "弓长岭区",
+  "value": "211005" },
+
+{
+  "label": "太子河区",
+  "value": "211011" },
+
+{
+  "label": "辽阳县",
+  "value": "211021" },
+
+{
+  "label": "灯塔市",
+  "value": "211081" }],
+
+
+[{
+  "label": "双台子区",
+  "value": "211102" },
+
+{
+  "label": "兴隆台区",
+  "value": "211103" },
+
+{
+  "label": "大洼区",
+  "value": "211104" },
+
+{
+  "label": "盘山县",
+  "value": "211122" }],
+
+
+[{
+  "label": "银州区",
+  "value": "211202" },
+
+{
+  "label": "清河区",
+  "value": "211204" },
+
+{
+  "label": "铁岭县",
+  "value": "211221" },
+
+{
+  "label": "西丰县",
+  "value": "211223" },
+
+{
+  "label": "昌图县",
+  "value": "211224" },
+
+{
+  "label": "调兵山市",
+  "value": "211281" },
+
+{
+  "label": "开原市",
+  "value": "211282" }],
+
+
+[{
+  "label": "双塔区",
+  "value": "211302" },
+
+{
+  "label": "龙城区",
+  "value": "211303" },
+
+{
+  "label": "朝阳县",
+  "value": "211321" },
+
+{
+  "label": "建平县",
+  "value": "211322" },
+
+{
+  "label": "喀喇沁左翼蒙古族自治县",
+  "value": "211324" },
+
+{
+  "label": "北票市",
+  "value": "211381" },
+
+{
+  "label": "凌源市",
+  "value": "211382" }],
+
+
+[{
+  "label": "连山区",
+  "value": "211402" },
+
+{
+  "label": "龙港区",
+  "value": "211403" },
+
+{
+  "label": "南票区",
+  "value": "211404" },
+
+{
+  "label": "绥中县",
+  "value": "211421" },
+
+{
+  "label": "建昌县",
+  "value": "211422" },
+
+{
+  "label": "兴城市",
+  "value": "211481" }]],
+
+
+
+[
+[{
+  "label": "南关区",
+  "value": "220102" },
+
+{
+  "label": "宽城区",
+  "value": "220103" },
+
+{
+  "label": "朝阳区",
+  "value": "220104" },
+
+{
+  "label": "二道区",
+  "value": "220105" },
+
+{
+  "label": "绿园区",
+  "value": "220106" },
+
+{
+  "label": "双阳区",
+  "value": "220112" },
+
+{
+  "label": "九台区",
+  "value": "220113" },
+
+{
+  "label": "农安县",
+  "value": "220122" },
+
+{
+  "label": "长春经济技术开发区",
+  "value": "220171" },
+
+{
+  "label": "长春净月高新技术产业开发区",
+  "value": "220172" },
+
+{
+  "label": "长春高新技术产业开发区",
+  "value": "220173" },
+
+{
+  "label": "长春汽车经济技术开发区",
+  "value": "220174" },
+
+{
+  "label": "榆树市",
+  "value": "220182" },
+
+{
+  "label": "德惠市",
+  "value": "220183" }],
+
+
+[{
+  "label": "昌邑区",
+  "value": "220202" },
+
+{
+  "label": "龙潭区",
+  "value": "220203" },
+
+{
+  "label": "船营区",
+  "value": "220204" },
+
+{
+  "label": "丰满区",
+  "value": "220211" },
+
+{
+  "label": "永吉县",
+  "value": "220221" },
+
+{
+  "label": "吉林经济开发区",
+  "value": "220271" },
+
+{
+  "label": "吉林高新技术产业开发区",
+  "value": "220272" },
+
+{
+  "label": "吉林中国新加坡食品区",
+  "value": "220273" },
+
+{
+  "label": "蛟河市",
+  "value": "220281" },
+
+{
+  "label": "桦甸市",
+  "value": "220282" },
+
+{
+  "label": "舒兰市",
+  "value": "220283" },
+
+{
+  "label": "磐石市",
+  "value": "220284" }],
+
+
+[{
+  "label": "铁西区",
+  "value": "220302" },
+
+{
+  "label": "铁东区",
+  "value": "220303" },
+
+{
+  "label": "梨树县",
+  "value": "220322" },
+
+{
+  "label": "伊通满族自治县",
+  "value": "220323" },
+
+{
+  "label": "公主岭市",
+  "value": "220381" },
+
+{
+  "label": "双辽市",
+  "value": "220382" }],
+
+
+[{
+  "label": "龙山区",
+  "value": "220402" },
+
+{
+  "label": "西安区",
+  "value": "220403" },
+
+{
+  "label": "东丰县",
+  "value": "220421" },
+
+{
+  "label": "东辽县",
+  "value": "220422" }],
+
+
+[{
+  "label": "东昌区",
+  "value": "220502" },
+
+{
+  "label": "二道江区",
+  "value": "220503" },
+
+{
+  "label": "通化县",
+  "value": "220521" },
+
+{
+  "label": "辉南县",
+  "value": "220523" },
+
+{
+  "label": "柳河县",
+  "value": "220524" },
+
+{
+  "label": "梅河口市",
+  "value": "220581" },
+
+{
+  "label": "集安市",
+  "value": "220582" }],
+
+
+[{
+  "label": "浑江区",
+  "value": "220602" },
+
+{
+  "label": "江源区",
+  "value": "220605" },
+
+{
+  "label": "抚松县",
+  "value": "220621" },
+
+{
+  "label": "靖宇县",
+  "value": "220622" },
+
+{
+  "label": "长白朝鲜族自治县",
+  "value": "220623" },
+
+{
+  "label": "临江市",
+  "value": "220681" }],
+
+
+[{
+  "label": "宁江区",
+  "value": "220702" },
+
+{
+  "label": "前郭尔罗斯蒙古族自治县",
+  "value": "220721" },
+
+{
+  "label": "长岭县",
+  "value": "220722" },
+
+{
+  "label": "乾安县",
+  "value": "220723" },
+
+{
+  "label": "吉林松原经济开发区",
+  "value": "220771" },
+
+{
+  "label": "扶余市",
+  "value": "220781" }],
+
+
+[{
+  "label": "洮北区",
+  "value": "220802" },
+
+{
+  "label": "镇赉县",
+  "value": "220821" },
+
+{
+  "label": "通榆县",
+  "value": "220822" },
+
+{
+  "label": "吉林白城经济开发区",
+  "value": "220871" },
+
+{
+  "label": "洮南市",
+  "value": "220881" },
+
+{
+  "label": "大安市",
+  "value": "220882" }],
+
+
+[{
+  "label": "延吉市",
+  "value": "222401" },
+
+{
+  "label": "图们市",
+  "value": "222402" },
+
+{
+  "label": "敦化市",
+  "value": "222403" },
+
+{
+  "label": "珲春市",
+  "value": "222404" },
+
+{
+  "label": "龙井市",
+  "value": "222405" },
+
+{
+  "label": "和龙市",
+  "value": "222406" },
+
+{
+  "label": "汪清县",
+  "value": "222424" },
+
+{
+  "label": "安图县",
+  "value": "222426" }]],
+
+
+
+[
+[{
+  "label": "道里区",
+  "value": "230102" },
+
+{
+  "label": "南岗区",
+  "value": "230103" },
+
+{
+  "label": "道外区",
+  "value": "230104" },
+
+{
+  "label": "平房区",
+  "value": "230108" },
+
+{
+  "label": "松北区",
+  "value": "230109" },
+
+{
+  "label": "香坊区",
+  "value": "230110" },
+
+{
+  "label": "呼兰区",
+  "value": "230111" },
+
+{
+  "label": "阿城区",
+  "value": "230112" },
+
+{
+  "label": "双城区",
+  "value": "230113" },
+
+{
+  "label": "依兰县",
+  "value": "230123" },
+
+{
+  "label": "方正县",
+  "value": "230124" },
+
+{
+  "label": "宾县",
+  "value": "230125" },
+
+{
+  "label": "巴彦县",
+  "value": "230126" },
+
+{
+  "label": "木兰县",
+  "value": "230127" },
+
+{
+  "label": "通河县",
+  "value": "230128" },
+
+{
+  "label": "延寿县",
+  "value": "230129" },
+
+{
+  "label": "尚志市",
+  "value": "230183" },
+
+{
+  "label": "五常市",
+  "value": "230184" }],
+
+
+[{
+  "label": "龙沙区",
+  "value": "230202" },
+
+{
+  "label": "建华区",
+  "value": "230203" },
+
+{
+  "label": "铁锋区",
+  "value": "230204" },
+
+{
+  "label": "昂昂溪区",
+  "value": "230205" },
+
+{
+  "label": "富拉尔基区",
+  "value": "230206" },
+
+{
+  "label": "碾子山区",
+  "value": "230207" },
+
+{
+  "label": "梅里斯达斡尔族区",
+  "value": "230208" },
+
+{
+  "label": "龙江县",
+  "value": "230221" },
+
+{
+  "label": "依安县",
+  "value": "230223" },
+
+{
+  "label": "泰来县",
+  "value": "230224" },
+
+{
+  "label": "甘南县",
+  "value": "230225" },
+
+{
+  "label": "富裕县",
+  "value": "230227" },
+
+{
+  "label": "克山县",
+  "value": "230229" },
+
+{
+  "label": "克东县",
+  "value": "230230" },
+
+{
+  "label": "拜泉县",
+  "value": "230231" },
+
+{
+  "label": "讷河市",
+  "value": "230281" }],
+
+
+[{
+  "label": "鸡冠区",
+  "value": "230302" },
+
+{
+  "label": "恒山区",
+  "value": "230303" },
+
+{
+  "label": "滴道区",
+  "value": "230304" },
+
+{
+  "label": "梨树区",
+  "value": "230305" },
+
+{
+  "label": "城子河区",
+  "value": "230306" },
+
+{
+  "label": "麻山区",
+  "value": "230307" },
+
+{
+  "label": "鸡东县",
+  "value": "230321" },
+
+{
+  "label": "虎林市",
+  "value": "230381" },
+
+{
+  "label": "密山市",
+  "value": "230382" }],
+
+
+[{
+  "label": "向阳区",
+  "value": "230402" },
+
+{
+  "label": "工农区",
+  "value": "230403" },
+
+{
+  "label": "南山区",
+  "value": "230404" },
+
+{
+  "label": "兴安区",
+  "value": "230405" },
+
+{
+  "label": "东山区",
+  "value": "230406" },
+
+{
+  "label": "兴山区",
+  "value": "230407" },
+
+{
+  "label": "萝北县",
+  "value": "230421" },
+
+{
+  "label": "绥滨县",
+  "value": "230422" }],
+
+
+[{
+  "label": "尖山区",
+  "value": "230502" },
+
+{
+  "label": "岭东区",
+  "value": "230503" },
+
+{
+  "label": "四方台区",
+  "value": "230505" },
+
+{
+  "label": "宝山区",
+  "value": "230506" },
+
+{
+  "label": "集贤县",
+  "value": "230521" },
+
+{
+  "label": "友谊县",
+  "value": "230522" },
+
+{
+  "label": "宝清县",
+  "value": "230523" },
+
+{
+  "label": "饶河县",
+  "value": "230524" }],
+
+
+[{
+  "label": "萨尔图区",
+  "value": "230602" },
+
+{
+  "label": "龙凤区",
+  "value": "230603" },
+
+{
+  "label": "让胡路区",
+  "value": "230604" },
+
+{
+  "label": "红岗区",
+  "value": "230605" },
+
+{
+  "label": "大同区",
+  "value": "230606" },
+
+{
+  "label": "肇州县",
+  "value": "230621" },
+
+{
+  "label": "肇源县",
+  "value": "230622" },
+
+{
+  "label": "林甸县",
+  "value": "230623" },
+
+{
+  "label": "杜尔伯特蒙古族自治县",
+  "value": "230624" },
+
+{
+  "label": "大庆高新技术产业开发区",
+  "value": "230671" }],
+
+
+[{
+  "label": "伊春区",
+  "value": "230702" },
+
+{
+  "label": "南岔区",
+  "value": "230703" },
+
+{
+  "label": "友好区",
+  "value": "230704" },
+
+{
+  "label": "西林区",
+  "value": "230705" },
+
+{
+  "label": "翠峦区",
+  "value": "230706" },
+
+{
+  "label": "新青区",
+  "value": "230707" },
+
+{
+  "label": "美溪区",
+  "value": "230708" },
+
+{
+  "label": "金山屯区",
+  "value": "230709" },
+
+{
+  "label": "五营区",
+  "value": "230710" },
+
+{
+  "label": "乌马河区",
+  "value": "230711" },
+
+{
+  "label": "汤旺河区",
+  "value": "230712" },
+
+{
+  "label": "带岭区",
+  "value": "230713" },
+
+{
+  "label": "乌伊岭区",
+  "value": "230714" },
+
+{
+  "label": "红星区",
+  "value": "230715" },
+
+{
+  "label": "上甘岭区",
+  "value": "230716" },
+
+{
+  "label": "嘉荫县",
+  "value": "230722" },
+
+{
+  "label": "铁力市",
+  "value": "230781" }],
+
+
+[{
+  "label": "向阳区",
+  "value": "230803" },
+
+{
+  "label": "前进区",
+  "value": "230804" },
+
+{
+  "label": "东风区",
+  "value": "230805" },
+
+{
+  "label": "郊区",
+  "value": "230811" },
+
+{
+  "label": "桦南县",
+  "value": "230822" },
+
+{
+  "label": "桦川县",
+  "value": "230826" },
+
+{
+  "label": "汤原县",
+  "value": "230828" },
+
+{
+  "label": "同江市",
+  "value": "230881" },
+
+{
+  "label": "富锦市",
+  "value": "230882" },
+
+{
+  "label": "抚远市",
+  "value": "230883" }],
+
+
+[{
+  "label": "新兴区",
+  "value": "230902" },
+
+{
+  "label": "桃山区",
+  "value": "230903" },
+
+{
+  "label": "茄子河区",
+  "value": "230904" },
+
+{
+  "label": "勃利县",
+  "value": "230921" }],
+
+
+[{
+  "label": "东安区",
+  "value": "231002" },
+
+{
+  "label": "阳明区",
+  "value": "231003" },
+
+{
+  "label": "爱民区",
+  "value": "231004" },
+
+{
+  "label": "西安区",
+  "value": "231005" },
+
+{
+  "label": "林口县",
+  "value": "231025" },
+
+{
+  "label": "牡丹江经济技术开发区",
+  "value": "231071" },
+
+{
+  "label": "绥芬河市",
+  "value": "231081" },
+
+{
+  "label": "海林市",
+  "value": "231083" },
+
+{
+  "label": "宁安市",
+  "value": "231084" },
+
+{
+  "label": "穆棱市",
+  "value": "231085" },
+
+{
+  "label": "东宁市",
+  "value": "231086" }],
+
+
+[{
+  "label": "爱辉区",
+  "value": "231102" },
+
+{
+  "label": "嫩江县",
+  "value": "231121" },
+
+{
+  "label": "逊克县",
+  "value": "231123" },
+
+{
+  "label": "孙吴县",
+  "value": "231124" },
+
+{
+  "label": "北安市",
+  "value": "231181" },
+
+{
+  "label": "五大连池市",
+  "value": "231182" }],
+
+
+[{
+  "label": "北林区",
+  "value": "231202" },
+
+{
+  "label": "望奎县",
+  "value": "231221" },
+
+{
+  "label": "兰西县",
+  "value": "231222" },
+
+{
+  "label": "青冈县",
+  "value": "231223" },
+
+{
+  "label": "庆安县",
+  "value": "231224" },
+
+{
+  "label": "明水县",
+  "value": "231225" },
+
+{
+  "label": "绥棱县",
+  "value": "231226" },
+
+{
+  "label": "安达市",
+  "value": "231281" },
+
+{
+  "label": "肇东市",
+  "value": "231282" },
+
+{
+  "label": "海伦市",
+  "value": "231283" }],
+
+
+[{
+  "label": "加格达奇区",
+  "value": "232701" },
+
+{
+  "label": "松岭区",
+  "value": "232702" },
+
+{
+  "label": "新林区",
+  "value": "232703" },
+
+{
+  "label": "呼中区",
+  "value": "232704" },
+
+{
+  "label": "呼玛县",
+  "value": "232721" },
+
+{
+  "label": "塔河县",
+  "value": "232722" },
+
+{
+  "label": "漠河县",
+  "value": "232723" }]],
+
+
+
+[
+[{
+  "label": "黄浦区",
+  "value": "310101" },
+
+{
+  "label": "徐汇区",
+  "value": "310104" },
+
+{
+  "label": "长宁区",
+  "value": "310105" },
+
+{
+  "label": "静安区",
+  "value": "310106" },
+
+{
+  "label": "普陀区",
+  "value": "310107" },
+
+{
+  "label": "虹口区",
+  "value": "310109" },
+
+{
+  "label": "杨浦区",
+  "value": "310110" },
+
+{
+  "label": "闵行区",
+  "value": "310112" },
+
+{
+  "label": "宝山区",
+  "value": "310113" },
+
+{
+  "label": "嘉定区",
+  "value": "310114" },
+
+{
+  "label": "浦东新区",
+  "value": "310115" },
+
+{
+  "label": "金山区",
+  "value": "310116" },
+
+{
+  "label": "松江区",
+  "value": "310117" },
+
+{
+  "label": "青浦区",
+  "value": "310118" },
+
+{
+  "label": "奉贤区",
+  "value": "310120" },
+
+{
+  "label": "崇明区",
+  "value": "310151" }]],
+
+
+
+[
+[{
+  "label": "玄武区",
+  "value": "320102" },
+
+{
+  "label": "秦淮区",
+  "value": "320104" },
+
+{
+  "label": "建邺区",
+  "value": "320105" },
+
+{
+  "label": "鼓楼区",
+  "value": "320106" },
+
+{
+  "label": "浦口区",
+  "value": "320111" },
+
+{
+  "label": "栖霞区",
+  "value": "320113" },
+
+{
+  "label": "雨花台区",
+  "value": "320114" },
+
+{
+  "label": "江宁区",
+  "value": "320115" },
+
+{
+  "label": "六合区",
+  "value": "320116" },
+
+{
+  "label": "溧水区",
+  "value": "320117" },
+
+{
+  "label": "高淳区",
+  "value": "320118" }],
+
+
+[{
+  "label": "锡山区",
+  "value": "320205" },
+
+{
+  "label": "惠山区",
+  "value": "320206" },
+
+{
+  "label": "滨湖区",
+  "value": "320211" },
+
+{
+  "label": "梁溪区",
+  "value": "320213" },
+
+{
+  "label": "新吴区",
+  "value": "320214" },
+
+{
+  "label": "江阴市",
+  "value": "320281" },
+
+{
+  "label": "宜兴市",
+  "value": "320282" }],
+
+
+[{
+  "label": "鼓楼区",
+  "value": "320302" },
+
+{
+  "label": "云龙区",
+  "value": "320303" },
+
+{
+  "label": "贾汪区",
+  "value": "320305" },
+
+{
+  "label": "泉山区",
+  "value": "320311" },
+
+{
+  "label": "铜山区",
+  "value": "320312" },
+
+{
+  "label": "丰县",
+  "value": "320321" },
+
+{
+  "label": "沛县",
+  "value": "320322" },
+
+{
+  "label": "睢宁县",
+  "value": "320324" },
+
+{
+  "label": "徐州经济技术开发区",
+  "value": "320371" },
+
+{
+  "label": "新沂市",
+  "value": "320381" },
+
+{
+  "label": "邳州市",
+  "value": "320382" }],
+
+
+[{
+  "label": "天宁区",
+  "value": "320402" },
+
+{
+  "label": "钟楼区",
+  "value": "320404" },
+
+{
+  "label": "新北区",
+  "value": "320411" },
+
+{
+  "label": "武进区",
+  "value": "320412" },
+
+{
+  "label": "金坛区",
+  "value": "320413" },
+
+{
+  "label": "溧阳市",
+  "value": "320481" }],
+
+
+[{
+  "label": "虎丘区",
+  "value": "320505" },
+
+{
+  "label": "吴中区",
+  "value": "320506" },
+
+{
+  "label": "相城区",
+  "value": "320507" },
+
+{
+  "label": "姑苏区",
+  "value": "320508" },
+
+{
+  "label": "吴江区",
+  "value": "320509" },
+
+{
+  "label": "苏州工业园区",
+  "value": "320571" },
+
+{
+  "label": "常熟市",
+  "value": "320581" },
+
+{
+  "label": "张家港市",
+  "value": "320582" },
+
+{
+  "label": "昆山市",
+  "value": "320583" },
+
+{
+  "label": "太仓市",
+  "value": "320585" }],
+
+
+[{
+  "label": "崇川区",
+  "value": "320602" },
+
+{
+  "label": "港闸区",
+  "value": "320611" },
+
+{
+  "label": "通州区",
+  "value": "320612" },
+
+{
+  "label": "海安县",
+  "value": "320621" },
+
+{
+  "label": "如东县",
+  "value": "320623" },
+
+{
+  "label": "南通经济技术开发区",
+  "value": "320671" },
+
+{
+  "label": "启东市",
+  "value": "320681" },
+
+{
+  "label": "如皋市",
+  "value": "320682" },
+
+{
+  "label": "海门市",
+  "value": "320684" }],
+
+
+[{
+  "label": "连云区",
+  "value": "320703" },
+
+{
+  "label": "海州区",
+  "value": "320706" },
+
+{
+  "label": "赣榆区",
+  "value": "320707" },
+
+{
+  "label": "东海县",
+  "value": "320722" },
+
+{
+  "label": "灌云县",
+  "value": "320723" },
+
+{
+  "label": "灌南县",
+  "value": "320724" },
+
+{
+  "label": "连云港经济技术开发区",
+  "value": "320771" },
+
+{
+  "label": "连云港高新技术产业开发区",
+  "value": "320772" }],
+
+
+[{
+  "label": "淮安区",
+  "value": "320803" },
+
+{
+  "label": "淮阴区",
+  "value": "320804" },
+
+{
+  "label": "清江浦区",
+  "value": "320812" },
+
+{
+  "label": "洪泽区",
+  "value": "320813" },
+
+{
+  "label": "涟水县",
+  "value": "320826" },
+
+{
+  "label": "盱眙县",
+  "value": "320830" },
+
+{
+  "label": "金湖县",
+  "value": "320831" },
+
+{
+  "label": "淮安经济技术开发区",
+  "value": "320871" }],
+
+
+[{
+  "label": "亭湖区",
+  "value": "320902" },
+
+{
+  "label": "盐都区",
+  "value": "320903" },
+
+{
+  "label": "大丰区",
+  "value": "320904" },
+
+{
+  "label": "响水县",
+  "value": "320921" },
+
+{
+  "label": "滨海县",
+  "value": "320922" },
+
+{
+  "label": "阜宁县",
+  "value": "320923" },
+
+{
+  "label": "射阳县",
+  "value": "320924" },
+
+{
+  "label": "建湖县",
+  "value": "320925" },
+
+{
+  "label": "盐城经济技术开发区",
+  "value": "320971" },
+
+{
+  "label": "东台市",
+  "value": "320981" }],
+
+
+[{
+  "label": "广陵区",
+  "value": "321002" },
+
+{
+  "label": "邗江区",
+  "value": "321003" },
+
+{
+  "label": "江都区",
+  "value": "321012" },
+
+{
+  "label": "宝应县",
+  "value": "321023" },
+
+{
+  "label": "扬州经济技术开发区",
+  "value": "321071" },
+
+{
+  "label": "仪征市",
+  "value": "321081" },
+
+{
+  "label": "高邮市",
+  "value": "321084" }],
+
+
+[{
+  "label": "京口区",
+  "value": "321102" },
+
+{
+  "label": "润州区",
+  "value": "321111" },
+
+{
+  "label": "丹徒区",
+  "value": "321112" },
+
+{
+  "label": "镇江新区",
+  "value": "321171" },
+
+{
+  "label": "丹阳市",
+  "value": "321181" },
+
+{
+  "label": "扬中市",
+  "value": "321182" },
+
+{
+  "label": "句容市",
+  "value": "321183" }],
+
+
+[{
+  "label": "海陵区",
+  "value": "321202" },
+
+{
+  "label": "高港区",
+  "value": "321203" },
+
+{
+  "label": "姜堰区",
+  "value": "321204" },
+
+{
+  "label": "泰州医药高新技术产业开发区",
+  "value": "321271" },
+
+{
+  "label": "兴化市",
+  "value": "321281" },
+
+{
+  "label": "靖江市",
+  "value": "321282" },
+
+{
+  "label": "泰兴市",
+  "value": "321283" }],
+
+
+[{
+  "label": "宿城区",
+  "value": "321302" },
+
+{
+  "label": "宿豫区",
+  "value": "321311" },
+
+{
+  "label": "沭阳县",
+  "value": "321322" },
+
+{
+  "label": "泗阳县",
+  "value": "321323" },
+
+{
+  "label": "泗洪县",
+  "value": "321324" },
+
+{
+  "label": "宿迁经济技术开发区",
+  "value": "321371" }]],
+
+
+
+[
+[{
+  "label": "上城区",
+  "value": "330102" },
+
+{
+  "label": "下城区",
+  "value": "330103" },
+
+{
+  "label": "江干区",
+  "value": "330104" },
+
+{
+  "label": "拱墅区",
+  "value": "330105" },
+
+{
+  "label": "西湖区",
+  "value": "330106" },
+
+{
+  "label": "滨江区",
+  "value": "330108" },
+
+{
+  "label": "萧山区",
+  "value": "330109" },
+
+{
+  "label": "余杭区",
+  "value": "330110" },
+
+{
+  "label": "富阳区",
+  "value": "330111" },
+
+{
+  "label": "临安区",
+  "value": "330112" },
+
+{
+  "label": "桐庐县",
+  "value": "330122" },
+
+{
+  "label": "淳安县",
+  "value": "330127" },
+
+{
+  "label": "建德市",
+  "value": "330182" }],
+
+
+[{
+  "label": "海曙区",
+  "value": "330203" },
+
+{
+  "label": "江北区",
+  "value": "330205" },
+
+{
+  "label": "北仑区",
+  "value": "330206" },
+
+{
+  "label": "镇海区",
+  "value": "330211" },
+
+{
+  "label": "鄞州区",
+  "value": "330212" },
+
+{
+  "label": "奉化区",
+  "value": "330213" },
+
+{
+  "label": "象山县",
+  "value": "330225" },
+
+{
+  "label": "宁海县",
+  "value": "330226" },
+
+{
+  "label": "余姚市",
+  "value": "330281" },
+
+{
+  "label": "慈溪市",
+  "value": "330282" }],
+
+
+[{
+  "label": "鹿城区",
+  "value": "330302" },
+
+{
+  "label": "龙湾区",
+  "value": "330303" },
+
+{
+  "label": "瓯海区",
+  "value": "330304" },
+
+{
+  "label": "洞头区",
+  "value": "330305" },
+
+{
+  "label": "永嘉县",
+  "value": "330324" },
+
+{
+  "label": "平阳县",
+  "value": "330326" },
+
+{
+  "label": "苍南县",
+  "value": "330327" },
+
+{
+  "label": "文成县",
+  "value": "330328" },
+
+{
+  "label": "泰顺县",
+  "value": "330329" },
+
+{
+  "label": "温州经济技术开发区",
+  "value": "330371" },
+
+{
+  "label": "瑞安市",
+  "value": "330381" },
+
+{
+  "label": "乐清市",
+  "value": "330382" }],
+
+
+[{
+  "label": "南湖区",
+  "value": "330402" },
+
+{
+  "label": "秀洲区",
+  "value": "330411" },
+
+{
+  "label": "嘉善县",
+  "value": "330421" },
+
+{
+  "label": "海盐县",
+  "value": "330424" },
+
+{
+  "label": "海宁市",
+  "value": "330481" },
+
+{
+  "label": "平湖市",
+  "value": "330482" },
+
+{
+  "label": "桐乡市",
+  "value": "330483" }],
+
+
+[{
+  "label": "吴兴区",
+  "value": "330502" },
+
+{
+  "label": "南浔区",
+  "value": "330503" },
+
+{
+  "label": "德清县",
+  "value": "330521" },
+
+{
+  "label": "长兴县",
+  "value": "330522" },
+
+{
+  "label": "安吉县",
+  "value": "330523" }],
+
+
+[{
+  "label": "越城区",
+  "value": "330602" },
+
+{
+  "label": "柯桥区",
+  "value": "330603" },
+
+{
+  "label": "上虞区",
+  "value": "330604" },
+
+{
+  "label": "新昌县",
+  "value": "330624" },
+
+{
+  "label": "诸暨市",
+  "value": "330681" },
+
+{
+  "label": "嵊州市",
+  "value": "330683" }],
+
+
+[{
+  "label": "婺城区",
+  "value": "330702" },
+
+{
+  "label": "金东区",
+  "value": "330703" },
+
+{
+  "label": "武义县",
+  "value": "330723" },
+
+{
+  "label": "浦江县",
+  "value": "330726" },
+
+{
+  "label": "磐安县",
+  "value": "330727" },
+
+{
+  "label": "兰溪市",
+  "value": "330781" },
+
+{
+  "label": "义乌市",
+  "value": "330782" },
+
+{
+  "label": "东阳市",
+  "value": "330783" },
+
+{
+  "label": "永康市",
+  "value": "330784" }],
+
+
+[{
+  "label": "柯城区",
+  "value": "330802" },
+
+{
+  "label": "衢江区",
+  "value": "330803" },
+
+{
+  "label": "常山县",
+  "value": "330822" },
+
+{
+  "label": "开化县",
+  "value": "330824" },
+
+{
+  "label": "龙游县",
+  "value": "330825" },
+
+{
+  "label": "江山市",
+  "value": "330881" }],
+
+
+[{
+  "label": "定海区",
+  "value": "330902" },
+
+{
+  "label": "普陀区",
+  "value": "330903" },
+
+{
+  "label": "岱山县",
+  "value": "330921" },
+
+{
+  "label": "嵊泗县",
+  "value": "330922" }],
+
+
+[{
+  "label": "椒江区",
+  "value": "331002" },
+
+{
+  "label": "黄岩区",
+  "value": "331003" },
+
+{
+  "label": "路桥区",
+  "value": "331004" },
+
+{
+  "label": "三门县",
+  "value": "331022" },
+
+{
+  "label": "天台县",
+  "value": "331023" },
+
+{
+  "label": "仙居县",
+  "value": "331024" },
+
+{
+  "label": "温岭市",
+  "value": "331081" },
+
+{
+  "label": "临海市",
+  "value": "331082" },
+
+{
+  "label": "玉环市",
+  "value": "331083" }],
+
+
+[{
+  "label": "莲都区",
+  "value": "331102" },
+
+{
+  "label": "青田县",
+  "value": "331121" },
+
+{
+  "label": "缙云县",
+  "value": "331122" },
+
+{
+  "label": "遂昌县",
+  "value": "331123" },
+
+{
+  "label": "松阳县",
+  "value": "331124" },
+
+{
+  "label": "云和县",
+  "value": "331125" },
+
+{
+  "label": "庆元县",
+  "value": "331126" },
+
+{
+  "label": "景宁畲族自治县",
+  "value": "331127" },
+
+{
+  "label": "龙泉市",
+  "value": "331181" }]],
+
+
+
+[
+[{
+  "label": "瑶海区",
+  "value": "340102" },
+
+{
+  "label": "庐阳区",
+  "value": "340103" },
+
+{
+  "label": "蜀山区",
+  "value": "340104" },
+
+{
+  "label": "包河区",
+  "value": "340111" },
+
+{
+  "label": "长丰县",
+  "value": "340121" },
+
+{
+  "label": "肥东县",
+  "value": "340122" },
+
+{
+  "label": "肥西县",
+  "value": "340123" },
+
+{
+  "label": "庐江县",
+  "value": "340124" },
+
+{
+  "label": "合肥高新技术产业开发区",
+  "value": "340171" },
+
+{
+  "label": "合肥经济技术开发区",
+  "value": "340172" },
+
+{
+  "label": "合肥新站高新技术产业开发区",
+  "value": "340173" },
+
+{
+  "label": "巢湖市",
+  "value": "340181" }],
+
+
+[{
+  "label": "镜湖区",
+  "value": "340202" },
+
+{
+  "label": "弋江区",
+  "value": "340203" },
+
+{
+  "label": "鸠江区",
+  "value": "340207" },
+
+{
+  "label": "三山区",
+  "value": "340208" },
+
+{
+  "label": "芜湖县",
+  "value": "340221" },
+
+{
+  "label": "繁昌县",
+  "value": "340222" },
+
+{
+  "label": "南陵县",
+  "value": "340223" },
+
+{
+  "label": "无为县",
+  "value": "340225" },
+
+{
+  "label": "芜湖经济技术开发区",
+  "value": "340271" },
+
+{
+  "label": "安徽芜湖长江大桥经济开发区",
+  "value": "340272" }],
+
+
+[{
+  "label": "龙子湖区",
+  "value": "340302" },
+
+{
+  "label": "蚌山区",
+  "value": "340303" },
+
+{
+  "label": "禹会区",
+  "value": "340304" },
+
+{
+  "label": "淮上区",
+  "value": "340311" },
+
+{
+  "label": "怀远县",
+  "value": "340321" },
+
+{
+  "label": "五河县",
+  "value": "340322" },
+
+{
+  "label": "固镇县",
+  "value": "340323" },
+
+{
+  "label": "蚌埠市高新技术开发区",
+  "value": "340371" },
+
+{
+  "label": "蚌埠市经济开发区",
+  "value": "340372" }],
+
+
+[{
+  "label": "大通区",
+  "value": "340402" },
+
+{
+  "label": "田家庵区",
+  "value": "340403" },
+
+{
+  "label": "谢家集区",
+  "value": "340404" },
+
+{
+  "label": "八公山区",
+  "value": "340405" },
+
+{
+  "label": "潘集区",
+  "value": "340406" },
+
+{
+  "label": "凤台县",
+  "value": "340421" },
+
+{
+  "label": "寿县",
+  "value": "340422" }],
+
+
+[{
+  "label": "花山区",
+  "value": "340503" },
+
+{
+  "label": "雨山区",
+  "value": "340504" },
+
+{
+  "label": "博望区",
+  "value": "340506" },
+
+{
+  "label": "当涂县",
+  "value": "340521" },
+
+{
+  "label": "含山县",
+  "value": "340522" },
+
+{
+  "label": "和县",
+  "value": "340523" }],
+
+
+[{
+  "label": "杜集区",
+  "value": "340602" },
+
+{
+  "label": "相山区",
+  "value": "340603" },
+
+{
+  "label": "烈山区",
+  "value": "340604" },
+
+{
+  "label": "濉溪县",
+  "value": "340621" }],
+
+
+[{
+  "label": "铜官区",
+  "value": "340705" },
+
+{
+  "label": "义安区",
+  "value": "340706" },
+
+{
+  "label": "郊区",
+  "value": "340711" },
+
+{
+  "label": "枞阳县",
+  "value": "340722" }],
+
+
+[{
+  "label": "迎江区",
+  "value": "340802" },
+
+{
+  "label": "大观区",
+  "value": "340803" },
+
+{
+  "label": "宜秀区",
+  "value": "340811" },
+
+{
+  "label": "怀宁县",
+  "value": "340822" },
+
+{
+  "label": "潜山县",
+  "value": "340824" },
+
+{
+  "label": "太湖县",
+  "value": "340825" },
+
+{
+  "label": "宿松县",
+  "value": "340826" },
+
+{
+  "label": "望江县",
+  "value": "340827" },
+
+{
+  "label": "岳西县",
+  "value": "340828" },
+
+{
+  "label": "安徽安庆经济开发区",
+  "value": "340871" },
+
+{
+  "label": "桐城市",
+  "value": "340881" }],
+
+
+[{
+  "label": "屯溪区",
+  "value": "341002" },
+
+{
+  "label": "黄山区",
+  "value": "341003" },
+
+{
+  "label": "徽州区",
+  "value": "341004" },
+
+{
+  "label": "歙县",
+  "value": "341021" },
+
+{
+  "label": "休宁县",
+  "value": "341022" },
+
+{
+  "label": "黟县",
+  "value": "341023" },
+
+{
+  "label": "祁门县",
+  "value": "341024" }],
+
+
+[{
+  "label": "琅琊区",
+  "value": "341102" },
+
+{
+  "label": "南谯区",
+  "value": "341103" },
+
+{
+  "label": "来安县",
+  "value": "341122" },
+
+{
+  "label": "全椒县",
+  "value": "341124" },
+
+{
+  "label": "定远县",
+  "value": "341125" },
+
+{
+  "label": "凤阳县",
+  "value": "341126" },
+
+{
+  "label": "苏滁现代产业园",
+  "value": "341171" },
+
+{
+  "label": "滁州经济技术开发区",
+  "value": "341172" },
+
+{
+  "label": "天长市",
+  "value": "341181" },
+
+{
+  "label": "明光市",
+  "value": "341182" }],
+
+
+[{
+  "label": "颍州区",
+  "value": "341202" },
+
+{
+  "label": "颍东区",
+  "value": "341203" },
+
+{
+  "label": "颍泉区",
+  "value": "341204" },
+
+{
+  "label": "临泉县",
+  "value": "341221" },
+
+{
+  "label": "太和县",
+  "value": "341222" },
+
+{
+  "label": "阜南县",
+  "value": "341225" },
+
+{
+  "label": "颍上县",
+  "value": "341226" },
+
+{
+  "label": "阜阳合肥现代产业园区",
+  "value": "341271" },
+
+{
+  "label": "阜阳经济技术开发区",
+  "value": "341272" },
+
+{
+  "label": "界首市",
+  "value": "341282" }],
+
+
+[{
+  "label": "埇桥区",
+  "value": "341302" },
+
+{
+  "label": "砀山县",
+  "value": "341321" },
+
+{
+  "label": "萧县",
+  "value": "341322" },
+
+{
+  "label": "灵璧县",
+  "value": "341323" },
+
+{
+  "label": "泗县",
+  "value": "341324" },
+
+{
+  "label": "宿州马鞍山现代产业园区",
+  "value": "341371" },
+
+{
+  "label": "宿州经济技术开发区",
+  "value": "341372" }],
+
+
+[{
+  "label": "金安区",
+  "value": "341502" },
+
+{
+  "label": "裕安区",
+  "value": "341503" },
+
+{
+  "label": "叶集区",
+  "value": "341504" },
+
+{
+  "label": "霍邱县",
+  "value": "341522" },
+
+{
+  "label": "舒城县",
+  "value": "341523" },
+
+{
+  "label": "金寨县",
+  "value": "341524" },
+
+{
+  "label": "霍山县",
+  "value": "341525" }],
+
+
+[{
+  "label": "谯城区",
+  "value": "341602" },
+
+{
+  "label": "涡阳县",
+  "value": "341621" },
+
+{
+  "label": "蒙城县",
+  "value": "341622" },
+
+{
+  "label": "利辛县",
+  "value": "341623" }],
+
+
+[{
+  "label": "贵池区",
+  "value": "341702" },
+
+{
+  "label": "东至县",
+  "value": "341721" },
+
+{
+  "label": "石台县",
+  "value": "341722" },
+
+{
+  "label": "青阳县",
+  "value": "341723" }],
+
+
+[{
+  "label": "宣州区",
+  "value": "341802" },
+
+{
+  "label": "郎溪县",
+  "value": "341821" },
+
+{
+  "label": "广德县",
+  "value": "341822" },
+
+{
+  "label": "泾县",
+  "value": "341823" },
+
+{
+  "label": "绩溪县",
+  "value": "341824" },
+
+{
+  "label": "旌德县",
+  "value": "341825" },
+
+{
+  "label": "宣城市经济开发区",
+  "value": "341871" },
+
+{
+  "label": "宁国市",
+  "value": "341881" }]],
+
+
+
+[
+[{
+  "label": "鼓楼区",
+  "value": "350102" },
+
+{
+  "label": "台江区",
+  "value": "350103" },
+
+{
+  "label": "仓山区",
+  "value": "350104" },
+
+{
+  "label": "马尾区",
+  "value": "350105" },
+
+{
+  "label": "晋安区",
+  "value": "350111" },
+
+{
+  "label": "闽侯县",
+  "value": "350121" },
+
+{
+  "label": "连江县",
+  "value": "350122" },
+
+{
+  "label": "罗源县",
+  "value": "350123" },
+
+{
+  "label": "闽清县",
+  "value": "350124" },
+
+{
+  "label": "永泰县",
+  "value": "350125" },
+
+{
+  "label": "平潭县",
+  "value": "350128" },
+
+{
+  "label": "福清市",
+  "value": "350181" },
+
+{
+  "label": "长乐市",
+  "value": "350182" }],
+
+
+[{
+  "label": "思明区",
+  "value": "350203" },
+
+{
+  "label": "海沧区",
+  "value": "350205" },
+
+{
+  "label": "湖里区",
+  "value": "350206" },
+
+{
+  "label": "集美区",
+  "value": "350211" },
+
+{
+  "label": "同安区",
+  "value": "350212" },
+
+{
+  "label": "翔安区",
+  "value": "350213" }],
+
+
+[{
+  "label": "城厢区",
+  "value": "350302" },
+
+{
+  "label": "涵江区",
+  "value": "350303" },
+
+{
+  "label": "荔城区",
+  "value": "350304" },
+
+{
+  "label": "秀屿区",
+  "value": "350305" },
+
+{
+  "label": "仙游县",
+  "value": "350322" }],
+
+
+[{
+  "label": "梅列区",
+  "value": "350402" },
+
+{
+  "label": "三元区",
+  "value": "350403" },
+
+{
+  "label": "明溪县",
+  "value": "350421" },
+
+{
+  "label": "清流县",
+  "value": "350423" },
+
+{
+  "label": "宁化县",
+  "value": "350424" },
+
+{
+  "label": "大田县",
+  "value": "350425" },
+
+{
+  "label": "尤溪县",
+  "value": "350426" },
+
+{
+  "label": "沙县",
+  "value": "350427" },
+
+{
+  "label": "将乐县",
+  "value": "350428" },
+
+{
+  "label": "泰宁县",
+  "value": "350429" },
+
+{
+  "label": "建宁县",
+  "value": "350430" },
+
+{
+  "label": "永安市",
+  "value": "350481" }],
+
+
+[{
+  "label": "鲤城区",
+  "value": "350502" },
+
+{
+  "label": "丰泽区",
+  "value": "350503" },
+
+{
+  "label": "洛江区",
+  "value": "350504" },
+
+{
+  "label": "泉港区",
+  "value": "350505" },
+
+{
+  "label": "惠安县",
+  "value": "350521" },
+
+{
+  "label": "安溪县",
+  "value": "350524" },
+
+{
+  "label": "永春县",
+  "value": "350525" },
+
+{
+  "label": "德化县",
+  "value": "350526" },
+
+{
+  "label": "金门县",
+  "value": "350527" },
+
+{
+  "label": "石狮市",
+  "value": "350581" },
+
+{
+  "label": "晋江市",
+  "value": "350582" },
+
+{
+  "label": "南安市",
+  "value": "350583" }],
+
+
+[{
+  "label": "芗城区",
+  "value": "350602" },
+
+{
+  "label": "龙文区",
+  "value": "350603" },
+
+{
+  "label": "云霄县",
+  "value": "350622" },
+
+{
+  "label": "漳浦县",
+  "value": "350623" },
+
+{
+  "label": "诏安县",
+  "value": "350624" },
+
+{
+  "label": "长泰县",
+  "value": "350625" },
+
+{
+  "label": "东山县",
+  "value": "350626" },
+
+{
+  "label": "南靖县",
+  "value": "350627" },
+
+{
+  "label": "平和县",
+  "value": "350628" },
+
+{
+  "label": "华安县",
+  "value": "350629" },
+
+{
+  "label": "龙海市",
+  "value": "350681" }],
+
+
+[{
+  "label": "延平区",
+  "value": "350702" },
+
+{
+  "label": "建阳区",
+  "value": "350703" },
+
+{
+  "label": "顺昌县",
+  "value": "350721" },
+
+{
+  "label": "浦城县",
+  "value": "350722" },
+
+{
+  "label": "光泽县",
+  "value": "350723" },
+
+{
+  "label": "松溪县",
+  "value": "350724" },
+
+{
+  "label": "政和县",
+  "value": "350725" },
+
+{
+  "label": "邵武市",
+  "value": "350781" },
+
+{
+  "label": "武夷山市",
+  "value": "350782" },
+
+{
+  "label": "建瓯市",
+  "value": "350783" }],
+
+
+[{
+  "label": "新罗区",
+  "value": "350802" },
+
+{
+  "label": "永定区",
+  "value": "350803" },
+
+{
+  "label": "长汀县",
+  "value": "350821" },
+
+{
+  "label": "上杭县",
+  "value": "350823" },
+
+{
+  "label": "武平县",
+  "value": "350824" },
+
+{
+  "label": "连城县",
+  "value": "350825" },
+
+{
+  "label": "漳平市",
+  "value": "350881" }],
+
+
+[{
+  "label": "蕉城区",
+  "value": "350902" },
+
+{
+  "label": "霞浦县",
+  "value": "350921" },
+
+{
+  "label": "古田县",
+  "value": "350922" },
+
+{
+  "label": "屏南县",
+  "value": "350923" },
+
+{
+  "label": "寿宁县",
+  "value": "350924" },
+
+{
+  "label": "周宁县",
+  "value": "350925" },
+
+{
+  "label": "柘荣县",
+  "value": "350926" },
+
+{
+  "label": "福安市",
+  "value": "350981" },
+
+{
+  "label": "福鼎市",
+  "value": "350982" }]],
+
+
+
+[
+[{
+  "label": "东湖区",
+  "value": "360102" },
+
+{
+  "label": "西湖区",
+  "value": "360103" },
+
+{
+  "label": "青云谱区",
+  "value": "360104" },
+
+{
+  "label": "湾里区",
+  "value": "360105" },
+
+{
+  "label": "青山湖区",
+  "value": "360111" },
+
+{
+  "label": "新建区",
+  "value": "360112" },
+
+{
+  "label": "南昌县",
+  "value": "360121" },
+
+{
+  "label": "安义县",
+  "value": "360123" },
+
+{
+  "label": "进贤县",
+  "value": "360124" }],
+
+
+[{
+  "label": "昌江区",
+  "value": "360202" },
+
+{
+  "label": "珠山区",
+  "value": "360203" },
+
+{
+  "label": "浮梁县",
+  "value": "360222" },
+
+{
+  "label": "乐平市",
+  "value": "360281" }],
+
+
+[{
+  "label": "安源区",
+  "value": "360302" },
+
+{
+  "label": "湘东区",
+  "value": "360313" },
+
+{
+  "label": "莲花县",
+  "value": "360321" },
+
+{
+  "label": "上栗县",
+  "value": "360322" },
+
+{
+  "label": "芦溪县",
+  "value": "360323" }],
+
+
+[{
+  "label": "濂溪区",
+  "value": "360402" },
+
+{
+  "label": "浔阳区",
+  "value": "360403" },
+
+{
+  "label": "柴桑区",
+  "value": "360404" },
+
+{
+  "label": "武宁县",
+  "value": "360423" },
+
+{
+  "label": "修水县",
+  "value": "360424" },
+
+{
+  "label": "永修县",
+  "value": "360425" },
+
+{
+  "label": "德安县",
+  "value": "360426" },
+
+{
+  "label": "都昌县",
+  "value": "360428" },
+
+{
+  "label": "湖口县",
+  "value": "360429" },
+
+{
+  "label": "彭泽县",
+  "value": "360430" },
+
+{
+  "label": "瑞昌市",
+  "value": "360481" },
+
+{
+  "label": "共青城市",
+  "value": "360482" },
+
+{
+  "label": "庐山市",
+  "value": "360483" }],
+
+
+[{
+  "label": "渝水区",
+  "value": "360502" },
+
+{
+  "label": "分宜县",
+  "value": "360521" }],
+
+
+[{
+  "label": "月湖区",
+  "value": "360602" },
+
+{
+  "label": "余江县",
+  "value": "360622" },
+
+{
+  "label": "贵溪市",
+  "value": "360681" }],
+
+
+[{
+  "label": "章贡区",
+  "value": "360702" },
+
+{
+  "label": "南康区",
+  "value": "360703" },
+
+{
+  "label": "赣县区",
+  "value": "360704" },
+
+{
+  "label": "信丰县",
+  "value": "360722" },
+
+{
+  "label": "大余县",
+  "value": "360723" },
+
+{
+  "label": "上犹县",
+  "value": "360724" },
+
+{
+  "label": "崇义县",
+  "value": "360725" },
+
+{
+  "label": "安远县",
+  "value": "360726" },
+
+{
+  "label": "龙南县",
+  "value": "360727" },
+
+{
+  "label": "定南县",
+  "value": "360728" },
+
+{
+  "label": "全南县",
+  "value": "360729" },
+
+{
+  "label": "宁都县",
+  "value": "360730" },
+
+{
+  "label": "于都县",
+  "value": "360731" },
+
+{
+  "label": "兴国县",
+  "value": "360732" },
+
+{
+  "label": "会昌县",
+  "value": "360733" },
+
+{
+  "label": "寻乌县",
+  "value": "360734" },
+
+{
+  "label": "石城县",
+  "value": "360735" },
+
+{
+  "label": "瑞金市",
+  "value": "360781" }],
+
+
+[{
+  "label": "吉州区",
+  "value": "360802" },
+
+{
+  "label": "青原区",
+  "value": "360803" },
+
+{
+  "label": "吉安县",
+  "value": "360821" },
+
+{
+  "label": "吉水县",
+  "value": "360822" },
+
+{
+  "label": "峡江县",
+  "value": "360823" },
+
+{
+  "label": "新干县",
+  "value": "360824" },
+
+{
+  "label": "永丰县",
+  "value": "360825" },
+
+{
+  "label": "泰和县",
+  "value": "360826" },
+
+{
+  "label": "遂川县",
+  "value": "360827" },
+
+{
+  "label": "万安县",
+  "value": "360828" },
+
+{
+  "label": "安福县",
+  "value": "360829" },
+
+{
+  "label": "永新县",
+  "value": "360830" },
+
+{
+  "label": "井冈山市",
+  "value": "360881" }],
+
+
+[{
+  "label": "袁州区",
+  "value": "360902" },
+
+{
+  "label": "奉新县",
+  "value": "360921" },
+
+{
+  "label": "万载县",
+  "value": "360922" },
+
+{
+  "label": "上高县",
+  "value": "360923" },
+
+{
+  "label": "宜丰县",
+  "value": "360924" },
+
+{
+  "label": "靖安县",
+  "value": "360925" },
+
+{
+  "label": "铜鼓县",
+  "value": "360926" },
+
+{
+  "label": "丰城市",
+  "value": "360981" },
+
+{
+  "label": "樟树市",
+  "value": "360982" },
+
+{
+  "label": "高安市",
+  "value": "360983" }],
+
+
+[{
+  "label": "临川区",
+  "value": "361002" },
+
+{
+  "label": "东乡区",
+  "value": "361003" },
+
+{
+  "label": "南城县",
+  "value": "361021" },
+
+{
+  "label": "黎川县",
+  "value": "361022" },
+
+{
+  "label": "南丰县",
+  "value": "361023" },
+
+{
+  "label": "崇仁县",
+  "value": "361024" },
+
+{
+  "label": "乐安县",
+  "value": "361025" },
+
+{
+  "label": "宜黄县",
+  "value": "361026" },
+
+{
+  "label": "金溪县",
+  "value": "361027" },
+
+{
+  "label": "资溪县",
+  "value": "361028" },
+
+{
+  "label": "广昌县",
+  "value": "361030" }],
+
+
+[{
+  "label": "信州区",
+  "value": "361102" },
+
+{
+  "label": "广丰区",
+  "value": "361103" },
+
+{
+  "label": "上饶县",
+  "value": "361121" },
+
+{
+  "label": "玉山县",
+  "value": "361123" },
+
+{
+  "label": "铅山县",
+  "value": "361124" },
+
+{
+  "label": "横峰县",
+  "value": "361125" },
+
+{
+  "label": "弋阳县",
+  "value": "361126" },
+
+{
+  "label": "余干县",
+  "value": "361127" },
+
+{
+  "label": "鄱阳县",
+  "value": "361128" },
+
+{
+  "label": "万年县",
+  "value": "361129" },
+
+{
+  "label": "婺源县",
+  "value": "361130" },
+
+{
+  "label": "德兴市",
+  "value": "361181" }]],
+
+
+
+[
+[{
+  "label": "历下区",
+  "value": "370102" },
+
+{
+  "label": "市中区",
+  "value": "370103" },
+
+{
+  "label": "槐荫区",
+  "value": "370104" },
+
+{
+  "label": "天桥区",
+  "value": "370105" },
+
+{
+  "label": "历城区",
+  "value": "370112" },
+
+{
+  "label": "长清区",
+  "value": "370113" },
+
+{
+  "label": "章丘区",
+  "value": "370114" },
+
+{
+  "label": "平阴县",
+  "value": "370124" },
+
+{
+  "label": "济阳县",
+  "value": "370125" },
+
+{
+  "label": "商河县",
+  "value": "370126" },
+
+{
+  "label": "济南高新技术产业开发区",
+  "value": "370171" }],
+
+
+[{
+  "label": "市南区",
+  "value": "370202" },
+
+{
+  "label": "市北区",
+  "value": "370203" },
+
+{
+  "label": "黄岛区",
+  "value": "370211" },
+
+{
+  "label": "崂山区",
+  "value": "370212" },
+
+{
+  "label": "李沧区",
+  "value": "370213" },
+
+{
+  "label": "城阳区",
+  "value": "370214" },
+
+{
+  "label": "即墨区",
+  "value": "370215" },
+
+{
+  "label": "青岛高新技术产业开发区",
+  "value": "370271" },
+
+{
+  "label": "胶州市",
+  "value": "370281" },
+
+{
+  "label": "平度市",
+  "value": "370283" },
+
+{
+  "label": "莱西市",
+  "value": "370285" }],
+
+
+[{
+  "label": "淄川区",
+  "value": "370302" },
+
+{
+  "label": "张店区",
+  "value": "370303" },
+
+{
+  "label": "博山区",
+  "value": "370304" },
+
+{
+  "label": "临淄区",
+  "value": "370305" },
+
+{
+  "label": "周村区",
+  "value": "370306" },
+
+{
+  "label": "桓台县",
+  "value": "370321" },
+
+{
+  "label": "高青县",
+  "value": "370322" },
+
+{
+  "label": "沂源县",
+  "value": "370323" }],
+
+
+[{
+  "label": "市中区",
+  "value": "370402" },
+
+{
+  "label": "薛城区",
+  "value": "370403" },
+
+{
+  "label": "峄城区",
+  "value": "370404" },
+
+{
+  "label": "台儿庄区",
+  "value": "370405" },
+
+{
+  "label": "山亭区",
+  "value": "370406" },
+
+{
+  "label": "滕州市",
+  "value": "370481" }],
+
+
+[{
+  "label": "东营区",
+  "value": "370502" },
+
+{
+  "label": "河口区",
+  "value": "370503" },
+
+{
+  "label": "垦利区",
+  "value": "370505" },
+
+{
+  "label": "利津县",
+  "value": "370522" },
+
+{
+  "label": "广饶县",
+  "value": "370523" },
+
+{
+  "label": "东营经济技术开发区",
+  "value": "370571" },
+
+{
+  "label": "东营港经济开发区",
+  "value": "370572" }],
+
+
+[{
+  "label": "芝罘区",
+  "value": "370602" },
+
+{
+  "label": "福山区",
+  "value": "370611" },
+
+{
+  "label": "牟平区",
+  "value": "370612" },
+
+{
+  "label": "莱山区",
+  "value": "370613" },
+
+{
+  "label": "长岛县",
+  "value": "370634" },
+
+{
+  "label": "烟台高新技术产业开发区",
+  "value": "370671" },
+
+{
+  "label": "烟台经济技术开发区",
+  "value": "370672" },
+
+{
+  "label": "龙口市",
+  "value": "370681" },
+
+{
+  "label": "莱阳市",
+  "value": "370682" },
+
+{
+  "label": "莱州市",
+  "value": "370683" },
+
+{
+  "label": "蓬莱市",
+  "value": "370684" },
+
+{
+  "label": "招远市",
+  "value": "370685" },
+
+{
+  "label": "栖霞市",
+  "value": "370686" },
+
+{
+  "label": "海阳市",
+  "value": "370687" }],
+
+
+[{
+  "label": "潍城区",
+  "value": "370702" },
+
+{
+  "label": "寒亭区",
+  "value": "370703" },
+
+{
+  "label": "坊子区",
+  "value": "370704" },
+
+{
+  "label": "奎文区",
+  "value": "370705" },
+
+{
+  "label": "临朐县",
+  "value": "370724" },
+
+{
+  "label": "昌乐县",
+  "value": "370725" },
+
+{
+  "label": "潍坊滨海经济技术开发区",
+  "value": "370772" },
+
+{
+  "label": "青州市",
+  "value": "370781" },
+
+{
+  "label": "诸城市",
+  "value": "370782" },
+
+{
+  "label": "寿光市",
+  "value": "370783" },
+
+{
+  "label": "安丘市",
+  "value": "370784" },
+
+{
+  "label": "高密市",
+  "value": "370785" },
+
+{
+  "label": "昌邑市",
+  "value": "370786" }],
+
+
+[{
+  "label": "任城区",
+  "value": "370811" },
+
+{
+  "label": "兖州区",
+  "value": "370812" },
+
+{
+  "label": "微山县",
+  "value": "370826" },
+
+{
+  "label": "鱼台县",
+  "value": "370827" },
+
+{
+  "label": "金乡县",
+  "value": "370828" },
+
+{
+  "label": "嘉祥县",
+  "value": "370829" },
+
+{
+  "label": "汶上县",
+  "value": "370830" },
+
+{
+  "label": "泗水县",
+  "value": "370831" },
+
+{
+  "label": "梁山县",
+  "value": "370832" },
+
+{
+  "label": "济宁高新技术产业开发区",
+  "value": "370871" },
+
+{
+  "label": "曲阜市",
+  "value": "370881" },
+
+{
+  "label": "邹城市",
+  "value": "370883" }],
+
+
+[{
+  "label": "泰山区",
+  "value": "370902" },
+
+{
+  "label": "岱岳区",
+  "value": "370911" },
+
+{
+  "label": "宁阳县",
+  "value": "370921" },
+
+{
+  "label": "东平县",
+  "value": "370923" },
+
+{
+  "label": "新泰市",
+  "value": "370982" },
+
+{
+  "label": "肥城市",
+  "value": "370983" }],
+
+
+[{
+  "label": "环翠区",
+  "value": "371002" },
+
+{
+  "label": "文登区",
+  "value": "371003" },
+
+{
+  "label": "威海火炬高技术产业开发区",
+  "value": "371071" },
+
+{
+  "label": "威海经济技术开发区",
+  "value": "371072" },
+
+{
+  "label": "威海临港经济技术开发区",
+  "value": "371073" },
+
+{
+  "label": "荣成市",
+  "value": "371082" },
+
+{
+  "label": "乳山市",
+  "value": "371083" }],
+
+
+[{
+  "label": "东港区",
+  "value": "371102" },
+
+{
+  "label": "岚山区",
+  "value": "371103" },
+
+{
+  "label": "五莲县",
+  "value": "371121" },
+
+{
+  "label": "莒县",
+  "value": "371122" },
+
+{
+  "label": "日照经济技术开发区",
+  "value": "371171" },
+
+{
+  "label": "日照国际海洋城",
+  "value": "371172" }],
+
+
+[{
+  "label": "莱城区",
+  "value": "371202" },
+
+{
+  "label": "钢城区",
+  "value": "371203" }],
+
+
+[{
+  "label": "兰山区",
+  "value": "371302" },
+
+{
+  "label": "罗庄区",
+  "value": "371311" },
+
+{
+  "label": "河东区",
+  "value": "371312" },
+
+{
+  "label": "沂南县",
+  "value": "371321" },
+
+{
+  "label": "郯城县",
+  "value": "371322" },
+
+{
+  "label": "沂水县",
+  "value": "371323" },
+
+{
+  "label": "兰陵县",
+  "value": "371324" },
+
+{
+  "label": "费县",
+  "value": "371325" },
+
+{
+  "label": "平邑县",
+  "value": "371326" },
+
+{
+  "label": "莒南县",
+  "value": "371327" },
+
+{
+  "label": "蒙阴县",
+  "value": "371328" },
+
+{
+  "label": "临沭县",
+  "value": "371329" },
+
+{
+  "label": "临沂高新技术产业开发区",
+  "value": "371371" },
+
+{
+  "label": "临沂经济技术开发区",
+  "value": "371372" },
+
+{
+  "label": "临沂临港经济开发区",
+  "value": "371373" }],
+
+
+[{
+  "label": "德城区",
+  "value": "371402" },
+
+{
+  "label": "陵城区",
+  "value": "371403" },
+
+{
+  "label": "宁津县",
+  "value": "371422" },
+
+{
+  "label": "庆云县",
+  "value": "371423" },
+
+{
+  "label": "临邑县",
+  "value": "371424" },
+
+{
+  "label": "齐河县",
+  "value": "371425" },
+
+{
+  "label": "平原县",
+  "value": "371426" },
+
+{
+  "label": "夏津县",
+  "value": "371427" },
+
+{
+  "label": "武城县",
+  "value": "371428" },
+
+{
+  "label": "德州经济技术开发区",
+  "value": "371471" },
+
+{
+  "label": "德州运河经济开发区",
+  "value": "371472" },
+
+{
+  "label": "乐陵市",
+  "value": "371481" },
+
+{
+  "label": "禹城市",
+  "value": "371482" }],
+
+
+[{
+  "label": "东昌府区",
+  "value": "371502" },
+
+{
+  "label": "阳谷县",
+  "value": "371521" },
+
+{
+  "label": "莘县",
+  "value": "371522" },
+
+{
+  "label": "茌平县",
+  "value": "371523" },
+
+{
+  "label": "东阿县",
+  "value": "371524" },
+
+{
+  "label": "冠县",
+  "value": "371525" },
+
+{
+  "label": "高唐县",
+  "value": "371526" },
+
+{
+  "label": "临清市",
+  "value": "371581" }],
+
+
+[{
+  "label": "滨城区",
+  "value": "371602" },
+
+{
+  "label": "沾化区",
+  "value": "371603" },
+
+{
+  "label": "惠民县",
+  "value": "371621" },
+
+{
+  "label": "阳信县",
+  "value": "371622" },
+
+{
+  "label": "无棣县",
+  "value": "371623" },
+
+{
+  "label": "博兴县",
+  "value": "371625" },
+
+{
+  "label": "邹平县",
+  "value": "371626" }],
+
+
+[{
+  "label": "牡丹区",
+  "value": "371702" },
+
+{
+  "label": "定陶区",
+  "value": "371703" },
+
+{
+  "label": "曹县",
+  "value": "371721" },
+
+{
+  "label": "单县",
+  "value": "371722" },
+
+{
+  "label": "成武县",
+  "value": "371723" },
+
+{
+  "label": "巨野县",
+  "value": "371724" },
+
+{
+  "label": "郓城县",
+  "value": "371725" },
+
+{
+  "label": "鄄城县",
+  "value": "371726" },
+
+{
+  "label": "东明县",
+  "value": "371728" },
+
+{
+  "label": "菏泽经济技术开发区",
+  "value": "371771" },
+
+{
+  "label": "菏泽高新技术开发区",
+  "value": "371772" }]],
+
+
+
+[
+[{
+  "label": "中原区",
+  "value": "410102" },
+
+{
+  "label": "二七区",
+  "value": "410103" },
+
+{
+  "label": "管城回族区",
+  "value": "410104" },
+
+{
+  "label": "金水区",
+  "value": "410105" },
+
+{
+  "label": "上街区",
+  "value": "410106" },
+
+{
+  "label": "惠济区",
+  "value": "410108" },
+
+{
+  "label": "中牟县",
+  "value": "410122" },
+
+{
+  "label": "郑州经济技术开发区",
+  "value": "410171" },
+
+{
+  "label": "郑州高新技术产业开发区",
+  "value": "410172" },
+
+{
+  "label": "郑州航空港经济综合实验区",
+  "value": "410173" },
+
+{
+  "label": "巩义市",
+  "value": "410181" },
+
+{
+  "label": "荥阳市",
+  "value": "410182" },
+
+{
+  "label": "新密市",
+  "value": "410183" },
+
+{
+  "label": "新郑市",
+  "value": "410184" },
+
+{
+  "label": "登封市",
+  "value": "410185" }],
+
+
+[{
+  "label": "龙亭区",
+  "value": "410202" },
+
+{
+  "label": "顺河回族区",
+  "value": "410203" },
+
+{
+  "label": "鼓楼区",
+  "value": "410204" },
+
+{
+  "label": "禹王台区",
+  "value": "410205" },
+
+{
+  "label": "祥符区",
+  "value": "410212" },
+
+{
+  "label": "杞县",
+  "value": "410221" },
+
+{
+  "label": "通许县",
+  "value": "410222" },
+
+{
+  "label": "尉氏县",
+  "value": "410223" },
+
+{
+  "label": "兰考县",
+  "value": "410225" }],
+
+
+[{
+  "label": "老城区",
+  "value": "410302" },
+
+{
+  "label": "西工区",
+  "value": "410303" },
+
+{
+  "label": "瀍河回族区",
+  "value": "410304" },
+
+{
+  "label": "涧西区",
+  "value": "410305" },
+
+{
+  "label": "吉利区",
+  "value": "410306" },
+
+{
+  "label": "洛龙区",
+  "value": "410311" },
+
+{
+  "label": "孟津县",
+  "value": "410322" },
+
+{
+  "label": "新安县",
+  "value": "410323" },
+
+{
+  "label": "栾川县",
+  "value": "410324" },
+
+{
+  "label": "嵩县",
+  "value": "410325" },
+
+{
+  "label": "汝阳县",
+  "value": "410326" },
+
+{
+  "label": "宜阳县",
+  "value": "410327" },
+
+{
+  "label": "洛宁县",
+  "value": "410328" },
+
+{
+  "label": "伊川县",
+  "value": "410329" },
+
+{
+  "label": "洛阳高新技术产业开发区",
+  "value": "410371" },
+
+{
+  "label": "偃师市",
+  "value": "410381" }],
+
+
+[{
+  "label": "新华区",
+  "value": "410402" },
+
+{
+  "label": "卫东区",
+  "value": "410403" },
+
+{
+  "label": "石龙区",
+  "value": "410404" },
+
+{
+  "label": "湛河区",
+  "value": "410411" },
+
+{
+  "label": "宝丰县",
+  "value": "410421" },
+
+{
+  "label": "叶县",
+  "value": "410422" },
+
+{
+  "label": "鲁山县",
+  "value": "410423" },
+
+{
+  "label": "郏县",
+  "value": "410425" },
+
+{
+  "label": "平顶山高新技术产业开发区",
+  "value": "410471" },
+
+{
+  "label": "平顶山市新城区",
+  "value": "410472" },
+
+{
+  "label": "舞钢市",
+  "value": "410481" },
+
+{
+  "label": "汝州市",
+  "value": "410482" }],
+
+
+[{
+  "label": "文峰区",
+  "value": "410502" },
+
+{
+  "label": "北关区",
+  "value": "410503" },
+
+{
+  "label": "殷都区",
+  "value": "410505" },
+
+{
+  "label": "龙安区",
+  "value": "410506" },
+
+{
+  "label": "安阳县",
+  "value": "410522" },
+
+{
+  "label": "汤阴县",
+  "value": "410523" },
+
+{
+  "label": "滑县",
+  "value": "410526" },
+
+{
+  "label": "内黄县",
+  "value": "410527" },
+
+{
+  "label": "安阳高新技术产业开发区",
+  "value": "410571" },
+
+{
+  "label": "林州市",
+  "value": "410581" }],
+
+
+[{
+  "label": "鹤山区",
+  "value": "410602" },
+
+{
+  "label": "山城区",
+  "value": "410603" },
+
+{
+  "label": "淇滨区",
+  "value": "410611" },
+
+{
+  "label": "浚县",
+  "value": "410621" },
+
+{
+  "label": "淇县",
+  "value": "410622" },
+
+{
+  "label": "鹤壁经济技术开发区",
+  "value": "410671" }],
+
+
+[{
+  "label": "红旗区",
+  "value": "410702" },
+
+{
+  "label": "卫滨区",
+  "value": "410703" },
+
+{
+  "label": "凤泉区",
+  "value": "410704" },
+
+{
+  "label": "牧野区",
+  "value": "410711" },
+
+{
+  "label": "新乡县",
+  "value": "410721" },
+
+{
+  "label": "获嘉县",
+  "value": "410724" },
+
+{
+  "label": "原阳县",
+  "value": "410725" },
+
+{
+  "label": "延津县",
+  "value": "410726" },
+
+{
+  "label": "封丘县",
+  "value": "410727" },
+
+{
+  "label": "长垣县",
+  "value": "410728" },
+
+{
+  "label": "新乡高新技术产业开发区",
+  "value": "410771" },
+
+{
+  "label": "新乡经济技术开发区",
+  "value": "410772" },
+
+{
+  "label": "新乡市平原城乡一体化示范区",
+  "value": "410773" },
+
+{
+  "label": "卫辉市",
+  "value": "410781" },
+
+{
+  "label": "辉县市",
+  "value": "410782" }],
+
+
+[{
+  "label": "解放区",
+  "value": "410802" },
+
+{
+  "label": "中站区",
+  "value": "410803" },
+
+{
+  "label": "马村区",
+  "value": "410804" },
+
+{
+  "label": "山阳区",
+  "value": "410811" },
+
+{
+  "label": "修武县",
+  "value": "410821" },
+
+{
+  "label": "博爱县",
+  "value": "410822" },
+
+{
+  "label": "武陟县",
+  "value": "410823" },
+
+{
+  "label": "温县",
+  "value": "410825" },
+
+{
+  "label": "焦作城乡一体化示范区",
+  "value": "410871" },
+
+{
+  "label": "沁阳市",
+  "value": "410882" },
+
+{
+  "label": "孟州市",
+  "value": "410883" }],
+
+
+[{
+  "label": "华龙区",
+  "value": "410902" },
+
+{
+  "label": "清丰县",
+  "value": "410922" },
+
+{
+  "label": "南乐县",
+  "value": "410923" },
+
+{
+  "label": "范县",
+  "value": "410926" },
+
+{
+  "label": "台前县",
+  "value": "410927" },
+
+{
+  "label": "濮阳县",
+  "value": "410928" },
+
+{
+  "label": "河南濮阳工业园区",
+  "value": "410971" },
+
+{
+  "label": "濮阳经济技术开发区",
+  "value": "410972" }],
+
+
+[{
+  "label": "魏都区",
+  "value": "411002" },
+
+{
+  "label": "建安区",
+  "value": "411003" },
+
+{
+  "label": "鄢陵县",
+  "value": "411024" },
+
+{
+  "label": "襄城县",
+  "value": "411025" },
+
+{
+  "label": "许昌经济技术开发区",
+  "value": "411071" },
+
+{
+  "label": "禹州市",
+  "value": "411081" },
+
+{
+  "label": "长葛市",
+  "value": "411082" }],
+
+
+[{
+  "label": "源汇区",
+  "value": "411102" },
+
+{
+  "label": "郾城区",
+  "value": "411103" },
+
+{
+  "label": "召陵区",
+  "value": "411104" },
+
+{
+  "label": "舞阳县",
+  "value": "411121" },
+
+{
+  "label": "临颍县",
+  "value": "411122" },
+
+{
+  "label": "漯河经济技术开发区",
+  "value": "411171" }],
+
+
+[{
+  "label": "湖滨区",
+  "value": "411202" },
+
+{
+  "label": "陕州区",
+  "value": "411203" },
+
+{
+  "label": "渑池县",
+  "value": "411221" },
+
+{
+  "label": "卢氏县",
+  "value": "411224" },
+
+{
+  "label": "河南三门峡经济开发区",
+  "value": "411271" },
+
+{
+  "label": "义马市",
+  "value": "411281" },
+
+{
+  "label": "灵宝市",
+  "value": "411282" }],
+
+
+[{
+  "label": "宛城区",
+  "value": "411302" },
+
+{
+  "label": "卧龙区",
+  "value": "411303" },
+
+{
+  "label": "南召县",
+  "value": "411321" },
+
+{
+  "label": "方城县",
+  "value": "411322" },
+
+{
+  "label": "西峡县",
+  "value": "411323" },
+
+{
+  "label": "镇平县",
+  "value": "411324" },
+
+{
+  "label": "内乡县",
+  "value": "411325" },
+
+{
+  "label": "淅川县",
+  "value": "411326" },
+
+{
+  "label": "社旗县",
+  "value": "411327" },
+
+{
+  "label": "唐河县",
+  "value": "411328" },
+
+{
+  "label": "新野县",
+  "value": "411329" },
+
+{
+  "label": "桐柏县",
+  "value": "411330" },
+
+{
+  "label": "南阳高新技术产业开发区",
+  "value": "411371" },
+
+{
+  "label": "南阳市城乡一体化示范区",
+  "value": "411372" },
+
+{
+  "label": "邓州市",
+  "value": "411381" }],
+
+
+[{
+  "label": "梁园区",
+  "value": "411402" },
+
+{
+  "label": "睢阳区",
+  "value": "411403" },
+
+{
+  "label": "民权县",
+  "value": "411421" },
+
+{
+  "label": "睢县",
+  "value": "411422" },
+
+{
+  "label": "宁陵县",
+  "value": "411423" },
+
+{
+  "label": "柘城县",
+  "value": "411424" },
+
+{
+  "label": "虞城县",
+  "value": "411425" },
+
+{
+  "label": "夏邑县",
+  "value": "411426" },
+
+{
+  "label": "豫东综合物流产业聚集区",
+  "value": "411471" },
+
+{
+  "label": "河南商丘经济开发区",
+  "value": "411472" },
+
+{
+  "label": "永城市",
+  "value": "411481" }],
+
+
+[{
+  "label": "浉河区",
+  "value": "411502" },
+
+{
+  "label": "平桥区",
+  "value": "411503" },
+
+{
+  "label": "罗山县",
+  "value": "411521" },
+
+{
+  "label": "光山县",
+  "value": "411522" },
+
+{
+  "label": "新县",
+  "value": "411523" },
+
+{
+  "label": "商城县",
+  "value": "411524" },
+
+{
+  "label": "固始县",
+  "value": "411525" },
+
+{
+  "label": "潢川县",
+  "value": "411526" },
+
+{
+  "label": "淮滨县",
+  "value": "411527" },
+
+{
+  "label": "息县",
+  "value": "411528" },
+
+{
+  "label": "信阳高新技术产业开发区",
+  "value": "411571" }],
+
+
+[{
+  "label": "川汇区",
+  "value": "411602" },
+
+{
+  "label": "扶沟县",
+  "value": "411621" },
+
+{
+  "label": "西华县",
+  "value": "411622" },
+
+{
+  "label": "商水县",
+  "value": "411623" },
+
+{
+  "label": "沈丘县",
+  "value": "411624" },
+
+{
+  "label": "郸城县",
+  "value": "411625" },
+
+{
+  "label": "淮阳县",
+  "value": "411626" },
+
+{
+  "label": "太康县",
+  "value": "411627" },
+
+{
+  "label": "鹿邑县",
+  "value": "411628" },
+
+{
+  "label": "河南周口经济开发区",
+  "value": "411671" },
+
+{
+  "label": "项城市",
+  "value": "411681" }],
+
+
+[{
+  "label": "驿城区",
+  "value": "411702" },
+
+{
+  "label": "西平县",
+  "value": "411721" },
+
+{
+  "label": "上蔡县",
+  "value": "411722" },
+
+{
+  "label": "平舆县",
+  "value": "411723" },
+
+{
+  "label": "正阳县",
+  "value": "411724" },
+
+{
+  "label": "确山县",
+  "value": "411725" },
+
+{
+  "label": "泌阳县",
+  "value": "411726" },
+
+{
+  "label": "汝南县",
+  "value": "411727" },
+
+{
+  "label": "遂平县",
+  "value": "411728" },
+
+{
+  "label": "新蔡县",
+  "value": "411729" },
+
+{
+  "label": "河南驻马店经济开发区",
+  "value": "411771" }],
+
+
+[{
+  "label": "济源市",
+  "value": "419001" }]],
+
+
+[
+[{
+  "label": "江岸区",
+  "value": "420102" },
+
+{
+  "label": "江汉区",
+  "value": "420103" },
+
+{
+  "label": "硚口区",
+  "value": "420104" },
+
+{
+  "label": "汉阳区",
+  "value": "420105" },
+
+{
+  "label": "武昌区",
+  "value": "420106" },
+
+{
+  "label": "青山区",
+  "value": "420107" },
+
+{
+  "label": "洪山区",
+  "value": "420111" },
+
+{
+  "label": "东西湖区",
+  "value": "420112" },
+
+{
+  "label": "汉南区",
+  "value": "420113" },
+
+{
+  "label": "蔡甸区",
+  "value": "420114" },
+
+{
+  "label": "江夏区",
+  "value": "420115" },
+
+{
+  "label": "黄陂区",
+  "value": "420116" },
+
+{
+  "label": "新洲区",
+  "value": "420117" }],
+
+
+[{
+  "label": "黄石港区",
+  "value": "420202" },
+
+{
+  "label": "西塞山区",
+  "value": "420203" },
+
+{
+  "label": "下陆区",
+  "value": "420204" },
+
+{
+  "label": "铁山区",
+  "value": "420205" },
+
+{
+  "label": "阳新县",
+  "value": "420222" },
+
+{
+  "label": "大冶市",
+  "value": "420281" }],
+
+
+[{
+  "label": "茅箭区",
+  "value": "420302" },
+
+{
+  "label": "张湾区",
+  "value": "420303" },
+
+{
+  "label": "郧阳区",
+  "value": "420304" },
+
+{
+  "label": "郧西县",
+  "value": "420322" },
+
+{
+  "label": "竹山县",
+  "value": "420323" },
+
+{
+  "label": "竹溪县",
+  "value": "420324" },
+
+{
+  "label": "房县",
+  "value": "420325" },
+
+{
+  "label": "丹江口市",
+  "value": "420381" }],
+
+
+[{
+  "label": "西陵区",
+  "value": "420502" },
+
+{
+  "label": "伍家岗区",
+  "value": "420503" },
+
+{
+  "label": "点军区",
+  "value": "420504" },
+
+{
+  "label": "猇亭区",
+  "value": "420505" },
+
+{
+  "label": "夷陵区",
+  "value": "420506" },
+
+{
+  "label": "远安县",
+  "value": "420525" },
+
+{
+  "label": "兴山县",
+  "value": "420526" },
+
+{
+  "label": "秭归县",
+  "value": "420527" },
+
+{
+  "label": "长阳土家族自治县",
+  "value": "420528" },
+
+{
+  "label": "五峰土家族自治县",
+  "value": "420529" },
+
+{
+  "label": "宜都市",
+  "value": "420581" },
+
+{
+  "label": "当阳市",
+  "value": "420582" },
+
+{
+  "label": "枝江市",
+  "value": "420583" }],
+
+
+[{
+  "label": "襄城区",
+  "value": "420602" },
+
+{
+  "label": "樊城区",
+  "value": "420606" },
+
+{
+  "label": "襄州区",
+  "value": "420607" },
+
+{
+  "label": "南漳县",
+  "value": "420624" },
+
+{
+  "label": "谷城县",
+  "value": "420625" },
+
+{
+  "label": "保康县",
+  "value": "420626" },
+
+{
+  "label": "老河口市",
+  "value": "420682" },
+
+{
+  "label": "枣阳市",
+  "value": "420683" },
+
+{
+  "label": "宜城市",
+  "value": "420684" }],
+
+
+[{
+  "label": "梁子湖区",
+  "value": "420702" },
+
+{
+  "label": "华容区",
+  "value": "420703" },
+
+{
+  "label": "鄂城区",
+  "value": "420704" }],
+
+
+[{
+  "label": "东宝区",
+  "value": "420802" },
+
+{
+  "label": "掇刀区",
+  "value": "420804" },
+
+{
+  "label": "京山县",
+  "value": "420821" },
+
+{
+  "label": "沙洋县",
+  "value": "420822" },
+
+{
+  "label": "钟祥市",
+  "value": "420881" }],
+
+
+[{
+  "label": "孝南区",
+  "value": "420902" },
+
+{
+  "label": "孝昌县",
+  "value": "420921" },
+
+{
+  "label": "大悟县",
+  "value": "420922" },
+
+{
+  "label": "云梦县",
+  "value": "420923" },
+
+{
+  "label": "应城市",
+  "value": "420981" },
+
+{
+  "label": "安陆市",
+  "value": "420982" },
+
+{
+  "label": "汉川市",
+  "value": "420984" }],
+
+
+[{
+  "label": "沙市区",
+  "value": "421002" },
+
+{
+  "label": "荆州区",
+  "value": "421003" },
+
+{
+  "label": "公安县",
+  "value": "421022" },
+
+{
+  "label": "监利县",
+  "value": "421023" },
+
+{
+  "label": "江陵县",
+  "value": "421024" },
+
+{
+  "label": "荆州经济技术开发区",
+  "value": "421071" },
+
+{
+  "label": "石首市",
+  "value": "421081" },
+
+{
+  "label": "洪湖市",
+  "value": "421083" },
+
+{
+  "label": "松滋市",
+  "value": "421087" }],
+
+
+[{
+  "label": "黄州区",
+  "value": "421102" },
+
+{
+  "label": "团风县",
+  "value": "421121" },
+
+{
+  "label": "红安县",
+  "value": "421122" },
+
+{
+  "label": "罗田县",
+  "value": "421123" },
+
+{
+  "label": "英山县",
+  "value": "421124" },
+
+{
+  "label": "浠水县",
+  "value": "421125" },
+
+{
+  "label": "蕲春县",
+  "value": "421126" },
+
+{
+  "label": "黄梅县",
+  "value": "421127" },
+
+{
+  "label": "龙感湖管理区",
+  "value": "421171" },
+
+{
+  "label": "麻城市",
+  "value": "421181" },
+
+{
+  "label": "武穴市",
+  "value": "421182" }],
+
+
+[{
+  "label": "咸安区",
+  "value": "421202" },
+
+{
+  "label": "嘉鱼县",
+  "value": "421221" },
+
+{
+  "label": "通城县",
+  "value": "421222" },
+
+{
+  "label": "崇阳县",
+  "value": "421223" },
+
+{
+  "label": "通山县",
+  "value": "421224" },
+
+{
+  "label": "赤壁市",
+  "value": "421281" }],
+
+
+[{
+  "label": "曾都区",
+  "value": "421303" },
+
+{
+  "label": "随县",
+  "value": "421321" },
+
+{
+  "label": "广水市",
+  "value": "421381" }],
+
+
+[{
+  "label": "恩施市",
+  "value": "422801" },
+
+{
+  "label": "利川市",
+  "value": "422802" },
+
+{
+  "label": "建始县",
+  "value": "422822" },
+
+{
+  "label": "巴东县",
+  "value": "422823" },
+
+{
+  "label": "宣恩县",
+  "value": "422825" },
+
+{
+  "label": "咸丰县",
+  "value": "422826" },
+
+{
+  "label": "来凤县",
+  "value": "422827" },
+
+{
+  "label": "鹤峰县",
+  "value": "422828" }],
+
+
+[{
+  "label": "仙桃市",
+  "value": "429004" },
+
+{
+  "label": "潜江市",
+  "value": "429005" },
+
+{
+  "label": "天门市",
+  "value": "429006" },
+
+{
+  "label": "神农架林区",
+  "value": "429021" }]],
+
+
+
+[
+[{
+  "label": "芙蓉区",
+  "value": "430102" },
+
+{
+  "label": "天心区",
+  "value": "430103" },
+
+{
+  "label": "岳麓区",
+  "value": "430104" },
+
+{
+  "label": "开福区",
+  "value": "430105" },
+
+{
+  "label": "雨花区",
+  "value": "430111" },
+
+{
+  "label": "望城区",
+  "value": "430112" },
+
+{
+  "label": "长沙县",
+  "value": "430121" },
+
+{
+  "label": "浏阳市",
+  "value": "430181" },
+
+{
+  "label": "宁乡市",
+  "value": "430182" }],
+
+
+[{
+  "label": "荷塘区",
+  "value": "430202" },
+
+{
+  "label": "芦淞区",
+  "value": "430203" },
+
+{
+  "label": "石峰区",
+  "value": "430204" },
+
+{
+  "label": "天元区",
+  "value": "430211" },
+
+{
+  "label": "株洲县",
+  "value": "430221" },
+
+{
+  "label": "攸县",
+  "value": "430223" },
+
+{
+  "label": "茶陵县",
+  "value": "430224" },
+
+{
+  "label": "炎陵县",
+  "value": "430225" },
+
+{
+  "label": "云龙示范区",
+  "value": "430271" },
+
+{
+  "label": "醴陵市",
+  "value": "430281" }],
+
+
+[{
+  "label": "雨湖区",
+  "value": "430302" },
+
+{
+  "label": "岳塘区",
+  "value": "430304" },
+
+{
+  "label": "湘潭县",
+  "value": "430321" },
+
+{
+  "label": "湖南湘潭高新技术产业园区",
+  "value": "430371" },
+
+{
+  "label": "湘潭昭山示范区",
+  "value": "430372" },
+
+{
+  "label": "湘潭九华示范区",
+  "value": "430373" },
+
+{
+  "label": "湘乡市",
+  "value": "430381" },
+
+{
+  "label": "韶山市",
+  "value": "430382" }],
+
+
+[{
+  "label": "珠晖区",
+  "value": "430405" },
+
+{
+  "label": "雁峰区",
+  "value": "430406" },
+
+{
+  "label": "石鼓区",
+  "value": "430407" },
+
+{
+  "label": "蒸湘区",
+  "value": "430408" },
+
+{
+  "label": "南岳区",
+  "value": "430412" },
+
+{
+  "label": "衡阳县",
+  "value": "430421" },
+
+{
+  "label": "衡南县",
+  "value": "430422" },
+
+{
+  "label": "衡山县",
+  "value": "430423" },
+
+{
+  "label": "衡东县",
+  "value": "430424" },
+
+{
+  "label": "祁东县",
+  "value": "430426" },
+
+{
+  "label": "衡阳综合保税区",
+  "value": "430471" },
+
+{
+  "label": "湖南衡阳高新技术产业园区",
+  "value": "430472" },
+
+{
+  "label": "湖南衡阳松木经济开发区",
+  "value": "430473" },
+
+{
+  "label": "耒阳市",
+  "value": "430481" },
+
+{
+  "label": "常宁市",
+  "value": "430482" }],
+
+
+[{
+  "label": "双清区",
+  "value": "430502" },
+
+{
+  "label": "大祥区",
+  "value": "430503" },
+
+{
+  "label": "北塔区",
+  "value": "430511" },
+
+{
+  "label": "邵东县",
+  "value": "430521" },
+
+{
+  "label": "新邵县",
+  "value": "430522" },
+
+{
+  "label": "邵阳县",
+  "value": "430523" },
+
+{
+  "label": "隆回县",
+  "value": "430524" },
+
+{
+  "label": "洞口县",
+  "value": "430525" },
+
+{
+  "label": "绥宁县",
+  "value": "430527" },
+
+{
+  "label": "新宁县",
+  "value": "430528" },
+
+{
+  "label": "城步苗族自治县",
+  "value": "430529" },
+
+{
+  "label": "武冈市",
+  "value": "430581" }],
+
+
+[{
+  "label": "岳阳楼区",
+  "value": "430602" },
+
+{
+  "label": "云溪区",
+  "value": "430603" },
+
+{
+  "label": "君山区",
+  "value": "430611" },
+
+{
+  "label": "岳阳县",
+  "value": "430621" },
+
+{
+  "label": "华容县",
+  "value": "430623" },
+
+{
+  "label": "湘阴县",
+  "value": "430624" },
+
+{
+  "label": "平江县",
+  "value": "430626" },
+
+{
+  "label": "岳阳市屈原管理区",
+  "value": "430671" },
+
+{
+  "label": "汨罗市",
+  "value": "430681" },
+
+{
+  "label": "临湘市",
+  "value": "430682" }],
+
+
+[{
+  "label": "武陵区",
+  "value": "430702" },
+
+{
+  "label": "鼎城区",
+  "value": "430703" },
+
+{
+  "label": "安乡县",
+  "value": "430721" },
+
+{
+  "label": "汉寿县",
+  "value": "430722" },
+
+{
+  "label": "澧县",
+  "value": "430723" },
+
+{
+  "label": "临澧县",
+  "value": "430724" },
+
+{
+  "label": "桃源县",
+  "value": "430725" },
+
+{
+  "label": "石门县",
+  "value": "430726" },
+
+{
+  "label": "常德市西洞庭管理区",
+  "value": "430771" },
+
+{
+  "label": "津市市",
+  "value": "430781" }],
+
+
+[{
+  "label": "永定区",
+  "value": "430802" },
+
+{
+  "label": "武陵源区",
+  "value": "430811" },
+
+{
+  "label": "慈利县",
+  "value": "430821" },
+
+{
+  "label": "桑植县",
+  "value": "430822" }],
+
+
+[{
+  "label": "资阳区",
+  "value": "430902" },
+
+{
+  "label": "赫山区",
+  "value": "430903" },
+
+{
+  "label": "南县",
+  "value": "430921" },
+
+{
+  "label": "桃江县",
+  "value": "430922" },
+
+{
+  "label": "安化县",
+  "value": "430923" },
+
+{
+  "label": "益阳市大通湖管理区",
+  "value": "430971" },
+
+{
+  "label": "湖南益阳高新技术产业园区",
+  "value": "430972" },
+
+{
+  "label": "沅江市",
+  "value": "430981" }],
+
+
+[{
+  "label": "北湖区",
+  "value": "431002" },
+
+{
+  "label": "苏仙区",
+  "value": "431003" },
+
+{
+  "label": "桂阳县",
+  "value": "431021" },
+
+{
+  "label": "宜章县",
+  "value": "431022" },
+
+{
+  "label": "永兴县",
+  "value": "431023" },
+
+{
+  "label": "嘉禾县",
+  "value": "431024" },
+
+{
+  "label": "临武县",
+  "value": "431025" },
+
+{
+  "label": "汝城县",
+  "value": "431026" },
+
+{
+  "label": "桂东县",
+  "value": "431027" },
+
+{
+  "label": "安仁县",
+  "value": "431028" },
+
+{
+  "label": "资兴市",
+  "value": "431081" }],
+
+
+[{
+  "label": "零陵区",
+  "value": "431102" },
+
+{
+  "label": "冷水滩区",
+  "value": "431103" },
+
+{
+  "label": "祁阳县",
+  "value": "431121" },
+
+{
+  "label": "东安县",
+  "value": "431122" },
+
+{
+  "label": "双牌县",
+  "value": "431123" },
+
+{
+  "label": "道县",
+  "value": "431124" },
+
+{
+  "label": "江永县",
+  "value": "431125" },
+
+{
+  "label": "宁远县",
+  "value": "431126" },
+
+{
+  "label": "蓝山县",
+  "value": "431127" },
+
+{
+  "label": "新田县",
+  "value": "431128" },
+
+{
+  "label": "江华瑶族自治县",
+  "value": "431129" },
+
+{
+  "label": "永州经济技术开发区",
+  "value": "431171" },
+
+{
+  "label": "永州市金洞管理区",
+  "value": "431172" },
+
+{
+  "label": "永州市回龙圩管理区",
+  "value": "431173" }],
+
+
+[{
+  "label": "鹤城区",
+  "value": "431202" },
+
+{
+  "label": "中方县",
+  "value": "431221" },
+
+{
+  "label": "沅陵县",
+  "value": "431222" },
+
+{
+  "label": "辰溪县",
+  "value": "431223" },
+
+{
+  "label": "溆浦县",
+  "value": "431224" },
+
+{
+  "label": "会同县",
+  "value": "431225" },
+
+{
+  "label": "麻阳苗族自治县",
+  "value": "431226" },
+
+{
+  "label": "新晃侗族自治县",
+  "value": "431227" },
+
+{
+  "label": "芷江侗族自治县",
+  "value": "431228" },
+
+{
+  "label": "靖州苗族侗族自治县",
+  "value": "431229" },
+
+{
+  "label": "通道侗族自治县",
+  "value": "431230" },
+
+{
+  "label": "怀化市洪江管理区",
+  "value": "431271" },
+
+{
+  "label": "洪江市",
+  "value": "431281" }],
+
+
+[{
+  "label": "娄星区",
+  "value": "431302" },
+
+{
+  "label": "双峰县",
+  "value": "431321" },
+
+{
+  "label": "新化县",
+  "value": "431322" },
+
+{
+  "label": "冷水江市",
+  "value": "431381" },
+
+{
+  "label": "涟源市",
+  "value": "431382" }],
+
+
+[{
+  "label": "吉首市",
+  "value": "433101" },
+
+{
+  "label": "泸溪县",
+  "value": "433122" },
+
+{
+  "label": "凤凰县",
+  "value": "433123" },
+
+{
+  "label": "花垣县",
+  "value": "433124" },
+
+{
+  "label": "保靖县",
+  "value": "433125" },
+
+{
+  "label": "古丈县",
+  "value": "433126" },
+
+{
+  "label": "永顺县",
+  "value": "433127" },
+
+{
+  "label": "龙山县",
+  "value": "433130" },
+
+{
+  "label": "湖南吉首经济开发区",
+  "value": "433172" },
+
+{
+  "label": "湖南永顺经济开发区",
+  "value": "433173" }]],
+
+
+
+[
+[{
+  "label": "荔湾区",
+  "value": "440103" },
+
+{
+  "label": "越秀区",
+  "value": "440104" },
+
+{
+  "label": "海珠区",
+  "value": "440105" },
+
+{
+  "label": "天河区",
+  "value": "440106" },
+
+{
+  "label": "白云区",
+  "value": "440111" },
+
+{
+  "label": "黄埔区",
+  "value": "440112" },
+
+{
+  "label": "番禺区",
+  "value": "440113" },
+
+{
+  "label": "花都区",
+  "value": "440114" },
+
+{
+  "label": "南沙区",
+  "value": "440115" },
+
+{
+  "label": "从化区",
+  "value": "440117" },
+
+{
+  "label": "增城区",
+  "value": "440118" }],
+
+
+[{
+  "label": "武江区",
+  "value": "440203" },
+
+{
+  "label": "浈江区",
+  "value": "440204" },
+
+{
+  "label": "曲江区",
+  "value": "440205" },
+
+{
+  "label": "始兴县",
+  "value": "440222" },
+
+{
+  "label": "仁化县",
+  "value": "440224" },
+
+{
+  "label": "翁源县",
+  "value": "440229" },
+
+{
+  "label": "乳源瑶族自治县",
+  "value": "440232" },
+
+{
+  "label": "新丰县",
+  "value": "440233" },
+
+{
+  "label": "乐昌市",
+  "value": "440281" },
+
+{
+  "label": "南雄市",
+  "value": "440282" }],
+
+
+[{
+  "label": "罗湖区",
+  "value": "440303" },
+
+{
+  "label": "福田区",
+  "value": "440304" },
+
+{
+  "label": "南山区",
+  "value": "440305" },
+
+{
+  "label": "宝安区",
+  "value": "440306" },
+
+{
+  "label": "龙岗区",
+  "value": "440307" },
+
+{
+  "label": "盐田区",
+  "value": "440308" },
+
+{
+  "label": "龙华区",
+  "value": "440309" },
+
+{
+  "label": "坪山区",
+  "value": "440310" }],
+
+
+[{
+  "label": "香洲区",
+  "value": "440402" },
+
+{
+  "label": "斗门区",
+  "value": "440403" },
+
+{
+  "label": "金湾区",
+  "value": "440404" }],
+
+
+[{
+  "label": "龙湖区",
+  "value": "440507" },
+
+{
+  "label": "金平区",
+  "value": "440511" },
+
+{
+  "label": "濠江区",
+  "value": "440512" },
+
+{
+  "label": "潮阳区",
+  "value": "440513" },
+
+{
+  "label": "潮南区",
+  "value": "440514" },
+
+{
+  "label": "澄海区",
+  "value": "440515" },
+
+{
+  "label": "南澳县",
+  "value": "440523" }],
+
+
+[{
+  "label": "禅城区",
+  "value": "440604" },
+
+{
+  "label": "南海区",
+  "value": "440605" },
+
+{
+  "label": "顺德区",
+  "value": "440606" },
+
+{
+  "label": "三水区",
+  "value": "440607" },
+
+{
+  "label": "高明区",
+  "value": "440608" }],
+
+
+[{
+  "label": "蓬江区",
+  "value": "440703" },
+
+{
+  "label": "江海区",
+  "value": "440704" },
+
+{
+  "label": "新会区",
+  "value": "440705" },
+
+{
+  "label": "台山市",
+  "value": "440781" },
+
+{
+  "label": "开平市",
+  "value": "440783" },
+
+{
+  "label": "鹤山市",
+  "value": "440784" },
+
+{
+  "label": "恩平市",
+  "value": "440785" }],
+
+
+[{
+  "label": "赤坎区",
+  "value": "440802" },
+
+{
+  "label": "霞山区",
+  "value": "440803" },
+
+{
+  "label": "坡头区",
+  "value": "440804" },
+
+{
+  "label": "麻章区",
+  "value": "440811" },
+
+{
+  "label": "遂溪县",
+  "value": "440823" },
+
+{
+  "label": "徐闻县",
+  "value": "440825" },
+
+{
+  "label": "廉江市",
+  "value": "440881" },
+
+{
+  "label": "雷州市",
+  "value": "440882" },
+
+{
+  "label": "吴川市",
+  "value": "440883" }],
+
+
+[{
+  "label": "茂南区",
+  "value": "440902" },
+
+{
+  "label": "电白区",
+  "value": "440904" },
+
+{
+  "label": "高州市",
+  "value": "440981" },
+
+{
+  "label": "化州市",
+  "value": "440982" },
+
+{
+  "label": "信宜市",
+  "value": "440983" }],
+
+
+[{
+  "label": "端州区",
+  "value": "441202" },
+
+{
+  "label": "鼎湖区",
+  "value": "441203" },
+
+{
+  "label": "高要区",
+  "value": "441204" },
+
+{
+  "label": "广宁县",
+  "value": "441223" },
+
+{
+  "label": "怀集县",
+  "value": "441224" },
+
+{
+  "label": "封开县",
+  "value": "441225" },
+
+{
+  "label": "德庆县",
+  "value": "441226" },
+
+{
+  "label": "四会市",
+  "value": "441284" }],
+
+
+[{
+  "label": "惠城区",
+  "value": "441302" },
+
+{
+  "label": "惠阳区",
+  "value": "441303" },
+
+{
+  "label": "博罗县",
+  "value": "441322" },
+
+{
+  "label": "惠东县",
+  "value": "441323" },
+
+{
+  "label": "龙门县",
+  "value": "441324" }],
+
+
+[{
+  "label": "梅江区",
+  "value": "441402" },
+
+{
+  "label": "梅县区",
+  "value": "441403" },
+
+{
+  "label": "大埔县",
+  "value": "441422" },
+
+{
+  "label": "丰顺县",
+  "value": "441423" },
+
+{
+  "label": "五华县",
+  "value": "441424" },
+
+{
+  "label": "平远县",
+  "value": "441426" },
+
+{
+  "label": "蕉岭县",
+  "value": "441427" },
+
+{
+  "label": "兴宁市",
+  "value": "441481" }],
+
+
+[{
+  "label": "城区",
+  "value": "441502" },
+
+{
+  "label": "海丰县",
+  "value": "441521" },
+
+{
+  "label": "陆河县",
+  "value": "441523" },
+
+{
+  "label": "陆丰市",
+  "value": "441581" }],
+
+
+[{
+  "label": "源城区",
+  "value": "441602" },
+
+{
+  "label": "紫金县",
+  "value": "441621" },
+
+{
+  "label": "龙川县",
+  "value": "441622" },
+
+{
+  "label": "连平县",
+  "value": "441623" },
+
+{
+  "label": "和平县",
+  "value": "441624" },
+
+{
+  "label": "东源县",
+  "value": "441625" }],
+
+
+[{
+  "label": "江城区",
+  "value": "441702" },
+
+{
+  "label": "阳东区",
+  "value": "441704" },
+
+{
+  "label": "阳西县",
+  "value": "441721" },
+
+{
+  "label": "阳春市",
+  "value": "441781" }],
+
+
+[{
+  "label": "清城区",
+  "value": "441802" },
+
+{
+  "label": "清新区",
+  "value": "441803" },
+
+{
+  "label": "佛冈县",
+  "value": "441821" },
+
+{
+  "label": "阳山县",
+  "value": "441823" },
+
+{
+  "label": "连山壮族瑶族自治县",
+  "value": "441825" },
+
+{
+  "label": "连南瑶族自治县",
+  "value": "441826" },
+
+{
+  "label": "英德市",
+  "value": "441881" },
+
+{
+  "label": "连州市",
+  "value": "441882" }],
+
+
+[{
+  "label": "东莞市",
+  "value": "441900" }],
+
+[{
+  "label": "中山市",
+  "value": "442000" }],
+
+[{
+  "label": "湘桥区",
+  "value": "445102" },
+
+{
+  "label": "潮安区",
+  "value": "445103" },
+
+{
+  "label": "饶平县",
+  "value": "445122" }],
+
+
+[{
+  "label": "榕城区",
+  "value": "445202" },
+
+{
+  "label": "揭东区",
+  "value": "445203" },
+
+{
+  "label": "揭西县",
+  "value": "445222" },
+
+{
+  "label": "惠来县",
+  "value": "445224" },
+
+{
+  "label": "普宁市",
+  "value": "445281" }],
+
+
+[{
+  "label": "云城区",
+  "value": "445302" },
+
+{
+  "label": "云安区",
+  "value": "445303" },
+
+{
+  "label": "新兴县",
+  "value": "445321" },
+
+{
+  "label": "郁南县",
+  "value": "445322" },
+
+{
+  "label": "罗定市",
+  "value": "445381" }]],
+
+
+
+[
+[{
+  "label": "兴宁区",
+  "value": "450102" },
+
+{
+  "label": "青秀区",
+  "value": "450103" },
+
+{
+  "label": "江南区",
+  "value": "450105" },
+
+{
+  "label": "西乡塘区",
+  "value": "450107" },
+
+{
+  "label": "良庆区",
+  "value": "450108" },
+
+{
+  "label": "邕宁区",
+  "value": "450109" },
+
+{
+  "label": "武鸣区",
+  "value": "450110" },
+
+{
+  "label": "隆安县",
+  "value": "450123" },
+
+{
+  "label": "马山县",
+  "value": "450124" },
+
+{
+  "label": "上林县",
+  "value": "450125" },
+
+{
+  "label": "宾阳县",
+  "value": "450126" },
+
+{
+  "label": "横县",
+  "value": "450127" }],
+
+
+[{
+  "label": "城中区",
+  "value": "450202" },
+
+{
+  "label": "鱼峰区",
+  "value": "450203" },
+
+{
+  "label": "柳南区",
+  "value": "450204" },
+
+{
+  "label": "柳北区",
+  "value": "450205" },
+
+{
+  "label": "柳江区",
+  "value": "450206" },
+
+{
+  "label": "柳城县",
+  "value": "450222" },
+
+{
+  "label": "鹿寨县",
+  "value": "450223" },
+
+{
+  "label": "融安县",
+  "value": "450224" },
+
+{
+  "label": "融水苗族自治县",
+  "value": "450225" },
+
+{
+  "label": "三江侗族自治县",
+  "value": "450226" }],
+
+
+[{
+  "label": "秀峰区",
+  "value": "450302" },
+
+{
+  "label": "叠彩区",
+  "value": "450303" },
+
+{
+  "label": "象山区",
+  "value": "450304" },
+
+{
+  "label": "七星区",
+  "value": "450305" },
+
+{
+  "label": "雁山区",
+  "value": "450311" },
+
+{
+  "label": "临桂区",
+  "value": "450312" },
+
+{
+  "label": "阳朔县",
+  "value": "450321" },
+
+{
+  "label": "灵川县",
+  "value": "450323" },
+
+{
+  "label": "全州县",
+  "value": "450324" },
+
+{
+  "label": "兴安县",
+  "value": "450325" },
+
+{
+  "label": "永福县",
+  "value": "450326" },
+
+{
+  "label": "灌阳县",
+  "value": "450327" },
+
+{
+  "label": "龙胜各族自治县",
+  "value": "450328" },
+
+{
+  "label": "资源县",
+  "value": "450329" },
+
+{
+  "label": "平乐县",
+  "value": "450330" },
+
+{
+  "label": "荔浦县",
+  "value": "450331" },
+
+{
+  "label": "恭城瑶族自治县",
+  "value": "450332" }],
+
+
+[{
+  "label": "万秀区",
+  "value": "450403" },
+
+{
+  "label": "长洲区",
+  "value": "450405" },
+
+{
+  "label": "龙圩区",
+  "value": "450406" },
+
+{
+  "label": "苍梧县",
+  "value": "450421" },
+
+{
+  "label": "藤县",
+  "value": "450422" },
+
+{
+  "label": "蒙山县",
+  "value": "450423" },
+
+{
+  "label": "岑溪市",
+  "value": "450481" }],
+
+
+[{
+  "label": "海城区",
+  "value": "450502" },
+
+{
+  "label": "银海区",
+  "value": "450503" },
+
+{
+  "label": "铁山港区",
+  "value": "450512" },
+
+{
+  "label": "合浦县",
+  "value": "450521" }],
+
+
+[{
+  "label": "港口区",
+  "value": "450602" },
+
+{
+  "label": "防城区",
+  "value": "450603" },
+
+{
+  "label": "上思县",
+  "value": "450621" },
+
+{
+  "label": "东兴市",
+  "value": "450681" }],
+
+
+[{
+  "label": "钦南区",
+  "value": "450702" },
+
+{
+  "label": "钦北区",
+  "value": "450703" },
+
+{
+  "label": "灵山县",
+  "value": "450721" },
+
+{
+  "label": "浦北县",
+  "value": "450722" }],
+
+
+[{
+  "label": "港北区",
+  "value": "450802" },
+
+{
+  "label": "港南区",
+  "value": "450803" },
+
+{
+  "label": "覃塘区",
+  "value": "450804" },
+
+{
+  "label": "平南县",
+  "value": "450821" },
+
+{
+  "label": "桂平市",
+  "value": "450881" }],
+
+
+[{
+  "label": "玉州区",
+  "value": "450902" },
+
+{
+  "label": "福绵区",
+  "value": "450903" },
+
+{
+  "label": "容县",
+  "value": "450921" },
+
+{
+  "label": "陆川县",
+  "value": "450922" },
+
+{
+  "label": "博白县",
+  "value": "450923" },
+
+{
+  "label": "兴业县",
+  "value": "450924" },
+
+{
+  "label": "北流市",
+  "value": "450981" }],
+
+
+[{
+  "label": "右江区",
+  "value": "451002" },
+
+{
+  "label": "田阳县",
+  "value": "451021" },
+
+{
+  "label": "田东县",
+  "value": "451022" },
+
+{
+  "label": "平果县",
+  "value": "451023" },
+
+{
+  "label": "德保县",
+  "value": "451024" },
+
+{
+  "label": "那坡县",
+  "value": "451026" },
+
+{
+  "label": "凌云县",
+  "value": "451027" },
+
+{
+  "label": "乐业县",
+  "value": "451028" },
+
+{
+  "label": "田林县",
+  "value": "451029" },
+
+{
+  "label": "西林县",
+  "value": "451030" },
+
+{
+  "label": "隆林各族自治县",
+  "value": "451031" },
+
+{
+  "label": "靖西市",
+  "value": "451081" }],
+
+
+[{
+  "label": "八步区",
+  "value": "451102" },
+
+{
+  "label": "平桂区",
+  "value": "451103" },
+
+{
+  "label": "昭平县",
+  "value": "451121" },
+
+{
+  "label": "钟山县",
+  "value": "451122" },
+
+{
+  "label": "富川瑶族自治县",
+  "value": "451123" }],
+
+
+[{
+  "label": "金城江区",
+  "value": "451202" },
+
+{
+  "label": "宜州区",
+  "value": "451203" },
+
+{
+  "label": "南丹县",
+  "value": "451221" },
+
+{
+  "label": "天峨县",
+  "value": "451222" },
+
+{
+  "label": "凤山县",
+  "value": "451223" },
+
+{
+  "label": "东兰县",
+  "value": "451224" },
+
+{
+  "label": "罗城仫佬族自治县",
+  "value": "451225" },
+
+{
+  "label": "环江毛南族自治县",
+  "value": "451226" },
+
+{
+  "label": "巴马瑶族自治县",
+  "value": "451227" },
+
+{
+  "label": "都安瑶族自治县",
+  "value": "451228" },
+
+{
+  "label": "大化瑶族自治县",
+  "value": "451229" }],
+
+
+[{
+  "label": "兴宾区",
+  "value": "451302" },
+
+{
+  "label": "忻城县",
+  "value": "451321" },
+
+{
+  "label": "象州县",
+  "value": "451322" },
+
+{
+  "label": "武宣县",
+  "value": "451323" },
+
+{
+  "label": "金秀瑶族自治县",
+  "value": "451324" },
+
+{
+  "label": "合山市",
+  "value": "451381" }],
+
+
+[{
+  "label": "江州区",
+  "value": "451402" },
+
+{
+  "label": "扶绥县",
+  "value": "451421" },
+
+{
+  "label": "宁明县",
+  "value": "451422" },
+
+{
+  "label": "龙州县",
+  "value": "451423" },
+
+{
+  "label": "大新县",
+  "value": "451424" },
+
+{
+  "label": "天等县",
+  "value": "451425" },
+
+{
+  "label": "凭祥市",
+  "value": "451481" }]],
+
+
+
+[
+[{
+  "label": "秀英区",
+  "value": "460105" },
+
+{
+  "label": "龙华区",
+  "value": "460106" },
+
+{
+  "label": "琼山区",
+  "value": "460107" },
+
+{
+  "label": "美兰区",
+  "value": "460108" }],
+
+
+[{
+  "label": "海棠区",
+  "value": "460202" },
+
+{
+  "label": "吉阳区",
+  "value": "460203" },
+
+{
+  "label": "天涯区",
+  "value": "460204" },
+
+{
+  "label": "崖州区",
+  "value": "460205" }],
+
+
+[{
+  "label": "西沙群岛",
+  "value": "460321" },
+
+{
+  "label": "南沙群岛",
+  "value": "460322" },
+
+{
+  "label": "中沙群岛的岛礁及其海域",
+  "value": "460323" }],
+
+
+[{
+  "label": "儋州市",
+  "value": "460400" }],
+
+[{
+  "label": "五指山市",
+  "value": "469001" },
+
+{
+  "label": "琼海市",
+  "value": "469002" },
+
+{
+  "label": "文昌市",
+  "value": "469005" },
+
+{
+  "label": "万宁市",
+  "value": "469006" },
+
+{
+  "label": "东方市",
+  "value": "469007" },
+
+{
+  "label": "定安县",
+  "value": "469021" },
+
+{
+  "label": "屯昌县",
+  "value": "469022" },
+
+{
+  "label": "澄迈县",
+  "value": "469023" },
+
+{
+  "label": "临高县",
+  "value": "469024" },
+
+{
+  "label": "白沙黎族自治县",
+  "value": "469025" },
+
+{
+  "label": "昌江黎族自治县",
+  "value": "469026" },
+
+{
+  "label": "乐东黎族自治县",
+  "value": "469027" },
+
+{
+  "label": "陵水黎族自治县",
+  "value": "469028" },
+
+{
+  "label": "保亭黎族苗族自治县",
+  "value": "469029" },
+
+{
+  "label": "琼中黎族苗族自治县",
+  "value": "469030" }]],
+
+
+
+[
+[{
+  "label": "万州区",
+  "value": "500101" },
+
+{
+  "label": "涪陵区",
+  "value": "500102" },
+
+{
+  "label": "渝中区",
+  "value": "500103" },
+
+{
+  "label": "大渡口区",
+  "value": "500104" },
+
+{
+  "label": "江北区",
+  "value": "500105" },
+
+{
+  "label": "沙坪坝区",
+  "value": "500106" },
+
+{
+  "label": "九龙坡区",
+  "value": "500107" },
+
+{
+  "label": "南岸区",
+  "value": "500108" },
+
+{
+  "label": "北碚区",
+  "value": "500109" },
+
+{
+  "label": "綦江区",
+  "value": "500110" },
+
+{
+  "label": "大足区",
+  "value": "500111" },
+
+{
+  "label": "渝北区",
+  "value": "500112" },
+
+{
+  "label": "巴南区",
+  "value": "500113" },
+
+{
+  "label": "黔江区",
+  "value": "500114" },
+
+{
+  "label": "长寿区",
+  "value": "500115" },
+
+{
+  "label": "江津区",
+  "value": "500116" },
+
+{
+  "label": "合川区",
+  "value": "500117" },
+
+{
+  "label": "永川区",
+  "value": "500118" },
+
+{
+  "label": "南川区",
+  "value": "500119" },
+
+{
+  "label": "璧山区",
+  "value": "500120" },
+
+{
+  "label": "铜梁区",
+  "value": "500151" },
+
+{
+  "label": "潼南区",
+  "value": "500152" },
+
+{
+  "label": "荣昌区",
+  "value": "500153" },
+
+{
+  "label": "开州区",
+  "value": "500154" },
+
+{
+  "label": "梁平区",
+  "value": "500155" },
+
+{
+  "label": "武隆区",
+  "value": "500156" }],
+
+
+[{
+  "label": "城口县",
+  "value": "500229" },
+
+{
+  "label": "丰都县",
+  "value": "500230" },
+
+{
+  "label": "垫江县",
+  "value": "500231" },
+
+{
+  "label": "忠县",
+  "value": "500233" },
+
+{
+  "label": "云阳县",
+  "value": "500235" },
+
+{
+  "label": "奉节县",
+  "value": "500236" },
+
+{
+  "label": "巫山县",
+  "value": "500237" },
+
+{
+  "label": "巫溪县",
+  "value": "500238" },
+
+{
+  "label": "石柱土家族自治县",
+  "value": "500240" },
+
+{
+  "label": "秀山土家族苗族自治县",
+  "value": "500241" },
+
+{
+  "label": "酉阳土家族苗族自治县",
+  "value": "500242" },
+
+{
+  "label": "彭水苗族土家族自治县",
+  "value": "500243" }]],
+
+
+
+[
+[{
+  "label": "锦江区",
+  "value": "510104" },
+
+{
+  "label": "青羊区",
+  "value": "510105" },
+
+{
+  "label": "金牛区",
+  "value": "510106" },
+
+{
+  "label": "武侯区",
+  "value": "510107" },
+
+{
+  "label": "成华区",
+  "value": "510108" },
+
+{
+  "label": "龙泉驿区",
+  "value": "510112" },
+
+{
+  "label": "青白江区",
+  "value": "510113" },
+
+{
+  "label": "新都区",
+  "value": "510114" },
+
+{
+  "label": "温江区",
+  "value": "510115" },
+
+{
+  "label": "双流区",
+  "value": "510116" },
+
+{
+  "label": "郫都区",
+  "value": "510117" },
+
+{
+  "label": "金堂县",
+  "value": "510121" },
+
+{
+  "label": "大邑县",
+  "value": "510129" },
+
+{
+  "label": "蒲江县",
+  "value": "510131" },
+
+{
+  "label": "新津县",
+  "value": "510132" },
+
+{
+  "label": "都江堰市",
+  "value": "510181" },
+
+{
+  "label": "彭州市",
+  "value": "510182" },
+
+{
+  "label": "邛崃市",
+  "value": "510183" },
+
+{
+  "label": "崇州市",
+  "value": "510184" },
+
+{
+  "label": "简阳市",
+  "value": "510185" }],
+
+
+[{
+  "label": "自流井区",
+  "value": "510302" },
+
+{
+  "label": "贡井区",
+  "value": "510303" },
+
+{
+  "label": "大安区",
+  "value": "510304" },
+
+{
+  "label": "沿滩区",
+  "value": "510311" },
+
+{
+  "label": "荣县",
+  "value": "510321" },
+
+{
+  "label": "富顺县",
+  "value": "510322" }],
+
+
+[{
+  "label": "东区",
+  "value": "510402" },
+
+{
+  "label": "西区",
+  "value": "510403" },
+
+{
+  "label": "仁和区",
+  "value": "510411" },
+
+{
+  "label": "米易县",
+  "value": "510421" },
+
+{
+  "label": "盐边县",
+  "value": "510422" }],
+
+
+[{
+  "label": "江阳区",
+  "value": "510502" },
+
+{
+  "label": "纳溪区",
+  "value": "510503" },
+
+{
+  "label": "龙马潭区",
+  "value": "510504" },
+
+{
+  "label": "泸县",
+  "value": "510521" },
+
+{
+  "label": "合江县",
+  "value": "510522" },
+
+{
+  "label": "叙永县",
+  "value": "510524" },
+
+{
+  "label": "古蔺县",
+  "value": "510525" }],
+
+
+[{
+  "label": "旌阳区",
+  "value": "510603" },
+
+{
+  "label": "罗江区",
+  "value": "510604" },
+
+{
+  "label": "中江县",
+  "value": "510623" },
+
+{
+  "label": "广汉市",
+  "value": "510681" },
+
+{
+  "label": "什邡市",
+  "value": "510682" },
+
+{
+  "label": "绵竹市",
+  "value": "510683" }],
+
+
+[{
+  "label": "涪城区",
+  "value": "510703" },
+
+{
+  "label": "游仙区",
+  "value": "510704" },
+
+{
+  "label": "安州区",
+  "value": "510705" },
+
+{
+  "label": "三台县",
+  "value": "510722" },
+
+{
+  "label": "盐亭县",
+  "value": "510723" },
+
+{
+  "label": "梓潼县",
+  "value": "510725" },
+
+{
+  "label": "北川羌族自治县",
+  "value": "510726" },
+
+{
+  "label": "平武县",
+  "value": "510727" },
+
+{
+  "label": "江油市",
+  "value": "510781" }],
+
+
+[{
+  "label": "利州区",
+  "value": "510802" },
+
+{
+  "label": "昭化区",
+  "value": "510811" },
+
+{
+  "label": "朝天区",
+  "value": "510812" },
+
+{
+  "label": "旺苍县",
+  "value": "510821" },
+
+{
+  "label": "青川县",
+  "value": "510822" },
+
+{
+  "label": "剑阁县",
+  "value": "510823" },
+
+{
+  "label": "苍溪县",
+  "value": "510824" }],
+
+
+[{
+  "label": "船山区",
+  "value": "510903" },
+
+{
+  "label": "安居区",
+  "value": "510904" },
+
+{
+  "label": "蓬溪县",
+  "value": "510921" },
+
+{
+  "label": "射洪县",
+  "value": "510922" },
+
+{
+  "label": "大英县",
+  "value": "510923" }],
+
+
+[{
+  "label": "市中区",
+  "value": "511002" },
+
+{
+  "label": "东兴区",
+  "value": "511011" },
+
+{
+  "label": "威远县",
+  "value": "511024" },
+
+{
+  "label": "资中县",
+  "value": "511025" },
+
+{
+  "label": "内江经济开发区",
+  "value": "511071" },
+
+{
+  "label": "隆昌市",
+  "value": "511083" }],
+
+
+[{
+  "label": "市中区",
+  "value": "511102" },
+
+{
+  "label": "沙湾区",
+  "value": "511111" },
+
+{
+  "label": "五通桥区",
+  "value": "511112" },
+
+{
+  "label": "金口河区",
+  "value": "511113" },
+
+{
+  "label": "犍为县",
+  "value": "511123" },
+
+{
+  "label": "井研县",
+  "value": "511124" },
+
+{
+  "label": "夹江县",
+  "value": "511126" },
+
+{
+  "label": "沐川县",
+  "value": "511129" },
+
+{
+  "label": "峨边彝族自治县",
+  "value": "511132" },
+
+{
+  "label": "马边彝族自治县",
+  "value": "511133" },
+
+{
+  "label": "峨眉山市",
+  "value": "511181" }],
+
+
+[{
+  "label": "顺庆区",
+  "value": "511302" },
+
+{
+  "label": "高坪区",
+  "value": "511303" },
+
+{
+  "label": "嘉陵区",
+  "value": "511304" },
+
+{
+  "label": "南部县",
+  "value": "511321" },
+
+{
+  "label": "营山县",
+  "value": "511322" },
+
+{
+  "label": "蓬安县",
+  "value": "511323" },
+
+{
+  "label": "仪陇县",
+  "value": "511324" },
+
+{
+  "label": "西充县",
+  "value": "511325" },
+
+{
+  "label": "阆中市",
+  "value": "511381" }],
+
+
+[{
+  "label": "东坡区",
+  "value": "511402" },
+
+{
+  "label": "彭山区",
+  "value": "511403" },
+
+{
+  "label": "仁寿县",
+  "value": "511421" },
+
+{
+  "label": "洪雅县",
+  "value": "511423" },
+
+{
+  "label": "丹棱县",
+  "value": "511424" },
+
+{
+  "label": "青神县",
+  "value": "511425" }],
+
+
+[{
+  "label": "翠屏区",
+  "value": "511502" },
+
+{
+  "label": "南溪区",
+  "value": "511503" },
+
+{
+  "label": "宜宾县",
+  "value": "511521" },
+
+{
+  "label": "江安县",
+  "value": "511523" },
+
+{
+  "label": "长宁县",
+  "value": "511524" },
+
+{
+  "label": "高县",
+  "value": "511525" },
+
+{
+  "label": "珙县",
+  "value": "511526" },
+
+{
+  "label": "筠连县",
+  "value": "511527" },
+
+{
+  "label": "兴文县",
+  "value": "511528" },
+
+{
+  "label": "屏山县",
+  "value": "511529" }],
+
+
+[{
+  "label": "广安区",
+  "value": "511602" },
+
+{
+  "label": "前锋区",
+  "value": "511603" },
+
+{
+  "label": "岳池县",
+  "value": "511621" },
+
+{
+  "label": "武胜县",
+  "value": "511622" },
+
+{
+  "label": "邻水县",
+  "value": "511623" },
+
+{
+  "label": "华蓥市",
+  "value": "511681" }],
+
+
+[{
+  "label": "通川区",
+  "value": "511702" },
+
+{
+  "label": "达川区",
+  "value": "511703" },
+
+{
+  "label": "宣汉县",
+  "value": "511722" },
+
+{
+  "label": "开江县",
+  "value": "511723" },
+
+{
+  "label": "大竹县",
+  "value": "511724" },
+
+{
+  "label": "渠县",
+  "value": "511725" },
+
+{
+  "label": "达州经济开发区",
+  "value": "511771" },
+
+{
+  "label": "万源市",
+  "value": "511781" }],
+
+
+[{
+  "label": "雨城区",
+  "value": "511802" },
+
+{
+  "label": "名山区",
+  "value": "511803" },
+
+{
+  "label": "荥经县",
+  "value": "511822" },
+
+{
+  "label": "汉源县",
+  "value": "511823" },
+
+{
+  "label": "石棉县",
+  "value": "511824" },
+
+{
+  "label": "天全县",
+  "value": "511825" },
+
+{
+  "label": "芦山县",
+  "value": "511826" },
+
+{
+  "label": "宝兴县",
+  "value": "511827" }],
+
+
+[{
+  "label": "巴州区",
+  "value": "511902" },
+
+{
+  "label": "恩阳区",
+  "value": "511903" },
+
+{
+  "label": "通江县",
+  "value": "511921" },
+
+{
+  "label": "南江县",
+  "value": "511922" },
+
+{
+  "label": "平昌县",
+  "value": "511923" },
+
+{
+  "label": "巴中经济开发区",
+  "value": "511971" }],
+
+
+[{
+  "label": "雁江区",
+  "value": "512002" },
+
+{
+  "label": "安岳县",
+  "value": "512021" },
+
+{
+  "label": "乐至县",
+  "value": "512022" }],
+
+
+[{
+  "label": "马尔康市",
+  "value": "513201" },
+
+{
+  "label": "汶川县",
+  "value": "513221" },
+
+{
+  "label": "理县",
+  "value": "513222" },
+
+{
+  "label": "茂县",
+  "value": "513223" },
+
+{
+  "label": "松潘县",
+  "value": "513224" },
+
+{
+  "label": "九寨沟县",
+  "value": "513225" },
+
+{
+  "label": "金川县",
+  "value": "513226" },
+
+{
+  "label": "小金县",
+  "value": "513227" },
+
+{
+  "label": "黑水县",
+  "value": "513228" },
+
+{
+  "label": "壤塘县",
+  "value": "513230" },
+
+{
+  "label": "阿坝县",
+  "value": "513231" },
+
+{
+  "label": "若尔盖县",
+  "value": "513232" },
+
+{
+  "label": "红原县",
+  "value": "513233" }],
+
+
+[{
+  "label": "康定市",
+  "value": "513301" },
+
+{
+  "label": "泸定县",
+  "value": "513322" },
+
+{
+  "label": "丹巴县",
+  "value": "513323" },
+
+{
+  "label": "九龙县",
+  "value": "513324" },
+
+{
+  "label": "雅江县",
+  "value": "513325" },
+
+{
+  "label": "道孚县",
+  "value": "513326" },
+
+{
+  "label": "炉霍县",
+  "value": "513327" },
+
+{
+  "label": "甘孜县",
+  "value": "513328" },
+
+{
+  "label": "新龙县",
+  "value": "513329" },
+
+{
+  "label": "德格县",
+  "value": "513330" },
+
+{
+  "label": "白玉县",
+  "value": "513331" },
+
+{
+  "label": "石渠县",
+  "value": "513332" },
+
+{
+  "label": "色达县",
+  "value": "513333" },
+
+{
+  "label": "理塘县",
+  "value": "513334" },
+
+{
+  "label": "巴塘县",
+  "value": "513335" },
+
+{
+  "label": "乡城县",
+  "value": "513336" },
+
+{
+  "label": "稻城县",
+  "value": "513337" },
+
+{
+  "label": "得荣县",
+  "value": "513338" }],
+
+
+[{
+  "label": "西昌市",
+  "value": "513401" },
+
+{
+  "label": "木里藏族自治县",
+  "value": "513422" },
+
+{
+  "label": "盐源县",
+  "value": "513423" },
+
+{
+  "label": "德昌县",
+  "value": "513424" },
+
+{
+  "label": "会理县",
+  "value": "513425" },
+
+{
+  "label": "会东县",
+  "value": "513426" },
+
+{
+  "label": "宁南县",
+  "value": "513427" },
+
+{
+  "label": "普格县",
+  "value": "513428" },
+
+{
+  "label": "布拖县",
+  "value": "513429" },
+
+{
+  "label": "金阳县",
+  "value": "513430" },
+
+{
+  "label": "昭觉县",
+  "value": "513431" },
+
+{
+  "label": "喜德县",
+  "value": "513432" },
+
+{
+  "label": "冕宁县",
+  "value": "513433" },
+
+{
+  "label": "越西县",
+  "value": "513434" },
+
+{
+  "label": "甘洛县",
+  "value": "513435" },
+
+{
+  "label": "美姑县",
+  "value": "513436" },
+
+{
+  "label": "雷波县",
+  "value": "513437" }]],
+
+
+
+[
+[{
+  "label": "南明区",
+  "value": "520102" },
+
+{
+  "label": "云岩区",
+  "value": "520103" },
+
+{
+  "label": "花溪区",
+  "value": "520111" },
+
+{
+  "label": "乌当区",
+  "value": "520112" },
+
+{
+  "label": "白云区",
+  "value": "520113" },
+
+{
+  "label": "观山湖区",
+  "value": "520115" },
+
+{
+  "label": "开阳县",
+  "value": "520121" },
+
+{
+  "label": "息烽县",
+  "value": "520122" },
+
+{
+  "label": "修文县",
+  "value": "520123" },
+
+{
+  "label": "清镇市",
+  "value": "520181" }],
+
+
+[{
+  "label": "钟山区",
+  "value": "520201" },
+
+{
+  "label": "六枝特区",
+  "value": "520203" },
+
+{
+  "label": "水城县",
+  "value": "520221" },
+
+{
+  "label": "盘州市",
+  "value": "520281" }],
+
+
+[{
+  "label": "红花岗区",
+  "value": "520302" },
+
+{
+  "label": "汇川区",
+  "value": "520303" },
+
+{
+  "label": "播州区",
+  "value": "520304" },
+
+{
+  "label": "桐梓县",
+  "value": "520322" },
+
+{
+  "label": "绥阳县",
+  "value": "520323" },
+
+{
+  "label": "正安县",
+  "value": "520324" },
+
+{
+  "label": "道真仡佬族苗族自治县",
+  "value": "520325" },
+
+{
+  "label": "务川仡佬族苗族自治县",
+  "value": "520326" },
+
+{
+  "label": "凤冈县",
+  "value": "520327" },
+
+{
+  "label": "湄潭县",
+  "value": "520328" },
+
+{
+  "label": "余庆县",
+  "value": "520329" },
+
+{
+  "label": "习水县",
+  "value": "520330" },
+
+{
+  "label": "赤水市",
+  "value": "520381" },
+
+{
+  "label": "仁怀市",
+  "value": "520382" }],
+
+
+[{
+  "label": "西秀区",
+  "value": "520402" },
+
+{
+  "label": "平坝区",
+  "value": "520403" },
+
+{
+  "label": "普定县",
+  "value": "520422" },
+
+{
+  "label": "镇宁布依族苗族自治县",
+  "value": "520423" },
+
+{
+  "label": "关岭布依族苗族自治县",
+  "value": "520424" },
+
+{
+  "label": "紫云苗族布依族自治县",
+  "value": "520425" }],
+
+
+[{
+  "label": "七星关区",
+  "value": "520502" },
+
+{
+  "label": "大方县",
+  "value": "520521" },
+
+{
+  "label": "黔西县",
+  "value": "520522" },
+
+{
+  "label": "金沙县",
+  "value": "520523" },
+
+{
+  "label": "织金县",
+  "value": "520524" },
+
+{
+  "label": "纳雍县",
+  "value": "520525" },
+
+{
+  "label": "威宁彝族回族苗族自治县",
+  "value": "520526" },
+
+{
+  "label": "赫章县",
+  "value": "520527" }],
+
+
+[{
+  "label": "碧江区",
+  "value": "520602" },
+
+{
+  "label": "万山区",
+  "value": "520603" },
+
+{
+  "label": "江口县",
+  "value": "520621" },
+
+{
+  "label": "玉屏侗族自治县",
+  "value": "520622" },
+
+{
+  "label": "石阡县",
+  "value": "520623" },
+
+{
+  "label": "思南县",
+  "value": "520624" },
+
+{
+  "label": "印江土家族苗族自治县",
+  "value": "520625" },
+
+{
+  "label": "德江县",
+  "value": "520626" },
+
+{
+  "label": "沿河土家族自治县",
+  "value": "520627" },
+
+{
+  "label": "松桃苗族自治县",
+  "value": "520628" }],
+
+
+[{
+  "label": "兴义市",
+  "value": "522301" },
+
+{
+  "label": "兴仁县",
+  "value": "522322" },
+
+{
+  "label": "普安县",
+  "value": "522323" },
+
+{
+  "label": "晴隆县",
+  "value": "522324" },
+
+{
+  "label": "贞丰县",
+  "value": "522325" },
+
+{
+  "label": "望谟县",
+  "value": "522326" },
+
+{
+  "label": "册亨县",
+  "value": "522327" },
+
+{
+  "label": "安龙县",
+  "value": "522328" }],
+
+
+[{
+  "label": "凯里市",
+  "value": "522601" },
+
+{
+  "label": "黄平县",
+  "value": "522622" },
+
+{
+  "label": "施秉县",
+  "value": "522623" },
+
+{
+  "label": "三穗县",
+  "value": "522624" },
+
+{
+  "label": "镇远县",
+  "value": "522625" },
+
+{
+  "label": "岑巩县",
+  "value": "522626" },
+
+{
+  "label": "天柱县",
+  "value": "522627" },
+
+{
+  "label": "锦屏县",
+  "value": "522628" },
+
+{
+  "label": "剑河县",
+  "value": "522629" },
+
+{
+  "label": "台江县",
+  "value": "522630" },
+
+{
+  "label": "黎平县",
+  "value": "522631" },
+
+{
+  "label": "榕江县",
+  "value": "522632" },
+
+{
+  "label": "从江县",
+  "value": "522633" },
+
+{
+  "label": "雷山县",
+  "value": "522634" },
+
+{
+  "label": "麻江县",
+  "value": "522635" },
+
+{
+  "label": "丹寨县",
+  "value": "522636" }],
+
+
+[{
+  "label": "都匀市",
+  "value": "522701" },
+
+{
+  "label": "福泉市",
+  "value": "522702" },
+
+{
+  "label": "荔波县",
+  "value": "522722" },
+
+{
+  "label": "贵定县",
+  "value": "522723" },
+
+{
+  "label": "瓮安县",
+  "value": "522725" },
+
+{
+  "label": "独山县",
+  "value": "522726" },
+
+{
+  "label": "平塘县",
+  "value": "522727" },
+
+{
+  "label": "罗甸县",
+  "value": "522728" },
+
+{
+  "label": "长顺县",
+  "value": "522729" },
+
+{
+  "label": "龙里县",
+  "value": "522730" },
+
+{
+  "label": "惠水县",
+  "value": "522731" },
+
+{
+  "label": "三都水族自治县",
+  "value": "522732" }]],
+
+
+
+[
+[{
+  "label": "五华区",
+  "value": "530102" },
+
+{
+  "label": "盘龙区",
+  "value": "530103" },
+
+{
+  "label": "官渡区",
+  "value": "530111" },
+
+{
+  "label": "西山区",
+  "value": "530112" },
+
+{
+  "label": "东川区",
+  "value": "530113" },
+
+{
+  "label": "呈贡区",
+  "value": "530114" },
+
+{
+  "label": "晋宁区",
+  "value": "530115" },
+
+{
+  "label": "富民县",
+  "value": "530124" },
+
+{
+  "label": "宜良县",
+  "value": "530125" },
+
+{
+  "label": "石林彝族自治县",
+  "value": "530126" },
+
+{
+  "label": "嵩明县",
+  "value": "530127" },
+
+{
+  "label": "禄劝彝族苗族自治县",
+  "value": "530128" },
+
+{
+  "label": "寻甸回族彝族自治县",
+  "value": "530129" },
+
+{
+  "label": "安宁市",
+  "value": "530181" }],
+
+
+[{
+  "label": "麒麟区",
+  "value": "530302" },
+
+{
+  "label": "沾益区",
+  "value": "530303" },
+
+{
+  "label": "马龙县",
+  "value": "530321" },
+
+{
+  "label": "陆良县",
+  "value": "530322" },
+
+{
+  "label": "师宗县",
+  "value": "530323" },
+
+{
+  "label": "罗平县",
+  "value": "530324" },
+
+{
+  "label": "富源县",
+  "value": "530325" },
+
+{
+  "label": "会泽县",
+  "value": "530326" },
+
+{
+  "label": "宣威市",
+  "value": "530381" }],
+
+
+[{
+  "label": "红塔区",
+  "value": "530402" },
+
+{
+  "label": "江川区",
+  "value": "530403" },
+
+{
+  "label": "澄江县",
+  "value": "530422" },
+
+{
+  "label": "通海县",
+  "value": "530423" },
+
+{
+  "label": "华宁县",
+  "value": "530424" },
+
+{
+  "label": "易门县",
+  "value": "530425" },
+
+{
+  "label": "峨山彝族自治县",
+  "value": "530426" },
+
+{
+  "label": "新平彝族傣族自治县",
+  "value": "530427" },
+
+{
+  "label": "元江哈尼族彝族傣族自治县",
+  "value": "530428" }],
+
+
+[{
+  "label": "隆阳区",
+  "value": "530502" },
+
+{
+  "label": "施甸县",
+  "value": "530521" },
+
+{
+  "label": "龙陵县",
+  "value": "530523" },
+
+{
+  "label": "昌宁县",
+  "value": "530524" },
+
+{
+  "label": "腾冲市",
+  "value": "530581" }],
+
+
+[{
+  "label": "昭阳区",
+  "value": "530602" },
+
+{
+  "label": "鲁甸县",
+  "value": "530621" },
+
+{
+  "label": "巧家县",
+  "value": "530622" },
+
+{
+  "label": "盐津县",
+  "value": "530623" },
+
+{
+  "label": "大关县",
+  "value": "530624" },
+
+{
+  "label": "永善县",
+  "value": "530625" },
+
+{
+  "label": "绥江县",
+  "value": "530626" },
+
+{
+  "label": "镇雄县",
+  "value": "530627" },
+
+{
+  "label": "彝良县",
+  "value": "530628" },
+
+{
+  "label": "威信县",
+  "value": "530629" },
+
+{
+  "label": "水富县",
+  "value": "530630" }],
+
+
+[{
+  "label": "古城区",
+  "value": "530702" },
+
+{
+  "label": "玉龙纳西族自治县",
+  "value": "530721" },
+
+{
+  "label": "永胜县",
+  "value": "530722" },
+
+{
+  "label": "华坪县",
+  "value": "530723" },
+
+{
+  "label": "宁蒗彝族自治县",
+  "value": "530724" }],
+
+
+[{
+  "label": "思茅区",
+  "value": "530802" },
+
+{
+  "label": "宁洱哈尼族彝族自治县",
+  "value": "530821" },
+
+{
+  "label": "墨江哈尼族自治县",
+  "value": "530822" },
+
+{
+  "label": "景东彝族自治县",
+  "value": "530823" },
+
+{
+  "label": "景谷傣族彝族自治县",
+  "value": "530824" },
+
+{
+  "label": "镇沅彝族哈尼族拉祜族自治县",
+  "value": "530825" },
+
+{
+  "label": "江城哈尼族彝族自治县",
+  "value": "530826" },
+
+{
+  "label": "孟连傣族拉祜族佤族自治县",
+  "value": "530827" },
+
+{
+  "label": "澜沧拉祜族自治县",
+  "value": "530828" },
+
+{
+  "label": "西盟佤族自治县",
+  "value": "530829" }],
+
+
+[{
+  "label": "临翔区",
+  "value": "530902" },
+
+{
+  "label": "凤庆县",
+  "value": "530921" },
+
+{
+  "label": "云县",
+  "value": "530922" },
+
+{
+  "label": "永德县",
+  "value": "530923" },
+
+{
+  "label": "镇康县",
+  "value": "530924" },
+
+{
+  "label": "双江拉祜族佤族布朗族傣族自治县",
+  "value": "530925" },
+
+{
+  "label": "耿马傣族佤族自治县",
+  "value": "530926" },
+
+{
+  "label": "沧源佤族自治县",
+  "value": "530927" }],
+
+
+[{
+  "label": "楚雄市",
+  "value": "532301" },
+
+{
+  "label": "双柏县",
+  "value": "532322" },
+
+{
+  "label": "牟定县",
+  "value": "532323" },
+
+{
+  "label": "南华县",
+  "value": "532324" },
+
+{
+  "label": "姚安县",
+  "value": "532325" },
+
+{
+  "label": "大姚县",
+  "value": "532326" },
+
+{
+  "label": "永仁县",
+  "value": "532327" },
+
+{
+  "label": "元谋县",
+  "value": "532328" },
+
+{
+  "label": "武定县",
+  "value": "532329" },
+
+{
+  "label": "禄丰县",
+  "value": "532331" }],
+
+
+[{
+  "label": "个旧市",
+  "value": "532501" },
+
+{
+  "label": "开远市",
+  "value": "532502" },
+
+{
+  "label": "蒙自市",
+  "value": "532503" },
+
+{
+  "label": "弥勒市",
+  "value": "532504" },
+
+{
+  "label": "屏边苗族自治县",
+  "value": "532523" },
+
+{
+  "label": "建水县",
+  "value": "532524" },
+
+{
+  "label": "石屏县",
+  "value": "532525" },
+
+{
+  "label": "泸西县",
+  "value": "532527" },
+
+{
+  "label": "元阳县",
+  "value": "532528" },
+
+{
+  "label": "红河县",
+  "value": "532529" },
+
+{
+  "label": "金平苗族瑶族傣族自治县",
+  "value": "532530" },
+
+{
+  "label": "绿春县",
+  "value": "532531" },
+
+{
+  "label": "河口瑶族自治县",
+  "value": "532532" }],
+
+
+[{
+  "label": "文山市",
+  "value": "532601" },
+
+{
+  "label": "砚山县",
+  "value": "532622" },
+
+{
+  "label": "西畴县",
+  "value": "532623" },
+
+{
+  "label": "麻栗坡县",
+  "value": "532624" },
+
+{
+  "label": "马关县",
+  "value": "532625" },
+
+{
+  "label": "丘北县",
+  "value": "532626" },
+
+{
+  "label": "广南县",
+  "value": "532627" },
+
+{
+  "label": "富宁县",
+  "value": "532628" }],
+
+
+[{
+  "label": "景洪市",
+  "value": "532801" },
+
+{
+  "label": "勐海县",
+  "value": "532822" },
+
+{
+  "label": "勐腊县",
+  "value": "532823" }],
+
+
+[{
+  "label": "大理市",
+  "value": "532901" },
+
+{
+  "label": "漾濞彝族自治县",
+  "value": "532922" },
+
+{
+  "label": "祥云县",
+  "value": "532923" },
+
+{
+  "label": "宾川县",
+  "value": "532924" },
+
+{
+  "label": "弥渡县",
+  "value": "532925" },
+
+{
+  "label": "南涧彝族自治县",
+  "value": "532926" },
+
+{
+  "label": "巍山彝族回族自治县",
+  "value": "532927" },
+
+{
+  "label": "永平县",
+  "value": "532928" },
+
+{
+  "label": "云龙县",
+  "value": "532929" },
+
+{
+  "label": "洱源县",
+  "value": "532930" },
+
+{
+  "label": "剑川县",
+  "value": "532931" },
+
+{
+  "label": "鹤庆县",
+  "value": "532932" }],
+
+
+[{
+  "label": "瑞丽市",
+  "value": "533102" },
+
+{
+  "label": "芒市",
+  "value": "533103" },
+
+{
+  "label": "梁河县",
+  "value": "533122" },
+
+{
+  "label": "盈江县",
+  "value": "533123" },
+
+{
+  "label": "陇川县",
+  "value": "533124" }],
+
+
+[{
+  "label": "泸水市",
+  "value": "533301" },
+
+{
+  "label": "福贡县",
+  "value": "533323" },
+
+{
+  "label": "贡山独龙族怒族自治县",
+  "value": "533324" },
+
+{
+  "label": "兰坪白族普米族自治县",
+  "value": "533325" }],
+
+
+[{
+  "label": "香格里拉市",
+  "value": "533401" },
+
+{
+  "label": "德钦县",
+  "value": "533422" },
+
+{
+  "label": "维西傈僳族自治县",
+  "value": "533423" }]],
+
+
+
+[
+[{
+  "label": "城关区",
+  "value": "540102" },
+
+{
+  "label": "堆龙德庆区",
+  "value": "540103" },
+
+{
+  "label": "林周县",
+  "value": "540121" },
+
+{
+  "label": "当雄县",
+  "value": "540122" },
+
+{
+  "label": "尼木县",
+  "value": "540123" },
+
+{
+  "label": "曲水县",
+  "value": "540124" },
+
+{
+  "label": "达孜县",
+  "value": "540126" },
+
+{
+  "label": "墨竹工卡县",
+  "value": "540127" },
+
+{
+  "label": "格尔木藏青工业园区",
+  "value": "540171" },
+
+{
+  "label": "拉萨经济技术开发区",
+  "value": "540172" },
+
+{
+  "label": "西藏文化旅游创意园区",
+  "value": "540173" },
+
+{
+  "label": "达孜工业园区",
+  "value": "540174" }],
+
+
+[{
+  "label": "桑珠孜区",
+  "value": "540202" },
+
+{
+  "label": "南木林县",
+  "value": "540221" },
+
+{
+  "label": "江孜县",
+  "value": "540222" },
+
+{
+  "label": "定日县",
+  "value": "540223" },
+
+{
+  "label": "萨迦县",
+  "value": "540224" },
+
+{
+  "label": "拉孜县",
+  "value": "540225" },
+
+{
+  "label": "昂仁县",
+  "value": "540226" },
+
+{
+  "label": "谢通门县",
+  "value": "540227" },
+
+{
+  "label": "白朗县",
+  "value": "540228" },
+
+{
+  "label": "仁布县",
+  "value": "540229" },
+
+{
+  "label": "康马县",
+  "value": "540230" },
+
+{
+  "label": "定结县",
+  "value": "540231" },
+
+{
+  "label": "仲巴县",
+  "value": "540232" },
+
+{
+  "label": "亚东县",
+  "value": "540233" },
+
+{
+  "label": "吉隆县",
+  "value": "540234" },
+
+{
+  "label": "聂拉木县",
+  "value": "540235" },
+
+{
+  "label": "萨嘎县",
+  "value": "540236" },
+
+{
+  "label": "岗巴县",
+  "value": "540237" }],
+
+
+[{
+  "label": "卡若区",
+  "value": "540302" },
+
+{
+  "label": "江达县",
+  "value": "540321" },
+
+{
+  "label": "贡觉县",
+  "value": "540322" },
+
+{
+  "label": "类乌齐县",
+  "value": "540323" },
+
+{
+  "label": "丁青县",
+  "value": "540324" },
+
+{
+  "label": "察雅县",
+  "value": "540325" },
+
+{
+  "label": "八宿县",
+  "value": "540326" },
+
+{
+  "label": "左贡县",
+  "value": "540327" },
+
+{
+  "label": "芒康县",
+  "value": "540328" },
+
+{
+  "label": "洛隆县",
+  "value": "540329" },
+
+{
+  "label": "边坝县",
+  "value": "540330" }],
+
+
+[{
+  "label": "巴宜区",
+  "value": "540402" },
+
+{
+  "label": "工布江达县",
+  "value": "540421" },
+
+{
+  "label": "米林县",
+  "value": "540422" },
+
+{
+  "label": "墨脱县",
+  "value": "540423" },
+
+{
+  "label": "波密县",
+  "value": "540424" },
+
+{
+  "label": "察隅县",
+  "value": "540425" },
+
+{
+  "label": "朗县",
+  "value": "540426" }],
+
+
+[{
+  "label": "乃东区",
+  "value": "540502" },
+
+{
+  "label": "扎囊县",
+  "value": "540521" },
+
+{
+  "label": "贡嘎县",
+  "value": "540522" },
+
+{
+  "label": "桑日县",
+  "value": "540523" },
+
+{
+  "label": "琼结县",
+  "value": "540524" },
+
+{
+  "label": "曲松县",
+  "value": "540525" },
+
+{
+  "label": "措美县",
+  "value": "540526" },
+
+{
+  "label": "洛扎县",
+  "value": "540527" },
+
+{
+  "label": "加查县",
+  "value": "540528" },
+
+{
+  "label": "隆子县",
+  "value": "540529" },
+
+{
+  "label": "错那县",
+  "value": "540530" },
+
+{
+  "label": "浪卡子县",
+  "value": "540531" }],
+
+
+[{
+  "label": "那曲县",
+  "value": "542421" },
+
+{
+  "label": "嘉黎县",
+  "value": "542422" },
+
+{
+  "label": "比如县",
+  "value": "542423" },
+
+{
+  "label": "聂荣县",
+  "value": "542424" },
+
+{
+  "label": "安多县",
+  "value": "542425" },
+
+{
+  "label": "申扎县",
+  "value": "542426" },
+
+{
+  "label": "索县",
+  "value": "542427" },
+
+{
+  "label": "班戈县",
+  "value": "542428" },
+
+{
+  "label": "巴青县",
+  "value": "542429" },
+
+{
+  "label": "尼玛县",
+  "value": "542430" },
+
+{
+  "label": "双湖县",
+  "value": "542431" }],
+
+
+[{
+  "label": "普兰县",
+  "value": "542521" },
+
+{
+  "label": "札达县",
+  "value": "542522" },
+
+{
+  "label": "噶尔县",
+  "value": "542523" },
+
+{
+  "label": "日土县",
+  "value": "542524" },
+
+{
+  "label": "革吉县",
+  "value": "542525" },
+
+{
+  "label": "改则县",
+  "value": "542526" },
+
+{
+  "label": "措勤县",
+  "value": "542527" }]],
+
+
+
+[
+[{
+  "label": "新城区",
+  "value": "610102" },
+
+{
+  "label": "碑林区",
+  "value": "610103" },
+
+{
+  "label": "莲湖区",
+  "value": "610104" },
+
+{
+  "label": "灞桥区",
+  "value": "610111" },
+
+{
+  "label": "未央区",
+  "value": "610112" },
+
+{
+  "label": "雁塔区",
+  "value": "610113" },
+
+{
+  "label": "阎良区",
+  "value": "610114" },
+
+{
+  "label": "临潼区",
+  "value": "610115" },
+
+{
+  "label": "长安区",
+  "value": "610116" },
+
+{
+  "label": "高陵区",
+  "value": "610117" },
+
+{
+  "label": "鄠邑区",
+  "value": "610118" },
+
+{
+  "label": "蓝田县",
+  "value": "610122" },
+
+{
+  "label": "周至县",
+  "value": "610124" }],
+
+
+[{
+  "label": "王益区",
+  "value": "610202" },
+
+{
+  "label": "印台区",
+  "value": "610203" },
+
+{
+  "label": "耀州区",
+  "value": "610204" },
+
+{
+  "label": "宜君县",
+  "value": "610222" }],
+
+
+[{
+  "label": "渭滨区",
+  "value": "610302" },
+
+{
+  "label": "金台区",
+  "value": "610303" },
+
+{
+  "label": "陈仓区",
+  "value": "610304" },
+
+{
+  "label": "凤翔县",
+  "value": "610322" },
+
+{
+  "label": "岐山县",
+  "value": "610323" },
+
+{
+  "label": "扶风县",
+  "value": "610324" },
+
+{
+  "label": "眉县",
+  "value": "610326" },
+
+{
+  "label": "陇县",
+  "value": "610327" },
+
+{
+  "label": "千阳县",
+  "value": "610328" },
+
+{
+  "label": "麟游县",
+  "value": "610329" },
+
+{
+  "label": "凤县",
+  "value": "610330" },
+
+{
+  "label": "太白县",
+  "value": "610331" }],
+
+
+[{
+  "label": "秦都区",
+  "value": "610402" },
+
+{
+  "label": "杨陵区",
+  "value": "610403" },
+
+{
+  "label": "渭城区",
+  "value": "610404" },
+
+{
+  "label": "三原县",
+  "value": "610422" },
+
+{
+  "label": "泾阳县",
+  "value": "610423" },
+
+{
+  "label": "乾县",
+  "value": "610424" },
+
+{
+  "label": "礼泉县",
+  "value": "610425" },
+
+{
+  "label": "永寿县",
+  "value": "610426" },
+
+{
+  "label": "彬县",
+  "value": "610427" },
+
+{
+  "label": "长武县",
+  "value": "610428" },
+
+{
+  "label": "旬邑县",
+  "value": "610429" },
+
+{
+  "label": "淳化县",
+  "value": "610430" },
+
+{
+  "label": "武功县",
+  "value": "610431" },
+
+{
+  "label": "兴平市",
+  "value": "610481" }],
+
+
+[{
+  "label": "临渭区",
+  "value": "610502" },
+
+{
+  "label": "华州区",
+  "value": "610503" },
+
+{
+  "label": "潼关县",
+  "value": "610522" },
+
+{
+  "label": "大荔县",
+  "value": "610523" },
+
+{
+  "label": "合阳县",
+  "value": "610524" },
+
+{
+  "label": "澄城县",
+  "value": "610525" },
+
+{
+  "label": "蒲城县",
+  "value": "610526" },
+
+{
+  "label": "白水县",
+  "value": "610527" },
+
+{
+  "label": "富平县",
+  "value": "610528" },
+
+{
+  "label": "韩城市",
+  "value": "610581" },
+
+{
+  "label": "华阴市",
+  "value": "610582" }],
+
+
+[{
+  "label": "宝塔区",
+  "value": "610602" },
+
+{
+  "label": "安塞区",
+  "value": "610603" },
+
+{
+  "label": "延长县",
+  "value": "610621" },
+
+{
+  "label": "延川县",
+  "value": "610622" },
+
+{
+  "label": "子长县",
+  "value": "610623" },
+
+{
+  "label": "志丹县",
+  "value": "610625" },
+
+{
+  "label": "吴起县",
+  "value": "610626" },
+
+{
+  "label": "甘泉县",
+  "value": "610627" },
+
+{
+  "label": "富县",
+  "value": "610628" },
+
+{
+  "label": "洛川县",
+  "value": "610629" },
+
+{
+  "label": "宜川县",
+  "value": "610630" },
+
+{
+  "label": "黄龙县",
+  "value": "610631" },
+
+{
+  "label": "黄陵县",
+  "value": "610632" }],
+
+
+[{
+  "label": "汉台区",
+  "value": "610702" },
+
+{
+  "label": "南郑区",
+  "value": "610703" },
+
+{
+  "label": "城固县",
+  "value": "610722" },
+
+{
+  "label": "洋县",
+  "value": "610723" },
+
+{
+  "label": "西乡县",
+  "value": "610724" },
+
+{
+  "label": "勉县",
+  "value": "610725" },
+
+{
+  "label": "宁强县",
+  "value": "610726" },
+
+{
+  "label": "略阳县",
+  "value": "610727" },
+
+{
+  "label": "镇巴县",
+  "value": "610728" },
+
+{
+  "label": "留坝县",
+  "value": "610729" },
+
+{
+  "label": "佛坪县",
+  "value": "610730" }],
+
+
+[{
+  "label": "榆阳区",
+  "value": "610802" },
+
+{
+  "label": "横山区",
+  "value": "610803" },
+
+{
+  "label": "府谷县",
+  "value": "610822" },
+
+{
+  "label": "靖边县",
+  "value": "610824" },
+
+{
+  "label": "定边县",
+  "value": "610825" },
+
+{
+  "label": "绥德县",
+  "value": "610826" },
+
+{
+  "label": "米脂县",
+  "value": "610827" },
+
+{
+  "label": "佳县",
+  "value": "610828" },
+
+{
+  "label": "吴堡县",
+  "value": "610829" },
+
+{
+  "label": "清涧县",
+  "value": "610830" },
+
+{
+  "label": "子洲县",
+  "value": "610831" },
+
+{
+  "label": "神木市",
+  "value": "610881" }],
+
+
+[{
+  "label": "汉滨区",
+  "value": "610902" },
+
+{
+  "label": "汉阴县",
+  "value": "610921" },
+
+{
+  "label": "石泉县",
+  "value": "610922" },
+
+{
+  "label": "宁陕县",
+  "value": "610923" },
+
+{
+  "label": "紫阳县",
+  "value": "610924" },
+
+{
+  "label": "岚皋县",
+  "value": "610925" },
+
+{
+  "label": "平利县",
+  "value": "610926" },
+
+{
+  "label": "镇坪县",
+  "value": "610927" },
+
+{
+  "label": "旬阳县",
+  "value": "610928" },
+
+{
+  "label": "白河县",
+  "value": "610929" }],
+
+
+[{
+  "label": "商州区",
+  "value": "611002" },
+
+{
+  "label": "洛南县",
+  "value": "611021" },
+
+{
+  "label": "丹凤县",
+  "value": "611022" },
+
+{
+  "label": "商南县",
+  "value": "611023" },
+
+{
+  "label": "山阳县",
+  "value": "611024" },
+
+{
+  "label": "镇安县",
+  "value": "611025" },
+
+{
+  "label": "柞水县",
+  "value": "611026" }]],
+
+
+
+[
+[{
+  "label": "城关区",
+  "value": "620102" },
+
+{
+  "label": "七里河区",
+  "value": "620103" },
+
+{
+  "label": "西固区",
+  "value": "620104" },
+
+{
+  "label": "安宁区",
+  "value": "620105" },
+
+{
+  "label": "红古区",
+  "value": "620111" },
+
+{
+  "label": "永登县",
+  "value": "620121" },
+
+{
+  "label": "皋兰县",
+  "value": "620122" },
+
+{
+  "label": "榆中县",
+  "value": "620123" },
+
+{
+  "label": "兰州新区",
+  "value": "620171" }],
+
+
+[{
+  "label": "嘉峪关市",
+  "value": "620201" }],
+
+[{
+  "label": "金川区",
+  "value": "620302" },
+
+{
+  "label": "永昌县",
+  "value": "620321" }],
+
+
+[{
+  "label": "白银区",
+  "value": "620402" },
+
+{
+  "label": "平川区",
+  "value": "620403" },
+
+{
+  "label": "靖远县",
+  "value": "620421" },
+
+{
+  "label": "会宁县",
+  "value": "620422" },
+
+{
+  "label": "景泰县",
+  "value": "620423" }],
+
+
+[{
+  "label": "秦州区",
+  "value": "620502" },
+
+{
+  "label": "麦积区",
+  "value": "620503" },
+
+{
+  "label": "清水县",
+  "value": "620521" },
+
+{
+  "label": "秦安县",
+  "value": "620522" },
+
+{
+  "label": "甘谷县",
+  "value": "620523" },
+
+{
+  "label": "武山县",
+  "value": "620524" },
+
+{
+  "label": "张家川回族自治县",
+  "value": "620525" }],
+
+
+[{
+  "label": "凉州区",
+  "value": "620602" },
+
+{
+  "label": "民勤县",
+  "value": "620621" },
+
+{
+  "label": "古浪县",
+  "value": "620622" },
+
+{
+  "label": "天祝藏族自治县",
+  "value": "620623" }],
+
+
+[{
+  "label": "甘州区",
+  "value": "620702" },
+
+{
+  "label": "肃南裕固族自治县",
+  "value": "620721" },
+
+{
+  "label": "民乐县",
+  "value": "620722" },
+
+{
+  "label": "临泽县",
+  "value": "620723" },
+
+{
+  "label": "高台县",
+  "value": "620724" },
+
+{
+  "label": "山丹县",
+  "value": "620725" }],
+
+
+[{
+  "label": "崆峒区",
+  "value": "620802" },
+
+{
+  "label": "泾川县",
+  "value": "620821" },
+
+{
+  "label": "灵台县",
+  "value": "620822" },
+
+{
+  "label": "崇信县",
+  "value": "620823" },
+
+{
+  "label": "华亭县",
+  "value": "620824" },
+
+{
+  "label": "庄浪县",
+  "value": "620825" },
+
+{
+  "label": "静宁县",
+  "value": "620826" },
+
+{
+  "label": "平凉工业园区",
+  "value": "620871" }],
+
+
+[{
+  "label": "肃州区",
+  "value": "620902" },
+
+{
+  "label": "金塔县",
+  "value": "620921" },
+
+{
+  "label": "瓜州县",
+  "value": "620922" },
+
+{
+  "label": "肃北蒙古族自治县",
+  "value": "620923" },
+
+{
+  "label": "阿克塞哈萨克族自治县",
+  "value": "620924" },
+
+{
+  "label": "玉门市",
+  "value": "620981" },
+
+{
+  "label": "敦煌市",
+  "value": "620982" }],
+
+
+[{
+  "label": "西峰区",
+  "value": "621002" },
+
+{
+  "label": "庆城县",
+  "value": "621021" },
+
+{
+  "label": "环县",
+  "value": "621022" },
+
+{
+  "label": "华池县",
+  "value": "621023" },
+
+{
+  "label": "合水县",
+  "value": "621024" },
+
+{
+  "label": "正宁县",
+  "value": "621025" },
+
+{
+  "label": "宁县",
+  "value": "621026" },
+
+{
+  "label": "镇原县",
+  "value": "621027" }],
+
+
+[{
+  "label": "安定区",
+  "value": "621102" },
+
+{
+  "label": "通渭县",
+  "value": "621121" },
+
+{
+  "label": "陇西县",
+  "value": "621122" },
+
+{
+  "label": "渭源县",
+  "value": "621123" },
+
+{
+  "label": "临洮县",
+  "value": "621124" },
+
+{
+  "label": "漳县",
+  "value": "621125" },
+
+{
+  "label": "岷县",
+  "value": "621126" }],
+
+
+[{
+  "label": "武都区",
+  "value": "621202" },
+
+{
+  "label": "成县",
+  "value": "621221" },
+
+{
+  "label": "文县",
+  "value": "621222" },
+
+{
+  "label": "宕昌县",
+  "value": "621223" },
+
+{
+  "label": "康县",
+  "value": "621224" },
+
+{
+  "label": "西和县",
+  "value": "621225" },
+
+{
+  "label": "礼县",
+  "value": "621226" },
+
+{
+  "label": "徽县",
+  "value": "621227" },
+
+{
+  "label": "两当县",
+  "value": "621228" }],
+
+
+[{
+  "label": "临夏市",
+  "value": "622901" },
+
+{
+  "label": "临夏县",
+  "value": "622921" },
+
+{
+  "label": "康乐县",
+  "value": "622922" },
+
+{
+  "label": "永靖县",
+  "value": "622923" },
+
+{
+  "label": "广河县",
+  "value": "622924" },
+
+{
+  "label": "和政县",
+  "value": "622925" },
+
+{
+  "label": "东乡族自治县",
+  "value": "622926" },
+
+{
+  "label": "积石山保安族东乡族撒拉族自治县",
+  "value": "622927" }],
+
+
+[{
+  "label": "合作市",
+  "value": "623001" },
+
+{
+  "label": "临潭县",
+  "value": "623021" },
+
+{
+  "label": "卓尼县",
+  "value": "623022" },
+
+{
+  "label": "舟曲县",
+  "value": "623023" },
+
+{
+  "label": "迭部县",
+  "value": "623024" },
+
+{
+  "label": "玛曲县",
+  "value": "623025" },
+
+{
+  "label": "碌曲县",
+  "value": "623026" },
+
+{
+  "label": "夏河县",
+  "value": "623027" }]],
+
+
+
+[
+[{
+  "label": "城东区",
+  "value": "630102" },
+
+{
+  "label": "城中区",
+  "value": "630103" },
+
+{
+  "label": "城西区",
+  "value": "630104" },
+
+{
+  "label": "城北区",
+  "value": "630105" },
+
+{
+  "label": "大通回族土族自治县",
+  "value": "630121" },
+
+{
+  "label": "湟中县",
+  "value": "630122" },
+
+{
+  "label": "湟源县",
+  "value": "630123" }],
+
+
+[{
+  "label": "乐都区",
+  "value": "630202" },
+
+{
+  "label": "平安区",
+  "value": "630203" },
+
+{
+  "label": "民和回族土族自治县",
+  "value": "630222" },
+
+{
+  "label": "互助土族自治县",
+  "value": "630223" },
+
+{
+  "label": "化隆回族自治县",
+  "value": "630224" },
+
+{
+  "label": "循化撒拉族自治县",
+  "value": "630225" }],
+
+
+[{
+  "label": "门源回族自治县",
+  "value": "632221" },
+
+{
+  "label": "祁连县",
+  "value": "632222" },
+
+{
+  "label": "海晏县",
+  "value": "632223" },
+
+{
+  "label": "刚察县",
+  "value": "632224" }],
+
+
+[{
+  "label": "同仁县",
+  "value": "632321" },
+
+{
+  "label": "尖扎县",
+  "value": "632322" },
+
+{
+  "label": "泽库县",
+  "value": "632323" },
+
+{
+  "label": "河南蒙古族自治县",
+  "value": "632324" }],
+
+
+[{
+  "label": "共和县",
+  "value": "632521" },
+
+{
+  "label": "同德县",
+  "value": "632522" },
+
+{
+  "label": "贵德县",
+  "value": "632523" },
+
+{
+  "label": "兴海县",
+  "value": "632524" },
+
+{
+  "label": "贵南县",
+  "value": "632525" }],
+
+
+[{
+  "label": "玛沁县",
+  "value": "632621" },
+
+{
+  "label": "班玛县",
+  "value": "632622" },
+
+{
+  "label": "甘德县",
+  "value": "632623" },
+
+{
+  "label": "达日县",
+  "value": "632624" },
+
+{
+  "label": "久治县",
+  "value": "632625" },
+
+{
+  "label": "玛多县",
+  "value": "632626" }],
+
+
+[{
+  "label": "玉树市",
+  "value": "632701" },
+
+{
+  "label": "杂多县",
+  "value": "632722" },
+
+{
+  "label": "称多县",
+  "value": "632723" },
+
+{
+  "label": "治多县",
+  "value": "632724" },
+
+{
+  "label": "囊谦县",
+  "value": "632725" },
+
+{
+  "label": "曲麻莱县",
+  "value": "632726" }],
+
+
+[{
+  "label": "格尔木市",
+  "value": "632801" },
+
+{
+  "label": "德令哈市",
+  "value": "632802" },
+
+{
+  "label": "乌兰县",
+  "value": "632821" },
+
+{
+  "label": "都兰县",
+  "value": "632822" },
+
+{
+  "label": "天峻县",
+  "value": "632823" },
+
+{
+  "label": "大柴旦行政委员会",
+  "value": "632857" },
+
+{
+  "label": "冷湖行政委员会",
+  "value": "632858" },
+
+{
+  "label": "茫崖行政委员会",
+  "value": "632859" }]],
+
+
+
+[
+[{
+  "label": "兴庆区",
+  "value": "640104" },
+
+{
+  "label": "西夏区",
+  "value": "640105" },
+
+{
+  "label": "金凤区",
+  "value": "640106" },
+
+{
+  "label": "永宁县",
+  "value": "640121" },
+
+{
+  "label": "贺兰县",
+  "value": "640122" },
+
+{
+  "label": "灵武市",
+  "value": "640181" }],
+
+
+[{
+  "label": "大武口区",
+  "value": "640202" },
+
+{
+  "label": "惠农区",
+  "value": "640205" },
+
+{
+  "label": "平罗县",
+  "value": "640221" }],
+
+
+[{
+  "label": "利通区",
+  "value": "640302" },
+
+{
+  "label": "红寺堡区",
+  "value": "640303" },
+
+{
+  "label": "盐池县",
+  "value": "640323" },
+
+{
+  "label": "同心县",
+  "value": "640324" },
+
+{
+  "label": "青铜峡市",
+  "value": "640381" }],
+
+
+[{
+  "label": "原州区",
+  "value": "640402" },
+
+{
+  "label": "西吉县",
+  "value": "640422" },
+
+{
+  "label": "隆德县",
+  "value": "640423" },
+
+{
+  "label": "泾源县",
+  "value": "640424" },
+
+{
+  "label": "彭阳县",
+  "value": "640425" }],
+
+
+[{
+  "label": "沙坡头区",
+  "value": "640502" },
+
+{
+  "label": "中宁县",
+  "value": "640521" },
+
+{
+  "label": "海原县",
+  "value": "640522" }]],
+
+
+
+[
+[{
+  "label": "天山区",
+  "value": "650102" },
+
+{
+  "label": "沙依巴克区",
+  "value": "650103" },
+
+{
+  "label": "新市区",
+  "value": "650104" },
+
+{
+  "label": "水磨沟区",
+  "value": "650105" },
+
+{
+  "label": "头屯河区",
+  "value": "650106" },
+
+{
+  "label": "达坂城区",
+  "value": "650107" },
+
+{
+  "label": "米东区",
+  "value": "650109" },
+
+{
+  "label": "乌鲁木齐县",
+  "value": "650121" },
+
+{
+  "label": "乌鲁木齐经济技术开发区",
+  "value": "650171" },
+
+{
+  "label": "乌鲁木齐高新技术产业开发区",
+  "value": "650172" }],
+
+
+[{
+  "label": "独山子区",
+  "value": "650202" },
+
+{
+  "label": "克拉玛依区",
+  "value": "650203" },
+
+{
+  "label": "白碱滩区",
+  "value": "650204" },
+
+{
+  "label": "乌尔禾区",
+  "value": "650205" }],
+
+
+[{
+  "label": "高昌区",
+  "value": "650402" },
+
+{
+  "label": "鄯善县",
+  "value": "650421" },
+
+{
+  "label": "托克逊县",
+  "value": "650422" }],
+
+
+[{
+  "label": "伊州区",
+  "value": "650502" },
+
+{
+  "label": "巴里坤哈萨克自治县",
+  "value": "650521" },
+
+{
+  "label": "伊吾县",
+  "value": "650522" }],
+
+
+[{
+  "label": "昌吉市",
+  "value": "652301" },
+
+{
+  "label": "阜康市",
+  "value": "652302" },
+
+{
+  "label": "呼图壁县",
+  "value": "652323" },
+
+{
+  "label": "玛纳斯县",
+  "value": "652324" },
+
+{
+  "label": "奇台县",
+  "value": "652325" },
+
+{
+  "label": "吉木萨尔县",
+  "value": "652327" },
+
+{
+  "label": "木垒哈萨克自治县",
+  "value": "652328" }],
+
+
+[{
+  "label": "博乐市",
+  "value": "652701" },
+
+{
+  "label": "阿拉山口市",
+  "value": "652702" },
+
+{
+  "label": "精河县",
+  "value": "652722" },
+
+{
+  "label": "温泉县",
+  "value": "652723" }],
+
+
+[{
+  "label": "库尔勒市",
+  "value": "652801" },
+
+{
+  "label": "轮台县",
+  "value": "652822" },
+
+{
+  "label": "尉犁县",
+  "value": "652823" },
+
+{
+  "label": "若羌县",
+  "value": "652824" },
+
+{
+  "label": "且末县",
+  "value": "652825" },
+
+{
+  "label": "焉耆回族自治县",
+  "value": "652826" },
+
+{
+  "label": "和静县",
+  "value": "652827" },
+
+{
+  "label": "和硕县",
+  "value": "652828" },
+
+{
+  "label": "博湖县",
+  "value": "652829" },
+
+{
+  "label": "库尔勒经济技术开发区",
+  "value": "652871" }],
+
+
+[{
+  "label": "阿克苏市",
+  "value": "652901" },
+
+{
+  "label": "温宿县",
+  "value": "652922" },
+
+{
+  "label": "库车县",
+  "value": "652923" },
+
+{
+  "label": "沙雅县",
+  "value": "652924" },
+
+{
+  "label": "新和县",
+  "value": "652925" },
+
+{
+  "label": "拜城县",
+  "value": "652926" },
+
+{
+  "label": "乌什县",
+  "value": "652927" },
+
+{
+  "label": "阿瓦提县",
+  "value": "652928" },
+
+{
+  "label": "柯坪县",
+  "value": "652929" }],
+
+
+[{
+  "label": "阿图什市",
+  "value": "653001" },
+
+{
+  "label": "阿克陶县",
+  "value": "653022" },
+
+{
+  "label": "阿合奇县",
+  "value": "653023" },
+
+{
+  "label": "乌恰县",
+  "value": "653024" }],
+
+
+[{
+  "label": "喀什市",
+  "value": "653101" },
+
+{
+  "label": "疏附县",
+  "value": "653121" },
+
+{
+  "label": "疏勒县",
+  "value": "653122" },
+
+{
+  "label": "英吉沙县",
+  "value": "653123" },
+
+{
+  "label": "泽普县",
+  "value": "653124" },
+
+{
+  "label": "莎车县",
+  "value": "653125" },
+
+{
+  "label": "叶城县",
+  "value": "653126" },
+
+{
+  "label": "麦盖提县",
+  "value": "653127" },
+
+{
+  "label": "岳普湖县",
+  "value": "653128" },
+
+{
+  "label": "伽师县",
+  "value": "653129" },
+
+{
+  "label": "巴楚县",
+  "value": "653130" },
+
+{
+  "label": "塔什库尔干塔吉克自治县",
+  "value": "653131" }],
+
+
+[{
+  "label": "和田市",
+  "value": "653201" },
+
+{
+  "label": "和田县",
+  "value": "653221" },
+
+{
+  "label": "墨玉县",
+  "value": "653222" },
+
+{
+  "label": "皮山县",
+  "value": "653223" },
+
+{
+  "label": "洛浦县",
+  "value": "653224" },
+
+{
+  "label": "策勒县",
+  "value": "653225" },
+
+{
+  "label": "于田县",
+  "value": "653226" },
+
+{
+  "label": "民丰县",
+  "value": "653227" }],
+
+
+[{
+  "label": "伊宁市",
+  "value": "654002" },
+
+{
+  "label": "奎屯市",
+  "value": "654003" },
+
+{
+  "label": "霍尔果斯市",
+  "value": "654004" },
+
+{
+  "label": "伊宁县",
+  "value": "654021" },
+
+{
+  "label": "察布查尔锡伯自治县",
+  "value": "654022" },
+
+{
+  "label": "霍城县",
+  "value": "654023" },
+
+{
+  "label": "巩留县",
+  "value": "654024" },
+
+{
+  "label": "新源县",
+  "value": "654025" },
+
+{
+  "label": "昭苏县",
+  "value": "654026" },
+
+{
+  "label": "特克斯县",
+  "value": "654027" },
+
+{
+  "label": "尼勒克县",
+  "value": "654028" }],
+
+
+[{
+  "label": "塔城市",
+  "value": "654201" },
+
+{
+  "label": "乌苏市",
+  "value": "654202" },
+
+{
+  "label": "额敏县",
+  "value": "654221" },
+
+{
+  "label": "沙湾县",
+  "value": "654223" },
+
+{
+  "label": "托里县",
+  "value": "654224" },
+
+{
+  "label": "裕民县",
+  "value": "654225" },
+
+{
+  "label": "和布克赛尔蒙古自治县",
+  "value": "654226" }],
+
+
+[{
+  "label": "阿勒泰市",
+  "value": "654301" },
+
+{
+  "label": "布尔津县",
+  "value": "654321" },
+
+{
+  "label": "富蕴县",
+  "value": "654322" },
+
+{
+  "label": "福海县",
+  "value": "654323" },
+
+{
+  "label": "哈巴河县",
+  "value": "654324" },
+
+{
+  "label": "青河县",
+  "value": "654325" },
+
+{
+  "label": "吉木乃县",
+  "value": "654326" }],
+
+
+[{
+  "label": "石河子市",
+  "value": "659001" },
+
+{
+  "label": "阿拉尔市",
+  "value": "659002" },
+
+{
+  "label": "图木舒克市",
+  "value": "659003" },
+
+{
+  "label": "五家渠市",
+  "value": "659004" },
+
+{
+  "label": "铁门关市",
+  "value": "659006" }]],
+
+
+
+[
+[{
+  "label": "台北",
+  "value": "660101" }],
+
+[{
+  "label": "高雄",
+  "value": "660201" }],
+
+[{
+  "label": "基隆",
+  "value": "660301" }],
+
+[{
+  "label": "台中",
+  "value": "660401" }],
+
+[{
+  "label": "台南",
+  "value": "660501" }],
+
+[{
+  "label": "新竹",
+  "value": "660601" }],
+
+[{
+  "label": "嘉义",
+  "value": "660701" }],
+
+[{
+  "label": "宜兰",
+  "value": "660801" }],
+
+[{
+  "label": "桃园",
+  "value": "660901" }],
+
+[{
+  "label": "苗栗",
+  "value": "661001" }],
+
+[{
+  "label": "彰化",
+  "value": "661101" }],
+
+[{
+  "label": "南投",
+  "value": "661201" }],
+
+[{
+  "label": "云林",
+  "value": "661301" }],
+
+[{
+  "label": "屏东",
+  "value": "661401" }],
+
+[{
+  "label": "台东",
+  "value": "661501" }],
+
+[{
+  "label": "花莲",
+  "value": "661601" }],
+
+[{
+  "label": "澎湖",
+  "value": "661701" }]],
+
+
+[
+[{
+  "label": "香港岛",
+  "value": "670101" }],
+
+[{
+  "label": "九龙",
+  "value": "670201" }],
+
+[{
+  "label": "新界",
+  "value": "670301" }]],
+
+
+[
+[{
+  "label": "澳门半岛",
+  "value": "680101" }],
+
+[{
+  "label": "氹仔岛",
+  "value": "680201" }],
+
+[{
+  "label": "路环岛",
+  "value": "680301" }],
+
+[{
+  "label": "路氹城",
+  "value": "680401" }]]];var _default =
+
+
+
+areaData;exports.default = _default;
+
+/***/ }),
+
+/***/ 148:
+/*!******************************************************************************************!*\
+  !*** D:/Code/front_end/小程序/薪火小程序/薪火小程序前端/compoments/schoolPicker/school-data/schools.js ***!
+  \******************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var data = [{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "北京大学" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "中国人民大学" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "清华大学" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "北京交通大学" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "北京工业大学" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "北京航空航天大学" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "北京理工大学" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "北京科技大学" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "北方工业大学" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "北京化工大学" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "北京工商大学" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "北京服装学院" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "北京邮电大学" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "北京印刷学院" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "北京建筑大学" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "北京石油化工学院" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "北京电子科技学院" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "中国农业大学" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "北京农学院" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "北京林业大学" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "北京协和医学院" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "首都医科大学" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "北京中医药大学" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "北京师范大学" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "首都师范大学" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "首都体育学院" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "北京外国语大学" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "北京第二外国语学院" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "北京语言大学" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "中国传媒大学" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "中央财经大学" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "对外经济贸易大学" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "北京物资学院" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "首都经济贸易大学" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "外交学院" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "中国人民公安大学" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "国际关系学院" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "北京体育大学" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "中央音乐学院" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "中国音乐学院" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "中央美术学院" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "中央戏剧学院" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "中国戏曲学院" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "北京电影学院" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "北京舞蹈学院" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "中央民族大学" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "中国政法大学" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "华北电力大学" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "中华女子学院" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "北京信息科技大学" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "中国矿业大学（北京）" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "中国石油大学（北京）" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "中国地质大学（北京）" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "北京联合大学" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "北京城市学院" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "中国青年政治学院" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "首钢工学院" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "中国劳动关系学院" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "北京吉利学院" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "首都师范大学科德学院" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "北京工商大学嘉华学院" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "北京邮电大学世纪学院" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "北京工业大学耿丹学院" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "北京警察学院" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "北京第二外国语学院中瑞酒店管理学院" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "中国科学院大学" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "北京工业职业技术学院" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "北京信息职业技术学院" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "北京电子科技职业学院" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "北京京北职业技术学院" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "北京交通职业技术学院" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "北京青年政治学院" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "北京农业职业学院" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "北京政法职业学院" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "北京财贸职业学院" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "北京北大方正软件职业技术学院" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "北京经贸职业学院" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "北京经济技术职业学院" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "北京戏曲艺术职业学院" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "北京汇佳职业学院" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "北京科技经营管理学院" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "北京科技职业学院" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "北京培黎职业学院" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "北京经济管理职业学院" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "北京劳动保障职业学院" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "北京社会管理职业学院" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "北京艺术传媒职业学院" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "北京体育职业学院" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "北京交通运输职业学院" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "北京卫生职业学院" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "北京网络职业学院" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "中国社会科学院大学" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "中国人民解放军国防大学" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "中国人民解放军陆军装甲兵学院" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "中国人民解放军陆军航空兵学院" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "中国人民解放军陆军防化学院" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "中国人民解放军空军指挥学院" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "中国人民解放军战略支援部队航天工程大学" },
+{
+  "province": "北京市",
+  "city": "北京市",
+  "name": "中国人民武装警察部队特种警察学院" },
+{
+  "province": "天津市",
+  "city": "天津市",
+  "name": "南开大学" },
+{
+  "province": "天津市",
+  "city": "天津市",
+  "name": "天津大学" },
+{
+  "province": "天津市",
+  "city": "天津市",
+  "name": "天津科技大学" },
+{
+  "province": "天津市",
+  "city": "天津市",
+  "name": "天津工业大学" },
+{
+  "province": "天津市",
+  "city": "天津市",
+  "name": "中国民航大学" },
+{
+  "province": "天津市",
+  "city": "天津市",
+  "name": "天津理工大学" },
+{
+  "province": "天津市",
+  "city": "天津市",
+  "name": "天津农学院" },
+{
+  "province": "天津市",
+  "city": "天津市",
+  "name": "天津医科大学" },
+{
+  "province": "天津市",
+  "city": "天津市",
+  "name": "天津中医药大学" },
+{
+  "province": "天津市",
+  "city": "天津市",
+  "name": "天津师范大学" },
+{
+  "province": "天津市",
+  "city": "天津市",
+  "name": "天津职业技术师范大学" },
+{
+  "province": "天津市",
+  "city": "天津市",
+  "name": "天津外国语大学" },
+{
+  "province": "天津市",
+  "city": "天津市",
+  "name": "天津商业大学" },
+{
+  "province": "天津市",
+  "city": "天津市",
+  "name": "天津财经大学" },
+{
+  "province": "天津市",
+  "city": "天津市",
+  "name": "天津体育学院" },
+{
+  "province": "天津市",
+  "city": "天津市",
+  "name": "天津音乐学院" },
+{
+  "province": "天津市",
+  "city": "天津市",
+  "name": "天津美术学院" },
+{
+  "province": "天津市",
+  "city": "天津市",
+  "name": "天津城建大学" },
+{
+  "province": "天津市",
+  "city": "天津市",
+  "name": "天津天狮学院" },
+{
+  "province": "天津市",
+  "city": "天津市",
+  "name": "天津外国语大学滨海外事学院" },
+{
+  "province": "天津市",
+  "city": "天津市",
+  "name": "天津体育学院运动与文化艺术学院" },
+{
+  "province": "天津市",
+  "city": "天津市",
+  "name": "天津商业大学宝德学院" },
+{
+  "province": "天津市",
+  "city": "天津市",
+  "name": "天津医科大学临床医学院" },
+{
+  "province": "天津市",
+  "city": "天津市",
+  "name": "南开大学滨海学院" },
+{
+  "province": "天津市",
+  "city": "天津市",
+  "name": "天津师范大学津沽学院" },
+{
+  "province": "天津市",
+  "city": "天津市",
+  "name": "天津理工大学中环信息学院" },
+{
+  "province": "天津市",
+  "city": "天津市",
+  "name": "北京科技大学天津学院" },
+{
+  "province": "天津市",
+  "city": "天津市",
+  "name": "天津大学仁爱学院" },
+{
+  "province": "天津市",
+  "city": "天津市",
+  "name": "天津财经大学珠江学院" },
+{
+  "province": "天津市",
+  "city": "天津市",
+  "name": "天津市职业大学" },
+{
+  "province": "天津市",
+  "city": "天津市",
+  "name": "天津中德应用技术大学" },
+{
+  "province": "天津市",
+  "city": "天津市",
+  "name": "天津滨海职业学院" },
+{
+  "province": "天津市",
+  "city": "天津市",
+  "name": "天津工程职业技术学院" },
+{
+  "province": "天津市",
+  "city": "天津市",
+  "name": "天津青年职业学院" },
+{
+  "province": "天津市",
+  "city": "天津市",
+  "name": "天津渤海职业技术学院" },
+{
+  "province": "天津市",
+  "city": "天津市",
+  "name": "天津电子信息职业技术学院" },
+{
+  "province": "天津市",
+  "city": "天津市",
+  "name": "天津机电职业技术学院" },
+{
+  "province": "天津市",
+  "city": "天津市",
+  "name": "天津现代职业技术学院" },
+{
+  "province": "天津市",
+  "city": "天津市",
+  "name": "天津公安警官职业学院" },
+{
+  "province": "天津市",
+  "city": "天津市",
+  "name": "天津轻工职业技术学院" },
+{
+  "province": "天津市",
+  "city": "天津市",
+  "name": "天津商务职业学院" },
+{
+  "province": "天津市",
+  "city": "天津市",
+  "name": "天津国土资源和房屋职业学院" },
+{
+  "province": "天津市",
+  "city": "天津市",
+  "name": "天津医学高等专科学校" },
+{
+  "province": "天津市",
+  "city": "天津市",
+  "name": "天津开发区职业技术学院" },
+{
+  "province": "天津市",
+  "city": "天津市",
+  "name": "天津艺术职业学院" },
+{
+  "province": "天津市",
+  "city": "天津市",
+  "name": "天津交通职业学院" },
+{
+  "province": "天津市",
+  "city": "天津市",
+  "name": "天津冶金职业技术学院" },
+{
+  "province": "天津市",
+  "city": "天津市",
+  "name": "天津石油职业技术学院" },
+{
+  "province": "天津市",
+  "city": "天津市",
+  "name": "天津城市职业学院" },
+{
+  "province": "天津市",
+  "city": "天津市",
+  "name": "天津铁道职业技术学院" },
+{
+  "province": "天津市",
+  "city": "天津市",
+  "name": "天津工艺美术职业学院" },
+{
+  "province": "天津市",
+  "city": "天津市",
+  "name": "天津城市建设管理职业技术学院" },
+{
+  "province": "天津市",
+  "city": "天津市",
+  "name": "天津生物工程职业技术学院" },
+{
+  "province": "天津市",
+  "city": "天津市",
+  "name": "天津海运职业学院" },
+{
+  "province": "天津市",
+  "city": "天津市",
+  "name": "天津广播影视职业学院" },
+{
+  "province": "天津市",
+  "city": "天津市",
+  "name": "天津体育职业学院" },
+{
+  "province": "天津市",
+  "city": "天津市",
+  "name": "天津滨海汽车工程职业学院" },
+{
+  "province": "天津市",
+  "city": "天津市",
+  "name": "中国人民解放军陆军军事交通学院" },
+{
+  "province": "天津市",
+  "city": "天津市",
+  "name": "中国人民解放军海军勤务学院" },
+{
+  "province": "天津市",
+  "city": "天津市",
+  "name": "中国人民武装警察部队指挥学院" },
+{
+  "province": "天津市",
+  "city": "天津市",
+  "name": "中国人民武装警察部队后勤学院" },
+{
+  "province": "河北省",
+  "city": "保定市",
+  "name": "河北大学" },
+{
+  "province": "河北省",
+  "city": "邯郸市",
+  "name": "河北工程大学" },
+{
+  "province": "河北省",
+  "city": "石家庄市",
+  "name": "河北地质大学" },
+{
+  "province": "河北省",
+  "city": "天津市",
+  "name": "河北工业大学" },
+{
+  "province": "河北省",
+  "city": "唐山市",
+  "name": "华北理工大学" },
+{
+  "province": "河北省",
+  "city": "石家庄市",
+  "name": "河北科技大学" },
+{
+  "province": "河北省",
+  "city": "张家口市",
+  "name": "河北建筑工程学院" },
+{
+  "province": "河北省",
+  "city": "保定市",
+  "name": "河北农业大学" },
+{
+  "province": "河北省",
+  "city": "石家庄市",
+  "name": "河北医科大学" },
+{
+  "province": "河北省",
+  "city": "张家口市",
+  "name": "河北北方学院" },
+{
+  "province": "河北省",
+  "city": "承德市",
+  "name": "承德医学院" },
+{
+  "province": "河北省",
+  "city": "石家庄市",
+  "name": "河北师范大学" },
+{
+  "province": "河北省",
+  "city": "保定市",
+  "name": "保定学院" },
+{
+  "province": "河北省",
+  "city": "承德市",
+  "name": "河北民族师范学院" },
+{
+  "province": "河北省",
+  "city": "唐山市",
+  "name": "唐山师范学院" },
+{
+  "province": "河北省",
+  "city": "廊坊市",
+  "name": "廊坊师范学院" },
+{
+  "province": "河北省",
+  "city": "衡水市",
+  "name": "衡水学院" },
+{
+  "province": "河北省",
+  "city": "石家庄市",
+  "name": "石家庄学院" },
+{
+  "province": "河北省",
+  "city": "邯郸市",
+  "name": "邯郸学院" },
+{
+  "province": "河北省",
+  "city": "邢台市",
+  "name": "邢台学院" },
+{
+  "province": "河北省",
+  "city": "沧州市",
+  "name": "沧州师范学院" },
+{
+  "province": "河北省",
+  "city": "石家庄市",
+  "name": "石家庄铁道大学" },
+{
+  "province": "河北省",
+  "city": "秦皇岛市",
+  "name": "燕山大学" },
+{
+  "province": "河北省",
+  "city": "秦皇岛市",
+  "name": "河北科技师范学院" },
+{
+  "province": "河北省",
+  "city": "唐山市",
+  "name": "唐山学院" },
+{
+  "province": "河北省",
+  "city": "廊坊市",
+  "name": "华北科技学院" },
+{
+  "province": "河北省",
+  "city": "廊坊市",
+  "name": "中国人民武装警察部队学院" },
+{
+  "province": "河北省",
+  "city": "石家庄市",
+  "name": "河北体育学院" },
+{
+  "province": "河北省",
+  "city": "保定市",
+  "name": "河北金融学院" },
+{
+  "province": "河北省",
+  "city": "廊坊市",
+  "name": "北华航天工业学院" },
+{
+  "province": "河北省",
+  "city": "廊坊市",
+  "name": "防灾科技学院" },
+{
+  "province": "河北省",
+  "city": "石家庄市",
+  "name": "河北经贸大学" },
+{
+  "province": "河北省",
+  "city": "保定市",
+  "name": "中央司法警官学院" },
+{
+  "province": "河北省",
+  "city": "石家庄市",
+  "name": "河北传媒学院" },
+{
+  "province": "河北省",
+  "city": "石家庄市",
+  "name": "河北工程技术学院" },
+{
+  "province": "河北省",
+  "city": "石家庄市",
+  "name": "河北美术学院" },
+{
+  "province": "河北省",
+  "city": "保定市",
+  "name": "河北科技学院" },
+{
+  "province": "河北省",
+  "city": "石家庄市",
+  "name": "河北外国语学院" },
+{
+  "province": "河北省",
+  "city": "保定市",
+  "name": "河北大学工商学院" },
+{
+  "province": "河北省",
+  "city": "唐山市",
+  "name": "华北理工大学轻工学院" },
+{
+  "province": "河北省",
+  "city": "石家庄市",
+  "name": "河北科技大学理工学院" },
+{
+  "province": "河北省",
+  "city": "石家庄市",
+  "name": "河北师范大学汇华学院" },
+{
+  "province": "河北省",
+  "city": "石家庄市",
+  "name": "河北经贸大学经济管理学院" },
+{
+  "province": "河北省",
+  "city": "石家庄市",
+  "name": "河北医科大学临床学院" },
+{
+  "province": "河北省",
+  "city": "保定市",
+  "name": "华北电力大学科技学院" },
+{
+  "province": "河北省",
+  "city": "邯郸市",
+  "name": "河北工程大学科信学院" },
+{
+  "province": "河北省",
+  "city": "廊坊市",
+  "name": "河北工业大学城市学院" },
+{
+  "province": "河北省",
+  "city": "秦皇岛市",
+  "name": "燕山大学里仁学院" },
+{
+  "province": "河北省",
+  "city": "石家庄市",
+  "name": "石家庄铁道大学四方学院" },
+{
+  "province": "河北省",
+  "city": "石家庄市",
+  "name": "河北地质大学华信学院" },
+{
+  "province": "河北省",
+  "city": "保定市",
+  "name": "河北农业大学现代科技学院" },
+{
+  "province": "河北省",
+  "city": "唐山市",
+  "name": "华北理工大学冀唐学院" },
+{
+  "province": "河北省",
+  "city": "保定市",
+  "name": "中国地质大学长城学院" },
+{
+  "province": "河北省",
+  "city": "廊坊市",
+  "name": "燕京理工学院" },
+{
+  "province": "河北省",
+  "city": "廊坊市",
+  "name": "北京中医药大学东方学院" },
+{
+  "province": "河北省",
+  "city": "沧州市",
+  "name": "北京交通大学海滨学院" },
+{
+  "province": "河北省",
+  "city": "石家庄市",
+  "name": "河北中医学院" },
+{
+  "province": "河北省",
+  "city": "张家口市",
+  "name": "张家口学院" },
+{
+  "province": "河北省",
+  "city": "沧州市",
+  "name": "河北水利电力学院" },
+{
+  "province": "河北省",
+  "city": "石家庄市",
+  "name": "河北工业职业技术学院" },
+{
+  "province": "河北省",
+  "city": "邯郸市",
+  "name": "邯郸职业技术学院" },
+{
+  "province": "河北省",
+  "city": "石家庄市",
+  "name": "石家庄职业技术学院" },
+{
+  "province": "河北省",
+  "city": "张家口市",
+  "name": "张家口职业技术学院" },
+{
+  "province": "河北省",
+  "city": "承德市",
+  "name": "承德石油高等专科学校" },
+{
+  "province": "河北省",
+  "city": "邢台市",
+  "name": "邢台职业技术学院" },
+{
+  "province": "河北省",
+  "city": "保定市",
+  "name": "河北软件职业技术学院" },
+{
+  "province": "河北省",
+  "city": "廊坊市",
+  "name": "河北石油职业技术学院" },
+{
+  "province": "河北省",
+  "city": "秦皇岛市",
+  "name": "河北建材职业技术学院" },
+{
+  "province": "河北省",
+  "city": "石家庄市",
+  "name": "河北政法职业学院" },
+{
+  "province": "河北省",
+  "city": "沧州市",
+  "name": "沧州职业技术学院" },
+{
+  "province": "河北省",
+  "city": "唐山市",
+  "name": "河北能源职业技术学院" },
+{
+  "province": "河北省",
+  "city": "石家庄市",
+  "name": "石家庄铁路职业技术学院" },
+{
+  "province": "河北省",
+  "city": "保定市",
+  "name": "保定职业技术学院" },
+{
+  "province": "河北省",
+  "city": "秦皇岛市",
+  "name": "秦皇岛职业技术学院" },
+{
+  "province": "河北省",
+  "city": "石家庄市",
+  "name": "石家庄工程职业学院" },
+{
+  "province": "河北省",
+  "city": "石家庄市",
+  "name": "石家庄城市经济职业学院" },
+{
+  "province": "河北省",
+  "city": "唐山市",
+  "name": "唐山职业技术学院" },
+{
+  "province": "河北省",
+  "city": "衡水市",
+  "name": "衡水职业技术学院" },
+{
+  "province": "河北省",
+  "city": "唐山市",
+  "name": "唐山工业职业技术学院" },
+{
+  "province": "河北省",
+  "city": "邢台市",
+  "name": "邢台医学高等专科学校" },
+{
+  "province": "河北省",
+  "city": "石家庄市",
+  "name": "河北省艺术职业学院" },
+{
+  "province": "河北省",
+  "city": "承德市",
+  "name": "河北旅游职业学院" },
+{
+  "province": "河北省",
+  "city": "石家庄市",
+  "name": "石家庄财经职业学院" },
+{
+  "province": "河北省",
+  "city": "石家庄市",
+  "name": "河北交通职业技术学院" },
+{
+  "province": "河北省",
+  "city": "石家庄市",
+  "name": "河北化工医药职业技术学院" },
+{
+  "province": "河北省",
+  "city": "石家庄市",
+  "name": "石家庄信息工程职业学院" },
+{
+  "province": "河北省",
+  "city": "秦皇岛市",
+  "name": "河北对外经贸职业学院" },
+{
+  "province": "河北省",
+  "city": "保定市",
+  "name": "保定电力职业技术学院" },
+{
+  "province": "河北省",
+  "city": "邢台市",
+  "name": "河北机电职业技术学院" },
+{
+  "province": "河北省",
+  "city": "沧州市",
+  "name": "渤海石油职业学院" },
+{
+  "province": "河北省",
+  "city": "廊坊市",
+  "name": "廊坊职业技术学院" },
+{
+  "province": "河北省",
+  "city": "唐山市",
+  "name": "唐山科技职业技术学院" },
+{
+  "province": "河北省",
+  "city": "石家庄市",
+  "name": "石家庄邮电职业技术学院" },
+{
+  "province": "河北省",
+  "city": "石家庄市",
+  "name": "河北公安警察职业学院" },
+{
+  "province": "河北省",
+  "city": "石家庄市",
+  "name": "石家庄工商职业学院" },
+{
+  "province": "河北省",
+  "city": "石家庄市",
+  "name": "石家庄理工职业学院" },
+{
+  "province": "河北省",
+  "city": "石家庄市",
+  "name": "石家庄科技信息职业学院" },
+{
+  "province": "河北省",
+  "city": "邯郸市",
+  "name": "河北司法警官职业学院" },
+{
+  "province": "河北省",
+  "city": "沧州市",
+  "name": "沧州医学高等专科学校" },
+{
+  "province": "河北省",
+  "city": "石家庄市",
+  "name": "河北女子职业技术学院" },
+{
+  "province": "河北省",
+  "city": "石家庄市",
+  "name": "石家庄医学高等专科学校" },
+{
+  "province": "河北省",
+  "city": "保定市",
+  "name": "冀中职业学院" },
+{
+  "province": "河北省",
+  "city": "石家庄市",
+  "name": "石家庄人民医学高等专科学校" },
+{
+  "province": "河北省",
+  "city": "石家庄市",
+  "name": "石家庄科技工程职业学院" },
+{
+  "province": "河北省",
+  "city": "石家庄市",
+  "name": "河北劳动关系职业学院" },
+{
+  "province": "河北省",
+  "city": "石家庄市",
+  "name": "石家庄科技职业学院" },
+{
+  "province": "河北省",
+  "city": "廊坊市",
+  "name": "河北东方学院" },
+{
+  "province": "河北省",
+  "city": "沧州市",
+  "name": "泊头职业学院" },
+{
+  "province": "河北省",
+  "city": "张家口市",
+  "name": "宣化科技职业学院" },
+{
+  "province": "河北省",
+  "city": "廊坊市",
+  "name": "廊坊燕京职业技术学院" },
+{
+  "province": "河北省",
+  "city": "承德市",
+  "name": "承德护理职业学院" },
+{
+  "province": "河北省",
+  "city": "石家庄市",
+  "name": "石家庄幼儿师范高等专科学校" },
+{
+  "province": "河北省",
+  "city": "廊坊市",
+  "name": "廊坊卫生职业学院" },
+{
+  "province": "河北省",
+  "city": "石家庄市",
+  "name": "河北轨道运输职业技术学院" },
+{
+  "province": "河北省",
+  "city": "保定市",
+  "name": "保定幼儿师范高等专科学校" },
+{
+  "province": "河北省",
+  "city": "保定市",
+  "name": "河北工艺美术职业学院" },
+{
+  "province": "河北省",
+  "city": "沧州市",
+  "name": "渤海理工职业学院" },
+{
+  "province": "河北省",
+  "city": "秦皇岛市",
+  "name": "河北环境工程学院" },
+{
+  "province": "河北省",
+  "city": "唐山市",
+  "name": "唐山幼儿师范高等专科学校" },
+{
+  "province": "河北省",
+  "city": "石家庄市",
+  "name": "石家庄经济职业学院" },
+{
+  "province": "河北省",
+  "city": "唐山市",
+  "name": "曹妃甸职业技术学院" },
+{
+  "province": "河北省",
+  "city": "石家庄市",
+  "name": "中国人民解放军陆军指挥学院" },
+{
+  "province": "河北省",
+  "city": "石家庄市",
+  "name": "中国人民解放军空军石家庄飞行学院" },
+{
+  "province": "河北省",
+  "city": "石家庄市",
+  "name": "中国人民武装警察部队士官学校" },
+{
+  "province": "山西省",
+  "city": "太原市",
+  "name": "山西大学" },
+{
+  "province": "山西省",
+  "city": "太原市",
+  "name": "太原科技大学" },
+{
+  "province": "山西省",
+  "city": "太原市",
+  "name": "中北大学" },
+{
+  "province": "山西省",
+  "city": "太原市",
+  "name": "太原理工大学" },
+{
+  "province": "山西省",
+  "city": "晋中市",
+  "name": "山西农业大学" },
+{
+  "province": "山西省",
+  "city": "太原市",
+  "name": "山西医科大学" },
+{
+  "province": "山西省",
+  "city": "长治市",
+  "name": "长治医学院" },
+{
+  "province": "山西省",
+  "city": "临汾市",
+  "name": "山西师范大学" },
+{
+  "province": "山西省",
+  "city": "太原市",
+  "name": "太原师范学院" },
+{
+  "province": "山西省",
+  "city": "大同市",
+  "name": "山西大同大学" },
+{
+  "province": "山西省",
+  "city": "晋中市",
+  "name": "晋中学院" },
+{
+  "province": "山西省",
+  "city": "长治市",
+  "name": "长治学院" },
+{
+  "province": "山西省",
+  "city": "运城市",
+  "name": "运城学院" },
+{
+  "province": "山西省",
+  "city": "忻州市",
+  "name": "忻州师范学院" },
+{
+  "province": "山西省",
+  "city": "太原市",
+  "name": "山西财经大学" },
+{
+  "province": "山西省",
+  "city": "太原市",
+  "name": "山西中医药大学" },
+{
+  "province": "山西省",
+  "city": "吕梁市",
+  "name": "吕梁学院" },
+{
+  "province": "山西省",
+  "city": "太原市",
+  "name": "太原学院" },
+{
+  "province": "山西省",
+  "city": "太原市",
+  "name": "山西应用科技学院" },
+{
+  "province": "山西省",
+  "city": "太原市",
+  "name": "山西大学商务学院" },
+{
+  "province": "山西省",
+  "city": "太原市",
+  "name": "太原理工大学现代科技学院" },
+{
+  "province": "山西省",
+  "city": "晋中市",
+  "name": "山西农业大学信息学院" },
+{
+  "province": "山西省",
+  "city": "临汾市",
+  "name": "山西师范大学现代文理学院" },
+{
+  "province": "山西省",
+  "city": "太原市",
+  "name": "中北大学信息商务学院" },
+{
+  "province": "山西省",
+  "city": "太原市",
+  "name": "太原科技大学华科学院" },
+{
+  "province": "山西省",
+  "city": "太原市",
+  "name": "山西医科大学晋祠学院" },
+{
+  "province": "山西省",
+  "city": "太原市",
+  "name": "山西财经大学华商学院" },
+{
+  "province": "山西省",
+  "city": "太原市",
+  "name": "山西工商学院" },
+{
+  "province": "山西省",
+  "city": "太原市",
+  "name": "太原工业学院" },
+{
+  "province": "山西省",
+  "city": "太原市",
+  "name": "山西传媒学院" },
+{
+  "province": "山西省",
+  "city": "阳泉市",
+  "name": "山西工程技术学院" },
+{
+  "province": "山西省",
+  "city": "太原市",
+  "name": "山西省财政税务专科学校" },
+{
+  "province": "山西省",
+  "city": "太原市",
+  "name": "山西警察学院" },
+{
+  "province": "山西省",
+  "city": "长治市",
+  "name": "长治职业技术学院" },
+{
+  "province": "山西省",
+  "city": "太原市",
+  "name": "山西艺术职业学院" },
+{
+  "province": "山西省",
+  "city": "晋城市",
+  "name": "晋城职业技术学院" },
+{
+  "province": "山西省",
+  "city": "太原市",
+  "name": "山西建筑职业技术学院" },
+{
+  "province": "山西省",
+  "city": "太原市",
+  "name": "山西药科职业学院" },
+{
+  "province": "山西省",
+  "city": "太原市",
+  "name": "山西工程职业技术学院" },
+{
+  "province": "山西省",
+  "city": "太原市",
+  "name": "山西交通职业技术学院" },
+{
+  "province": "山西省",
+  "city": "大同市",
+  "name": "大同煤炭职业技术学院" },
+{
+  "province": "山西省",
+  "city": "长治市",
+  "name": "山西机电职业技术学院" },
+{
+  "province": "山西省",
+  "city": "太原市",
+  "name": "山西戏剧职业学院" },
+{
+  "province": "山西省",
+  "city": "太原市",
+  "name": "山西财贸职业技术学院" },
+{
+  "province": "山西省",
+  "city": "太原市",
+  "name": "山西林业职业技术学院" },
+{
+  "province": "山西省",
+  "city": "运城市",
+  "name": "山西水利职业技术学院" },
+{
+  "province": "山西省",
+  "city": "阳泉市",
+  "name": "阳泉职业技术学院" },
+{
+  "province": "山西省",
+  "city": "临汾市",
+  "name": "临汾职业技术学院" },
+{
+  "province": "山西省",
+  "city": "太原市",
+  "name": "山西职业技术学院" },
+{
+  "province": "山西省",
+  "city": "太原市",
+  "name": "山西煤炭职业技术学院" },
+{
+  "province": "山西省",
+  "city": "太原市",
+  "name": "山西金融职业学院" },
+{
+  "province": "山西省",
+  "city": "太原市",
+  "name": "太原城市职业技术学院" },
+{
+  "province": "山西省",
+  "city": "临汾市",
+  "name": "山西信息职业技术学院" },
+{
+  "province": "山西省",
+  "city": "太原市",
+  "name": "山西体育职业学院" },
+{
+  "province": "山西省",
+  "city": "太原市",
+  "name": "山西警官职业学院" },
+{
+  "province": "山西省",
+  "city": "太原市",
+  "name": "山西国际商务职业学院" },
+{
+  "province": "山西省",
+  "city": "长治市",
+  "name": "潞安职业技术学院" },
+{
+  "province": "山西省",
+  "city": "太原市",
+  "name": "太原旅游职业学院" },
+{
+  "province": "山西省",
+  "city": "太原市",
+  "name": "山西旅游职业学院" },
+{
+  "province": "山西省",
+  "city": "临汾市",
+  "name": "山西管理职业学院" },
+{
+  "province": "山西省",
+  "city": "太原市",
+  "name": "山西电力职业技术学院" },
+{
+  "province": "山西省",
+  "city": "忻州市",
+  "name": "忻州职业技术学院" },
+{
+  "province": "山西省",
+  "city": "晋中市",
+  "name": "山西同文职业技术学院" },
+{
+  "province": "山西省",
+  "city": "晋中市",
+  "name": "晋中职业技术学院" },
+{
+  "province": "山西省",
+  "city": "晋中市",
+  "name": "山西华澳商贸职业学院" },
+{
+  "province": "山西省",
+  "city": "运城市",
+  "name": "山西运城农业职业技术学院" },
+{
+  "province": "山西省",
+  "city": "运城市",
+  "name": "运城幼儿师范高等专科学校" },
+{
+  "province": "山西省",
+  "city": "太原市",
+  "name": "山西老区职业技术学院" },
+{
+  "province": "山西省",
+  "city": "太原市",
+  "name": "山西经贸职业学院" },
+{
+  "province": "山西省",
+  "city": "朔州市",
+  "name": "朔州职业技术学院" },
+{
+  "province": "山西省",
+  "city": "运城市",
+  "name": "运城职业技术学院" },
+{
+  "province": "山西省",
+  "city": "太原市",
+  "name": "山西轻工职业技术学院" },
+{
+  "province": "山西省",
+  "city": "晋中市",
+  "name": "晋中师范高等专科学校" },
+{
+  "province": "山西省",
+  "city": "阳泉市",
+  "name": "阳泉师范高等专科学校" },
+{
+  "province": "山西省",
+  "city": "太原市",
+  "name": "山西青年职业学院" },
+{
+  "province": "山西省",
+  "city": "运城市",
+  "name": "运城护理职业学院" },
+{
+  "province": "山西省",
+  "city": "运城市",
+  "name": "运城师范高等专科学校" },
+{
+  "province": "山西省",
+  "city": "朔州市",
+  "name": "朔州师范高等专科学校" },
+{
+  "province": "山西省",
+  "city": "吕梁市",
+  "name": "吕梁职业技术学院" },
+{
+  "province": "山西省",
+  "city": "晋中市",
+  "name": "山西能源学院" },
+{
+  "province": "山西省",
+  "city": "太原市",
+  "name": "中国人民解放军空军勤务学院" },
+{
+  "province": "内蒙古自治区",
+  "city": "呼和浩特市",
+  "name": "内蒙古大学" },
+{
+  "province": "内蒙古自治区",
+  "city": "包头市",
+  "name": "内蒙古科技大学" },
+{
+  "province": "内蒙古自治区",
+  "city": "呼和浩特市",
+  "name": "内蒙古工业大学" },
+{
+  "province": "内蒙古自治区",
+  "city": "呼和浩特市",
+  "name": "内蒙古农业大学" },
+{
+  "province": "内蒙古自治区",
+  "city": "呼和浩特市",
+  "name": "内蒙古医科大学" },
+{
+  "province": "内蒙古自治区",
+  "city": "呼和浩特市",
+  "name": "内蒙古师范大学" },
+{
+  "province": "内蒙古自治区",
+  "city": "通辽市",
+  "name": "内蒙古民族大学" },
+{
+  "province": "内蒙古自治区",
+  "city": "赤峰市",
+  "name": "赤峰学院" },
+{
+  "province": "内蒙古自治区",
+  "city": "呼和浩特市",
+  "name": "内蒙古财经大学" },
+{
+  "province": "内蒙古自治区",
+  "city": "呼伦贝尔市",
+  "name": "呼伦贝尔学院" },
+{
+  "province": "内蒙古自治区",
+  "city": "乌兰察布市",
+  "name": "集宁师范学院" },
+{
+  "province": "内蒙古自治区",
+  "city": "巴彦淖尔市",
+  "name": "河套学院" },
+{
+  "province": "内蒙古自治区",
+  "city": "呼和浩特市",
+  "name": "呼和浩特民族学院" },
+{
+  "province": "内蒙古自治区",
+  "city": "呼和浩特市",
+  "name": "内蒙古大学创业学院" },
+{
+  "province": "内蒙古自治区",
+  "city": "呼和浩特市",
+  "name": "内蒙古师范大学鸿德学院" },
+{
+  "province": "内蒙古自治区",
+  "city": "呼和浩特市",
+  "name": "内蒙古艺术学院" },
+{
+  "province": "内蒙古自治区",
+  "city": "鄂尔多斯市",
+  "name": "鄂尔多斯应用技术学院" },
+{
+  "province": "内蒙古自治区",
+  "city": "呼和浩特市",
+  "name": "内蒙古建筑职业技术学院" },
+{
+  "province": "内蒙古自治区",
+  "city": "呼和浩特市",
+  "name": "内蒙古丰州职业学院" },
+{
+  "province": "内蒙古自治区",
+  "city": "包头市",
+  "name": "包头职业技术学院" },
+{
+  "province": "内蒙古自治区",
+  "city": "兴安盟",
+  "name": "兴安职业技术学院" },
+{
+  "province": "内蒙古自治区",
+  "city": "呼和浩特市",
+  "name": "呼和浩特职业学院" },
+{
+  "province": "内蒙古自治区",
+  "city": "包头市",
+  "name": "包头轻工职业技术学院" },
+{
+  "province": "内蒙古自治区",
+  "city": "呼和浩特市",
+  "name": "内蒙古电子信息职业技术学院" },
+{
+  "province": "内蒙古自治区",
+  "city": "呼和浩特市",
+  "name": "内蒙古机电职业技术学院" },
+{
+  "province": "内蒙古自治区",
+  "city": "呼和浩特市",
+  "name": "内蒙古化工职业学院" },
+{
+  "province": "内蒙古自治区",
+  "city": "呼和浩特市",
+  "name": "内蒙古商贸职业学院" },
+{
+  "province": "内蒙古自治区",
+  "city": "锡林郭勒盟",
+  "name": "锡林郭勒职业学院" },
+{
+  "province": "内蒙古自治区",
+  "city": "呼和浩特市",
+  "name": "内蒙古警察职业学院" },
+{
+  "province": "内蒙古自治区",
+  "city": "呼和浩特市",
+  "name": "内蒙古体育职业学院" },
+{
+  "province": "内蒙古自治区",
+  "city": "乌兰察布市",
+  "name": "乌兰察布职业学院" },
+{
+  "province": "内蒙古自治区",
+  "city": "通辽市",
+  "name": "通辽职业学院" },
+{
+  "province": "内蒙古自治区",
+  "city": "通辽市",
+  "name": "科尔沁艺术职业学院" },
+{
+  "province": "内蒙古自治区",
+  "city": "赤峰市",
+  "name": "内蒙古交通职业技术学院" },
+{
+  "province": "内蒙古自治区",
+  "city": "包头市",
+  "name": "包头钢铁职业技术学院" },
+{
+  "province": "内蒙古自治区",
+  "city": "乌海市",
+  "name": "乌海职业技术学院" },
+{
+  "province": "内蒙古自治区",
+  "city": "呼和浩特市",
+  "name": "内蒙古科技职业学院" },
+{
+  "province": "内蒙古自治区",
+  "city": "呼和浩特市",
+  "name": "内蒙古北方职业技术学院" },
+{
+  "province": "内蒙古自治区",
+  "city": "赤峰市",
+  "name": "赤峰职业技术学院" },
+{
+  "province": "内蒙古自治区",
+  "city": "呼和浩特市",
+  "name": "内蒙古经贸外语职业学院" },
+{
+  "province": "内蒙古自治区",
+  "city": "包头市",
+  "name": "包头铁道职业技术学院" },
+{
+  "province": "内蒙古自治区",
+  "city": "乌兰察布市",
+  "name": "乌兰察布医学高等专科学校" },
+{
+  "province": "内蒙古自治区",
+  "city": "鄂尔多斯市",
+  "name": "鄂尔多斯职业学院" },
+{
+  "province": "内蒙古自治区",
+  "city": "呼和浩特市",
+  "name": "内蒙古工业职业学院" },
+{
+  "province": "内蒙古自治区",
+  "city": "呼伦贝尔市",
+  "name": "呼伦贝尔职业技术学院" },
+{
+  "province": "内蒙古自治区",
+  "city": "呼伦贝尔市",
+  "name": "满洲里俄语职业学院" },
+{
+  "province": "内蒙古自治区",
+  "city": "呼和浩特市",
+  "name": "内蒙古能源职业学院" },
+{
+  "province": "内蒙古自治区",
+  "city": "赤峰市",
+  "name": "赤峰工业职业技术学院" },
+{
+  "province": "内蒙古自治区",
+  "city": "阿拉善盟",
+  "name": "阿拉善职业技术学院" },
+{
+  "province": "内蒙古自治区",
+  "city": "巴彦淖尔市",
+  "name": "内蒙古美术职业学院" },
+{
+  "province": "内蒙古自治区",
+  "city": "鄂尔多斯市",
+  "name": "内蒙古民族幼儿师范高等专科学校" },
+{
+  "province": "内蒙古自治区",
+  "city": "鄂尔多斯市",
+  "name": "鄂尔多斯生态环境职业学院" },
+{
+  "province": "内蒙古自治区",
+  "city": "呼伦贝尔市",
+  "name": "扎兰屯职业学院" },
+{
+  "province": "辽宁省",
+  "city": "沈阳市",
+  "name": "辽宁大学" },
+{
+  "province": "辽宁省",
+  "city": "大连市",
+  "name": "大连理工大学" },
+{
+  "province": "辽宁省",
+  "city": "沈阳市",
+  "name": "沈阳工业大学" },
+{
+  "province": "辽宁省",
+  "city": "沈阳市",
+  "name": "沈阳航空航天大学" },
+{
+  "province": "辽宁省",
+  "city": "沈阳市",
+  "name": "沈阳理工大学" },
+{
+  "province": "辽宁省",
+  "city": "沈阳市",
+  "name": "东北大学" },
+{
+  "province": "辽宁省",
+  "city": "鞍山市",
+  "name": "辽宁科技大学" },
+{
+  "province": "辽宁省",
+  "city": "阜新市",
+  "name": "辽宁工程技术大学" },
+{
+  "province": "辽宁省",
+  "city": "抚顺市",
+  "name": "辽宁石油化工大学" },
+{
+  "province": "辽宁省",
+  "city": "沈阳市",
+  "name": "沈阳化工大学" },
+{
+  "province": "辽宁省",
+  "city": "大连市",
+  "name": "大连交通大学" },
+{
+  "province": "辽宁省",
+  "city": "大连市",
+  "name": "大连海事大学" },
+{
+  "province": "辽宁省",
+  "city": "大连市",
+  "name": "大连工业大学" },
+{
+  "province": "辽宁省",
+  "city": "沈阳市",
+  "name": "沈阳建筑大学" },
+{
+  "province": "辽宁省",
+  "city": "锦州市",
+  "name": "辽宁工业大学" },
+{
+  "province": "辽宁省",
+  "city": "沈阳市",
+  "name": "沈阳农业大学" },
+{
+  "province": "辽宁省",
+  "city": "大连市",
+  "name": "大连海洋大学" },
+{
+  "province": "辽宁省",
+  "city": "沈阳市",
+  "name": "中国医科大学" },
+{
+  "province": "辽宁省",
+  "city": "锦州市",
+  "name": "锦州医科大学" },
+{
+  "province": "辽宁省",
+  "city": "大连市",
+  "name": "大连医科大学" },
+{
+  "province": "辽宁省",
+  "city": "沈阳市",
+  "name": "辽宁中医药大学" },
+{
+  "province": "辽宁省",
+  "city": "沈阳市",
+  "name": "沈阳药科大学" },
+{
+  "province": "辽宁省",
+  "city": "沈阳市",
+  "name": "沈阳医学院" },
+{
+  "province": "辽宁省",
+  "city": "大连市",
+  "name": "辽宁师范大学" },
+{
+  "province": "辽宁省",
+  "city": "沈阳市",
+  "name": "沈阳师范大学" },
+{
+  "province": "辽宁省",
+  "city": "锦州市",
+  "name": "渤海大学" },
+{
+  "province": "辽宁省",
+  "city": "鞍山市",
+  "name": "鞍山师范学院" },
+{
+  "province": "辽宁省",
+  "city": "大连市",
+  "name": "大连外国语大学" },
+{
+  "province": "辽宁省",
+  "city": "大连市",
+  "name": "东北财经大学" },
+{
+  "province": "辽宁省",
+  "city": "沈阳市",
+  "name": "中国刑事警察学院" },
+{
+  "province": "辽宁省",
+  "city": "沈阳市",
+  "name": "沈阳体育学院" },
+{
+  "province": "辽宁省",
+  "city": "沈阳市",
+  "name": "沈阳音乐学院" },
+{
+  "province": "辽宁省",
+  "city": "沈阳市",
+  "name": "鲁迅美术学院" },
+{
+  "province": "辽宁省",
+  "city": "大连市",
+  "name": "辽宁对外经贸学院" },
+{
+  "province": "辽宁省",
+  "city": "沈阳市",
+  "name": "沈阳大学" },
+{
+  "province": "辽宁省",
+  "city": "大连市",
+  "name": "大连大学" },
+{
+  "province": "辽宁省",
+  "city": "本溪市",
+  "name": "辽宁科技学院" },
+{
+  "province": "辽宁省",
+  "city": "大连市",
+  "name": "辽宁警察学院" },
+{
+  "province": "辽宁省",
+  "city": "沈阳市",
+  "name": "沈阳工程学院" },
+{
+  "province": "辽宁省",
+  "city": "丹东市",
+  "name": "辽东学院" },
+{
+  "province": "辽宁省",
+  "city": "大连市",
+  "name": "大连民族大学" },
+{
+  "province": "辽宁省",
+  "city": "大连市",
+  "name": "大连理工大学城市学院" },
+{
+  "province": "辽宁省",
+  "city": "辽阳市",
+  "name": "沈阳工业大学工程学院" },
+{
+  "province": "辽宁省",
+  "city": "沈阳市",
+  "name": "沈阳航空航天大学北方科技学院" },
+{
+  "province": "辽宁省",
+  "city": "沈阳市",
+  "name": "沈阳工学院" },
+{
+  "province": "辽宁省",
+  "city": "大连市",
+  "name": "大连工业大学艺术与信息工程学院" },
+{
+  "province": "辽宁省",
+  "city": "大连市",
+  "name": "大连科技学院" },
+{
+  "province": "辽宁省",
+  "city": "沈阳市",
+  "name": "沈阳城市建设学院" },
+{
+  "province": "辽宁省",
+  "city": "沈阳市",
+  "name": "中国医科大学临床医药学院" },
+{
+  "province": "辽宁省",
+  "city": "大连市",
+  "name": "大连医科大学中山学院" },
+{
+  "province": "辽宁省",
+  "city": "锦州市",
+  "name": "锦州医科大学医疗学院" },
+{
+  "province": "辽宁省",
+  "city": "沈阳市",
+  "name": "辽宁师范大学海华学院" },
+{
+  "province": "辽宁省",
+  "city": "锦州市",
+  "name": "辽宁理工学院" },
+{
+  "province": "辽宁省",
+  "city": "大连市",
+  "name": "大连财经学院" },
+{
+  "province": "辽宁省",
+  "city": "沈阳市",
+  "name": "沈阳城市学院" },
+{
+  "province": "辽宁省",
+  "city": "抚顺市",
+  "name": "辽宁石油化工大学顺华能源学院" },
+{
+  "province": "辽宁省",
+  "city": "大连市",
+  "name": "大连艺术学院" },
+{
+  "province": "辽宁省",
+  "city": "沈阳市",
+  "name": "辽宁中医药大学杏林学院" },
+{
+  "province": "辽宁省",
+  "city": "沈阳市",
+  "name": "辽宁何氏医学院" },
+{
+  "province": "辽宁省",
+  "city": "沈阳市",
+  "name": "沈阳科技学院" },
+{
+  "province": "辽宁省",
+  "city": "大连市",
+  "name": "大连东软信息学院" },
+{
+  "province": "辽宁省",
+  "city": "葫芦岛市",
+  "name": "辽宁财贸学院" },
+{
+  "province": "辽宁省",
+  "city": "沈阳市",
+  "name": "辽宁传媒学院" },
+{
+  "province": "辽宁省",
+  "city": "营口市",
+  "name": "营口理工学院" },
+{
+  "province": "辽宁省",
+  "city": "朝阳市",
+  "name": "朝阳师范高等专科学校" },
+{
+  "province": "辽宁省",
+  "city": "抚顺市",
+  "name": "抚顺师范高等专科学校" },
+{
+  "province": "辽宁省",
+  "city": "锦州市",
+  "name": "锦州师范高等专科学校" },
+{
+  "province": "辽宁省",
+  "city": "营口市",
+  "name": "营口职业技术学院" },
+{
+  "province": "辽宁省",
+  "city": "铁岭市",
+  "name": "铁岭师范高等专科学校" },
+{
+  "province": "辽宁省",
+  "city": "大连市",
+  "name": "大连职业技术学院" },
+{
+  "province": "辽宁省",
+  "city": "营口市",
+  "name": "辽宁农业职业技术学院" },
+{
+  "province": "辽宁省",
+  "city": "抚顺市",
+  "name": "抚顺职业技术学院" },
+{
+  "province": "辽宁省",
+  "city": "辽阳市",
+  "name": "辽阳职业技术学院" },
+{
+  "province": "辽宁省",
+  "city": "阜新市",
+  "name": "阜新高等专科学校" },
+{
+  "province": "辽宁省",
+  "city": "沈阳市",
+  "name": "辽宁省交通高等专科学校" },
+{
+  "province": "辽宁省",
+  "city": "大连市",
+  "name": "辽宁税务高等专科学校" },
+{
+  "province": "辽宁省",
+  "city": "盘锦市",
+  "name": "盘锦职业技术学院" },
+{
+  "province": "辽宁省",
+  "city": "沈阳市",
+  "name": "沈阳航空职业技术学院" },
+{
+  "province": "辽宁省",
+  "city": "沈阳市",
+  "name": "辽宁体育运动职业技术学院" },
+{
+  "province": "辽宁省",
+  "city": "铁岭市",
+  "name": "辽宁职业学院" },
+{
+  "province": "辽宁省",
+  "city": "沈阳市",
+  "name": "辽宁林业职业技术学院" },
+{
+  "province": "辽宁省",
+  "city": "沈阳市",
+  "name": "沈阳职业技术学院" },
+{
+  "province": "辽宁省",
+  "city": "锦州市",
+  "name": "辽宁理工职业学院" },
+{
+  "province": "辽宁省",
+  "city": "大连市",
+  "name": "大连商务职业学院" },
+{
+  "province": "辽宁省",
+  "city": "沈阳市",
+  "name": "辽宁金融职业学院" },
+{
+  "province": "辽宁省",
+  "city": "沈阳市",
+  "name": "辽宁轨道交通职业学院" },
+{
+  "province": "辽宁省",
+  "city": "沈阳市",
+  "name": "辽宁广告职业学院" },
+{
+  "province": "辽宁省",
+  "city": "丹东市",
+  "name": "辽宁机电职业技术学院" },
+{
+  "province": "辽宁省",
+  "city": "沈阳市",
+  "name": "辽宁经济职业技术学院" },
+{
+  "province": "辽宁省",
+  "city": "锦州市",
+  "name": "辽宁石化职业技术学院" },
+{
+  "province": "辽宁省",
+  "city": "葫芦岛市",
+  "name": "渤海船舶职业学院" },
+{
+  "province": "辽宁省",
+  "city": "大连市",
+  "name": "大连软件职业学院" },
+{
+  "province": "辽宁省",
+  "city": "大连市",
+  "name": "大连翻译职业学院" },
+{
+  "province": "辽宁省",
+  "city": "沈阳市",
+  "name": "辽宁商贸职业学院" },
+{
+  "province": "辽宁省",
+  "city": "大连市",
+  "name": "大连枫叶职业技术学院" },
+{
+  "province": "辽宁省",
+  "city": "沈阳市",
+  "name": "辽宁装备制造职业技术学院" },
+{
+  "province": "辽宁省",
+  "city": "盘锦市",
+  "name": "辽河石油职业技术学院" },
+{
+  "province": "辽宁省",
+  "city": "丹东市",
+  "name": "辽宁地质工程职业学院" },
+{
+  "province": "辽宁省",
+  "city": "锦州市",
+  "name": "辽宁铁道职业技术学院" },
+{
+  "province": "辽宁省",
+  "city": "辽阳市",
+  "name": "辽宁建筑职业学院" },
+{
+  "province": "辽宁省",
+  "city": "大连市",
+  "name": "大连航运职业技术学院" },
+{
+  "province": "辽宁省",
+  "city": "大连市",
+  "name": "大连装备制造职业技术学院" },
+{
+  "province": "辽宁省",
+  "city": "大连市",
+  "name": "大连汽车职业技术学院" },
+{
+  "province": "辽宁省",
+  "city": "沈阳市",
+  "name": "辽宁现代服务职业技术学院" },
+{
+  "province": "辽宁省",
+  "city": "本溪市",
+  "name": "辽宁冶金职业技术学院" },
+{
+  "province": "辽宁省",
+  "city": "铁岭市",
+  "name": "辽宁工程职业学院" },
+{
+  "province": "辽宁省",
+  "city": "沈阳市",
+  "name": "辽宁城市建设职业技术学院" },
+{
+  "province": "辽宁省",
+  "city": "沈阳市",
+  "name": "辽宁医药职业学院" },
+{
+  "province": "辽宁省",
+  "city": "铁岭市",
+  "name": "铁岭卫生职业学院" },
+{
+  "province": "辽宁省",
+  "city": "沈阳市",
+  "name": "沈阳北软信息职业技术学院" },
+{
+  "province": "辽宁省",
+  "city": "沈阳市",
+  "name": "辽宁政法职业学院" },
+{
+  "province": "辽宁省",
+  "city": "沈阳市",
+  "name": "辽宁民族师范高等专科学校" },
+{
+  "province": "辽宁省",
+  "city": "大连市",
+  "name": "辽宁轻工职业学院" },
+{
+  "province": "辽宁省",
+  "city": "沈阳市",
+  "name": "辽宁水利职业学院" },
+{
+  "province": "辽宁省",
+  "city": "沈阳市",
+  "name": "辽宁特殊教育师范高等专科学校" },
+{
+  "province": "辽宁省",
+  "city": "大连市",
+  "name": "中国人民解放军海军大连舰艇学院" },
+{
+  "province": "辽宁省",
+  "city": "大连市",
+  "name": "中国人民解放军空军通信士官学校" },
+{
+  "province": "吉林省",
+  "city": "长春市",
+  "name": "吉林大学" },
+{
+  "province": "吉林省",
+  "city": "延边朝鲜族自治州",
+  "name": "延边大学" },
+{
+  "province": "吉林省",
+  "city": "长春市",
+  "name": "长春理工大学" },
+{
+  "province": "吉林省",
+  "city": "吉林市",
+  "name": "东北电力大学" },
+{
+  "province": "吉林省",
+  "city": "长春市",
+  "name": "长春工业大学" },
+{
+  "province": "吉林省",
+  "city": "长春市",
+  "name": "吉林建筑大学" },
+{
+  "province": "吉林省",
+  "city": "吉林市",
+  "name": "吉林化工学院" },
+{
+  "province": "吉林省",
+  "city": "长春市",
+  "name": "吉林农业大学" },
+{
+  "province": "吉林省",
+  "city": "长春市",
+  "name": "长春中医药大学" },
+{
+  "province": "吉林省",
+  "city": "长春市",
+  "name": "东北师范大学" },
+{
+  "province": "吉林省",
+  "city": "吉林市",
+  "name": "北华大学" },
+{
+  "province": "吉林省",
+  "city": "通化市",
+  "name": "通化师范学院" },
+{
+  "province": "吉林省",
+  "city": "四平市",
+  "name": "吉林师范大学" },
+{
+  "province": "吉林省",
+  "city": "长春市",
+  "name": "吉林工程技术师范学院" },
+{
+  "province": "吉林省",
+  "city": "长春市",
+  "name": "长春师范大学" },
+{
+  "province": "吉林省",
+  "city": "白城市",
+  "name": "白城师范学院" },
+{
+  "province": "吉林省",
+  "city": "长春市",
+  "name": "吉林财经大学" },
+{
+  "province": "吉林省",
+  "city": "长春市",
+  "name": "吉林体育学院" },
+{
+  "province": "吉林省",
+  "city": "长春市",
+  "name": "吉林艺术学院" },
+{
+  "province": "吉林省",
+  "city": "长春市",
+  "name": "吉林华桥外国语学院" },
+{
+  "province": "吉林省",
+  "city": "长春市",
+  "name": "吉林工商学院" },
+{
+  "province": "吉林省",
+  "city": "长春市",
+  "name": "长春工程学院" },
+{
+  "province": "吉林省",
+  "city": "吉林市",
+  "name": "吉林农业科技学院" },
+{
+  "province": "吉林省",
+  "city": "长春市",
+  "name": "吉林警察学院" },
+{
+  "province": "吉林省",
+  "city": "长春市",
+  "name": "长春大学" },
+{
+  "province": "吉林省",
+  "city": "长春市",
+  "name": "长春光华学院" },
+{
+  "province": "吉林省",
+  "city": "长春市",
+  "name": "长春工业大学人文信息学院" },
+{
+  "province": "吉林省",
+  "city": "长春市",
+  "name": "长春理工大学光电信息学院" },
+{
+  "province": "吉林省",
+  "city": "长春市",
+  "name": "长春财经学院" },
+{
+  "province": "吉林省",
+  "city": "长春市",
+  "name": "吉林建筑大学城建学院" },
+{
+  "province": "吉林省",
+  "city": "长春市",
+  "name": "长春建筑学院" },
+{
+  "province": "吉林省",
+  "city": "长春市",
+  "name": "长春科技学院" },
+{
+  "province": "吉林省",
+  "city": "长春市",
+  "name": "吉林动画学院" },
+{
+  "province": "吉林省",
+  "city": "四平市",
+  "name": "吉林师范大学博达学院" },
+{
+  "province": "吉林省",
+  "city": "长春市",
+  "name": "长春大学旅游学院" },
+{
+  "province": "吉林省",
+  "city": "长春市",
+  "name": "东北师范大学人文学院" },
+{
+  "province": "吉林省",
+  "city": "吉林市",
+  "name": "吉林医药学院" },
+{
+  "province": "吉林省",
+  "city": "辽源市",
+  "name": "辽源职业技术学院" },
+{
+  "province": "吉林省",
+  "city": "四平市",
+  "name": "四平职业大学" },
+{
+  "province": "吉林省",
+  "city": "长春市",
+  "name": "长春汽车工业高等专科学校" },
+{
+  "province": "吉林省",
+  "city": "长春市",
+  "name": "长春金融高等专科学校" },
+{
+  "province": "吉林省",
+  "city": "长春市",
+  "name": "长春医学高等专科学校" },
+{
+  "province": "吉林省",
+  "city": "长春市",
+  "name": "吉林交通职业技术学院" },
+{
+  "province": "吉林省",
+  "city": "长春市",
+  "name": "长春东方职业学院" },
+{
+  "province": "吉林省",
+  "city": "长春市",
+  "name": "吉林司法警官职业学院" },
+{
+  "province": "吉林省",
+  "city": "吉林市",
+  "name": "吉林电子信息职业技术学院" },
+{
+  "province": "吉林省",
+  "city": "吉林市",
+  "name": "吉林工业职业技术学院" },
+{
+  "province": "吉林省",
+  "city": "四平市",
+  "name": "吉林工程职业学院" },
+{
+  "province": "吉林省",
+  "city": "长春市",
+  "name": "长春职业技术学院" },
+{
+  "province": "吉林省",
+  "city": "白城市",
+  "name": "白城医学高等专科学校" },
+{
+  "province": "吉林省",
+  "city": "长春市",
+  "name": "长春信息技术职业学院" },
+{
+  "province": "吉林省",
+  "city": "松原市",
+  "name": "松原职业技术学院" },
+{
+  "province": "吉林省",
+  "city": "吉林市",
+  "name": "吉林铁道职业技术学院" },
+{
+  "province": "吉林省",
+  "city": "白城市",
+  "name": "白城职业技术学院" },
+{
+  "province": "吉林省",
+  "city": "白山市",
+  "name": "长白山职业技术学院" },
+{
+  "province": "吉林省",
+  "city": "长春市",
+  "name": "吉林科技职业技术学院" },
+{
+  "province": "吉林省",
+  "city": "延边朝鲜族自治州",
+  "name": "延边职业技术学院" },
+{
+  "province": "吉林省",
+  "city": "长春市",
+  "name": "吉林城市职业技术学院" },
+{
+  "province": "吉林省",
+  "city": "长春市",
+  "name": "长春师范高等专科学校" },
+{
+  "province": "吉林省",
+  "city": "延边朝鲜族自治州",
+  "name": "吉林职业技术学院" },
+{
+  "province": "吉林省",
+  "city": "长春市",
+  "name": "吉林水利电力职业学院" },
+{
+  "province": "吉林省",
+  "city": "长春市",
+  "name": "长春健康职业学院" },
+{
+  "province": "吉林省",
+  "city": "长春市",
+  "name": "中国人民解放军空军航空大学" },
+{
+  "province": "黑龙江省",
+  "city": "哈尔滨市",
+  "name": "黑龙江大学" },
+{
+  "province": "黑龙江省",
+  "city": "哈尔滨市",
+  "name": "哈尔滨工业大学" },
+{
+  "province": "黑龙江省",
+  "city": "哈尔滨市",
+  "name": "哈尔滨理工大学" },
+{
+  "province": "黑龙江省",
+  "city": "哈尔滨市",
+  "name": "哈尔滨工程大学" },
+{
+  "province": "黑龙江省",
+  "city": "哈尔滨市",
+  "name": "黑龙江科技大学" },
+{
+  "province": "黑龙江省",
+  "city": "大庆市",
+  "name": "东北石油大学" },
+{
+  "province": "黑龙江省",
+  "city": "佳木斯市",
+  "name": "佳木斯大学" },
+{
+  "province": "黑龙江省",
+  "city": "大庆市",
+  "name": "黑龙江八一农垦大学" },
+{
+  "province": "黑龙江省",
+  "city": "哈尔滨市",
+  "name": "东北农业大学" },
+{
+  "province": "黑龙江省",
+  "city": "哈尔滨市",
+  "name": "东北林业大学" },
+{
+  "province": "黑龙江省",
+  "city": "哈尔滨市",
+  "name": "哈尔滨医科大学" },
+{
+  "province": "黑龙江省",
+  "city": "哈尔滨市",
+  "name": "黑龙江中医药大学" },
+{
+  "province": "黑龙江省",
+  "city": "牡丹江市",
+  "name": "牡丹江医学院" },
+{
+  "province": "黑龙江省",
+  "city": "哈尔滨市",
+  "name": "哈尔滨师范大学" },
+{
+  "province": "黑龙江省",
+  "city": "齐齐哈尔市",
+  "name": "齐齐哈尔大学" },
+{
+  "province": "黑龙江省",
+  "city": "牡丹江市",
+  "name": "牡丹江师范学院" },
+{
+  "province": "黑龙江省",
+  "city": "哈尔滨市",
+  "name": "哈尔滨学院" },
+{
+  "province": "黑龙江省",
+  "city": "大庆市",
+  "name": "大庆师范学院" },
+{
+  "province": "黑龙江省",
+  "city": "绥化市",
+  "name": "绥化学院" },
+{
+  "province": "黑龙江省",
+  "city": "哈尔滨市",
+  "name": "哈尔滨商业大学" },
+{
+  "province": "黑龙江省",
+  "city": "哈尔滨市",
+  "name": "哈尔滨体育学院" },
+{
+  "province": "黑龙江省",
+  "city": "哈尔滨市",
+  "name": "哈尔滨金融学院" },
+{
+  "province": "黑龙江省",
+  "city": "齐齐哈尔市",
+  "name": "齐齐哈尔医学院" },
+{
+  "province": "黑龙江省",
+  "city": "鸡西市",
+  "name": "黑龙江工业学院" },
+{
+  "province": "黑龙江省",
+  "city": "哈尔滨市",
+  "name": "黑龙江东方学院" },
+{
+  "province": "黑龙江省",
+  "city": "哈尔滨市",
+  "name": "哈尔滨信息工程学院" },
+{
+  "province": "黑龙江省",
+  "city": "哈尔滨市",
+  "name": "黑龙江工程学院" },
+{
+  "province": "黑龙江省",
+  "city": "齐齐哈尔市",
+  "name": "齐齐哈尔工程学院" },
+{
+  "province": "黑龙江省",
+  "city": "哈尔滨市",
+  "name": "黑龙江外国语学院" },
+{
+  "province": "黑龙江省",
+  "city": "哈尔滨市",
+  "name": "黑龙江财经学院" },
+{
+  "province": "黑龙江省",
+  "city": "哈尔滨市",
+  "name": "哈尔滨石油学院" },
+{
+  "province": "黑龙江省",
+  "city": "哈尔滨市",
+  "name": "黑龙江工商学院" },
+{
+  "province": "黑龙江省",
+  "city": "哈尔滨市",
+  "name": "哈尔滨远东理工学院" },
+{
+  "province": "黑龙江省",
+  "city": "哈尔滨市",
+  "name": "哈尔滨剑桥学院" },
+{
+  "province": "黑龙江省",
+  "city": "哈尔滨市",
+  "name": "黑龙江工程学院昆仑旅游学院" },
+{
+  "province": "黑龙江省",
+  "city": "哈尔滨市",
+  "name": "哈尔滨广厦学院" },
+{
+  "province": "黑龙江省",
+  "city": "哈尔滨市",
+  "name": "哈尔滨华德学院" },
+{
+  "province": "黑龙江省",
+  "city": "黑河市",
+  "name": "黑河学院" },
+{
+  "province": "黑龙江省",
+  "city": "齐齐哈尔市",
+  "name": "齐齐哈尔高等师范专科学校" },
+{
+  "province": "黑龙江省",
+  "city": "伊春市",
+  "name": "伊春职业学院" },
+{
+  "province": "黑龙江省",
+  "city": "牡丹江市",
+  "name": "牡丹江大学" },
+{
+  "province": "黑龙江省",
+  "city": "哈尔滨市",
+  "name": "黑龙江职业学院" },
+{
+  "province": "黑龙江省",
+  "city": "哈尔滨市",
+  "name": "黑龙江建筑职业技术学院" },
+{
+  "province": "黑龙江省",
+  "city": "哈尔滨市",
+  "name": "黑龙江艺术职业学院" },
+{
+  "province": "黑龙江省",
+  "city": "大庆市",
+  "name": "大庆职业学院" },
+{
+  "province": "黑龙江省",
+  "city": "牡丹江市",
+  "name": "黑龙江林业职业技术学院" },
+{
+  "province": "黑龙江省",
+  "city": "佳木斯市",
+  "name": "黑龙江农业职业技术学院" },
+{
+  "province": "黑龙江省",
+  "city": "哈尔滨市",
+  "name": "黑龙江农业工程职业学院" },
+{
+  "province": "黑龙江省",
+  "city": "哈尔滨市",
+  "name": "黑龙江农垦职业学院" },
+{
+  "province": "黑龙江省",
+  "city": "哈尔滨市",
+  "name": "黑龙江司法警官职业学院" },
+{
+  "province": "黑龙江省",
+  "city": "鹤岗市",
+  "name": "鹤岗师范高等专科学校" },
+{
+  "province": "黑龙江省",
+  "city": "哈尔滨市",
+  "name": "哈尔滨电力职业技术学院" },
+{
+  "province": "黑龙江省",
+  "city": "哈尔滨市",
+  "name": "哈尔滨铁道职业技术学院" },
+{
+  "province": "黑龙江省",
+  "city": "大兴安岭地区",
+  "name": "大兴安岭职业学院" },
+{
+  "province": "黑龙江省",
+  "city": "牡丹江市",
+  "name": "黑龙江农业经济职业学院" },
+{
+  "province": "黑龙江省",
+  "city": "哈尔滨市",
+  "name": "哈尔滨职业技术学院" },
+{
+  "province": "黑龙江省",
+  "city": "哈尔滨市",
+  "name": "哈尔滨传媒职业学院" },
+{
+  "province": "黑龙江省",
+  "city": "哈尔滨市",
+  "name": "黑龙江生物科技职业学院" },
+{
+  "province": "黑龙江省",
+  "city": "牡丹江市",
+  "name": "黑龙江商业职业学院" },
+{
+  "province": "黑龙江省",
+  "city": "哈尔滨市",
+  "name": "黑龙江公安警官职业学院" },
+{
+  "province": "黑龙江省",
+  "city": "哈尔滨市",
+  "name": "黑龙江信息技术职业学院" },
+{
+  "province": "黑龙江省",
+  "city": "哈尔滨市",
+  "name": "哈尔滨城市职业学院" },
+{
+  "province": "黑龙江省",
+  "city": "哈尔滨市",
+  "name": "黑龙江农垦科技职业学院" },
+{
+  "province": "黑龙江省",
+  "city": "哈尔滨市",
+  "name": "黑龙江旅游职业技术学院" },
+{
+  "province": "黑龙江省",
+  "city": "佳木斯市",
+  "name": "黑龙江三江美术职业学院" },
+{
+  "province": "黑龙江省",
+  "city": "哈尔滨市",
+  "name": "黑龙江生态工程职业学院" },
+{
+  "province": "黑龙江省",
+  "city": "双鸭山市",
+  "name": "黑龙江能源职业学院" },
+{
+  "province": "黑龙江省",
+  "city": "七台河市",
+  "name": "七台河职业学院" },
+{
+  "province": "黑龙江省",
+  "city": "哈尔滨市",
+  "name": "黑龙江民族职业学院" },
+{
+  "province": "黑龙江省",
+  "city": "大庆市",
+  "name": "大庆医学高等专科学校" },
+{
+  "province": "黑龙江省",
+  "city": "齐齐哈尔市",
+  "name": "黑龙江交通职业技术学院" },
+{
+  "province": "黑龙江省",
+  "city": "哈尔滨市",
+  "name": "哈尔滨应用职业技术学院" },
+{
+  "province": "黑龙江省",
+  "city": "牡丹江市",
+  "name": "黑龙江幼儿师范高等专科学校" },
+{
+  "province": "黑龙江省",
+  "city": "哈尔滨市",
+  "name": "哈尔滨科学技术职业学院" },
+{
+  "province": "黑龙江省",
+  "city": "哈尔滨市",
+  "name": "黑龙江粮食职业学院" },
+{
+  "province": "黑龙江省",
+  "city": "佳木斯市",
+  "name": "佳木斯职业学院" },
+{
+  "province": "黑龙江省",
+  "city": "哈尔滨市",
+  "name": "黑龙江护理高等专科学校" },
+{
+  "province": "黑龙江省",
+  "city": "齐齐哈尔市",
+  "name": "齐齐哈尔理工职业学院" },
+{
+  "province": "黑龙江省",
+  "city": "哈尔滨市",
+  "name": "哈尔滨幼儿师范高等专科学校" },
+{
+  "province": "黑龙江省",
+  "city": "哈尔滨市",
+  "name": "黑龙江冰雪体育职业学院" },
+{
+  "province": "黑龙江省",
+  "city": "哈尔滨市",
+  "name": "哈尔滨音乐学院" },
+{
+  "province": "黑龙江省",
+  "city": "哈尔滨市",
+  "name": "中国人民解放军空军哈尔滨飞行学院" },
+{
+  "province": "上海市",
+  "city": "上海市",
+  "name": "复旦大学" },
+{
+  "province": "上海市",
+  "city": "上海市",
+  "name": "同济大学" },
+{
+  "province": "上海市",
+  "city": "上海市",
+  "name": "上海交通大学" },
+{
+  "province": "上海市",
+  "city": "上海市",
+  "name": "华东理工大学" },
+{
+  "province": "上海市",
+  "city": "上海市",
+  "name": "上海理工大学" },
+{
+  "province": "上海市",
+  "city": "上海市",
+  "name": "上海海事大学" },
+{
+  "province": "上海市",
+  "city": "上海市",
+  "name": "东华大学" },
+{
+  "province": "上海市",
+  "city": "上海市",
+  "name": "上海电力学院" },
+{
+  "province": "上海市",
+  "city": "上海市",
+  "name": "上海应用技术大学" },
+{
+  "province": "上海市",
+  "city": "上海市",
+  "name": "上海健康医学院" },
+{
+  "province": "上海市",
+  "city": "上海市",
+  "name": "上海海洋大学" },
+{
+  "province": "上海市",
+  "city": "上海市",
+  "name": "上海中医药大学" },
+{
+  "province": "上海市",
+  "city": "上海市",
+  "name": "华东师范大学" },
+{
+  "province": "上海市",
+  "city": "上海市",
+  "name": "上海师范大学" },
+{
+  "province": "上海市",
+  "city": "上海市",
+  "name": "上海外国语大学" },
+{
+  "province": "上海市",
+  "city": "上海市",
+  "name": "上海财经大学" },
+{
+  "province": "上海市",
+  "city": "上海市",
+  "name": "上海对外经贸大学" },
+{
+  "province": "上海市",
+  "city": "上海市",
+  "name": "上海海关学院" },
+{
+  "province": "上海市",
+  "city": "上海市",
+  "name": "华东政法大学" },
+{
+  "province": "上海市",
+  "city": "上海市",
+  "name": "上海体育学院" },
+{
+  "province": "上海市",
+  "city": "上海市",
+  "name": "上海音乐学院" },
+{
+  "province": "上海市",
+  "city": "上海市",
+  "name": "上海戏剧学院" },
+{
+  "province": "上海市",
+  "city": "上海市",
+  "name": "上海大学" },
+{
+  "province": "上海市",
+  "city": "上海市",
+  "name": "上海工程技术大学" },
+{
+  "province": "上海市",
+  "city": "上海市",
+  "name": "上海立信会计金融学院" },
+{
+  "province": "上海市",
+  "city": "上海市",
+  "name": "上海电机学院" },
+{
+  "province": "上海市",
+  "city": "上海市",
+  "name": "上海杉达学院" },
+{
+  "province": "上海市",
+  "city": "上海市",
+  "name": "上海政法学院" },
+{
+  "province": "上海市",
+  "city": "上海市",
+  "name": "上海第二工业大学" },
+{
+  "province": "上海市",
+  "city": "上海市",
+  "name": "上海商学院" },
+{
+  "province": "上海市",
+  "city": "上海市",
+  "name": "上海建桥学院" },
+{
+  "province": "上海市",
+  "city": "上海市",
+  "name": "上海兴伟学院" },
+{
+  "province": "上海市",
+  "city": "上海市",
+  "name": "上海视觉艺术学院" },
+{
+  "province": "上海市",
+  "city": "上海市",
+  "name": "上海外国语大学贤达经济人文学院" },
+{
+  "province": "上海市",
+  "city": "上海市",
+  "name": "上海师范大学天华学院" },
+{
+  "province": "上海市",
+  "city": "上海市",
+  "name": "上海科技大学" },
+{
+  "province": "上海市",
+  "city": "上海市",
+  "name": "上海纽约大学" },
+{
+  "province": "上海市",
+  "city": "上海市",
+  "name": "上海旅游高等专科学校" },
+{
+  "province": "上海市",
+  "city": "上海市",
+  "name": "上海公安学院" },
+{
+  "province": "上海市",
+  "city": "上海市",
+  "name": "上海东海职业技术学院" },
+{
+  "province": "上海市",
+  "city": "上海市",
+  "name": "上海工商职业技术学院" },
+{
+  "province": "上海市",
+  "city": "上海市",
+  "name": "上海出版印刷高等专科学校" },
+{
+  "province": "上海市",
+  "city": "上海市",
+  "name": "上海行健职业学院" },
+{
+  "province": "上海市",
+  "city": "上海市",
+  "name": "上海城建职业学院" },
+{
+  "province": "上海市",
+  "city": "上海市",
+  "name": "上海交通职业技术学院" },
+{
+  "province": "上海市",
+  "city": "上海市",
+  "name": "上海海事职业技术学院" },
+{
+  "province": "上海市",
+  "city": "上海市",
+  "name": "上海电子信息职业技术学院" },
+{
+  "province": "上海市",
+  "city": "上海市",
+  "name": "上海震旦职业学院" },
+{
+  "province": "上海市",
+  "city": "上海市",
+  "name": "上海民远职业技术学院" },
+{
+  "province": "上海市",
+  "city": "上海市",
+  "name": "上海欧华职业技术学院" },
+{
+  "province": "上海市",
+  "city": "上海市",
+  "name": "上海思博职业技术学院" },
+{
+  "province": "上海市",
+  "city": "上海市",
+  "name": "上海立达职业技术学院" },
+{
+  "province": "上海市",
+  "city": "上海市",
+  "name": "上海工艺美术职业学院" },
+{
+  "province": "上海市",
+  "city": "上海市",
+  "name": "上海济光职业技术学院" },
+{
+  "province": "上海市",
+  "city": "上海市",
+  "name": "上海工商外国语职业学院" },
+{
+  "province": "上海市",
+  "city": "上海市",
+  "name": "上海科学技术职业学院" },
+{
+  "province": "上海市",
+  "city": "上海市",
+  "name": "上海农林职业技术学院" },
+{
+  "province": "上海市",
+  "city": "上海市",
+  "name": "上海邦德职业技术学院" },
+{
+  "province": "上海市",
+  "city": "上海市",
+  "name": "上海中侨职业技术学院" },
+{
+  "province": "上海市",
+  "city": "上海市",
+  "name": "上海电影艺术职业学院" },
+{
+  "province": "上海市",
+  "city": "上海市",
+  "name": "上海中华职业技术学院" },
+{
+  "province": "上海市",
+  "city": "上海市",
+  "name": "上海工会管理职业学院" },
+{
+  "province": "上海市",
+  "city": "上海市",
+  "name": "上海体育职业学院" },
+{
+  "province": "上海市",
+  "city": "上海市",
+  "name": "上海民航职业技术学院" },
+{
+  "province": "上海市",
+  "city": "上海市",
+  "name": "中国人民解放军海军军医大学（第二军医大学）" },
+{
+  "province": "江苏省",
+  "city": "南京市",
+  "name": "南京大学" },
+{
+  "province": "江苏省",
+  "city": "苏州市",
+  "name": "苏州大学" },
+{
+  "province": "江苏省",
+  "city": "南京市",
+  "name": "东南大学" },
+{
+  "province": "江苏省",
+  "city": "南京市",
+  "name": "南京航空航天大学" },
+{
+  "province": "江苏省",
+  "city": "南京市",
+  "name": "南京理工大学" },
+{
+  "province": "江苏省",
+  "city": "镇江市",
+  "name": "江苏科技大学" },
+{
+  "province": "江苏省",
+  "city": "徐州市",
+  "name": "中国矿业大学" },
+{
+  "province": "江苏省",
+  "city": "南京市",
+  "name": "南京工业大学" },
+{
+  "province": "江苏省",
+  "city": "常州市",
+  "name": "常州大学" },
+{
+  "province": "江苏省",
+  "city": "南京市",
+  "name": "南京邮电大学" },
+{
+  "province": "江苏省",
+  "city": "南京市",
+  "name": "河海大学" },
+{
+  "province": "江苏省",
+  "city": "无锡市",
+  "name": "江南大学" },
+{
+  "province": "江苏省",
+  "city": "南京市",
+  "name": "南京林业大学" },
+{
+  "province": "江苏省",
+  "city": "镇江市",
+  "name": "江苏大学" },
+{
+  "province": "江苏省",
+  "city": "南京市",
+  "name": "南京信息工程大学" },
+{
+  "province": "江苏省",
+  "city": "南通市",
+  "name": "南通大学" },
+{
+  "province": "江苏省",
+  "city": "盐城市",
+  "name": "盐城工学院" },
+{
+  "province": "江苏省",
+  "city": "南京市",
+  "name": "南京农业大学" },
+{
+  "province": "江苏省",
+  "city": "南京市",
+  "name": "南京医科大学" },
+{
+  "province": "江苏省",
+  "city": "徐州市",
+  "name": "徐州医科大学" },
+{
+  "province": "江苏省",
+  "city": "南京市",
+  "name": "南京中医药大学" },
+{
+  "province": "江苏省",
+  "city": "南京市",
+  "name": "中国药科大学" },
+{
+  "province": "江苏省",
+  "city": "南京市",
+  "name": "南京师范大学" },
+{
+  "province": "江苏省",
+  "city": "徐州市",
+  "name": "江苏师范大学" },
+{
+  "province": "江苏省",
+  "city": "淮安市",
+  "name": "淮阴师范学院" },
+{
+  "province": "江苏省",
+  "city": "盐城市",
+  "name": "盐城师范学院" },
+{
+  "province": "江苏省",
+  "city": "南京市",
+  "name": "南京财经大学" },
+{
+  "province": "江苏省",
+  "city": "南京市",
+  "name": "江苏警官学院" },
+{
+  "province": "江苏省",
+  "city": "南京市",
+  "name": "南京体育学院" },
+{
+  "province": "江苏省",
+  "city": "南京市",
+  "name": "南京艺术学院" },
+{
+  "province": "江苏省",
+  "city": "苏州市",
+  "name": "苏州科技大学" },
+{
+  "province": "江苏省",
+  "city": "苏州市",
+  "name": "常熟理工学院" },
+{
+  "province": "江苏省",
+  "city": "淮安市",
+  "name": "淮阴工学院" },
+{
+  "province": "江苏省",
+  "city": "常州市",
+  "name": "常州工学院" },
+{
+  "province": "江苏省",
+  "city": "扬州市",
+  "name": "扬州大学" },
+{
+  "province": "江苏省",
+  "city": "南京市",
+  "name": "三江学院" },
+{
+  "province": "江苏省",
+  "city": "南京市",
+  "name": "南京工程学院" },
+{
+  "province": "江苏省",
+  "city": "南京市",
+  "name": "南京审计大学" },
+{
+  "province": "江苏省",
+  "city": "南京市",
+  "name": "南京晓庄学院" },
+{
+  "province": "江苏省",
+  "city": "常州市",
+  "name": "江苏理工学院" },
+{
+  "province": "江苏省",
+  "city": "连云港市",
+  "name": "淮海工学院" },
+{
+  "province": "江苏省",
+  "city": "徐州市",
+  "name": "徐州工程学院" },
+{
+  "province": "江苏省",
+  "city": "南京市",
+  "name": "南京特殊教育师范学院" },
+{
+  "province": "江苏省",
+  "city": "南通市",
+  "name": "南通理工学院" },
+{
+  "province": "江苏省",
+  "city": "南京市",
+  "name": "南京森林警察学院" },
+{
+  "province": "江苏省",
+  "city": "南京市",
+  "name": "东南大学成贤学院" },
+{
+  "province": "江苏省",
+  "city": "泰州市",
+  "name": "泰州学院" },
+{
+  "province": "江苏省",
+  "city": "无锡市",
+  "name": "无锡太湖学院" },
+{
+  "province": "江苏省",
+  "city": "南京市",
+  "name": "金陵科技学院" },
+{
+  "province": "江苏省",
+  "city": "徐州市",
+  "name": "中国矿业大学徐海学院" },
+{
+  "province": "江苏省",
+  "city": "南京市",
+  "name": "南京大学金陵学院" },
+{
+  "province": "江苏省",
+  "city": "南京市",
+  "name": "南京理工大学紫金学院" },
+{
+  "province": "江苏省",
+  "city": "南京市",
+  "name": "南京航空航天大学金城学院" },
+{
+  "province": "江苏省",
+  "city": "南京市",
+  "name": "中国传媒大学南广学院" },
+{
+  "province": "江苏省",
+  "city": "泰州市",
+  "name": "南京理工大学泰州科技学院" },
+{
+  "province": "江苏省",
+  "city": "泰州市",
+  "name": "南京师范大学泰州学院" },
+{
+  "province": "江苏省",
+  "city": "南京市",
+  "name": "南京工业大学浦江学院" },
+{
+  "province": "江苏省",
+  "city": "南京市",
+  "name": "南京师范大学中北学院" },
+{
+  "province": "江苏省",
+  "city": "连云港市",
+  "name": "南京医科大学康达学院" },
+{
+  "province": "江苏省",
+  "city": "泰州市",
+  "name": "南京中医药大学翰林学院" },
+{
+  "province": "江苏省",
+  "city": "南京市",
+  "name": "南京信息工程大学滨江学院" },
+{
+  "province": "江苏省",
+  "city": "苏州市",
+  "name": "苏州大学文正学院" },
+{
+  "province": "江苏省",
+  "city": "苏州市",
+  "name": "苏州大学应用技术学院" },
+{
+  "province": "江苏省",
+  "city": "苏州市",
+  "name": "苏州科技大学天平学院" },
+{
+  "province": "江苏省",
+  "city": "镇江市",
+  "name": "江苏大学京江学院" },
+{
+  "province": "江苏省",
+  "city": "扬州市",
+  "name": "扬州大学广陵学院" },
+{
+  "province": "江苏省",
+  "city": "徐州市",
+  "name": "江苏师范大学科文学院" },
+{
+  "province": "江苏省",
+  "city": "扬州市",
+  "name": "南京邮电大学通达学院" },
+{
+  "province": "江苏省",
+  "city": "镇江市",
+  "name": "南京财经大学红山学院" },
+{
+  "province": "江苏省",
+  "city": "张家港市",
+  "name": "江苏科技大学苏州理工学院" },
+{
+  "province": "江苏省",
+  "city": "泰州市",
+  "name": "常州大学怀德学院" },
+{
+  "province": "江苏省",
+  "city": "南通市",
+  "name": "南通大学杏林学院" },
+{
+  "province": "江苏省",
+  "city": "南京市",
+  "name": "南京审计大学金审学院" },
+{
+  "province": "江苏省",
+  "city": "宿迁市",
+  "name": "宿迁学院" },
+{
+  "province": "江苏省",
+  "city": "南京市",
+  "name": "江苏第二师范学院" },
+{
+  "province": "江苏省",
+  "city": "苏州市",
+  "name": "西交利物浦大学" },
+{
+  "province": "江苏省",
+  "city": "昆山市",
+  "name": "昆山杜克大学" },
+{
+  "province": "江苏省",
+  "city": "盐城市",
+  "name": "明达职业技术学院" },
+{
+  "province": "江苏省",
+  "city": "无锡市",
+  "name": "无锡职业技术学院" },
+{
+  "province": "江苏省",
+  "city": "徐州市",
+  "name": "江苏建筑职业技术学院" },
+{
+  "province": "江苏省",
+  "city": "南京市",
+  "name": "南京工业职业技术学院" },
+{
+  "province": "江苏省",
+  "city": "南通市",
+  "name": "江苏工程职业技术学院" },
+{
+  "province": "江苏省",
+  "city": "苏州市",
+  "name": "苏州工艺美术职业技术学院" },
+{
+  "province": "江苏省",
+  "city": "连云港市",
+  "name": "连云港职业技术学院" },
+{
+  "province": "江苏省",
+  "city": "镇江市",
+  "name": "镇江市高等专科学校" },
+{
+  "province": "江苏省",
+  "city": "南通市",
+  "name": "南通职业大学" },
+{
+  "province": "江苏省",
+  "city": "苏州市",
+  "name": "苏州职业大学" },
+{
+  "province": "江苏省",
+  "city": "苏州市",
+  "name": "沙洲职业工学院" },
+{
+  "province": "江苏省",
+  "city": "扬州市",
+  "name": "扬州市职业大学" },
+{
+  "province": "江苏省",
+  "city": "连云港市",
+  "name": "连云港师范高等专科学校" },
+{
+  "province": "江苏省",
+  "city": "南京市",
+  "name": "江苏经贸职业技术学院" },
+{
+  "province": "江苏省",
+  "city": "徐州市",
+  "name": "九州职业技术学院" },
+{
+  "province": "江苏省",
+  "city": "苏州市",
+  "name": "硅湖职业技术学院" },
+{
+  "province": "江苏省",
+  "city": "泰州市",
+  "name": "泰州职业技术学院" },
+{
+  "province": "江苏省",
+  "city": "常州市",
+  "name": "常州信息职业技术学院" },
+{
+  "province": "江苏省",
+  "city": "南京市",
+  "name": "江苏联合职业技术学院" },
+{
+  "province": "江苏省",
+  "city": "南京市",
+  "name": "江苏海事职业技术学院" },
+{
+  "province": "江苏省",
+  "city": "南京市",
+  "name": "应天职业技术学院" },
+{
+  "province": "江苏省",
+  "city": "无锡市",
+  "name": "无锡科技职业学院" },
+{
+  "province": "江苏省",
+  "city": "盐城市",
+  "name": "江苏医药职业学院" },
+{
+  "province": "江苏省",
+  "city": "扬州市",
+  "name": "扬州环境资源职业技术学院" },
+{
+  "province": "江苏省",
+  "city": "南通市",
+  "name": "南通科技职业学院" },
+{
+  "province": "江苏省",
+  "city": "苏州市",
+  "name": "苏州经贸职业技术学院" },
+{
+  "province": "江苏省",
+  "city": "苏州市",
+  "name": "苏州工业职业技术学院" },
+{
+  "province": "江苏省",
+  "city": "苏州市",
+  "name": "苏州托普信息职业技术学院" },
+{
+  "province": "江苏省",
+  "city": "苏州市",
+  "name": "苏州卫生职业技术学院" },
+{
+  "province": "江苏省",
+  "city": "无锡市",
+  "name": "无锡商业职业技术学院" },
+{
+  "province": "江苏省",
+  "city": "南通市",
+  "name": "南通航运职业技术学院" },
+{
+  "province": "江苏省",
+  "city": "南京市",
+  "name": "南京交通职业技术学院" },
+{
+  "province": "江苏省",
+  "city": "淮安市",
+  "name": "淮安信息职业技术学院" },
+{
+  "province": "江苏省",
+  "city": "泰州市",
+  "name": "江苏农牧科技职业学院" },
+{
+  "province": "江苏省",
+  "city": "常州市",
+  "name": "常州纺织服装职业技术学院" },
+{
+  "province": "江苏省",
+  "city": "苏州市",
+  "name": "苏州农业职业技术学院" },
+{
+  "province": "江苏省",
+  "city": "苏州市",
+  "name": "苏州工业园区职业技术学院" },
+{
+  "province": "江苏省",
+  "city": "无锡市",
+  "name": "太湖创意职业技术学院" },
+{
+  "province": "江苏省",
+  "city": "淮安市",
+  "name": "炎黄职业技术学院" },
+{
+  "province": "江苏省",
+  "city": "南京市",
+  "name": "南京科技职业学院" },
+{
+  "province": "江苏省",
+  "city": "南京市",
+  "name": "正德职业技术学院" },
+{
+  "province": "江苏省",
+  "city": "南京市",
+  "name": "钟山职业技术学院" },
+{
+  "province": "江苏省",
+  "city": "无锡市",
+  "name": "无锡南洋职业技术学院" },
+{
+  "province": "江苏省",
+  "city": "无锡市",
+  "name": "江南影视艺术职业学院" },
+{
+  "province": "江苏省",
+  "city": "南京市",
+  "name": "金肯职业技术学院" },
+{
+  "province": "江苏省",
+  "city": "常州市",
+  "name": "常州轻工职业技术学院" },
+{
+  "province": "江苏省",
+  "city": "常州市",
+  "name": "常州工程职业技术学院" },
+{
+  "province": "江苏省",
+  "city": "镇江市",
+  "name": "江苏农林职业技术学院" },
+{
+  "province": "江苏省",
+  "city": "淮安市",
+  "name": "江苏食品药品职业技术学院" },
+{
+  "province": "江苏省",
+  "city": "常州市",
+  "name": "建东职业技术学院" },
+{
+  "province": "江苏省",
+  "city": "南京市",
+  "name": "南京铁道职业技术学院" },
+{
+  "province": "江苏省",
+  "city": "徐州市",
+  "name": "徐州工业职业技术学院" },
+{
+  "province": "江苏省",
+  "city": "无锡市",
+  "name": "江苏信息职业技术学院" },
+{
+  "province": "江苏省",
+  "city": "宿迁市",
+  "name": "宿迁职业技术学院" },
+{
+  "province": "江苏省",
+  "city": "南京市",
+  "name": "南京信息职业技术学院" },
+{
+  "province": "江苏省",
+  "city": "扬州市",
+  "name": "江海职业技术学院" },
+{
+  "province": "江苏省",
+  "city": "常州市",
+  "name": "常州机电职业技术学院" },
+{
+  "province": "江苏省",
+  "city": "无锡市",
+  "name": "江阴职业技术学院" },
+{
+  "province": "江苏省",
+  "city": "无锡市",
+  "name": "无锡城市职业技术学院" },
+{
+  "province": "江苏省",
+  "city": "无锡市",
+  "name": "无锡工艺职业技术学院" },
+{
+  "province": "江苏省",
+  "city": "镇江市",
+  "name": "金山职业技术学院" },
+{
+  "province": "江苏省",
+  "city": "苏州市",
+  "name": "苏州健雄职业技术学院" },
+{
+  "province": "江苏省",
+  "city": "盐城市",
+  "name": "盐城工业职业技术学院" },
+{
+  "province": "江苏省",
+  "city": "淮安市",
+  "name": "江苏财经职业技术学院" },
+{
+  "province": "江苏省",
+  "city": "扬州市",
+  "name": "扬州工业职业技术学院" },
+{
+  "province": "江苏省",
+  "city": "苏州市",
+  "name": "苏州百年职业学院" },
+{
+  "province": "江苏省",
+  "city": "苏州市",
+  "name": "昆山登云科技职业学院" },
+{
+  "province": "江苏省",
+  "city": "南京市",
+  "name": "南京视觉艺术职业学院" },
+{
+  "province": "江苏省",
+  "city": "南京市",
+  "name": "江苏城市职业学院" },
+{
+  "province": "江苏省",
+  "city": "南京市",
+  "name": "南京城市职业学院" },
+{
+  "province": "江苏省",
+  "city": "南京市",
+  "name": "南京机电职业技术学院" },
+{
+  "province": "江苏省",
+  "city": "苏州市",
+  "name": "苏州高博软件技术职业学院" },
+{
+  "province": "江苏省",
+  "city": "南京市",
+  "name": "南京旅游职业学院" },
+{
+  "province": "江苏省",
+  "city": "南京市",
+  "name": "江苏卫生健康职业学院" },
+{
+  "province": "江苏省",
+  "city": "苏州市",
+  "name": "苏州信息职业技术学院" },
+{
+  "province": "江苏省",
+  "city": "宿迁市",
+  "name": "宿迁泽达职业技术学院" },
+{
+  "province": "江苏省",
+  "city": "苏州市",
+  "name": "苏州工业园区服务外包职业学院" },
+{
+  "province": "江苏省",
+  "city": "徐州市",
+  "name": "徐州幼儿师范高等专科学校" },
+{
+  "province": "江苏省",
+  "city": "徐州市",
+  "name": "徐州生物工程职业技术学院" },
+{
+  "province": "江苏省",
+  "city": "南通市",
+  "name": "江苏商贸职业学院" },
+{
+  "province": "江苏省",
+  "city": "南通市",
+  "name": "南通师范高等专科学校" },
+{
+  "province": "江苏省",
+  "city": "扬州市",
+  "name": "扬州中瑞酒店职业学院" },
+{
+  "province": "江苏省",
+  "city": "淮安市",
+  "name": "江苏护理职业学院" },
+{
+  "province": "江苏省",
+  "city": "连云港市",
+  "name": "江苏财会职业学院" },
+{
+  "province": "江苏省",
+  "city": "常州市",
+  "name": "江苏城乡建设职业学院" },
+{
+  "province": "江苏省",
+  "city": "盐城市",
+  "name": "盐城幼儿师范高等专科学校" },
+{
+  "province": "江苏省",
+  "city": "苏州市",
+  "name": "苏州幼儿师范高等专科学校" },
+{
+  "province": "江苏省",
+  "city": "镇江市",
+  "name": "江苏航空职业技术学院" },
+{
+  "province": "江苏省",
+  "city": "徐州市",
+  "name": "江苏安全技术职业学院" },
+{
+  "province": "江苏省",
+  "city": "扬州市",
+  "name": "江苏旅游职业学院" },
+{
+  "province": "江苏省",
+  "city": "南京市",
+  "name": "中国人民解放军陆军工程大学" },
+{
+  "province": "江苏省",
+  "city": "南京市",
+  "name": "中国人民解放军海军指挥学院" },
+{
+  "province": "浙江省",
+  "city": "杭州市",
+  "name": "浙江大学" },
+{
+  "province": "浙江省",
+  "city": "杭州市",
+  "name": "杭州电子科技大学" },
+{
+  "province": "浙江省",
+  "city": "杭州市",
+  "name": "浙江工业大学" },
+{
+  "province": "浙江省",
+  "city": "杭州市",
+  "name": "浙江理工大学" },
+{
+  "province": "浙江省",
+  "city": "舟山市",
+  "name": "浙江海洋大学" },
+{
+  "province": "浙江省",
+  "city": "杭州市",
+  "name": "浙江农林大学" },
+{
+  "province": "浙江省",
+  "city": "温州市",
+  "name": "温州医科大学" },
+{
+  "province": "浙江省",
+  "city": "杭州市",
+  "name": "浙江中医药大学" },
+{
+  "province": "浙江省",
+  "city": "金华市",
+  "name": "浙江师范大学" },
+{
+  "province": "浙江省",
+  "city": "杭州市",
+  "name": "杭州师范大学" },
+{
+  "province": "浙江省",
+  "city": "湖州市",
+  "name": "湖州师范学院" },
+{
+  "province": "浙江省",
+  "city": "绍兴市",
+  "name": "绍兴文理学院" },
+{
+  "province": "浙江省",
+  "city": "台州市",
+  "name": "台州学院" },
+{
+  "province": "浙江省",
+  "city": "温州市",
+  "name": "温州大学" },
+{
+  "province": "浙江省",
+  "city": "丽水市",
+  "name": "丽水学院" },
+{
+  "province": "浙江省",
+  "city": "杭州市",
+  "name": "浙江工商大学" },
+{
+  "province": "浙江省",
+  "city": "嘉兴市",
+  "name": "嘉兴学院" },
+{
+  "province": "浙江省",
+  "city": "杭州市",
+  "name": "中国美术学院" },
+{
+  "province": "浙江省",
+  "city": "杭州市",
+  "name": "中国计量大学" },
+{
+  "province": "浙江省",
+  "city": "宁波市",
+  "name": "公安海警学院" },
+{
+  "province": "浙江省",
+  "city": "宁波市",
+  "name": "浙江万里学院" },
+{
+  "province": "浙江省",
+  "city": "杭州市",
+  "name": "浙江科技学院" },
+{
+  "province": "浙江省",
+  "city": "宁波市",
+  "name": "宁波工程学院" },
+{
+  "province": "浙江省",
+  "city": "杭州市",
+  "name": "浙江水利水电学院" },
+{
+  "province": "浙江省",
+  "city": "杭州市",
+  "name": "浙江财经大学" },
+{
+  "province": "浙江省",
+  "city": "杭州市",
+  "name": "浙江警察学院" },
+{
+  "province": "浙江省",
+  "city": "衢州市",
+  "name": "衢州学院" },
+{
+  "province": "浙江省",
+  "city": "宁波市",
+  "name": "宁波大学" },
+{
+  "province": "浙江省",
+  "city": "杭州市",
+  "name": "浙江传媒学院" },
+{
+  "province": "浙江省",
+  "city": "杭州市",
+  "name": "浙江树人学院" },
+{
+  "province": "浙江省",
+  "city": "绍兴市",
+  "name": "浙江越秀外国语学院" },
+{
+  "province": "浙江省",
+  "city": "宁波市",
+  "name": "宁波大红鹰学院" },
+{
+  "province": "浙江省",
+  "city": "杭州市",
+  "name": "浙江大学城市学院" },
+{
+  "province": "浙江省",
+  "city": "宁波市",
+  "name": "浙江大学宁波理工学院" },
+{
+  "province": "浙江省",
+  "city": "杭州市",
+  "name": "浙江工业大学之江学院" },
+{
+  "province": "浙江省",
+  "city": "金华市",
+  "name": "浙江师范大学行知学院" },
+{
+  "province": "浙江省",
+  "city": "宁波市",
+  "name": "宁波大学科学技术学院" },
+{
+  "province": "浙江省",
+  "city": "杭州市",
+  "name": "杭州电子科技大学信息工程学院" },
+{
+  "province": "浙江省",
+  "city": "杭州市",
+  "name": "浙江理工大学科技与艺术学院" },
+{
+  "province": "浙江省",
+  "city": "舟山市",
+  "name": "浙江海洋大学东海科学技术学院" },
+{
+  "province": "浙江省",
+  "city": "绍兴市",
+  "name": "浙江农林大学暨阳学院" },
+{
+  "province": "浙江省",
+  "city": "温州市",
+  "name": "温州医科大学仁济学院" },
+{
+  "province": "浙江省",
+  "city": "杭州市",
+  "name": "浙江中医药大学滨江学院" },
+{
+  "province": "浙江省",
+  "city": "杭州市",
+  "name": "杭州师范大学钱江学院" },
+{
+  "province": "浙江省",
+  "city": "湖州市",
+  "name": "湖州师范学院求真学院" },
+{
+  "province": "浙江省",
+  "city": "绍兴市",
+  "name": "绍兴文理学院元培学院" },
+{
+  "province": "浙江省",
+  "city": "温州市",
+  "name": "温州大学瓯江学院" },
+{
+  "province": "浙江省",
+  "city": "杭州市",
+  "name": "浙江工商大学杭州商学院" },
+{
+  "province": "浙江省",
+  "city": "嘉兴市",
+  "name": "嘉兴学院南湖学院" },
+{
+  "province": "浙江省",
+  "city": "杭州市",
+  "name": "中国计量大学现代科技学院" },
+{
+  "province": "浙江省",
+  "city": "嘉兴市",
+  "name": "浙江财经大学东方学院" },
+{
+  "province": "浙江省",
+  "city": "温州市",
+  "name": "温州商学院" },
+{
+  "province": "浙江省",
+  "city": "嘉兴市",
+  "name": "同济大学浙江学院" },
+{
+  "province": "浙江省",
+  "city": "金华市",
+  "name": "上海财经大学浙江学院" },
+{
+  "province": "浙江省",
+  "city": "杭州市",
+  "name": "浙江外国语学院" },
+{
+  "province": "浙江省",
+  "city": "宁波市",
+  "name": "宁波诺丁汉大学" },
+{
+  "province": "浙江省",
+  "city": "温州市",
+  "name": "温州肯恩大学" },
+{
+  "province": "浙江省",
+  "city": "宁波市",
+  "name": "宁波职业技术学院" },
+{
+  "province": "浙江省",
+  "city": "温州市",
+  "name": "温州职业技术学院" },
+{
+  "province": "浙江省",
+  "city": "杭州市",
+  "name": "浙江交通职业技术学院" },
+{
+  "province": "浙江省",
+  "city": "金华市",
+  "name": "金华职业技术学院" },
+{
+  "province": "浙江省",
+  "city": "宁波市",
+  "name": "宁波城市职业技术学院" },
+{
+  "province": "浙江省",
+  "city": "杭州市",
+  "name": "浙江电力职业技术学院" },
+{
+  "province": "浙江省",
+  "city": "杭州市",
+  "name": "浙江同济科技职业学院" },
+{
+  "province": "浙江省",
+  "city": "宁波市",
+  "name": "浙江工商职业技术学院" },
+{
+  "province": "浙江省",
+  "city": "台州市",
+  "name": "台州职业技术学院" },
+{
+  "province": "浙江省",
+  "city": "温州市",
+  "name": "浙江工贸职业技术学院" },
+{
+  "province": "浙江省",
+  "city": "宁波市",
+  "name": "浙江医药高等专科学校" },
+{
+  "province": "浙江省",
+  "city": "杭州市",
+  "name": "浙江机电职业技术学院" },
+{
+  "province": "浙江省",
+  "city": "杭州市",
+  "name": "浙江建设职业技术学院" },
+{
+  "province": "浙江省",
+  "city": "杭州市",
+  "name": "浙江艺术职业学院" },
+{
+  "province": "浙江省",
+  "city": "杭州市",
+  "name": "浙江经贸职业技术学院" },
+{
+  "province": "浙江省",
+  "city": "杭州市",
+  "name": "浙江商业职业技术学院" },
+{
+  "province": "浙江省",
+  "city": "杭州市",
+  "name": "浙江经济职业技术学院" },
+{
+  "province": "浙江省",
+  "city": "杭州市",
+  "name": "浙江旅游职业学院" },
+{
+  "province": "浙江省",
+  "city": "杭州市",
+  "name": "浙江育英职业技术学院" },
+{
+  "province": "浙江省",
+  "city": "杭州市",
+  "name": "浙江警官职业学院" },
+{
+  "province": "浙江省",
+  "city": "杭州市",
+  "name": "浙江金融职业学院" },
+{
+  "province": "浙江省",
+  "city": "绍兴市",
+  "name": "浙江工业职业技术学院" },
+{
+  "province": "浙江省",
+  "city": "杭州市",
+  "name": "杭州职业技术学院" },
+{
+  "province": "浙江省",
+  "city": "嘉兴市",
+  "name": "嘉兴职业技术学院" },
+{
+  "province": "浙江省",
+  "city": "湖州市",
+  "name": "湖州职业技术学院" },
+{
+  "province": "浙江省",
+  "city": "绍兴市",
+  "name": "绍兴职业技术学院" },
+{
+  "province": "浙江省",
+  "city": "衢州市",
+  "name": "衢州职业技术学院" },
+{
+  "province": "浙江省",
+  "city": "丽水市",
+  "name": "丽水职业技术学院" },
+{
+  "province": "浙江省",
+  "city": "温州市",
+  "name": "浙江东方职业技术学院" },
+{
+  "province": "浙江省",
+  "city": "金华市",
+  "name": "义乌工商职业技术学院" },
+{
+  "province": "浙江省",
+  "city": "杭州市",
+  "name": "杭州医学院" },
+{
+  "province": "浙江省",
+  "city": "宁波市",
+  "name": "浙江纺织服装职业技术学院" },
+{
+  "province": "浙江省",
+  "city": "杭州市",
+  "name": "杭州科技职业技术学院" },
+{
+  "province": "浙江省",
+  "city": "杭州市",
+  "name": "浙江长征职业技术学院" },
+{
+  "province": "浙江省",
+  "city": "嘉兴市",
+  "name": "嘉兴南洋职业技术学院" },
+{
+  "province": "浙江省",
+  "city": "金华市",
+  "name": "浙江广厦建设职业技术学院" },
+{
+  "province": "浙江省",
+  "city": "杭州市",
+  "name": "杭州万向职业技术学院" },
+{
+  "province": "浙江省",
+  "city": "绍兴市",
+  "name": "浙江邮电职业技术学院" },
+{
+  "province": "浙江省",
+  "city": "宁波市",
+  "name": "宁波卫生职业技术学院" },
+{
+  "province": "浙江省",
+  "city": "台州市",
+  "name": "台州科技职业学院" },
+{
+  "province": "浙江省",
+  "city": "舟山市",
+  "name": "浙江国际海运职业技术学院" },
+{
+  "province": "浙江省",
+  "city": "杭州市",
+  "name": "浙江体育职业技术学院" },
+{
+  "province": "浙江省",
+  "city": "温州市",
+  "name": "温州科技职业学院" },
+{
+  "province": "浙江省",
+  "city": "台州市",
+  "name": "浙江汽车职业技术学院" },
+{
+  "province": "浙江省",
+  "city": "金华市",
+  "name": "浙江横店影视职业学院" },
+{
+  "province": "浙江省",
+  "city": "绍兴市",
+  "name": "浙江农业商贸职业学院" },
+{
+  "province": "浙江省",
+  "city": "杭州市",
+  "name": "浙江特殊教育职业学院" },
+{
+  "province": "浙江省",
+  "city": "舟山市",
+  "name": "浙江舟山群岛新区旅游与健康职业学院" },
+{
+  "province": "浙江省",
+  "city": "杭州市",
+  "name": "浙江音乐学院" },
+{
+  "province": "浙江省",
+  "city": "温州市",
+  "name": "浙江安防职业技术学院" },
+{
+  "province": "安徽省",
+  "city": "合肥市",
+  "name": "安徽大学" },
+{
+  "province": "安徽省",
+  "city": "合肥市",
+  "name": "中国科学技术大学" },
+{
+  "province": "安徽省",
+  "city": "合肥市",
+  "name": "合肥工业大学" },
+{
+  "province": "安徽省",
+  "city": "马鞍山市",
+  "name": "安徽工业大学" },
+{
+  "province": "安徽省",
+  "city": "淮南市",
+  "name": "安徽理工大学" },
+{
+  "province": "安徽省",
+  "city": "芜湖市",
+  "name": "安徽工程大学" },
+{
+  "province": "安徽省",
+  "city": "合肥市",
+  "name": "安徽农业大学" },
+{
+  "province": "安徽省",
+  "city": "合肥市",
+  "name": "安徽医科大学" },
+{
+  "province": "安徽省",
+  "city": "蚌埠市",
+  "name": "蚌埠医学院" },
+{
+  "province": "安徽省",
+  "city": "芜湖市",
+  "name": "皖南医学院" },
+{
+  "province": "安徽省",
+  "city": "合肥市",
+  "name": "安徽中医药大学" },
+{
+  "province": "安徽省",
+  "city": "芜湖市",
+  "name": "安徽师范大学" },
+{
+  "province": "安徽省",
+  "city": "阜阳市",
+  "name": "阜阳师范学院" },
+{
+  "province": "安徽省",
+  "city": "安庆市",
+  "name": "安庆师范大学" },
+{
+  "province": "安徽省",
+  "city": "淮北市",
+  "name": "淮北师范大学" },
+{
+  "province": "安徽省",
+  "city": "黄山市",
+  "name": "黄山学院" },
+{
+  "province": "安徽省",
+  "city": "六安市",
+  "name": "皖西学院" },
+{
+  "province": "安徽省",
+  "city": "滁州市",
+  "name": "滁州学院" },
+{
+  "province": "安徽省",
+  "city": "蚌埠市",
+  "name": "安徽财经大学" },
+{
+  "province": "安徽省",
+  "city": "宿州市",
+  "name": "宿州学院" },
+{
+  "province": "安徽省",
+  "city": "合肥市",
+  "name": "巢湖学院" },
+{
+  "province": "安徽省",
+  "city": "淮南市",
+  "name": "淮南师范学院" },
+{
+  "province": "安徽省",
+  "city": "铜陵市",
+  "name": "铜陵学院" },
+{
+  "province": "安徽省",
+  "city": "合肥市",
+  "name": "安徽建筑大学" },
+{
+  "province": "安徽省",
+  "city": "滁州市",
+  "name": "安徽科技学院" },
+{
+  "province": "安徽省",
+  "city": "合肥市",
+  "name": "安徽三联学院" },
+{
+  "province": "安徽省",
+  "city": "合肥市",
+  "name": "合肥学院" },
+{
+  "province": "安徽省",
+  "city": "蚌埠市",
+  "name": "蚌埠学院" },
+{
+  "province": "安徽省",
+  "city": "池州市",
+  "name": "池州学院" },
+{
+  "province": "安徽省",
+  "city": "合肥市",
+  "name": "安徽新华学院" },
+{
+  "province": "安徽省",
+  "city": "合肥市",
+  "name": "安徽文达信息工程学院" },
+{
+  "province": "安徽省",
+  "city": "合肥市",
+  "name": "安徽外国语学院" },
+{
+  "province": "安徽省",
+  "city": "蚌埠市",
+  "name": "安徽财经大学商学院" },
+{
+  "province": "安徽省",
+  "city": "合肥市",
+  "name": "安徽大学江淮学院" },
+{
+  "province": "安徽省",
+  "city": "芜湖市",
+  "name": "安徽信息工程学院" },
+{
+  "province": "安徽省",
+  "city": "马鞍山市",
+  "name": "安徽工业大学工商学院" },
+{
+  "province": "安徽省",
+  "city": "合肥市",
+  "name": "安徽建筑大学城市建设学院" },
+{
+  "province": "安徽省",
+  "city": "合肥市",
+  "name": "安徽农业大学经济技术学院" },
+{
+  "province": "安徽省",
+  "city": "芜湖市",
+  "name": "安徽师范大学皖江学院" },
+{
+  "province": "安徽省",
+  "city": "合肥市",
+  "name": "安徽医科大学临床医学院" },
+{
+  "province": "安徽省",
+  "city": "阜阳市",
+  "name": "阜阳师范学院信息工程学院" },
+{
+  "province": "安徽省",
+  "city": "淮北市",
+  "name": "淮北师范大学信息学院" },
+{
+  "province": "安徽省",
+  "city": "合肥市",
+  "name": "合肥师范学院" },
+{
+  "province": "安徽省",
+  "city": "马鞍山市",
+  "name": "河海大学文天学院" },
+{
+  "province": "安徽省",
+  "city": "合肥市",
+  "name": "安徽职业技术学院" },
+{
+  "province": "安徽省",
+  "city": "淮北市",
+  "name": "淮北职业技术学院" },
+{
+  "province": "安徽省",
+  "city": "芜湖市",
+  "name": "芜湖职业技术学院" },
+{
+  "province": "安徽省",
+  "city": "淮南市",
+  "name": "淮南联合大学" },
+{
+  "province": "安徽省",
+  "city": "芜湖市",
+  "name": "安徽商贸职业技术学院" },
+{
+  "province": "安徽省",
+  "city": "合肥市",
+  "name": "安徽水利水电职业技术学院" },
+{
+  "province": "安徽省",
+  "city": "阜阳市",
+  "name": "阜阳职业技术学院" },
+{
+  "province": "安徽省",
+  "city": "铜陵市",
+  "name": "铜陵职业技术学院" },
+{
+  "province": "安徽省",
+  "city": "合肥市",
+  "name": "民办万博科技职业学院" },
+{
+  "province": "安徽省",
+  "city": "合肥市",
+  "name": "安徽警官职业学院" },
+{
+  "province": "安徽省",
+  "city": "淮南市",
+  "name": "淮南职业技术学院" },
+{
+  "province": "安徽省",
+  "city": "合肥市",
+  "name": "安徽工业经济职业技术学院" },
+{
+  "province": "安徽省",
+  "city": "合肥市",
+  "name": "合肥通用职业技术学院" },
+{
+  "province": "安徽省",
+  "city": "淮南市",
+  "name": "安徽工贸职业技术学院" },
+{
+  "province": "安徽省",
+  "city": "宿州市",
+  "name": "宿州职业技术学院" },
+{
+  "province": "安徽省",
+  "city": "六安市",
+  "name": "六安职业技术学院" },
+{
+  "province": "安徽省",
+  "city": "蚌埠市",
+  "name": "安徽电子信息职业技术学院" },
+{
+  "province": "安徽省",
+  "city": "合肥市",
+  "name": "民办合肥经济技术职业学院" },
+{
+  "province": "安徽省",
+  "city": "合肥市",
+  "name": "安徽交通职业技术学院" },
+{
+  "province": "安徽省",
+  "city": "合肥市",
+  "name": "安徽体育运动职业技术学院" },
+{
+  "province": "安徽省",
+  "city": "芜湖市",
+  "name": "安徽中医药高等专科学校" },
+{
+  "province": "安徽省",
+  "city": "合肥市",
+  "name": "安徽医学高等专科学校" },
+{
+  "province": "安徽省",
+  "city": "亳州市",
+  "name": "亳州学院" },
+{
+  "province": "安徽省",
+  "city": "合肥市",
+  "name": "合肥职业技术学院" },
+{
+  "province": "安徽省",
+  "city": "滁州市",
+  "name": "滁州职业技术学院" },
+{
+  "province": "安徽省",
+  "city": "池州市",
+  "name": "池州职业技术学院" },
+{
+  "province": "安徽省",
+  "city": "宣城市",
+  "name": "宣城职业技术学院" },
+{
+  "province": "安徽省",
+  "city": "合肥市",
+  "name": "安徽广播影视职业技术学院" },
+{
+  "province": "安徽省",
+  "city": "合肥市",
+  "name": "民办合肥滨湖职业技术学院" },
+{
+  "province": "安徽省",
+  "city": "合肥市",
+  "name": "安徽电气工程职业技术学院" },
+{
+  "province": "安徽省",
+  "city": "马鞍山市",
+  "name": "安徽冶金科技职业学院" },
+{
+  "province": "安徽省",
+  "city": "合肥市",
+  "name": "安徽城市管理职业学院" },
+{
+  "province": "安徽省",
+  "city": "芜湖市",
+  "name": "安徽机电职业技术学院" },
+{
+  "province": "安徽省",
+  "city": "合肥市",
+  "name": "安徽工商职业学院" },
+{
+  "province": "安徽省",
+  "city": "合肥市",
+  "name": "安徽中澳科技职业学院" },
+{
+  "province": "安徽省",
+  "city": "阜阳市",
+  "name": "阜阳科技职业学院" },
+{
+  "province": "安徽省",
+  "city": "亳州市",
+  "name": "亳州职业技术学院" },
+{
+  "province": "安徽省",
+  "city": "六安市",
+  "name": "安徽国防科技职业学院" },
+{
+  "province": "安徽省",
+  "city": "安庆市",
+  "name": "安庆职业技术学院" },
+{
+  "province": "安徽省",
+  "city": "合肥市",
+  "name": "安徽艺术职业学院" },
+{
+  "province": "安徽省",
+  "city": "马鞍山市",
+  "name": "马鞍山师范高等专科学校" },
+{
+  "province": "安徽省",
+  "city": "合肥市",
+  "name": "安徽财贸职业学院" },
+{
+  "province": "安徽省",
+  "city": "合肥市",
+  "name": "安徽国际商务职业学院" },
+{
+  "province": "安徽省",
+  "city": "合肥市",
+  "name": "安徽公安职业学院" },
+{
+  "province": "安徽省",
+  "city": "合肥市",
+  "name": "安徽林业职业技术学院" },
+{
+  "province": "安徽省",
+  "city": "合肥市",
+  "name": "安徽审计职业学院" },
+{
+  "province": "安徽省",
+  "city": "合肥市",
+  "name": "安徽新闻出版职业技术学院" },
+{
+  "province": "安徽省",
+  "city": "合肥市",
+  "name": "安徽邮电职业技术学院" },
+{
+  "province": "安徽省",
+  "city": "铜陵市",
+  "name": "安徽工业职业技术学院" },
+{
+  "province": "安徽省",
+  "city": "合肥市",
+  "name": "民办合肥财经职业学院" },
+{
+  "province": "安徽省",
+  "city": "安庆市",
+  "name": "安庆医药高等专科学校" },
+{
+  "province": "安徽省",
+  "city": "合肥市",
+  "name": "安徽涉外经济职业学院" },
+{
+  "province": "安徽省",
+  "city": "合肥市",
+  "name": "安徽绿海商务职业学院" },
+{
+  "province": "安徽省",
+  "city": "合肥市",
+  "name": "合肥共达职业技术学院" },
+{
+  "province": "安徽省",
+  "city": "蚌埠市",
+  "name": "蚌埠经济技术职业学院" },
+{
+  "province": "安徽省",
+  "city": "阜阳市",
+  "name": "民办安徽旅游职业学院" },
+{
+  "province": "安徽省",
+  "city": "合肥市",
+  "name": "徽商职业学院" },
+{
+  "province": "安徽省",
+  "city": "马鞍山市",
+  "name": "马鞍山职业技术学院" },
+{
+  "province": "安徽省",
+  "city": "六安市",
+  "name": "安徽现代信息工程职业学院" },
+{
+  "province": "安徽省",
+  "city": "淮北市",
+  "name": "安徽矿业职业技术学院" },
+{
+  "province": "安徽省",
+  "city": "合肥市",
+  "name": "合肥信息技术职业学院" },
+{
+  "province": "安徽省",
+  "city": "安庆市",
+  "name": "桐城师范高等专科学校" },
+{
+  "province": "安徽省",
+  "city": "黄山市",
+  "name": "黄山职业技术学院" },
+{
+  "province": "安徽省",
+  "city": "滁州市",
+  "name": "滁州城市职业学院" },
+{
+  "province": "安徽省",
+  "city": "合肥市",
+  "name": "安徽汽车职业技术学院" },
+{
+  "province": "安徽省",
+  "city": "六安市",
+  "name": "皖西卫生职业学院" },
+{
+  "province": "安徽省",
+  "city": "合肥市",
+  "name": "合肥幼儿师范高等专科学校" },
+{
+  "province": "安徽省",
+  "city": "合肥市",
+  "name": "安徽长江职业学院" },
+{
+  "province": "安徽省",
+  "city": "芜湖市",
+  "name": "安徽扬子职业技术学院" },
+{
+  "province": "安徽省",
+  "city": "安庆市",
+  "name": "安徽黄梅戏艺术职业学院" },
+{
+  "province": "安徽省",
+  "city": "合肥市",
+  "name": "安徽粮食工程职业学院" },
+{
+  "province": "安徽省",
+  "city": "池州市",
+  "name": "安徽卫生健康职业学院" },
+{
+  "province": "安徽省",
+  "city": "合肥市",
+  "name": "合肥科技职业学院" },
+{
+  "province": "安徽省",
+  "city": "宿州市",
+  "name": "皖北卫生职业学院" },
+{
+  "province": "安徽省",
+  "city": "阜阳市",
+  "name": "阜阳幼儿师范高等专科学校" },
+{
+  "province": "安徽省",
+  "city": "合肥市",
+  "name": "中国人民解放军陆军炮兵防空兵学院" },
+{
+  "province": "安徽省",
+  "city": "蚌埠市",
+  "name": "中国人民解放军海军士官学校" },
+{
+  "province": "福建省",
+  "city": "厦门市",
+  "name": "厦门大学" },
+{
+  "province": "福建省",
+  "city": "泉州市",
+  "name": "华侨大学" },
+{
+  "province": "福建省",
+  "city": "福州市",
+  "name": "福州大学" },
+{
+  "province": "福建省",
+  "city": "福州市",
+  "name": "福建工程学院" },
+{
+  "province": "福建省",
+  "city": "福州市",
+  "name": "福建农林大学" },
+{
+  "province": "福建省",
+  "city": "厦门市",
+  "name": "集美大学" },
+{
+  "province": "福建省",
+  "city": "福州市",
+  "name": "福建医科大学" },
+{
+  "province": "福建省",
+  "city": "福州市",
+  "name": "福建中医药大学" },
+{
+  "province": "福建省",
+  "city": "福州市",
+  "name": "福建师范大学" },
+{
+  "province": "福建省",
+  "city": "福州市",
+  "name": "闽江学院" },
+{
+  "province": "福建省",
+  "city": "南平市",
+  "name": "武夷学院" },
+{
+  "province": "福建省",
+  "city": "宁德市",
+  "name": "宁德师范学院" },
+{
+  "province": "福建省",
+  "city": "泉州市",
+  "name": "泉州师范学院" },
+{
+  "province": "福建省",
+  "city": "漳州市",
+  "name": "闽南师范大学" },
+{
+  "province": "福建省",
+  "city": "厦门市",
+  "name": "厦门理工学院" },
+{
+  "province": "福建省",
+  "city": "三明市",
+  "name": "三明学院" },
+{
+  "province": "福建省",
+  "city": "龙岩市",
+  "name": "龙岩学院" },
+{
+  "province": "福建省",
+  "city": "福州市",
+  "name": "福建警察学院" },
+{
+  "province": "福建省",
+  "city": "莆田市",
+  "name": "莆田学院" },
+{
+  "province": "福建省",
+  "city": "泉州市",
+  "name": "仰恩大学" },
+{
+  "province": "福建省",
+  "city": "厦门市",
+  "name": "厦门华厦学院" },
+{
+  "province": "福建省",
+  "city": "泉州市",
+  "name": "闽南理工学院" },
+{
+  "province": "福建省",
+  "city": "泉州市",
+  "name": "福建师范大学闽南科技学院" },
+{
+  "province": "福建省",
+  "city": "福州市",
+  "name": "福建农林大学东方学院" },
+{
+  "province": "福建省",
+  "city": "厦门市",
+  "name": "厦门工学院" },
+{
+  "province": "福建省",
+  "city": "福州市",
+  "name": "阳光学院" },
+{
+  "province": "福建省",
+  "city": "漳州市",
+  "name": "厦门大学嘉庚学院" },
+{
+  "province": "福建省",
+  "city": "福州市",
+  "name": "福州大学至诚学院" },
+{
+  "province": "福建省",
+  "city": "厦门市",
+  "name": "集美大学诚毅学院" },
+{
+  "province": "福建省",
+  "city": "福州市",
+  "name": "福建师范大学协和学院" },
+{
+  "province": "福建省",
+  "city": "福州市",
+  "name": "福州外语外贸学院" },
+{
+  "province": "福建省",
+  "city": "福州市",
+  "name": "福建江夏学院" },
+{
+  "province": "福建省",
+  "city": "泉州市",
+  "name": "泉州信息工程学院" },
+{
+  "province": "福建省",
+  "city": "福州市",
+  "name": "福州理工学院" },
+{
+  "province": "福建省",
+  "city": "福州市",
+  "name": "福建农林大学金山学院" },
+{
+  "province": "福建省",
+  "city": "福州市",
+  "name": "福建船政交通职业学院" },
+{
+  "province": "福建省",
+  "city": "福州市",
+  "name": "福建商学院" },
+{
+  "province": "福建省",
+  "city": "漳州市",
+  "name": "漳州职业技术学院" },
+{
+  "province": "福建省",
+  "city": "龙岩市",
+  "name": "闽西职业技术学院" },
+{
+  "province": "福建省",
+  "city": "泉州市",
+  "name": "黎明职业大学" },
+{
+  "province": "福建省",
+  "city": "福州市",
+  "name": "福建华南女子职业学院" },
+{
+  "province": "福建省",
+  "city": "福州市",
+  "name": "福州职业技术学院" },
+{
+  "province": "福建省",
+  "city": "南平市",
+  "name": "福建林业职业技术学院" },
+{
+  "province": "福建省",
+  "city": "福州市",
+  "name": "福建信息职业技术学院" },
+{
+  "province": "福建省",
+  "city": "三明市",
+  "name": "福建水利电力职业技术学院" },
+{
+  "province": "福建省",
+  "city": "泉州市",
+  "name": "福建电力职业技术学院" },
+{
+  "province": "福建省",
+  "city": "厦门市",
+  "name": "厦门海洋职业技术学院" },
+{
+  "province": "福建省",
+  "city": "福州市",
+  "name": "福建农业职业技术学院" },
+{
+  "province": "福建省",
+  "city": "厦门市",
+  "name": "厦门医学院" },
+{
+  "province": "福建省",
+  "city": "福州市",
+  "name": "福建卫生职业技术学院" },
+{
+  "province": "福建省",
+  "city": "泉州市",
+  "name": "泉州医学高等专科学校" },
+{
+  "province": "福建省",
+  "city": "福州市",
+  "name": "福州英华职业学院" },
+{
+  "province": "福建省",
+  "city": "泉州市",
+  "name": "泉州纺织服装职业学院" },
+{
+  "province": "福建省",
+  "city": "泉州市",
+  "name": "泉州华光职业学院" },
+{
+  "province": "福建省",
+  "city": "泉州市",
+  "name": "泉州理工职业学院" },
+{
+  "province": "福建省",
+  "city": "福州市",
+  "name": "福建警官职业学院" },
+{
+  "province": "福建省",
+  "city": "南平市",
+  "name": "闽北职业技术学院" },
+{
+  "province": "福建省",
+  "city": "福州市",
+  "name": "福州黎明职业技术学院" },
+{
+  "province": "福建省",
+  "city": "厦门市",
+  "name": "厦门演艺职业学院" },
+{
+  "province": "福建省",
+  "city": "厦门市",
+  "name": "厦门华天涉外职业技术学院" },
+{
+  "province": "福建省",
+  "city": "福州市",
+  "name": "福州科技职业技术学院" },
+{
+  "province": "福建省",
+  "city": "泉州市",
+  "name": "泉州经贸职业技术学院" },
+{
+  "province": "福建省",
+  "city": "福州市",
+  "name": "福建对外经济贸易职业技术学院" },
+{
+  "province": "福建省",
+  "city": "莆田市",
+  "name": "湄洲湾职业技术学院" },
+{
+  "province": "福建省",
+  "city": "福州市",
+  "name": "福建生物工程职业技术学院" },
+{
+  "province": "福建省",
+  "city": "福州市",
+  "name": "福建艺术职业学院" },
+{
+  "province": "福建省",
+  "city": "福州市",
+  "name": "福建幼儿师范高等专科学校" },
+{
+  "province": "福建省",
+  "city": "厦门市",
+  "name": "厦门城市职业学院" },
+{
+  "province": "福建省",
+  "city": "泉州市",
+  "name": "泉州工艺美术职业学院" },
+{
+  "province": "福建省",
+  "city": "三明市",
+  "name": "三明医学科技职业学院" },
+{
+  "province": "福建省",
+  "city": "宁德市",
+  "name": "宁德职业技术学院" },
+{
+  "province": "福建省",
+  "city": "福州市",
+  "name": "福州软件职业技术学院" },
+{
+  "province": "福建省",
+  "city": "厦门市",
+  "name": "厦门兴才职业技术学院" },
+{
+  "province": "福建省",
+  "city": "厦门市",
+  "name": "厦门软件职业技术学院" },
+{
+  "province": "福建省",
+  "city": "福州市",
+  "name": "福建体育职业技术学院" },
+{
+  "province": "福建省",
+  "city": "漳州市",
+  "name": "漳州城市职业学院" },
+{
+  "province": "福建省",
+  "city": "厦门市",
+  "name": "厦门南洋职业学院" },
+{
+  "province": "福建省",
+  "city": "厦门市",
+  "name": "厦门东海职业技术学院" },
+{
+  "province": "福建省",
+  "city": "漳州市",
+  "name": "漳州科技职业学院" },
+{
+  "province": "福建省",
+  "city": "漳州市",
+  "name": "漳州理工职业学院" },
+{
+  "province": "福建省",
+  "city": "南平市",
+  "name": "武夷山职业学院" },
+{
+  "province": "福建省",
+  "city": "漳州市",
+  "name": "漳州卫生职业学院" },
+{
+  "province": "福建省",
+  "city": "泉州市",
+  "name": "泉州海洋职业学院" },
+{
+  "province": "福建省",
+  "city": "泉州市",
+  "name": "泉州轻工职业学院" },
+{
+  "province": "福建省",
+  "city": "厦门市",
+  "name": "厦门安防科技职业学院" },
+{
+  "province": "福建省",
+  "city": "泉州市",
+  "name": "泉州幼儿师范高等专科学校" },
+{
+  "province": "福建省",
+  "city": "福州市",
+  "name": "闽江师范高等专科学校" },
+{
+  "province": "福建省",
+  "city": "泉州市",
+  "name": "泉州工程职业技术学院" },
+{
+  "province": "福建省",
+  "city": "福州市",
+  "name": "福州墨尔本理工职业学院" },
+{
+  "province": "江西省",
+  "city": "南昌市",
+  "name": "南昌大学" },
+{
+  "province": "江西省",
+  "city": "南昌市",
+  "name": "华东交通大学" },
+{
+  "province": "江西省",
+  "city": "抚州市",
+  "name": "东华理工大学" },
+{
+  "province": "江西省",
+  "city": "南昌市",
+  "name": "南昌航空大学" },
+{
+  "province": "江西省",
+  "city": "赣州市",
+  "name": "江西理工大学" },
+{
+  "province": "江西省",
+  "city": "景德镇市",
+  "name": "景德镇陶瓷大学" },
+{
+  "province": "江西省",
+  "city": "南昌市",
+  "name": "江西农业大学" },
+{
+  "province": "江西省",
+  "city": "南昌市",
+  "name": "江西中医药大学" },
+{
+  "province": "江西省",
+  "city": "赣州市",
+  "name": "赣南医学院" },
+{
+  "province": "江西省",
+  "city": "南昌市",
+  "name": "江西师范大学" },
+{
+  "province": "江西省",
+  "city": "上饶市",
+  "name": "上饶师范学院" },
+{
+  "province": "江西省",
+  "city": "宜春市",
+  "name": "宜春学院" },
+{
+  "province": "江西省",
+  "city": "赣州市",
+  "name": "赣南师范大学" },
+{
+  "province": "江西省",
+  "city": "吉安市",
+  "name": "井冈山大学" },
+{
+  "province": "江西省",
+  "city": "南昌市",
+  "name": "江西财经大学" },
+{
+  "province": "江西省",
+  "city": "南昌市",
+  "name": "江西科技学院" },
+{
+  "province": "江西省",
+  "city": "景德镇市",
+  "name": "景德镇学院" },
+{
+  "province": "江西省",
+  "city": "萍乡市",
+  "name": "萍乡学院" },
+{
+  "province": "江西省",
+  "city": "南昌市",
+  "name": "江西科技师范大学" },
+{
+  "province": "江西省",
+  "city": "南昌市",
+  "name": "南昌工程学院" },
+{
+  "province": "江西省",
+  "city": "南昌市",
+  "name": "江西警察学院" },
+{
+  "province": "江西省",
+  "city": "新余市",
+  "name": "新余学院" },
+{
+  "province": "江西省",
+  "city": "九江市",
+  "name": "九江学院" },
+{
+  "province": "江西省",
+  "city": "新余市",
+  "name": "江西工程学院" },
+{
+  "province": "江西省",
+  "city": "南昌市",
+  "name": "南昌理工学院" },
+{
+  "province": "江西省",
+  "city": "南昌市",
+  "name": "江西应用科技学院" },
+{
+  "province": "江西省",
+  "city": "南昌市",
+  "name": "江西服装学院" },
+{
+  "province": "江西省",
+  "city": "南昌市",
+  "name": "南昌工学院" },
+{
+  "province": "江西省",
+  "city": "南昌市",
+  "name": "南昌大学科学技术学院" },
+{
+  "province": "江西省",
+  "city": "九江市",
+  "name": "南昌大学共青学院" },
+{
+  "province": "江西省",
+  "city": "南昌市",
+  "name": "华东交通大学理工学院" },
+{
+  "province": "江西省",
+  "city": "抚州市",
+  "name": "东华理工大学长江学院" },
+{
+  "province": "江西省",
+  "city": "南昌市",
+  "name": "南昌航空大学科技学院" },
+{
+  "province": "江西省",
+  "city": "赣州市",
+  "name": "江西理工大学应用科学学院" },
+{
+  "province": "江西省",
+  "city": "景德镇市",
+  "name": "景德镇陶瓷大学科技艺术学院" },
+{
+  "province": "江西省",
+  "city": "南昌市",
+  "name": "江西农业大学南昌商学院" },
+{
+  "province": "江西省",
+  "city": "南昌市",
+  "name": "江西中医药大学科技学院" },
+{
+  "province": "江西省",
+  "city": "南昌市",
+  "name": "江西师范大学科学技术学院" },
+{
+  "province": "江西省",
+  "city": "赣州市",
+  "name": "赣南师范大学科技学院" },
+{
+  "province": "江西省",
+  "city": "南昌市",
+  "name": "江西科技师范大学理工学院" },
+{
+  "province": "江西省",
+  "city": "南昌市",
+  "name": "江西财经大学现代经济管理学院" },
+{
+  "province": "江西省",
+  "city": "南昌市",
+  "name": "南昌师范学院" },
+{
+  "province": "江西省",
+  "city": "南昌市",
+  "name": "江西工业职业技术学院" },
+{
+  "province": "江西省",
+  "city": "上饶市",
+  "name": "江西医学高等专科学校" },
+{
+  "province": "江西省",
+  "city": "九江市",
+  "name": "九江职业大学" },
+{
+  "province": "江西省",
+  "city": "九江市",
+  "name": "九江职业技术学院" },
+{
+  "province": "江西省",
+  "city": "南昌市",
+  "name": "江西司法警官职业学院" },
+{
+  "province": "江西省",
+  "city": "景德镇市",
+  "name": "江西陶瓷工艺美术职业技术学院" },
+{
+  "province": "江西省",
+  "city": "南昌市",
+  "name": "江西旅游商贸职业学院" },
+{
+  "province": "江西省",
+  "city": "南昌市",
+  "name": "江西电力职业技术学院" },
+{
+  "province": "江西省",
+  "city": "赣州市",
+  "name": "江西环境工程职业学院" },
+{
+  "province": "江西省",
+  "city": "南昌市",
+  "name": "江西艺术职业学院" },
+{
+  "province": "江西省",
+  "city": "鹰潭市",
+  "name": "鹰潭职业技术学院" },
+{
+  "province": "江西省",
+  "city": "南昌市",
+  "name": "江西信息应用职业技术学院" },
+{
+  "province": "江西省",
+  "city": "南昌市",
+  "name": "江西交通职业技术学院" },
+{
+  "province": "江西省",
+  "city": "九江市",
+  "name": "江西财经职业学院" },
+{
+  "province": "江西省",
+  "city": "赣州市",
+  "name": "江西应用技术职业学院" },
+{
+  "province": "江西省",
+  "city": "南昌市",
+  "name": "江西现代职业技术学院" },
+{
+  "province": "江西省",
+  "city": "萍乡市",
+  "name": "江西工业工程职业技术学院" },
+{
+  "province": "江西省",
+  "city": "南昌市",
+  "name": "江西机电职业技术学院" },
+{
+  "province": "江西省",
+  "city": "南昌市",
+  "name": "江西科技职业学院" },
+{
+  "province": "江西省",
+  "city": "南昌市",
+  "name": "南昌职业学院" },
+{
+  "province": "江西省",
+  "city": "南昌市",
+  "name": "江西外语外贸职业学院" },
+{
+  "province": "江西省",
+  "city": "南昌市",
+  "name": "江西工业贸易职业技术学院" },
+{
+  "province": "江西省",
+  "city": "宜春市",
+  "name": "宜春职业技术学院" },
+{
+  "province": "江西省",
+  "city": "萍乡市",
+  "name": "江西应用工程职业学院" },
+{
+  "province": "江西省",
+  "city": "南昌市",
+  "name": "江西生物科技职业学院" },
+{
+  "province": "江西省",
+  "city": "南昌市",
+  "name": "江西建设职业技术学院" },
+{
+  "province": "江西省",
+  "city": "抚州市",
+  "name": "抚州职业技术学院" },
+{
+  "province": "江西省",
+  "city": "南昌市",
+  "name": "豫章师范学院" },
+{
+  "province": "江西省",
+  "city": "抚州市",
+  "name": "江西中医药高等专科学校" },
+{
+  "province": "江西省",
+  "city": "南昌市",
+  "name": "江西先锋软件职业技术学院" },
+{
+  "province": "江西省",
+  "city": "南昌市",
+  "name": "江西经济管理职业学院" },
+{
+  "province": "江西省",
+  "city": "南昌市",
+  "name": "江西制造职业技术学院" },
+{
+  "province": "江西省",
+  "city": "南昌市",
+  "name": "江西工程职业学院" },
+{
+  "province": "江西省",
+  "city": "南昌市",
+  "name": "江西青年职业学院" },
+{
+  "province": "江西省",
+  "city": "上饶市",
+  "name": "上饶职业技术学院" },
+{
+  "province": "江西省",
+  "city": "南昌市",
+  "name": "江西航空职业技术学院" },
+{
+  "province": "江西省",
+  "city": "宜春市",
+  "name": "江西农业工程职业学院" },
+{
+  "province": "江西省",
+  "city": "新余市",
+  "name": "赣西科技职业学院" },
+{
+  "province": "江西省",
+  "city": "南昌市",
+  "name": "江西卫生职业学院" },
+{
+  "province": "江西省",
+  "city": "新余市",
+  "name": "江西新能源科技职业学院" },
+{
+  "province": "江西省",
+  "city": "九江市",
+  "name": "江西枫林涉外经贸职业学院" },
+{
+  "province": "江西省",
+  "city": "南昌市",
+  "name": "江西泰豪动漫职业学院" },
+{
+  "province": "江西省",
+  "city": "新余市",
+  "name": "江西冶金职业技术学院" },
+{
+  "province": "江西省",
+  "city": "南昌市",
+  "name": "江西管理职业学院" },
+{
+  "province": "江西省",
+  "city": "南昌市",
+  "name": "江西传媒职业学院" },
+{
+  "province": "江西省",
+  "city": "南昌市",
+  "name": "江西工商职业技术学院" },
+{
+  "province": "江西省",
+  "city": "景德镇市",
+  "name": "景德镇陶瓷职业技术学院" },
+{
+  "province": "江西省",
+  "city": "九江市",
+  "name": "共青科技职业学院" },
+{
+  "province": "江西省",
+  "city": "赣州市",
+  "name": "赣州师范高等专科学校" },
+{
+  "province": "江西省",
+  "city": "南昌市",
+  "name": "江西水利职业学院" },
+{
+  "province": "江西省",
+  "city": "宜春市",
+  "name": "宜春幼儿师范高等专科学校" },
+{
+  "province": "江西省",
+  "city": "吉安市",
+  "name": "吉安职业技术学院" },
+{
+  "province": "江西省",
+  "city": "宜春市",
+  "name": "江西洪州职业学院" },
+{
+  "province": "江西省",
+  "city": "鹰潭市",
+  "name": "江西师范高等专科学校" },
+{
+  "province": "江西省",
+  "city": "南昌市",
+  "name": "南昌影视传播职业学院" },
+{
+  "province": "江西省",
+  "city": "上饶市",
+  "name": "上饶幼儿师范高等专科学校" },
+{
+  "province": "江西省",
+  "city": "抚州市",
+  "name": "抚州幼儿师范高等专科学校" },
+{
+  "province": "江西省",
+  "city": "赣州市",
+  "name": "赣南卫生健康职业学院" },
+{
+  "province": "江西省",
+  "city": "南昌市",
+  "name": "中国人民解放军陆军步兵学院" },
+{
+  "province": "山东省",
+  "city": "济南市",
+  "name": "山东大学" },
+{
+  "province": "山东省",
+  "city": "青岛市",
+  "name": "中国海洋大学" },
+{
+  "province": "山东省",
+  "city": "青岛市",
+  "name": "中国石油大学（华东）" },
+{
+  "province": "山东省",
+  "city": "青岛市",
+  "name": "山东科技大学" },
+{
+  "province": "山东省",
+  "city": "青岛市",
+  "name": "青岛科技大学" },
+{
+  "province": "山东省",
+  "city": "济南市",
+  "name": "济南大学" },
+{
+  "province": "山东省",
+  "city": "烟台市",
+  "name": "烟台大学文经学院" },
+{
+  "province": "山东省",
+  "city": "聊城市",
+  "name": "聊城大学东昌学院" },
+{
+  "province": "山东省",
+  "city": "青岛市",
+  "name": "青岛理工大学琴岛学院" },
+{
+  "province": "山东省",
+  "city": "济南市",
+  "name": "山东师范大学历山学院" },
+{
+  "province": "山东省",
+  "city": "济南市",
+  "name": "山东财经大学燕山学院" },
+{
+  "province": "山东省",
+  "city": "东营市",
+  "name": "中国石油大学胜利学院" },
+{
+  "province": "山东省",
+  "city": "泰安市",
+  "name": "山东科技大学泰山科技学院" },
+{
+  "province": "山东省",
+  "city": "烟台市",
+  "name": "青岛农业大学海都学院" },
+{
+  "province": "山东省",
+  "city": "泰安市",
+  "name": "山东财经大学东方学院" },
+{
+  "province": "山东省",
+  "city": "济南市",
+  "name": "济南大学泉城学院" },
+{
+  "province": "山东省",
+  "city": "青岛市",
+  "name": "北京电影学院现代创意媒体学院" },
+{
+  "province": "山东省",
+  "city": "青岛市",
+  "name": "青岛理工大学" },
+{
+  "province": "山东省",
+  "city": "济南市",
+  "name": "山东建筑大学" },
+{
+  "province": "山东省",
+  "city": "济南市",
+  "name": "齐鲁工业大学" },
+{
+  "province": "山东省",
+  "city": "淄博市",
+  "name": "山东理工大学" },
+{
+  "province": "山东省",
+  "city": "泰安市",
+  "name": "山东农业大学" },
+{
+  "province": "山东省",
+  "city": "青岛市",
+  "name": "青岛农业大学" },
+{
+  "province": "山东省",
+  "city": "潍坊市",
+  "name": "潍坊医学院" },
+{
+  "province": "山东省",
+  "city": "泰安市",
+  "name": "泰山医学院" },
+{
+  "province": "山东省",
+  "city": "滨州市",
+  "name": "滨州医学院" },
+{
+  "province": "山东省",
+  "city": "济南市",
+  "name": "山东中医药大学" },
+{
+  "province": "山东省",
+  "city": "济宁市",
+  "name": "济宁医学院" },
+{
+  "province": "山东省",
+  "city": "济南市",
+  "name": "山东师范大学" },
+{
+  "province": "山东省",
+  "city": "济宁市",
+  "name": "曲阜师范大学" },
+{
+  "province": "山东省",
+  "city": "聊城市",
+  "name": "聊城大学" },
+{
+  "province": "山东省",
+  "city": "德州市",
+  "name": "德州学院" },
+{
+  "province": "山东省",
+  "city": "滨州市",
+  "name": "滨州学院" },
+{
+  "province": "山东省",
+  "city": "烟台市",
+  "name": "鲁东大学" },
+{
+  "province": "山东省",
+  "city": "临沂市",
+  "name": "临沂大学" },
+{
+  "province": "山东省",
+  "city": "泰安市",
+  "name": "泰山学院" },
+{
+  "province": "山东省",
+  "city": "济宁市",
+  "name": "济宁学院" },
+{
+  "province": "山东省",
+  "city": "菏泽市",
+  "name": "菏泽学院" },
+{
+  "province": "山东省",
+  "city": "济南市",
+  "name": "山东财经大学" },
+{
+  "province": "山东省",
+  "city": "济南市",
+  "name": "山东体育学院" },
+{
+  "province": "山东省",
+  "city": "济南市",
+  "name": "山东艺术学院" },
+{
+  "province": "山东省",
+  "city": "淄博市",
+  "name": "齐鲁医药学院" },
+{
+  "province": "山东省",
+  "city": "青岛市",
+  "name": "青岛滨海学院" },
+{
+  "province": "山东省",
+  "city": "枣庄市",
+  "name": "枣庄学院" },
+{
+  "province": "山东省",
+  "city": "济南市",
+  "name": "山东工艺美术学院" },
+{
+  "province": "山东省",
+  "city": "青岛市",
+  "name": "青岛大学" },
+{
+  "province": "山东省",
+  "city": "烟台市",
+  "name": "烟台大学" },
+{
+  "province": "山东省",
+  "city": "潍坊市",
+  "name": "潍坊学院" },
+{
+  "province": "山东省",
+  "city": "济南市",
+  "name": "山东警察学院" },
+{
+  "province": "山东省",
+  "city": "济南市",
+  "name": "山东交通学院" },
+{
+  "province": "山东省",
+  "city": "烟台市",
+  "name": "山东工商学院" },
+{
+  "province": "山东省",
+  "city": "济南市",
+  "name": "山东女子学院" },
+{
+  "province": "山东省",
+  "city": "烟台市",
+  "name": "烟台南山学院" },
+{
+  "province": "山东省",
+  "city": "潍坊市",
+  "name": "潍坊科技学院" },
+{
+  "province": "山东省",
+  "city": "济南市",
+  "name": "山东英才学院" },
+{
+  "province": "山东省",
+  "city": "青岛市",
+  "name": "青岛恒星科技学院" },
+{
+  "province": "山东省",
+  "city": "青岛市",
+  "name": "青岛黄海学院" },
+{
+  "province": "山东省",
+  "city": "济南市",
+  "name": "山东现代学院" },
+{
+  "province": "山东省",
+  "city": "济南市",
+  "name": "山东协和学院" },
+{
+  "province": "山东省",
+  "city": "德州市",
+  "name": "山东华宇工学院" },
+{
+  "province": "山东省",
+  "city": "青岛市",
+  "name": "青岛工学院" },
+{
+  "province": "山东省",
+  "city": "济南市",
+  "name": "齐鲁理工学院" },
+{
+  "province": "山东省",
+  "city": "济南市",
+  "name": "山东政法学院" },
+{
+  "province": "山东省",
+  "city": "济南市",
+  "name": "齐鲁师范学院" },
+{
+  "province": "山东省",
+  "city": "济南市",
+  "name": "山东青年政治学院" },
+{
+  "province": "山东省",
+  "city": "济南市",
+  "name": "山东管理学院" },
+{
+  "province": "山东省",
+  "city": "济南市",
+  "name": "山东农业工程学院" },
+{
+  "province": "山东省",
+  "city": "临沂市",
+  "name": "山东医学高等专科学校" },
+{
+  "province": "山东省",
+  "city": "菏泽市",
+  "name": "菏泽医学专科学校" },
+{
+  "province": "山东省",
+  "city": "济南市",
+  "name": "山东商业职业技术学院" },
+{
+  "province": "山东省",
+  "city": "济南市",
+  "name": "山东电力高等专科学校" },
+{
+  "province": "山东省",
+  "city": "日照市",
+  "name": "日照职业技术学院" },
+{
+  "province": "山东省",
+  "city": "济宁市",
+  "name": "曲阜远东职业技术学院" },
+{
+  "province": "山东省",
+  "city": "青岛市",
+  "name": "青岛职业技术学院" },
+{
+  "province": "山东省",
+  "city": "威海市",
+  "name": "威海职业学院" },
+{
+  "province": "山东省",
+  "city": "济南市",
+  "name": "山东职业学院" },
+{
+  "province": "山东省",
+  "city": "济南市",
+  "name": "山东劳动职业技术学院" },
+{
+  "province": "山东省",
+  "city": "莱芜市",
+  "name": "莱芜职业技术学院" },
+{
+  "province": "山东省",
+  "city": "济宁市",
+  "name": "济宁职业技术学院" },
+{
+  "province": "山东省",
+  "city": "潍坊市",
+  "name": "潍坊职业学院" },
+{
+  "province": "山东省",
+  "city": "烟台市",
+  "name": "烟台职业学院" },
+{
+  "province": "山东省",
+  "city": "东营市",
+  "name": "东营职业学院" },
+{
+  "province": "山东省",
+  "city": "聊城市",
+  "name": "聊城职业技术学院" },
+{
+  "province": "山东省",
+  "city": "滨州市",
+  "name": "滨州职业学院" },
+{
+  "province": "山东省",
+  "city": "潍坊市",
+  "name": "山东科技职业学院" },
+{
+  "province": "山东省",
+  "city": "泰安市",
+  "name": "山东服装职业学院" },
+{
+  "province": "山东省",
+  "city": "德州市",
+  "name": "德州科技职业学院" },
+{
+  "province": "山东省",
+  "city": "泰安市",
+  "name": "山东力明科技职业学院" },
+{
+  "province": "山东省",
+  "city": "济南市",
+  "name": "山东圣翰财贸职业学院" },
+{
+  "province": "山东省",
+  "city": "日照市",
+  "name": "山东水利职业学院" },
+{
+  "province": "山东省",
+  "city": "潍坊市",
+  "name": "山东畜牧兽医职业学院" },
+{
+  "province": "山东省",
+  "city": "青岛市",
+  "name": "青岛飞洋职业技术学院" },
+{
+  "province": "山东省",
+  "city": "东营市",
+  "name": "东营科技职业学院" },
+{
+  "province": "山东省",
+  "city": "潍坊市",
+  "name": "山东交通职业学院" },
+{
+  "province": "山东省",
+  "city": "淄博市",
+  "name": "淄博职业学院" },
+{
+  "province": "山东省",
+  "city": "青岛市",
+  "name": "山东外贸职业学院" },
+{
+  "province": "山东省",
+  "city": "青岛市",
+  "name": "青岛酒店管理职业技术学院" },
+{
+  "province": "山东省",
+  "city": "潍坊市",
+  "name": "山东信息职业技术学院" },
+{
+  "province": "山东省",
+  "city": "青岛市",
+  "name": "青岛港湾职业技术学院" },
+{
+  "province": "山东省",
+  "city": "东营市",
+  "name": "山东胜利职业学院" },
+{
+  "province": "山东省",
+  "city": "潍坊市",
+  "name": "山东经贸职业学院" },
+{
+  "province": "山东省",
+  "city": "淄博市",
+  "name": "山东工业职业学院" },
+{
+  "province": "山东省",
+  "city": "淄博市",
+  "name": "山东化工职业学院" },
+{
+  "province": "山东省",
+  "city": "青岛市",
+  "name": "青岛求实职业技术学院" },
+{
+  "province": "山东省",
+  "city": "济南市",
+  "name": "济南职业学院" },
+{
+  "province": "山东省",
+  "city": "烟台市",
+  "name": "烟台工程职业技术学院" },
+{
+  "province": "山东省",
+  "city": "济南市",
+  "name": "山东凯文科技职业学院" },
+{
+  "province": "山东省",
+  "city": "日照市",
+  "name": "山东外国语职业学院" },
+{
+  "province": "山东省",
+  "city": "潍坊市",
+  "name": "潍坊工商职业学院" },
+{
+  "province": "山东省",
+  "city": "德州市",
+  "name": "德州职业技术学院" },
+{
+  "province": "山东省",
+  "city": "枣庄市",
+  "name": "枣庄科技职业学院" },
+{
+  "province": "山东省",
+  "city": "淄博市",
+  "name": "淄博师范高等专科学校" },
+{
+  "province": "山东省",
+  "city": "烟台市",
+  "name": "山东中医药高等专科学校" },
+{
+  "province": "山东省",
+  "city": "济南市",
+  "name": "济南工程职业技术学院" },
+{
+  "province": "山东省",
+  "city": "济南市",
+  "name": "山东电子职业技术学院" },
+{
+  "province": "山东省",
+  "city": "济南市",
+  "name": "山东旅游职业学院" },
+{
+  "province": "山东省",
+  "city": "淄博市",
+  "name": "山东铝业职业学院" },
+{
+  "province": "山东省",
+  "city": "济南市",
+  "name": "山东杏林科技职业学院" },
+{
+  "province": "山东省",
+  "city": "泰安市",
+  "name": "泰山职业技术学院" },
+{
+  "province": "山东省",
+  "city": "威海市",
+  "name": "山东外事翻译职业学院" },
+{
+  "province": "山东省",
+  "city": "威海市",
+  "name": "山东药品食品职业学院" },
+{
+  "province": "山东省",
+  "city": "烟台市",
+  "name": "山东商务职业学院" },
+{
+  "province": "山东省",
+  "city": "淄博市",
+  "name": "山东轻工职业学院" },
+{
+  "province": "山东省",
+  "city": "济南市",
+  "name": "山东城市建设职业学院" },
+{
+  "province": "山东省",
+  "city": "烟台市",
+  "name": "烟台汽车工程职业学院" },
+{
+  "province": "山东省",
+  "city": "济南市",
+  "name": "山东司法警官职业学院" },
+{
+  "province": "山东省",
+  "city": "菏泽市",
+  "name": "菏泽家政职业学院" },
+{
+  "province": "山东省",
+  "city": "济南市",
+  "name": "山东传媒职业学院" },
+{
+  "province": "山东省",
+  "city": "临沂市",
+  "name": "临沂职业学院" },
+{
+  "province": "山东省",
+  "city": "枣庄市",
+  "name": "枣庄职业学院" },
+{
+  "province": "山东省",
+  "city": "济宁市",
+  "name": "山东理工职业学院" },
+{
+  "province": "山东省",
+  "city": "烟台市",
+  "name": "山东文化产业职业学院" },
+{
+  "province": "山东省",
+  "city": "青岛市",
+  "name": "青岛远洋船员职业学院" },
+{
+  "province": "山东省",
+  "city": "济南市",
+  "name": "济南幼儿师范高等专科学校" },
+{
+  "province": "山东省",
+  "city": "济南市",
+  "name": "济南护理职业学院" },
+{
+  "province": "山东省",
+  "city": "泰安市",
+  "name": "泰山护理职业学院" },
+{
+  "province": "山东省",
+  "city": "潍坊市",
+  "name": "山东海事职业学院" },
+{
+  "province": "山东省",
+  "city": "潍坊市",
+  "name": "潍坊护理职业学院" },
+{
+  "province": "山东省",
+  "city": "潍坊市",
+  "name": "潍坊工程职业学院" },
+{
+  "province": "山东省",
+  "city": "菏泽市",
+  "name": "菏泽职业学院" },
+{
+  "province": "山东省",
+  "city": "济南市",
+  "name": "山东艺术设计职业学院" },
+{
+  "province": "山东省",
+  "city": "威海市",
+  "name": "威海海洋职业学院" },
+{
+  "province": "山东省",
+  "city": "济南市",
+  "name": "山东特殊教育职业学院" },
+{
+  "province": "山东省",
+  "city": "烟台市",
+  "name": "烟台黄金职业学院" },
+{
+  "province": "山东省",
+  "city": "日照市",
+  "name": "日照航海工程职业学院" },
+{
+  "province": "山东省",
+  "city": "青岛市",
+  "name": "中国人民解放军海军潜艇学院" },
+{
+  "province": "山东省",
+  "city": "烟台市",
+  "name": "中国人民解放军海军航空大学" },
+{
+  "province": "山东省",
+  "city": "潍坊市",
+  "name": "中国人民解放军火箭军士官学校" },
+{
+  "province": "河南省",
+  "city": "郑州市",
+  "name": "华北水利水电大学" },
+{
+  "province": "河南省",
+  "city": "郑州市",
+  "name": "郑州大学" },
+{
+  "province": "河南省",
+  "city": "焦作市",
+  "name": "河南理工大学" },
+{
+  "province": "河南省",
+  "city": "郑州市",
+  "name": "郑州轻工业学院" },
+{
+  "province": "河南省",
+  "city": "郑州市",
+  "name": "河南工业大学" },
+{
+  "province": "河南省",
+  "city": "洛阳市",
+  "name": "河南科技大学" },
+{
+  "province": "河南省",
+  "city": "郑州市",
+  "name": "中原工学院" },
+{
+  "province": "河南省",
+  "city": "郑州市",
+  "name": "河南农业大学" },
+{
+  "province": "河南省",
+  "city": "新乡市",
+  "name": "河南科技学院" },
+{
+  "province": "河南省",
+  "city": "郑州市",
+  "name": "河南牧业经济学院" },
+{
+  "province": "河南省",
+  "city": "郑州市",
+  "name": "河南中医药大学" },
+{
+  "province": "河南省",
+  "city": "新乡市",
+  "name": "新乡医学院" },
+{
+  "province": "河南省",
+  "city": "开封市",
+  "name": "河南大学" },
+{
+  "province": "河南省",
+  "city": "新乡市",
+  "name": "河南师范大学" },
+{
+  "province": "河南省",
+  "city": "信阳市",
+  "name": "信阳师范学院" },
+{
+  "province": "河南省",
+  "city": "周口市",
+  "name": "周口师范学院" },
+{
+  "province": "河南省",
+  "city": "安阳市",
+  "name": "安阳师范学院" },
+{
+  "province": "河南省",
+  "city": "许昌市",
+  "name": "许昌学院" },
+{
+  "province": "河南省",
+  "city": "南阳市",
+  "name": "南阳师范学院" },
+{
+  "province": "河南省",
+  "city": "洛阳市",
+  "name": "洛阳师范学院" },
+{
+  "province": "河南省",
+  "city": "商丘市",
+  "name": "商丘师范学院" },
+{
+  "province": "河南省",
+  "city": "郑州市",
+  "name": "河南财经政法大学" },
+{
+  "province": "河南省",
+  "city": "郑州市",
+  "name": "郑州航空工业管理学院" },
+{
+  "province": "河南省",
+  "city": "驻马店市",
+  "name": "黄淮学院" },
+{
+  "province": "河南省",
+  "city": "平顶山市",
+  "name": "平顶山学院" },
+{
+  "province": "河南省",
+  "city": "洛阳市",
+  "name": "洛阳理工学院" },
+{
+  "province": "河南省",
+  "city": "新乡市",
+  "name": "新乡学院" },
+{
+  "province": "河南省",
+  "city": "信阳市",
+  "name": "信阳农林学院" },
+{
+  "province": "河南省",
+  "city": "安阳市",
+  "name": "安阳工学院" },
+{
+  "province": "河南省",
+  "city": "郑州市",
+  "name": "河南工程学院" },
+{
+  "province": "河南省",
+  "city": "南阳市",
+  "name": "南阳理工学院" },
+{
+  "province": "河南省",
+  "city": "平顶山市",
+  "name": "河南城建学院" },
+{
+  "province": "河南省",
+  "city": "郑州市",
+  "name": "河南警察学院" },
+{
+  "province": "河南省",
+  "city": "郑州市",
+  "name": "黄河科技学院" },
+{
+  "province": "河南省",
+  "city": "郑州市",
+  "name": "铁道警察学院" },
+{
+  "province": "河南省",
+  "city": "郑州市",
+  "name": "郑州科技学院" },
+{
+  "province": "河南省",
+  "city": "郑州市",
+  "name": "郑州工业应用技术学院" },
+{
+  "province": "河南省",
+  "city": "郑州市",
+  "name": "郑州师范学院" },
+{
+  "province": "河南省",
+  "city": "郑州市",
+  "name": "郑州财经学院" },
+{
+  "province": "河南省",
+  "city": "焦作市",
+  "name": "黄河交通学院" },
+{
+  "province": "河南省",
+  "city": "商丘市",
+  "name": "商丘工学院" },
+{
+  "province": "河南省",
+  "city": "开封市",
+  "name": "河南大学民生学院" },
+{
+  "province": "河南省",
+  "city": "郑州市",
+  "name": "河南师范大学新联学院" },
+{
+  "province": "河南省",
+  "city": "信阳市",
+  "name": "信阳学院" },
+{
+  "province": "河南省",
+  "city": "安阳市",
+  "name": "安阳学院" },
+{
+  "province": "河南省",
+  "city": "新乡市",
+  "name": "新乡医学院三全学院" },
+{
+  "province": "河南省",
+  "city": "新乡市",
+  "name": "河南科技学院新科学院" },
+{
+  "province": "河南省",
+  "city": "郑州市",
+  "name": "郑州工商学院" },
+{
+  "province": "河南省",
+  "city": "郑州市",
+  "name": "中原工学院信息商务学院" },
+{
+  "province": "河南省",
+  "city": "商丘市",
+  "name": "商丘学院" },
+{
+  "province": "河南省",
+  "city": "郑州市",
+  "name": "郑州成功财经学院" },
+{
+  "province": "河南省",
+  "city": "郑州市",
+  "name": "郑州升达经贸管理学院" },
+{
+  "province": "河南省",
+  "city": "郑州市",
+  "name": "河南职业技术学院" },
+{
+  "province": "河南省",
+  "city": "漯河市",
+  "name": "漯河职业技术学院" },
+{
+  "province": "河南省",
+  "city": "三门峡市",
+  "name": "三门峡职业技术学院" },
+{
+  "province": "河南省",
+  "city": "郑州市",
+  "name": "郑州铁路职业技术学院" },
+{
+  "province": "河南省",
+  "city": "郑州市",
+  "name": "郑州工程技术学院" },
+{
+  "province": "河南省",
+  "city": "开封市",
+  "name": "开封大学" },
+{
+  "province": "河南省",
+  "city": "新乡市",
+  "name": "河南工学院" },
+{
+  "province": "河南省",
+  "city": "焦作市",
+  "name": "焦作大学" },
+{
+  "province": "河南省",
+  "city": "郑州市",
+  "name": "河南财政金融学院" },
+{
+  "province": "河南省",
+  "city": "濮阳市",
+  "name": "濮阳职业技术学院" },
+{
+  "province": "河南省",
+  "city": "郑州市",
+  "name": "郑州电力高等专科学校" },
+{
+  "province": "河南省",
+  "city": "开封市",
+  "name": "黄河水利职业技术学院" },
+{
+  "province": "河南省",
+  "city": "许昌市",
+  "name": "许昌职业技术学院" },
+{
+  "province": "河南省",
+  "city": "焦作市",
+  "name": "河南工业和信息化职业学院" },
+{
+  "province": "河南省",
+  "city": "郑州市",
+  "name": "河南水利与环境职业学院" },
+{
+  "province": "河南省",
+  "city": "商丘市",
+  "name": "商丘职业技术学院" },
+{
+  "province": "河南省",
+  "city": "平顶山市",
+  "name": "平顶山工业职业技术学院" },
+{
+  "province": "河南省",
+  "city": "周口市",
+  "name": "周口职业技术学院" },
+{
+  "province": "河南省",
+  "city": "济源市",
+  "name": "济源职业技术学院" },
+{
+  "province": "河南省",
+  "city": "郑州市",
+  "name": "河南司法警官职业学院" },
+{
+  "province": "河南省",
+  "city": "鹤壁市",
+  "name": "鹤壁职业技术学院" },
+{
+  "province": "河南省",
+  "city": "南阳市",
+  "name": "河南工业职业技术学院" },
+{
+  "province": "河南省",
+  "city": "郑州市",
+  "name": "郑州澍青医学高等专科学校" },
+{
+  "province": "河南省",
+  "city": "焦作市",
+  "name": "焦作师范高等专科学校" },
+{
+  "province": "河南省",
+  "city": "郑州市",
+  "name": "河南检察职业学院" },
+{
+  "province": "河南省",
+  "city": "平顶山市",
+  "name": "河南质量工程职业学院" },
+{
+  "province": "河南省",
+  "city": "郑州市",
+  "name": "郑州信息科技职业学院" },
+{
+  "province": "河南省",
+  "city": "漯河市",
+  "name": "漯河医学高等专科学校" },
+{
+  "province": "河南省",
+  "city": "南阳市",
+  "name": "南阳医学高等专科学校" },
+{
+  "province": "河南省",
+  "city": "商丘市",
+  "name": "商丘医学高等专科学校" },
+{
+  "province": "河南省",
+  "city": "郑州市",
+  "name": "郑州电子信息职业技术学院" },
+{
+  "province": "河南省",
+  "city": "信阳市",
+  "name": "信阳职业技术学院" },
+{
+  "province": "河南省",
+  "city": "郑州市",
+  "name": "嵩山少林武术职业学院" },
+{
+  "province": "河南省",
+  "city": "郑州市",
+  "name": "郑州工业安全职业学院" },
+{
+  "province": "河南省",
+  "city": "商丘市",
+  "name": "永城职业学院" },
+{
+  "province": "河南省",
+  "city": "郑州市",
+  "name": "河南经贸职业学院" },
+{
+  "province": "河南省",
+  "city": "郑州市",
+  "name": "河南交通职业技术学院" },
+{
+  "province": "河南省",
+  "city": "郑州市",
+  "name": "河南农业职业学院" },
+{
+  "province": "河南省",
+  "city": "郑州市",
+  "name": "郑州旅游职业学院" },
+{
+  "province": "河南省",
+  "city": "郑州市",
+  "name": "郑州职业技术学院" },
+{
+  "province": "河南省",
+  "city": "郑州市",
+  "name": "河南信息统计职业学院" },
+{
+  "province": "河南省",
+  "city": "洛阳市",
+  "name": "河南林业职业学院" },
+{
+  "province": "河南省",
+  "city": "郑州市",
+  "name": "河南工业贸易职业学院" },
+{
+  "province": "河南省",
+  "city": "郑州市",
+  "name": "郑州电力职业技术学院" },
+{
+  "province": "河南省",
+  "city": "周口市",
+  "name": "周口科技职业学院" },
+{
+  "province": "河南省",
+  "city": "郑州市",
+  "name": "河南建筑职业技术学院" },
+{
+  "province": "河南省",
+  "city": "漯河市",
+  "name": "漯河食品职业学院" },
+{
+  "province": "河南省",
+  "city": "郑州市",
+  "name": "郑州城市职业学院" },
+{
+  "province": "河南省",
+  "city": "安阳市",
+  "name": "安阳职业技术学院" },
+{
+  "province": "河南省",
+  "city": "新乡市",
+  "name": "新乡职业技术学院" },
+{
+  "province": "河南省",
+  "city": "驻马店市",
+  "name": "驻马店职业技术学院" },
+{
+  "province": "河南省",
+  "city": "焦作市",
+  "name": "焦作工贸职业学院" },
+{
+  "province": "河南省",
+  "city": "许昌市",
+  "name": "许昌陶瓷职业学院" },
+{
+  "province": "河南省",
+  "city": "郑州市",
+  "name": "郑州理工职业学院" },
+{
+  "province": "河南省",
+  "city": "郑州市",
+  "name": "郑州信息工程职业学院" },
+{
+  "province": "河南省",
+  "city": "新乡市",
+  "name": "长垣烹饪职业技术学院" },
+{
+  "province": "河南省",
+  "city": "开封市",
+  "name": "开封文化艺术职业学院" },
+{
+  "province": "河南省",
+  "city": "郑州市",
+  "name": "河南应用技术职业学院" },
+{
+  "province": "河南省",
+  "city": "郑州市",
+  "name": "河南艺术职业学院" },
+{
+  "province": "河南省",
+  "city": "郑州市",
+  "name": "河南机电职业学院" },
+{
+  "province": "河南省",
+  "city": "安阳市",
+  "name": "河南护理职业学院" },
+{
+  "province": "河南省",
+  "city": "许昌市",
+  "name": "许昌电气职业学院" },
+{
+  "province": "河南省",
+  "city": "信阳市",
+  "name": "信阳涉外职业技术学院" },
+{
+  "province": "河南省",
+  "city": "鹤壁市",
+  "name": "鹤壁汽车工程职业学院" },
+{
+  "province": "河南省",
+  "city": "南阳市",
+  "name": "南阳职业学院" },
+{
+  "province": "河南省",
+  "city": "郑州市",
+  "name": "郑州商贸旅游职业学院" },
+{
+  "province": "河南省",
+  "city": "洛阳市",
+  "name": "河南推拿职业学院" },
+{
+  "province": "河南省",
+  "city": "洛阳市",
+  "name": "洛阳职业技术学院" },
+{
+  "province": "河南省",
+  "city": "郑州市",
+  "name": "郑州幼儿师范高等专科学校" },
+{
+  "province": "河南省",
+  "city": "安阳市",
+  "name": "安阳幼儿师范高等专科学校" },
+{
+  "province": "河南省",
+  "city": "郑州市",
+  "name": "郑州黄河护理职业学院" },
+{
+  "province": "河南省",
+  "city": "郑州市",
+  "name": "河南医学高等专科学校" },
+{
+  "province": "河南省",
+  "city": "郑州市",
+  "name": "郑州财税金融职业学院" },
+{
+  "province": "河南省",
+  "city": "南阳市",
+  "name": "南阳农业职业学院" },
+{
+  "province": "河南省",
+  "city": "洛阳市",
+  "name": "洛阳科技职业学院" },
+{
+  "province": "河南省",
+  "city": "鹤壁市",
+  "name": "鹤壁能源化工职业学院" },
+{
+  "province": "河南省",
+  "city": "平顶山市",
+  "name": "平顶山文化艺术职业学院" },
+{
+  "province": "河南省",
+  "city": "濮阳市",
+  "name": "濮阳医学高等专科学校" },
+{
+  "province": "河南省",
+  "city": "驻马店市",
+  "name": "驻马店幼儿师范高等专科学校" },
+{
+  "province": "河南省",
+  "city": "三门峡市",
+  "name": "三门峡社会管理职业学院" },
+{
+  "province": "河南省",
+  "city": "郑州市",
+  "name": "河南轻工职业学院" },
+{
+  "province": "河南省",
+  "city": "郑州市",
+  "name": "河南测绘职业学院" },
+{
+  "province": "河南省",
+  "city": "郑州市",
+  "name": "中国人民解放军战略支援部队信息工程大学" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "武汉大学" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "华中科技大学" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "武汉科技大学" },
+{
+  "province": "湖北省",
+  "city": "荆州市",
+  "name": "长江大学" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "武汉工程大学" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "中国地质大学（武汉）" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "武汉纺织大学" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "武汉轻工大学" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "武汉理工大学" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "湖北工业大学" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "华中农业大学" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "湖北中医药大学" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "华中师范大学" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "湖北大学" },
+{
+  "province": "湖北省",
+  "city": "黄石市",
+  "name": "湖北师范大学" },
+{
+  "province": "湖北省",
+  "city": "黄冈市",
+  "name": "黄冈师范学院" },
+{
+  "province": "湖北省",
+  "city": "恩施土家族苗族自治州",
+  "name": "湖北民族学院" },
+{
+  "province": "湖北省",
+  "city": "襄阳市",
+  "name": "湖北文理学院" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "中南财经政法大学" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "武汉体育学院" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "湖北美术学院" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "中南民族大学" },
+{
+  "province": "湖北省",
+  "city": "十堰市",
+  "name": "湖北汽车工业学院" },
+{
+  "province": "湖北省",
+  "city": "孝感市",
+  "name": "湖北工程学院" },
+{
+  "province": "湖北省",
+  "city": "黄石市",
+  "name": "湖北理工学院" },
+{
+  "province": "湖北省",
+  "city": "咸宁市",
+  "name": "湖北科技学院" },
+{
+  "province": "湖北省",
+  "city": "十堰市",
+  "name": "湖北医药学院" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "江汉大学" },
+{
+  "province": "湖北省",
+  "city": "宜昌市",
+  "name": "三峡大学" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "湖北警官学院" },
+{
+  "province": "湖北省",
+  "city": "荆门市",
+  "name": "荆楚理工学院" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "武汉音乐学院" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "湖北经济学院" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "武汉商学院" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "武汉东湖学院" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "汉口学院" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "武昌首义学院" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "武昌理工学院" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "武汉生物工程学院" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "武汉晴川学院" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "湖北大学知行学院" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "武汉科技大学城市学院" },
+{
+  "province": "湖北省",
+  "city": "宜昌市",
+  "name": "三峡大学科技学院" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "江汉大学文理学院" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "湖北工业大学工程技术学院" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "武汉工程大学邮电与信息工程学院" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "武汉纺织大学外经贸学院" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "武昌工学院" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "武汉工商学院" },
+{
+  "province": "湖北省",
+  "city": "荆州市",
+  "name": "长江大学工程技术学院" },
+{
+  "province": "湖北省",
+  "city": "荆州市",
+  "name": "长江大学文理学院" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "湖北商贸学院" },
+{
+  "province": "湖北省",
+  "city": "十堰市",
+  "name": "湖北汽车工业学院科技学院" },
+{
+  "province": "湖北省",
+  "city": "十堰市",
+  "name": "湖北医药学院药护学院" },
+{
+  "province": "湖北省",
+  "city": "恩施土家族苗族自治州",
+  "name": "湖北民族学院科技学院" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "湖北经济学院法商学院" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "武汉体育学院体育科技学院" },
+{
+  "province": "湖北省",
+  "city": "黄石市",
+  "name": "湖北师范大学文理学院" },
+{
+  "province": "湖北省",
+  "city": "襄阳市",
+  "name": "湖北文理学院理工学院" },
+{
+  "province": "湖北省",
+  "city": "孝感市",
+  "name": "湖北工程学院新技术学院" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "文华学院" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "武汉学院" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "武汉工程科技学院" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "武汉华夏理工学院" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "武汉传媒学院" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "武汉设计工程学院" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "湖北第二师范学院" },
+{
+  "province": "湖北省",
+  "city": "十堰市",
+  "name": "汉江师范学院" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "武汉职业技术学院" },
+{
+  "province": "湖北省",
+  "city": "黄冈市",
+  "name": "黄冈职业技术学院" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "长江职业学院" },
+{
+  "province": "湖北省",
+  "city": "荆州市",
+  "name": "荆州理工职业学院" },
+{
+  "province": "湖北省",
+  "city": "十堰市",
+  "name": "湖北工业职业技术学院" },
+{
+  "province": "湖北省",
+  "city": "鄂州市",
+  "name": "鄂州职业大学" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "武汉城市职业学院" },
+{
+  "province": "湖北省",
+  "city": "孝感市",
+  "name": "湖北职业技术学院" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "武汉船舶职业技术学院" },
+{
+  "province": "湖北省",
+  "city": "恩施土家族苗族自治州",
+  "name": "恩施职业技术学院" },
+{
+  "province": "湖北省",
+  "city": "襄阳市",
+  "name": "襄阳职业技术学院" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "武汉工贸职业学院" },
+{
+  "province": "湖北省",
+  "city": "荆州市",
+  "name": "荆州职业技术学院" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "武汉工程职业技术学院" },
+{
+  "province": "湖北省",
+  "city": "仙桃市",
+  "name": "仙桃职业学院" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "湖北轻工职业技术学院" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "湖北交通职业技术学院" },
+{
+  "province": "湖北省",
+  "city": "荆州市",
+  "name": "湖北中医药高等专科学校" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "武汉航海职业技术学院" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "武汉铁路职业技术学院" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "武汉软件工程职业学院" },
+{
+  "province": "湖北省",
+  "city": "宜昌市",
+  "name": "湖北三峡职业技术学院" },
+{
+  "province": "湖北省",
+  "city": "随州市",
+  "name": "随州职业技术学院" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "武汉电力职业技术学院" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "湖北水利水电职业技术学院" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "湖北城市建设职业技术学院" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "武汉警官职业学院" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "湖北生物科技职业学院" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "湖北开放职业学院" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "武汉科技职业学院" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "武汉外语外事职业学院" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "武汉信息传播职业技术学院" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "武昌职业学院" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "武汉商贸职业学院" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "湖北艺术职业学院" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "武汉交通职业学院" },
+{
+  "province": "湖北省",
+  "city": "咸宁市",
+  "name": "咸宁职业技术学院" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "长江工程职业技术学院" },
+{
+  "province": "湖北省",
+  "city": "潜江市",
+  "name": "江汉艺术职业学院" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "武汉工业职业技术学院" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "武汉民政职业学院" },
+{
+  "province": "湖北省",
+  "city": "黄冈市",
+  "name": "鄂东职业技术学院" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "湖北财税职业学院" },
+{
+  "province": "湖北省",
+  "city": "黄冈市",
+  "name": "黄冈科技职业学院" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "湖北国土资源职业学院" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "湖北生态工程职业技术学院" },
+{
+  "province": "湖北省",
+  "city": "宜昌市",
+  "name": "三峡电力职业学院" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "湖北科技职业学院" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "湖北青年职业学院" },
+{
+  "province": "湖北省",
+  "city": "黄石市",
+  "name": "湖北工程职业学院" },
+{
+  "province": "湖北省",
+  "city": "宜昌市",
+  "name": "三峡旅游职业技术学院" },
+{
+  "province": "湖北省",
+  "city": "天门市",
+  "name": "天门职业学院" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "湖北体育职业学院" },
+{
+  "province": "湖北省",
+  "city": "襄阳市",
+  "name": "襄阳汽车职业技术学院" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "湖北幼儿师范高等专科学校" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "湖北铁道运输职业学院" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "武汉海事职业学院" },
+{
+  "province": "湖北省",
+  "city": "荆州市",
+  "name": "长江艺术工程职业学院" },
+{
+  "province": "湖北省",
+  "city": "荆门市",
+  "name": "荆门职业学院" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "武汉铁路桥梁职业学院" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "武汉光谷职业学院" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "中国人民解放军海军工程大学" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "中国人民解放军空军预警学院" },
+{
+  "province": "湖北省",
+  "city": "武汉市",
+  "name": "中国人民解放军火箭军指挥学院" },
+{
+  "province": "湖南省",
+  "city": "湘潭市",
+  "name": "湘潭大学" },
+{
+  "province": "湖南省",
+  "city": "湘西土家族苗族自治州",
+  "name": "吉首大学" },
+{
+  "province": "湖南省",
+  "city": "长沙市",
+  "name": "湖南大学" },
+{
+  "province": "湖南省",
+  "city": "长沙市",
+  "name": "中南大学" },
+{
+  "province": "湖南省",
+  "city": "湘潭市",
+  "name": "湖南科技大学" },
+{
+  "province": "湖南省",
+  "city": "长沙市",
+  "name": "长沙理工大学" },
+{
+  "province": "湖南省",
+  "city": "长沙市",
+  "name": "湖南农业大学" },
+{
+  "province": "湖南省",
+  "city": "长沙市",
+  "name": "中南林业科技大学" },
+{
+  "province": "湖南省",
+  "city": "长沙市",
+  "name": "湖南中医药大学" },
+{
+  "province": "湖南省",
+  "city": "长沙市",
+  "name": "湖南师范大学" },
+{
+  "province": "湖南省",
+  "city": "岳阳市",
+  "name": "湖南理工学院" },
+{
+  "province": "湖南省",
+  "city": "郴州市",
+  "name": "湘南学院" },
+{
+  "province": "湖南省",
+  "city": "衡阳市",
+  "name": "衡阳师范学院" },
+{
+  "province": "湖南省",
+  "city": "邵阳市",
+  "name": "邵阳学院" },
+{
+  "province": "湖南省",
+  "city": "怀化市",
+  "name": "怀化学院" },
+{
+  "province": "湖南省",
+  "city": "常德市",
+  "name": "湖南文理学院" },
+{
+  "province": "湖南省",
+  "city": "永州市",
+  "name": "湖南科技学院" },
+{
+  "province": "湖南省",
+  "city": "娄底市",
+  "name": "湖南人文科技学院" },
+{
+  "province": "湖南省",
+  "city": "长沙市",
+  "name": "湖南商学院" },
+{
+  "province": "湖南省",
+  "city": "衡阳市",
+  "name": "南华大学" },
+{
+  "province": "湖南省",
+  "city": "长沙市",
+  "name": "长沙医学院" },
+{
+  "province": "湖南省",
+  "city": "长沙市",
+  "name": "长沙学院" },
+{
+  "province": "湖南省",
+  "city": "湘潭市",
+  "name": "湖南工程学院" },
+{
+  "province": "湖南省",
+  "city": "益阳市",
+  "name": "湖南城市学院" },
+{
+  "province": "湖南省",
+  "city": "衡阳市",
+  "name": "湖南工学院" },
+{
+  "province": "湖南省",
+  "city": "长沙市",
+  "name": "湖南财政经济学院" },
+{
+  "province": "湖南省",
+  "city": "长沙市",
+  "name": "湖南警察学院" },
+{
+  "province": "湖南省",
+  "city": "株洲市",
+  "name": "湖南工业大学" },
+{
+  "province": "湖南省",
+  "city": "长沙市",
+  "name": "湖南女子学院" },
+{
+  "province": "湖南省",
+  "city": "长沙市",
+  "name": "湖南第一师范学院" },
+{
+  "province": "湖南省",
+  "city": "怀化市",
+  "name": "湖南医药学院" },
+{
+  "province": "湖南省",
+  "city": "长沙市",
+  "name": "湖南涉外经济学院" },
+{
+  "province": "湖南省",
+  "city": "湘潭市",
+  "name": "湘潭大学兴湘学院" },
+{
+  "province": "湖南省",
+  "city": "株洲市",
+  "name": "湖南工业大学科技学院" },
+{
+  "province": "湖南省",
+  "city": "湘潭市",
+  "name": "湖南科技大学潇湘学院" },
+{
+  "province": "湖南省",
+  "city": "衡阳市",
+  "name": "南华大学船山学院" },
+{
+  "province": "湖南省",
+  "city": "长沙市",
+  "name": "湖南商学院北津学院" },
+{
+  "province": "湖南省",
+  "city": "长沙市",
+  "name": "湖南师范大学树达学院" },
+{
+  "province": "湖南省",
+  "city": "长沙市",
+  "name": "湖南农业大学东方科技学院" },
+{
+  "province": "湖南省",
+  "city": "长沙市",
+  "name": "中南林业科技大学涉外学院" },
+{
+  "province": "湖南省",
+  "city": "常德市",
+  "name": "湖南文理学院芙蓉学院" },
+{
+  "province": "湖南省",
+  "city": "岳阳市",
+  "name": "湖南理工学院南湖学院" },
+{
+  "province": "湖南省",
+  "city": "衡阳市",
+  "name": "衡阳师范学院南岳学院" },
+{
+  "province": "湖南省",
+  "city": "湘潭市",
+  "name": "湖南工程学院应用技术学院" },
+{
+  "province": "湖南省",
+  "city": "长沙市",
+  "name": "湖南中医药大学湘杏学院" },
+{
+  "province": "湖南省",
+  "city": "张家界市",
+  "name": "吉首大学张家界学院" },
+{
+  "province": "湖南省",
+  "city": "长沙市",
+  "name": "长沙理工大学城南学院" },
+{
+  "province": "湖南省",
+  "city": "长沙市",
+  "name": "长沙师范学院" },
+{
+  "province": "湖南省",
+  "city": "常德市",
+  "name": "湖南应用技术学院" },
+{
+  "province": "湖南省",
+  "city": "长沙市",
+  "name": "湖南信息学院" },
+{
+  "province": "湖南省",
+  "city": "衡阳市",
+  "name": "湖南交通工程学院" },
+{
+  "province": "湖南省",
+  "city": "长沙市",
+  "name": "长沙民政职业技术学院" },
+{
+  "province": "湖南省",
+  "city": "长沙市",
+  "name": "湖南工业职业技术学院" },
+{
+  "province": "湖南省",
+  "city": "株洲市",
+  "name": "株洲师范高等专科学校" },
+{
+  "province": "湖南省",
+  "city": "长沙市",
+  "name": "湖南信息职业技术学院" },
+{
+  "province": "湖南省",
+  "city": "长沙市",
+  "name": "湖南税务高等专科学校" },
+{
+  "province": "湖南省",
+  "city": "株洲市",
+  "name": "湖南冶金职业技术学院" },
+{
+  "province": "湖南省",
+  "city": "长沙市",
+  "name": "长沙航空职业技术学院" },
+{
+  "province": "湖南省",
+  "city": "长沙市",
+  "name": "湖南大众传媒职业技术学院" },
+{
+  "province": "湖南省",
+  "city": "永州市",
+  "name": "永州职业技术学院" },
+{
+  "province": "湖南省",
+  "city": "株洲市",
+  "name": "湖南铁道职业技术学院" },
+{
+  "province": "湖南省",
+  "city": "长沙市",
+  "name": "湖南科技职业学院" },
+{
+  "province": "湖南省",
+  "city": "长沙市",
+  "name": "湖南生物机电职业技术学院" },
+{
+  "province": "湖南省",
+  "city": "长沙市",
+  "name": "湖南交通职业技术学院" },
+{
+  "province": "湖南省",
+  "city": "长沙市",
+  "name": "湖南商务职业技术学院" },
+{
+  "province": "湖南省",
+  "city": "长沙市",
+  "name": "湖南体育职业学院" },
+{
+  "province": "湖南省",
+  "city": "长沙市",
+  "name": "湖南工程职业技术学院" },
+{
+  "province": "湖南省",
+  "city": "长沙市",
+  "name": "保险职业学院" },
+{
+  "province": "湖南省",
+  "city": "长沙市",
+  "name": "湖南外贸职业学院" },
+{
+  "province": "湖南省",
+  "city": "长沙市",
+  "name": "湖南网络工程职业学院" },
+{
+  "province": "湖南省",
+  "city": "邵阳市",
+  "name": "邵阳职业技术学院" },
+{
+  "province": "湖南省",
+  "city": "长沙市",
+  "name": "湖南司法警官职业学院" },
+{
+  "province": "湖南省",
+  "city": "长沙市",
+  "name": "长沙商贸旅游职业技术学院" },
+{
+  "province": "湖南省",
+  "city": "衡阳市",
+  "name": "湖南环境生物职业技术学院" },
+{
+  "province": "湖南省",
+  "city": "长沙市",
+  "name": "湖南邮电职业技术学院" },
+{
+  "province": "湖南省",
+  "city": "湘潭市",
+  "name": "湘潭医卫职业技术学院" },
+{
+  "province": "湖南省",
+  "city": "郴州市",
+  "name": "郴州职业技术学院" },
+{
+  "province": "湖南省",
+  "city": "娄底市",
+  "name": "娄底职业技术学院" },
+{
+  "province": "湖南省",
+  "city": "张家界市",
+  "name": "张家界航空工业职业技术学院" },
+{
+  "province": "湖南省",
+  "city": "长沙市",
+  "name": "长沙环境保护职业技术学院" },
+{
+  "province": "湖南省",
+  "city": "长沙市",
+  "name": "湖南艺术职业学院" },
+{
+  "province": "湖南省",
+  "city": "长沙市",
+  "name": "湖南机电职业技术学院" },
+{
+  "province": "湖南省",
+  "city": "长沙市",
+  "name": "长沙职业技术学院" },
+{
+  "province": "湖南省",
+  "city": "怀化市",
+  "name": "怀化职业技术学院" },
+{
+  "province": "湖南省",
+  "city": "岳阳市",
+  "name": "岳阳职业技术学院" },
+{
+  "province": "湖南省",
+  "city": "常德市",
+  "name": "常德职业技术学院" },
+{
+  "province": "湖南省",
+  "city": "长沙市",
+  "name": "长沙南方职业学院" },
+{
+  "province": "湖南省",
+  "city": "娄底市",
+  "name": "潇湘职业学院" },
+{
+  "province": "湖南省",
+  "city": "株洲市",
+  "name": "湖南化工职业技术学院" },
+{
+  "province": "湖南省",
+  "city": "湘潭市",
+  "name": "湖南城建职业技术学院" },
+{
+  "province": "湖南省",
+  "city": "岳阳市",
+  "name": "湖南石油化工职业技术学院" },
+{
+  "province": "湖南省",
+  "city": "株洲市",
+  "name": "湖南中医药高等专科学校" },
+{
+  "province": "湖南省",
+  "city": "岳阳市",
+  "name": "湖南民族职业学院" },
+{
+  "province": "湖南省",
+  "city": "湘西土家族苗族自治州",
+  "name": "湘西民族职业技术学院" },
+{
+  "province": "湖南省",
+  "city": "衡阳市",
+  "name": "湖南财经工业职业技术学院" },
+{
+  "province": "湖南省",
+  "city": "益阳市",
+  "name": "益阳职业技术学院" },
+{
+  "province": "湖南省",
+  "city": "益阳市",
+  "name": "湖南工艺美术职业学院" },
+{
+  "province": "湖南省",
+  "city": "永州市",
+  "name": "湖南九嶷职业技术学院" },
+{
+  "province": "湖南省",
+  "city": "湘潭市",
+  "name": "湖南理工职业技术学院" },
+{
+  "province": "湖南省",
+  "city": "湘潭市",
+  "name": "湖南软件职业学院" },
+{
+  "province": "湖南省",
+  "city": "株洲市",
+  "name": "湖南汽车工程职业学院" },
+{
+  "province": "湖南省",
+  "city": "长沙市",
+  "name": "长沙电力职业技术学院" },
+{
+  "province": "湖南省",
+  "city": "长沙市",
+  "name": "湖南水利水电职业技术学院" },
+{
+  "province": "湖南省",
+  "city": "长沙市",
+  "name": "湖南现代物流职业技术学院" },
+{
+  "province": "湖南省",
+  "city": "衡阳市",
+  "name": "湖南高速铁路职业技术学院" },
+{
+  "province": "湖南省",
+  "city": "株洲市",
+  "name": "湖南铁路科技职业技术学院" },
+{
+  "province": "湖南省",
+  "city": "长沙市",
+  "name": "湖南安全技术职业学院" },
+{
+  "province": "湖南省",
+  "city": "湘潭市",
+  "name": "湖南电气职业技术学院" },
+{
+  "province": "湖南省",
+  "city": "长沙市",
+  "name": "湖南外国语职业学院" },
+{
+  "province": "湖南省",
+  "city": "益阳市",
+  "name": "益阳医学高等专科学校" },
+{
+  "province": "湖南省",
+  "city": "长沙市",
+  "name": "湖南都市职业学院" },
+{
+  "province": "湖南省",
+  "city": "长沙市",
+  "name": "湖南电子科技职业学院" },
+{
+  "province": "湖南省",
+  "city": "湘潭市",
+  "name": "湖南国防工业职业技术学院" },
+{
+  "province": "湖南省",
+  "city": "常德市",
+  "name": "湖南高尔夫旅游职业学院" },
+{
+  "province": "湖南省",
+  "city": "衡阳市",
+  "name": "湖南工商职业学院" },
+{
+  "province": "湖南省",
+  "city": "长沙市",
+  "name": "湖南三一工业职业技术学院" },
+{
+  "province": "湖南省",
+  "city": "长沙市",
+  "name": "长沙卫生职业学院" },
+{
+  "province": "湖南省",
+  "city": "长沙市",
+  "name": "湖南食品药品职业学院" },
+{
+  "province": "湖南省",
+  "city": "株洲市",
+  "name": "湖南有色金属职业技术学院" },
+{
+  "province": "湖南省",
+  "city": "湘潭市",
+  "name": "湖南吉利汽车职业技术学院" },
+{
+  "province": "湖南省",
+  "city": "常德市",
+  "name": "湖南幼儿师范高等专科学校" },
+{
+  "province": "湖南省",
+  "city": "郴州市",
+  "name": "湘南幼儿师范高等专科学校" },
+{
+  "province": "湖南省",
+  "city": "长沙市",
+  "name": "湖南劳动人事职业学院" },
+{
+  "province": "湖南省",
+  "city": "邵阳市",
+  "name": "湘中幼儿师范高等专科学校" },
+{
+  "province": "湖南省",
+  "city": "长沙市",
+  "name": "中国人民解放军国防科技大学" },
+{
+  "province": "广东省",
+  "city": "广州市",
+  "name": "中山大学" },
+{
+  "province": "广东省",
+  "city": "广州市",
+  "name": "暨南大学" },
+{
+  "province": "广东省",
+  "city": "汕头市",
+  "name": "汕头大学" },
+{
+  "province": "广东省",
+  "city": "广州市",
+  "name": "华南理工大学" },
+{
+  "province": "广东省",
+  "city": "广州市",
+  "name": "华南农业大学" },
+{
+  "province": "广东省",
+  "city": "湛江市",
+  "name": "广东海洋大学" },
+{
+  "province": "广东省",
+  "city": "广州市",
+  "name": "广州医科大学" },
+{
+  "province": "广东省",
+  "city": "湛江市",
+  "name": "广东医科大学" },
+{
+  "province": "广东省",
+  "city": "广州市",
+  "name": "广州中医药大学" },
+{
+  "province": "广东省",
+  "city": "广州市",
+  "name": "广东药科大学" },
+{
+  "province": "广东省",
+  "city": "广州市",
+  "name": "华南师范大学" },
+{
+  "province": "广东省",
+  "city": "韶关市",
+  "name": "韶关学院" },
+{
+  "province": "广东省",
+  "city": "惠州市",
+  "name": "惠州学院" },
+{
+  "province": "广东省",
+  "city": "潮州市",
+  "name": "韩山师范学院" },
+{
+  "province": "广东省",
+  "city": "湛江市",
+  "name": "岭南师范学院" },
+{
+  "province": "广东省",
+  "city": "肇庆市",
+  "name": "肇庆学院" },
+{
+  "province": "广东省",
+  "city": "梅州市",
+  "name": "嘉应学院" },
+{
+  "province": "广东省",
+  "city": "广州市",
+  "name": "广州体育学院" },
+{
+  "province": "广东省",
+  "city": "广州市",
+  "name": "广州美术学院" },
+{
+  "province": "广东省",
+  "city": "广州市",
+  "name": "星海音乐学院" },
+{
+  "province": "广东省",
+  "city": "广州市",
+  "name": "广东技术师范学院" },
+{
+  "province": "广东省",
+  "city": "深圳市",
+  "name": "深圳大学" },
+{
+  "province": "广东省",
+  "city": "广州市",
+  "name": "广东财经大学" },
+{
+  "province": "广东省",
+  "city": "广州市",
+  "name": "广东白云学院" },
+{
+  "province": "广东省",
+  "city": "广州市",
+  "name": "广州大学" },
+{
+  "province": "广东省",
+  "city": "广州市",
+  "name": "广州航海学院" },
+{
+  "province": "广东省",
+  "city": "广州市",
+  "name": "广东警官学院" },
+{
+  "province": "广东省",
+  "city": "广州市",
+  "name": "仲恺农业工程学院" },
+{
+  "province": "广东省",
+  "city": "江门市",
+  "name": "五邑大学" },
+{
+  "province": "广东省",
+  "city": "广州市",
+  "name": "广东金融学院" },
+{
+  "province": "广东省",
+  "city": "中山市",
+  "name": "电子科技大学中山学院" },
+{
+  "province": "广东省",
+  "city": "茂名市",
+  "name": "广东石油化工学院" },
+{
+  "province": "广东省",
+  "city": "东莞市",
+  "name": "东莞理工学院" },
+{
+  "province": "广东省",
+  "city": "广州市",
+  "name": "广东工业大学" },
+{
+  "province": "广东省",
+  "city": "广州市",
+  "name": "广东外语外贸大学" },
+{
+  "province": "广东省",
+  "city": "佛山市",
+  "name": "佛山科学技术学院" },
+{
+  "province": "广东省",
+  "city": "广州市",
+  "name": "广东培正学院" },
+{
+  "province": "广东省",
+  "city": "广州市",
+  "name": "南方医科大学" },
+{
+  "province": "广东省",
+  "city": "佛山市",
+  "name": "广东东软学院" },
+{
+  "province": "广东省",
+  "city": "广州市",
+  "name": "华南理工大学广州学院" },
+{
+  "province": "广东省",
+  "city": "广州市",
+  "name": "广州大学华软软件学院" },
+{
+  "province": "广东省",
+  "city": "广州市",
+  "name": "中山大学南方学院" },
+{
+  "province": "广东省",
+  "city": "广州市",
+  "name": "广东外语外贸大学南国商学院" },
+{
+  "province": "广东省",
+  "city": "广州市",
+  "name": "广东财经大学华商学院" },
+{
+  "province": "广东省",
+  "city": "湛江市",
+  "name": "广东海洋大学寸金学院" },
+{
+  "province": "广东省",
+  "city": "广州市",
+  "name": "华南农业大学珠江学院" },
+{
+  "province": "广东省",
+  "city": "广州市",
+  "name": "广东技术师范学院天河学院" },
+{
+  "province": "广东省",
+  "city": "珠海市",
+  "name": "北京师范大学珠海分校" },
+{
+  "province": "广东省",
+  "city": "广州市",
+  "name": "广东工业大学华立学院" },
+{
+  "province": "广东省",
+  "city": "广州市",
+  "name": "广州大学松田学院" },
+{
+  "province": "广东省",
+  "city": "广州市",
+  "name": "广州商学院" },
+{
+  "province": "广东省",
+  "city": "珠海市",
+  "name": "北京理工大学珠海学院" },
+{
+  "province": "广东省",
+  "city": "珠海市",
+  "name": "吉林大学珠海学院" },
+{
+  "province": "广东省",
+  "city": "广州市",
+  "name": "广州工商学院" },
+{
+  "province": "广东省",
+  "city": "东莞市",
+  "name": "广东科技学院" },
+{
+  "province": "广东省",
+  "city": "肇庆市",
+  "name": "广东理工学院" },
+{
+  "province": "广东省",
+  "city": "东莞市",
+  "name": "东莞理工学院城市学院" },
+{
+  "province": "广东省",
+  "city": "广州市",
+  "name": "中山大学新华学院" },
+{
+  "province": "广东省",
+  "city": "广州市",
+  "name": "广东第二师范学院" },
+{
+  "province": "广东省",
+  "city": "深圳市",
+  "name": "南方科技大学" },
+{
+  "province": "广东省",
+  "city": "珠海市",
+  "name": "北京师范大学-香港浸会大学联合国际学院" },
+{
+  "province": "广东省",
+  "city": "深圳市",
+  "name": "香港中文大学（深圳）" },
+{
+  "province": "广东省",
+  "city": "佛山市",
+  "name": "顺德职业技术学院" },
+{
+  "province": "广东省",
+  "city": "广州市",
+  "name": "广东轻工职业技术学院" },
+{
+  "province": "广东省",
+  "city": "广州市",
+  "name": "广东交通职业技术学院" },
+{
+  "province": "广东省",
+  "city": "广州市",
+  "name": "广东水利电力职业技术学院" },
+{
+  "province": "广东省",
+  "city": "揭阳市",
+  "name": "潮汕职业技术学院" },
+{
+  "province": "广东省",
+  "city": "深圳市",
+  "name": "深圳职业技术学院" },
+{
+  "province": "广东省",
+  "city": "广州市",
+  "name": "广东南华工商职业学院" },
+{
+  "province": "广东省",
+  "city": "广州市",
+  "name": "私立华联学院" },
+{
+  "province": "广东省",
+  "city": "广州市",
+  "name": "广州民航职业技术学院" },
+{
+  "province": "广东省",
+  "city": "广州市",
+  "name": "广州番禺职业技术学院" },
+{
+  "province": "广东省",
+  "city": "韶关市",
+  "name": "广东松山职业技术学院" },
+{
+  "province": "广东省",
+  "city": "广州市",
+  "name": "广东农工商职业技术学院" },
+{
+  "province": "广东省",
+  "city": "深圳市",
+  "name": "广东新安职业技术学院" },
+{
+  "province": "广东省",
+  "city": "佛山市",
+  "name": "佛山职业技术学院" },
+{
+  "province": "广东省",
+  "city": "广州市",
+  "name": "广东科学技术职业学院" },
+{
+  "province": "广东省",
+  "city": "广州市",
+  "name": "广东食品药品职业学院" },
+{
+  "province": "广东省",
+  "city": "广州市",
+  "name": "广州康大职业技术学院" },
+{
+  "province": "广东省",
+  "city": "珠海市",
+  "name": "珠海艺术职业学院" },
+{
+  "province": "广东省",
+  "city": "广州市",
+  "name": "广东行政职业学院" },
+{
+  "province": "广东省",
+  "city": "广州市",
+  "name": "广东体育职业技术学院" },
+{
+  "province": "广东省",
+  "city": "佛山市",
+  "name": "广东职业技术学院" },
+{
+  "province": "广东省",
+  "city": "广州市",
+  "name": "广东建设职业技术学院" },
+{
+  "province": "广东省",
+  "city": "广州市",
+  "name": "广东女子职业技术学院" },
+{
+  "province": "广东省",
+  "city": "广州市",
+  "name": "广东机电职业技术学院" },
+{
+  "province": "广东省",
+  "city": "广州市",
+  "name": "广东岭南职业技术学院" },
+{
+  "province": "广东省",
+  "city": "汕尾市",
+  "name": "汕尾职业技术学院" },
+{
+  "province": "广东省",
+  "city": "云浮市",
+  "name": "罗定职业技术学院" },
+{
+  "province": "广东省",
+  "city": "阳江市",
+  "name": "阳江职业技术学院" },
+{
+  "province": "广东省",
+  "city": "河源市",
+  "name": "河源职业技术学院" },
+{
+  "province": "广东省",
+  "city": "广州市",
+  "name": "广东邮电职业技术学院" },
+{
+  "province": "广东省",
+  "city": "汕头市",
+  "name": "汕头职业技术学院" },
+{
+  "province": "广东省",
+  "city": "揭阳市",
+  "name": "揭阳职业技术学院" },
+{
+  "province": "广东省",
+  "city": "深圳市",
+  "name": "深圳信息职业技术学院" },
+{
+  "province": "广东省",
+  "city": "清远市",
+  "name": "清远职业技术学院" },
+{
+  "province": "广东省",
+  "city": "广州市",
+  "name": "广东工贸职业技术学院" },
+{
+  "province": "广东省",
+  "city": "广州市",
+  "name": "广东司法警官职业学院" },
+{
+  "province": "广东省",
+  "city": "东莞市",
+  "name": "广东亚视演艺职业学院" },
+{
+  "province": "广东省",
+  "city": "广州市",
+  "name": "广东省外语艺术职业学院" },
+{
+  "province": "广东省",
+  "city": "广州市",
+  "name": "广东文艺职业学院" },
+{
+  "province": "广东省",
+  "city": "广州市",
+  "name": "广州体育职业技术学院" },
+{
+  "province": "广东省",
+  "city": "广州市",
+  "name": "广州工程技术职业学院" },
+{
+  "province": "广东省",
+  "city": "中山市",
+  "name": "中山火炬职业技术学院" },
+{
+  "province": "广东省",
+  "city": "江门市",
+  "name": "江门职业技术学院" },
+{
+  "province": "广东省",
+  "city": "茂名市",
+  "name": "茂名职业技术学院" },
+{
+  "province": "广东省",
+  "city": "珠海市",
+  "name": "珠海城市职业技术学院" },
+{
+  "province": "广东省",
+  "city": "广州市",
+  "name": "广州涉外经济职业技术学院" },
+{
+  "province": "广东省",
+  "city": "广州市",
+  "name": "广州南洋理工职业学院" },
+{
+  "province": "广东省",
+  "city": "广州市",
+  "name": "广州科技职业技术学院" },
+{
+  "province": "广东省",
+  "city": "惠州市",
+  "name": "惠州经济职业技术学院" },
+{
+  "province": "广东省",
+  "city": "肇庆市",
+  "name": "广东工商职业学院" },
+{
+  "province": "广东省",
+  "city": "肇庆市",
+  "name": "肇庆医学高等专科学校" },
+{
+  "province": "广东省",
+  "city": "广州市",
+  "name": "广州现代信息工程职业技术学院" },
+{
+  "province": "广东省",
+  "city": "广州市",
+  "name": "广东理工职业学院" },
+{
+  "province": "广东省",
+  "city": "广州市",
+  "name": "广州华南商贸职业学院" },
+{
+  "province": "广东省",
+  "city": "广州市",
+  "name": "广州华立科技职业学院" },
+{
+  "province": "广东省",
+  "city": "广州市",
+  "name": "广州城市职业学院" },
+{
+  "province": "广东省",
+  "city": "广州市",
+  "name": "广东工程职业技术学院" },
+{
+  "province": "广东省",
+  "city": "广州市",
+  "name": "广州铁路职业技术学院" },
+{
+  "province": "广东省",
+  "city": "广州市",
+  "name": "广东科贸职业学院" },
+{
+  "province": "广东省",
+  "city": "广州市",
+  "name": "广州科技贸易职业学院" },
+{
+  "province": "广东省",
+  "city": "中山市",
+  "name": "中山职业技术学院" },
+{
+  "province": "广东省",
+  "city": "广州市",
+  "name": "广州珠江职业技术学院" },
+{
+  "province": "广东省",
+  "city": "广州市",
+  "name": "广州松田职业学院" },
+{
+  "province": "广东省",
+  "city": "湛江市",
+  "name": "广东文理职业学院" },
+{
+  "province": "广东省",
+  "city": "广州市",
+  "name": "广州城建职业学院" },
+{
+  "province": "广东省",
+  "city": "东莞市",
+  "name": "东莞职业技术学院" },
+{
+  "province": "广东省",
+  "city": "江门市",
+  "name": "广东南方职业学院" },
+{
+  "province": "广东省",
+  "city": "广州市",
+  "name": "广州华商职业学院" },
+{
+  "province": "广东省",
+  "city": "广州市",
+  "name": "广州华夏职业学院" },
+{
+  "province": "广东省",
+  "city": "佛山市",
+  "name": "广东环境保护工程职业学院" },
+{
+  "province": "广东省",
+  "city": "广州市",
+  "name": "广东青年职业学院" },
+{
+  "province": "广东省",
+  "city": "广州市",
+  "name": "广州东华职业学院" },
+{
+  "province": "广东省",
+  "city": "东莞市",
+  "name": "广东创新科技职业学院" },
+{
+  "province": "广东省",
+  "city": "广州市",
+  "name": "广东舞蹈戏剧职业学院" },
+{
+  "province": "广东省",
+  "city": "惠州市",
+  "name": "惠州卫生职业技术学院" },
+{
+  "province": "广东省",
+  "city": "肇庆市",
+  "name": "广东信息工程职业学院" },
+{
+  "province": "广东省",
+  "city": "广州市",
+  "name": "广东生态工程职业学院" },
+{
+  "province": "广东省",
+  "city": "惠州市",
+  "name": "惠州城市职业学院" },
+{
+  "province": "广东省",
+  "city": "清远市",
+  "name": "广东碧桂园职业学院" },
+{
+  "province": "广东省",
+  "city": "广州市",
+  "name": "公安边防部队高等专科学校" },
+{
+  "province": "广东省",
+  "city": "茂名市",
+  "name": "广东茂名健康职业学院" },
+{
+  "province": "广东省",
+  "city": "东莞市",
+  "name": "广东酒店管理职业技术学院" },
+{
+  "province": "广东省",
+  "city": "茂名市",
+  "name": "广东茂名幼儿师范专科学校" },
+{
+  "province": "广东省",
+  "city": "广州市",
+  "name": "广州卫生职业技术学院" },
+{
+  "province": "广东省",
+  "city": "湛江市",
+  "name": "湛江幼儿师范专科学校" },
+{
+  "province": "广东省",
+  "city": "深圳市",
+  "name": "深圳北理莫斯科大学" },
+{
+  "province": "广东省",
+  "city": "汕头市",
+  "name": "广东以色列理工学院" },
+{
+  "province": "广东省",
+  "city": "惠州市",
+  "name": "惠州工程职业学院" },
+{
+  "province": "广东省",
+  "city": "江门市",
+  "name": "广东江门中医药职业学院" },
+{
+  "province": "广西壮族自治区",
+  "city": "南宁市",
+  "name": "广西大学" },
+{
+  "province": "广西壮族自治区",
+  "city": "柳州市",
+  "name": "广西科技大学" },
+{
+  "province": "广西壮族自治区",
+  "city": "桂林市",
+  "name": "桂林电子科技大学" },
+{
+  "province": "广西壮族自治区",
+  "city": "桂林市",
+  "name": "桂林理工大学" },
+{
+  "province": "广西壮族自治区",
+  "city": "南宁市",
+  "name": "广西医科大学" },
+{
+  "province": "广西壮族自治区",
+  "city": "百色市",
+  "name": "右江民族医学院" },
+{
+  "province": "广西壮族自治区",
+  "city": "南宁市",
+  "name": "广西中医药大学" },
+{
+  "province": "广西壮族自治区",
+  "city": "桂林市",
+  "name": "桂林医学院" },
+{
+  "province": "广西壮族自治区",
+  "city": "桂林市",
+  "name": "广西师范大学" },
+{
+  "province": "广西壮族自治区",
+  "city": "南宁市",
+  "name": "广西师范学院" },
+{
+  "province": "广西壮族自治区",
+  "city": "崇左市",
+  "name": "广西民族师范学院" },
+{
+  "province": "广西壮族自治区",
+  "city": "河池市",
+  "name": "河池学院" },
+{
+  "province": "广西壮族自治区",
+  "city": "玉林市",
+  "name": "玉林师范学院" },
+{
+  "province": "广西壮族自治区",
+  "city": "南宁市",
+  "name": "广西艺术学院" },
+{
+  "province": "广西壮族自治区",
+  "city": "南宁市",
+  "name": "广西民族大学" },
+{
+  "province": "广西壮族自治区",
+  "city": "百色市",
+  "name": "百色学院" },
+{
+  "province": "广西壮族自治区",
+  "city": "梧州市",
+  "name": "梧州学院" },
+{
+  "province": "广西壮族自治区",
+  "city": "来宾市",
+  "name": "广西科技师范学院" },
+{
+  "province": "广西壮族自治区",
+  "city": "南宁市",
+  "name": "广西财经学院" },
+{
+  "province": "广西壮族自治区",
+  "city": "南宁市",
+  "name": "南宁学院" },
+{
+  "province": "广西壮族自治区",
+  "city": "钦州市",
+  "name": "钦州学院" },
+{
+  "province": "广西壮族自治区",
+  "city": "桂林市",
+  "name": "桂林航天工业学院" },
+{
+  "province": "广西壮族自治区",
+  "city": "桂林市",
+  "name": "桂林旅游学院" },
+{
+  "province": "广西壮族自治区",
+  "city": "贺州市",
+  "name": "贺州学院" },
+{
+  "province": "广西壮族自治区",
+  "city": "南宁市",
+  "name": "广西警察学院" },
+{
+  "province": "广西壮族自治区",
+  "city": "北海市",
+  "name": "北海艺术设计学院" },
+{
+  "province": "广西壮族自治区",
+  "city": "南宁市",
+  "name": "广西大学行健文理学院" },
+{
+  "province": "广西壮族自治区",
+  "city": "柳州市",
+  "name": "广西科技大学鹿山学院" },
+{
+  "province": "广西壮族自治区",
+  "city": "南宁市",
+  "name": "广西民族大学相思湖学院" },
+{
+  "province": "广西壮族自治区",
+  "city": "桂林市",
+  "name": "广西师范大学漓江学院" },
+{
+  "province": "广西壮族自治区",
+  "city": "南宁市",
+  "name": "广西师范学院师园学院" },
+{
+  "province": "广西壮族自治区",
+  "city": "南宁市",
+  "name": "广西中医药大学赛恩斯新医药学院" },
+{
+  "province": "广西壮族自治区",
+  "city": "桂林市",
+  "name": "桂林电子科技大学信息科技学院" },
+{
+  "province": "广西壮族自治区",
+  "city": "桂林市",
+  "name": "桂林理工大学博文管理学院" },
+{
+  "province": "广西壮族自治区",
+  "city": "南宁市",
+  "name": "广西外国语学院" },
+{
+  "province": "广西壮族自治区",
+  "city": "北海市",
+  "name": "北京航空航天大学北海学院" },
+{
+  "province": "广西壮族自治区",
+  "city": "南宁市",
+  "name": "广西机电职业技术学院" },
+{
+  "province": "广西壮族自治区",
+  "city": "南宁市",
+  "name": "广西体育高等专科学校" },
+{
+  "province": "广西壮族自治区",
+  "city": "南宁市",
+  "name": "南宁职业技术学院" },
+{
+  "province": "广西壮族自治区",
+  "city": "南宁市",
+  "name": "广西水利电力职业技术学院" },
+{
+  "province": "广西壮族自治区",
+  "city": "桂林市",
+  "name": "桂林师范高等专科学校" },
+{
+  "province": "广西壮族自治区",
+  "city": "南宁市",
+  "name": "广西职业技术学院" },
+{
+  "province": "广西壮族自治区",
+  "city": "柳州市",
+  "name": "柳州职业技术学院" },
+{
+  "province": "广西壮族自治区",
+  "city": "柳州市",
+  "name": "广西生态工程职业技术学院" },
+{
+  "province": "广西壮族自治区",
+  "city": "南宁市",
+  "name": "广西交通职业技术学院" },
+{
+  "province": "广西壮族自治区",
+  "city": "南宁市",
+  "name": "广西工业职业技术学院" },
+{
+  "province": "广西壮族自治区",
+  "city": "南宁市",
+  "name": "广西国际商务职业技术学院" },
+{
+  "province": "广西壮族自治区",
+  "city": "南宁市",
+  "name": "广西农业职业技术学院" },
+{
+  "province": "广西壮族自治区",
+  "city": "柳州市",
+  "name": "柳州铁道职业技术学院" },
+{
+  "province": "广西壮族自治区",
+  "city": "南宁市",
+  "name": "广西建设职业技术学院" },
+{
+  "province": "广西壮族自治区",
+  "city": "河池市",
+  "name": "广西现代职业技术学院" },
+{
+  "province": "广西壮族自治区",
+  "city": "北海市",
+  "name": "北海职业学院" },
+{
+  "province": "广西壮族自治区",
+  "city": "桂林市",
+  "name": "桂林山水职业学院" },
+{
+  "province": "广西壮族自治区",
+  "city": "南宁市",
+  "name": "广西经贸职业技术学院" },
+{
+  "province": "广西壮族自治区",
+  "city": "南宁市",
+  "name": "广西工商职业技术学院" },
+{
+  "province": "广西壮族自治区",
+  "city": "南宁市",
+  "name": "广西演艺职业学院" },
+{
+  "province": "广西壮族自治区",
+  "city": "南宁市",
+  "name": "广西电力职业技术学院" },
+{
+  "province": "广西壮族自治区",
+  "city": "崇左市",
+  "name": "广西城市职业学院" },
+{
+  "province": "广西壮族自治区",
+  "city": "钦州市",
+  "name": "广西英华国际职业学院" },
+{
+  "province": "广西壮族自治区",
+  "city": "柳州市",
+  "name": "柳州城市职业学院" },
+{
+  "province": "广西壮族自治区",
+  "city": "百色市",
+  "name": "百色职业学院" },
+{
+  "province": "广西壮族自治区",
+  "city": "百色市",
+  "name": "广西工程职业学院" },
+{
+  "province": "广西壮族自治区",
+  "city": "崇左市",
+  "name": "广西理工职业技术学院" },
+{
+  "province": "广西壮族自治区",
+  "city": "梧州市",
+  "name": "梧州职业学院" },
+{
+  "province": "广西壮族自治区",
+  "city": "南宁市",
+  "name": "广西经济职业学院" },
+{
+  "province": "广西壮族自治区",
+  "city": "南宁市",
+  "name": "广西幼儿师范高等专科学校" },
+{
+  "province": "广西壮族自治区",
+  "city": "崇左市",
+  "name": "广西科技职业学院" },
+{
+  "province": "广西壮族自治区",
+  "city": "南宁市",
+  "name": "广西卫生职业技术学院" },
+{
+  "province": "广西壮族自治区",
+  "city": "百色市",
+  "name": "广西培贤国际职业学院" },
+{
+  "province": "广西壮族自治区",
+  "city": "南宁市",
+  "name": "广西金融职业技术学院" },
+{
+  "province": "广西壮族自治区",
+  "city": "崇左市",
+  "name": "广西中远职业学院" },
+{
+  "province": "广西壮族自治区",
+  "city": "玉林市",
+  "name": "玉柴职业技术学院" },
+{
+  "province": "广西壮族自治区",
+  "city": "来宾市",
+  "name": "广西蓝天航空职业学院" },
+{
+  "province": "广西壮族自治区",
+  "city": "南宁市",
+  "name": "广西安全工程职业技术学院" },
+{
+  "province": "广西壮族自治区",
+  "city": "桂林市",
+  "name": "中国人民解放军陆军特种作战学院" },
+{
+  "province": "海南省",
+  "city": "海口市",
+  "name": "海南大学" },
+{
+  "province": "海南省",
+  "city": "三亚市",
+  "name": "海南热带海洋学院" },
+{
+  "province": "海南省",
+  "city": "海口市",
+  "name": "海南师范大学" },
+{
+  "province": "海南省",
+  "city": "海口市",
+  "name": "海南医学院" },
+{
+  "province": "海南省",
+  "city": "海口市",
+  "name": "海口经济学院" },
+{
+  "province": "海南省",
+  "city": "三亚市",
+  "name": "三亚学院" },
+{
+  "province": "海南省",
+  "city": "海口市",
+  "name": "海南职业技术学院" },
+{
+  "province": "海南省",
+  "city": "三亚市",
+  "name": "三亚城市职业学院" },
+{
+  "province": "海南省",
+  "city": "琼海市",
+  "name": "海南软件职业技术学院" },
+{
+  "province": "海南省",
+  "city": "海口市",
+  "name": "海南政法职业学院" },
+{
+  "province": "海南省",
+  "city": "文昌市",
+  "name": "海南外国语职业学院" },
+{
+  "province": "海南省",
+  "city": "海口市",
+  "name": "琼台师范学院" },
+{
+  "province": "海南省",
+  "city": "海口市",
+  "name": "海南经贸职业技术学院" },
+{
+  "province": "海南省",
+  "city": "海口市",
+  "name": "海南工商职业学院" },
+{
+  "province": "海南省",
+  "city": "三亚市",
+  "name": "三亚航空旅游职业学院" },
+{
+  "province": "海南省",
+  "city": "海口市",
+  "name": "海南科技职业学院" },
+{
+  "province": "海南省",
+  "city": "三亚市",
+  "name": "三亚理工职业学院" },
+{
+  "province": "海南省",
+  "city": "海口市",
+  "name": "海南体育职业技术学院" },
+{
+  "province": "海南省",
+  "city": "三亚市",
+  "name": "三亚中瑞酒店管理职业学院" },
+{
+  "province": "重庆市",
+  "city": "重庆市",
+  "name": "重庆大学" },
+{
+  "province": "重庆市",
+  "city": "重庆市",
+  "name": "重庆邮电大学" },
+{
+  "province": "重庆市",
+  "city": "重庆市",
+  "name": "重庆交通大学" },
+{
+  "province": "重庆市",
+  "city": "重庆市",
+  "name": "重庆医科大学" },
+{
+  "province": "重庆市",
+  "city": "重庆市",
+  "name": "西南大学" },
+{
+  "province": "重庆市",
+  "city": "重庆市",
+  "name": "重庆师范大学" },
+{
+  "province": "重庆市",
+  "city": "重庆市",
+  "name": "重庆文理学院" },
+{
+  "province": "重庆市",
+  "city": "重庆市",
+  "name": "重庆三峡学院" },
+{
+  "province": "重庆市",
+  "city": "重庆市",
+  "name": "长江师范学院" },
+{
+  "province": "重庆市",
+  "city": "重庆市",
+  "name": "四川外国语大学" },
+{
+  "province": "重庆市",
+  "city": "重庆市",
+  "name": "西南政法大学" },
+{
+  "province": "重庆市",
+  "city": "重庆市",
+  "name": "四川美术学院" },
+{
+  "province": "重庆市",
+  "city": "重庆市",
+  "name": "重庆科技学院" },
+{
+  "province": "重庆市",
+  "city": "重庆市",
+  "name": "重庆理工大学" },
+{
+  "province": "重庆市",
+  "city": "重庆市",
+  "name": "重庆工商大学" },
+{
+  "province": "重庆市",
+  "city": "重庆市",
+  "name": "重庆工程学院" },
+{
+  "province": "重庆市",
+  "city": "重庆市",
+  "name": "重庆大学城市科技学院" },
+{
+  "province": "重庆市",
+  "city": "重庆市",
+  "name": "重庆警察学院" },
+{
+  "province": "重庆市",
+  "city": "重庆市",
+  "name": "重庆人文科技学院" },
+{
+  "province": "重庆市",
+  "city": "重庆市",
+  "name": "四川外国语大学重庆南方翻译学院" },
+{
+  "province": "重庆市",
+  "city": "重庆市",
+  "name": "重庆师范大学涉外商贸学院" },
+{
+  "province": "重庆市",
+  "city": "重庆市",
+  "name": "重庆工商大学融智学院" },
+{
+  "province": "重庆市",
+  "city": "重庆市",
+  "name": "重庆工商大学派斯学院" },
+{
+  "province": "重庆市",
+  "city": "重庆市",
+  "name": "重庆邮电大学移通学院" },
+{
+  "province": "重庆市",
+  "city": "重庆市",
+  "name": "重庆第二师范学院" },
+{
+  "province": "重庆市",
+  "city": "重庆市",
+  "name": "重庆航天职业技术学院" },
+{
+  "province": "重庆市",
+  "city": "重庆市",
+  "name": "重庆电力高等专科学校" },
+{
+  "province": "重庆市",
+  "city": "重庆市",
+  "name": "重庆工业职业技术学院" },
+{
+  "province": "重庆市",
+  "city": "重庆市",
+  "name": "重庆三峡职业学院" },
+{
+  "province": "重庆市",
+  "city": "重庆市",
+  "name": "重庆工贸职业技术学院" },
+{
+  "province": "重庆市",
+  "city": "重庆市",
+  "name": "重庆机电职业技术学院" },
+{
+  "province": "重庆市",
+  "city": "重庆市",
+  "name": "重庆电子工程职业学院" },
+{
+  "province": "重庆市",
+  "city": "重庆市",
+  "name": "重庆海联职业技术学院" },
+{
+  "province": "重庆市",
+  "city": "重庆市",
+  "name": "重庆信息技术职业学院" },
+{
+  "province": "重庆市",
+  "city": "重庆市",
+  "name": "重庆传媒职业学院" },
+{
+  "province": "重庆市",
+  "city": "重庆市",
+  "name": "重庆城市管理职业学院" },
+{
+  "province": "重庆市",
+  "city": "重庆市",
+  "name": "重庆工程职业技术学院" },
+{
+  "province": "重庆市",
+  "city": "重庆市",
+  "name": "重庆房地产职业学院" },
+{
+  "province": "重庆市",
+  "city": "重庆市",
+  "name": "重庆城市职业学院" },
+{
+  "province": "重庆市",
+  "city": "重庆市",
+  "name": "重庆水利电力职业技术学院" },
+{
+  "province": "重庆市",
+  "city": "重庆市",
+  "name": "重庆工商职业学院" },
+{
+  "province": "重庆市",
+  "city": "重庆市",
+  "name": "重庆应用技术职业学院" },
+{
+  "province": "重庆市",
+  "city": "重庆市",
+  "name": "重庆三峡医药高等专科学校" },
+{
+  "province": "重庆市",
+  "city": "重庆市",
+  "name": "重庆医药高等专科学校" },
+{
+  "province": "重庆市",
+  "city": "重庆市",
+  "name": "重庆青年职业技术学院" },
+{
+  "province": "重庆市",
+  "city": "重庆市",
+  "name": "重庆财经职业学院" },
+{
+  "province": "重庆市",
+  "city": "重庆市",
+  "name": "重庆科创职业学院" },
+{
+  "province": "重庆市",
+  "city": "重庆市",
+  "name": "重庆建筑工程职业学院" },
+{
+  "province": "重庆市",
+  "city": "重庆市",
+  "name": "重庆电讯职业学院" },
+{
+  "province": "重庆市",
+  "city": "重庆市",
+  "name": "重庆能源职业学院" },
+{
+  "province": "重庆市",
+  "city": "重庆市",
+  "name": "重庆商务职业学院" },
+{
+  "province": "重庆市",
+  "city": "重庆市",
+  "name": "重庆交通职业学院" },
+{
+  "province": "重庆市",
+  "city": "重庆市",
+  "name": "重庆化工职业学院" },
+{
+  "province": "重庆市",
+  "city": "重庆市",
+  "name": "重庆旅游职业学院" },
+{
+  "province": "重庆市",
+  "city": "重庆市",
+  "name": "重庆安全技术职业学院" },
+{
+  "province": "重庆市",
+  "city": "重庆市",
+  "name": "重庆公共运输职业学院" },
+{
+  "province": "重庆市",
+  "city": "重庆市",
+  "name": "重庆艺术工程职业学院" },
+{
+  "province": "重庆市",
+  "city": "重庆市",
+  "name": "重庆轻工职业学院" },
+{
+  "province": "重庆市",
+  "city": "重庆市",
+  "name": "重庆电信职业学院" },
+{
+  "province": "重庆市",
+  "city": "重庆市",
+  "name": "重庆经贸职业学院" },
+{
+  "province": "重庆市",
+  "city": "重庆市",
+  "name": "重庆幼儿师范高等专科学校" },
+{
+  "province": "重庆市",
+  "city": "重庆市",
+  "name": "重庆文化艺术职业学院" },
+{
+  "province": "重庆市",
+  "city": "重庆市",
+  "name": "重庆科技职业学院" },
+{
+  "province": "重庆市",
+  "city": "重庆市",
+  "name": "重庆资源与环境保护职业学院" },
+{
+  "province": "重庆市",
+  "city": "重庆市",
+  "name": "重庆护理职业学院" },
+{
+  "province": "重庆市",
+  "city": "重庆市",
+  "name": "中国人民解放军陆军军医大学（第三军医大学）" },
+{
+  "province": "重庆市",
+  "city": "重庆市",
+  "name": "中国人民解放军陆军勤务学院" },
+{
+  "province": "四川省",
+  "city": "成都市",
+  "name": "四川大学" },
+{
+  "province": "四川省",
+  "city": "成都市",
+  "name": "西南交通大学" },
+{
+  "province": "四川省",
+  "city": "成都市",
+  "name": "电子科技大学" },
+{
+  "province": "四川省",
+  "city": "成都市",
+  "name": "西南石油大学" },
+{
+  "province": "四川省",
+  "city": "成都市",
+  "name": "成都理工大学" },
+{
+  "province": "四川省",
+  "city": "绵阳市",
+  "name": "西南科技大学" },
+{
+  "province": "四川省",
+  "city": "成都市",
+  "name": "成都信息工程大学" },
+{
+  "province": "四川省",
+  "city": "自贡市",
+  "name": "四川理工学院" },
+{
+  "province": "四川省",
+  "city": "成都市",
+  "name": "西华大学" },
+{
+  "province": "四川省",
+  "city": "德阳市",
+  "name": "中国民用航空飞行学院" },
+{
+  "province": "四川省",
+  "city": "雅安市",
+  "name": "四川农业大学" },
+{
+  "province": "四川省",
+  "city": "凉山彝族自治州",
+  "name": "西昌学院" },
+{
+  "province": "四川省",
+  "city": "泸州市",
+  "name": "西南医科大学" },
+{
+  "province": "四川省",
+  "city": "成都市",
+  "name": "成都中医药大学" },
+{
+  "province": "四川省",
+  "city": "南充市",
+  "name": "川北医学院" },
+{
+  "province": "四川省",
+  "city": "成都市",
+  "name": "四川师范大学" },
+{
+  "province": "四川省",
+  "city": "南充市",
+  "name": "西华师范大学" },
+{
+  "province": "四川省",
+  "city": "绵阳市",
+  "name": "绵阳师范学院" },
+{
+  "province": "四川省",
+  "city": "内江市",
+  "name": "内江师范学院" },
+{
+  "province": "四川省",
+  "city": "宜宾市",
+  "name": "宜宾学院" },
+{
+  "province": "四川省",
+  "city": "达州市",
+  "name": "四川文理学院" },
+{
+  "province": "四川省",
+  "city": "阿坝藏族羌族自治州",
+  "name": "阿坝师范学院" },
+{
+  "province": "四川省",
+  "city": "乐山市",
+  "name": "乐山师范学院" },
+{
+  "province": "四川省",
+  "city": "成都市",
+  "name": "西南财经大学" },
+{
+  "province": "四川省",
+  "city": "成都市",
+  "name": "成都体育学院" },
+{
+  "province": "四川省",
+  "city": "成都市",
+  "name": "四川音乐学院" },
+{
+  "province": "四川省",
+  "city": "成都市",
+  "name": "西南民族大学" },
+{
+  "province": "四川省",
+  "city": "成都市",
+  "name": "成都学院" },
+{
+  "province": "四川省",
+  "city": "成都市",
+  "name": "成都工业学院" },
+{
+  "province": "四川省",
+  "city": "攀枝花市",
+  "name": "攀枝花学院" },
+{
+  "province": "四川省",
+  "city": "成都市",
+  "name": "四川旅游学院" },
+{
+  "province": "四川省",
+  "city": "甘孜藏族自治州",
+  "name": "四川民族学院" },
+{
+  "province": "四川省",
+  "city": "泸州市",
+  "name": "四川警察学院" },
+{
+  "province": "四川省",
+  "city": "成都市",
+  "name": "成都东软学院" },
+{
+  "province": "四川省",
+  "city": "成都市",
+  "name": "电子科技大学成都学院" },
+{
+  "province": "四川省",
+  "city": "乐山市",
+  "name": "成都理工大学工程技术学院" },
+{
+  "province": "四川省",
+  "city": "成都市",
+  "name": "四川传媒学院" },
+{
+  "province": "四川省",
+  "city": "成都市",
+  "name": "成都信息工程大学银杏酒店管理学院" },
+{
+  "province": "四川省",
+  "city": "成都市",
+  "name": "成都文理学院" },
+{
+  "province": "四川省",
+  "city": "成都市",
+  "name": "四川工商学院" },
+{
+  "province": "四川省",
+  "city": "成都市",
+  "name": "四川外国语大学成都学院" },
+{
+  "province": "四川省",
+  "city": "成都市",
+  "name": "成都医学院" },
+{
+  "province": "四川省",
+  "city": "德阳市",
+  "name": "四川工业科技学院" },
+{
+  "province": "四川省",
+  "city": "成都市",
+  "name": "四川大学锦城学院" },
+{
+  "province": "四川省",
+  "city": "绵阳市",
+  "name": "西南财经大学天府学院" },
+{
+  "province": "四川省",
+  "city": "眉山市",
+  "name": "四川大学锦江学院" },
+{
+  "province": "四川省",
+  "city": "绵阳市",
+  "name": "四川文化艺术学院" },
+{
+  "province": "四川省",
+  "city": "绵阳市",
+  "name": "西南科技大学城市学院" },
+{
+  "province": "四川省",
+  "city": "南充市",
+  "name": "西南交通大学希望学院" },
+{
+  "province": "四川省",
+  "city": "成都市",
+  "name": "成都师范学院" },
+{
+  "province": "四川省",
+  "city": "成都市",
+  "name": "四川电影电视学院" },
+{
+  "province": "四川省",
+  "city": "成都市",
+  "name": "成都纺织高等专科学校" },
+{
+  "province": "四川省",
+  "city": "成都市",
+  "name": "民办四川天一学院" },
+{
+  "province": "四川省",
+  "city": "成都市",
+  "name": "成都航空职业技术学院" },
+{
+  "province": "四川省",
+  "city": "成都市",
+  "name": "四川电力职业技术学院" },
+{
+  "province": "四川省",
+  "city": "成都市",
+  "name": "成都职业技术学院" },
+{
+  "province": "四川省",
+  "city": "泸州市",
+  "name": "四川化工职业技术学院" },
+{
+  "province": "四川省",
+  "city": "成都市",
+  "name": "四川水利职业技术学院" },
+{
+  "province": "四川省",
+  "city": "南充市",
+  "name": "南充职业技术学院" },
+{
+  "province": "四川省",
+  "city": "内江市",
+  "name": "内江职业技术学院" },
+{
+  "province": "四川省",
+  "city": "成都市",
+  "name": "四川航天职业技术学院" },
+{
+  "province": "四川省",
+  "city": "成都市",
+  "name": "四川邮电职业技术学院" },
+{
+  "province": "四川省",
+  "city": "攀枝花市",
+  "name": "四川机电职业技术学院" },
+{
+  "province": "四川省",
+  "city": "绵阳市",
+  "name": "绵阳职业技术学院" },
+{
+  "province": "四川省",
+  "city": "成都市",
+  "name": "四川交通职业技术学院" },
+{
+  "province": "四川省",
+  "city": "成都市",
+  "name": "四川工商职业技术学院" },
+{
+  "province": "四川省",
+  "city": "德阳市",
+  "name": "四川工程职业技术学院" },
+{
+  "province": "四川省",
+  "city": "德阳市",
+  "name": "四川建筑职业技术学院" },
+{
+  "province": "四川省",
+  "city": "达州市",
+  "name": "达州职业技术学院" },
+{
+  "province": "四川省",
+  "city": "成都市",
+  "name": "四川托普信息技术职业学院" },
+{
+  "province": "四川省",
+  "city": "成都市",
+  "name": "四川国际标榜职业学院" },
+{
+  "province": "四川省",
+  "city": "成都市",
+  "name": "成都农业科技职业学院" },
+{
+  "province": "四川省",
+  "city": "宜宾市",
+  "name": "宜宾职业技术学院" },
+{
+  "province": "四川省",
+  "city": "泸州市",
+  "name": "泸州职业技术学院" },
+{
+  "province": "四川省",
+  "city": "眉山市",
+  "name": "眉山职业技术学院" },
+{
+  "province": "四川省",
+  "city": "成都市",
+  "name": "成都艺术职业学院" },
+{
+  "province": "四川省",
+  "city": "遂宁市",
+  "name": "四川职业技术学院" },
+{
+  "province": "四川省",
+  "city": "乐山市",
+  "name": "乐山职业技术学院" },
+{
+  "province": "四川省",
+  "city": "雅安市",
+  "name": "雅安职业技术学院" },
+{
+  "province": "四川省",
+  "city": "成都市",
+  "name": "四川商务职业学院" },
+{
+  "province": "四川省",
+  "city": "德阳市",
+  "name": "四川司法警官职业学院" },
+{
+  "province": "四川省",
+  "city": "广安市",
+  "name": "广安职业技术学院" },
+{
+  "province": "四川省",
+  "city": "广元市",
+  "name": "四川信息职业技术学院" },
+{
+  "province": "四川省",
+  "city": "成都市",
+  "name": "四川文化传媒职业学院" },
+{
+  "province": "四川省",
+  "city": "成都市",
+  "name": "四川华新现代职业学院" },
+{
+  "province": "四川省",
+  "city": "成都市",
+  "name": "四川管理职业学院" },
+{
+  "province": "四川省",
+  "city": "成都市",
+  "name": "四川艺术职业学院" },
+{
+  "province": "四川省",
+  "city": "绵阳市",
+  "name": "四川中医药高等专科学校" },
+{
+  "province": "四川省",
+  "city": "成都市",
+  "name": "四川科技职业学院" },
+{
+  "province": "四川省",
+  "city": "成都市",
+  "name": "四川文化产业职业学院" },
+{
+  "province": "四川省",
+  "city": "成都市",
+  "name": "四川财经职业学院" },
+{
+  "province": "四川省",
+  "city": "成都市",
+  "name": "四川城市职业学院" },
+{
+  "province": "四川省",
+  "city": "成都市",
+  "name": "四川现代职业学院" },
+{
+  "province": "四川省",
+  "city": "绵阳市",
+  "name": "四川幼儿师范高等专科学校" },
+{
+  "province": "四川省",
+  "city": "成都市",
+  "name": "四川长江职业学院" },
+{
+  "province": "四川省",
+  "city": "泸州市",
+  "name": "四川三河职业学院" },
+{
+  "province": "四川省",
+  "city": "广元市",
+  "name": "川北幼儿师范高等专科学校" },
+{
+  "province": "四川省",
+  "city": "自贡市",
+  "name": "四川卫生康复职业学院" },
+{
+  "province": "四川省",
+  "city": "绵阳市",
+  "name": "四川汽车职业技术学院" },
+{
+  "province": "四川省",
+  "city": "巴中市",
+  "name": "巴中职业技术学院" },
+{
+  "province": "四川省",
+  "city": "资阳市",
+  "name": "四川希望汽车职业学院" },
+{
+  "province": "四川省",
+  "city": "绵阳市",
+  "name": "四川电子机械职业技术学院" },
+{
+  "province": "四川省",
+  "city": "成都市",
+  "name": "四川文轩职业学院" },
+{
+  "province": "四川省",
+  "city": "内江市",
+  "name": "川南幼儿师范高等专科学校" },
+{
+  "province": "四川省",
+  "city": "德阳市",
+  "name": "四川护理职业学院" },
+{
+  "province": "四川省",
+  "city": "成都市",
+  "name": "成都工业职业技术学院" },
+{
+  "province": "四川省",
+  "city": "成都市",
+  "name": "四川西南航空职业学院" },
+{
+  "province": "四川省",
+  "city": "成都市",
+  "name": "成都工贸职业技术学院" },
+{
+  "province": "四川省",
+  "city": "凉山州",
+  "name": "四川应用技术职业学院" },
+{
+  "province": "四川省",
+  "city": "成都市",
+  "name": "中国人民武装警察部队警官学院" },
+{
+  "province": "贵州省",
+  "city": "贵阳市",
+  "name": "贵州大学" },
+{
+  "province": "贵州省",
+  "city": "贵阳市",
+  "name": "贵州医科大学" },
+{
+  "province": "贵州省",
+  "city": "遵义市",
+  "name": "遵义医学院" },
+{
+  "province": "贵州省",
+  "city": "贵阳市",
+  "name": "贵阳中医学院" },
+{
+  "province": "贵州省",
+  "city": "贵阳市",
+  "name": "贵州师范大学" },
+{
+  "province": "贵州省",
+  "city": "遵义市",
+  "name": "遵义师范学院" },
+{
+  "province": "贵州省",
+  "city": "铜仁市",
+  "name": "铜仁学院" },
+{
+  "province": "贵州省",
+  "city": "黔西南布依族苗族自治州",
+  "name": "兴义民族师范学院" },
+{
+  "province": "贵州省",
+  "city": "安顺市",
+  "name": "安顺学院" },
+{
+  "province": "贵州省",
+  "city": "毕节市",
+  "name": "贵州工程应用技术学院" },
+{
+  "province": "贵州省",
+  "city": "黔东南苗族侗族自治州",
+  "name": "凯里学院" },
+{
+  "province": "贵州省",
+  "city": "黔南布依族苗族自治州",
+  "name": "黔南民族师范学院" },
+{
+  "province": "贵州省",
+  "city": "贵阳市",
+  "name": "贵州财经大学" },
+{
+  "province": "贵州省",
+  "city": "贵阳市",
+  "name": "贵州民族大学" },
+{
+  "province": "贵州省",
+  "city": "贵阳市",
+  "name": "贵阳学院" },
+{
+  "province": "贵州省",
+  "city": "六盘水市",
+  "name": "六盘水师范学院" },
+{
+  "province": "贵州省",
+  "city": "贵阳市",
+  "name": "贵州商学院" },
+{
+  "province": "贵州省",
+  "city": "贵阳市",
+  "name": "贵阳中医学院时珍学院" },
+{
+  "province": "贵州省",
+  "city": "贵阳市",
+  "name": "贵州财经大学商务学院" },
+{
+  "province": "贵州省",
+  "city": "贵阳市",
+  "name": "贵州大学科技学院" },
+{
+  "province": "贵州省",
+  "city": "贵阳市",
+  "name": "贵州大学明德学院" },
+{
+  "province": "贵州省",
+  "city": "贵阳市",
+  "name": "贵州民族大学人文科技学院" },
+{
+  "province": "贵州省",
+  "city": "贵阳市",
+  "name": "贵州师范大学求是学院" },
+{
+  "province": "贵州省",
+  "city": "遵义市",
+  "name": "遵义医学院医学与科技学院" },
+{
+  "province": "贵州省",
+  "city": "贵阳市",
+  "name": "贵州医科大学神奇民族医药学院" },
+{
+  "province": "贵州省",
+  "city": "贵阳市",
+  "name": "贵州师范学院" },
+{
+  "province": "贵州省",
+  "city": "贵阳市",
+  "name": "贵州理工学院" },
+{
+  "province": "贵州省",
+  "city": "黔南布依族苗族自治州",
+  "name": "黔南民族医学高等专科学校" },
+{
+  "province": "贵州省",
+  "city": "贵阳市",
+  "name": "贵州警察学院" },
+{
+  "province": "贵州省",
+  "city": "贵阳市",
+  "name": "贵州交通职业技术学院" },
+{
+  "province": "贵州省",
+  "city": "遵义市",
+  "name": "贵州航天职业技术学院" },
+{
+  "province": "贵州省",
+  "city": "黔东南苗族侗族自治州",
+  "name": "贵州电子信息职业技术学院" },
+{
+  "province": "贵州省",
+  "city": "安顺市",
+  "name": "安顺职业技术学院" },
+{
+  "province": "贵州省",
+  "city": "黔东南苗族侗族自治州",
+  "name": "黔东南民族职业技术学院" },
+{
+  "province": "贵州省",
+  "city": "黔南布依族苗族自治州",
+  "name": "黔南民族职业技术学院" },
+{
+  "province": "贵州省",
+  "city": "遵义市",
+  "name": "遵义职业技术学院" },
+{
+  "province": "贵州省",
+  "city": "贵阳市",
+  "name": "贵州城市职业学院" },
+{
+  "province": "贵州省",
+  "city": "贵阳市",
+  "name": "贵州工业职业技术学院" },
+{
+  "province": "贵州省",
+  "city": "贵阳市",
+  "name": "贵州电力职业技术学院" },
+{
+  "province": "贵州省",
+  "city": "六盘水市",
+  "name": "六盘水职业技术学院" },
+{
+  "province": "贵州省",
+  "city": "铜仁市",
+  "name": "铜仁职业技术学院" },
+{
+  "province": "贵州省",
+  "city": "黔西南布依族苗族自治州",
+  "name": "黔西南民族职业技术学院" },
+{
+  "province": "贵州省",
+  "city": "贵阳市",
+  "name": "贵州轻工职业技术学院" },
+{
+  "province": "贵州省",
+  "city": "遵义市",
+  "name": "遵义医药高等专科学校" },
+{
+  "province": "贵州省",
+  "city": "贵阳市",
+  "name": "贵阳护理职业学院" },
+{
+  "province": "贵州省",
+  "city": "贵阳市",
+  "name": "贵阳职业技术学院" },
+{
+  "province": "贵州省",
+  "city": "毕节市",
+  "name": "毕节职业技术学院" },
+{
+  "province": "贵州省",
+  "city": "贵阳市",
+  "name": "贵州职业技术学院" },
+{
+  "province": "贵州省",
+  "city": "黔南布依族苗族自治州",
+  "name": "贵州盛华职业学院" },
+{
+  "province": "贵州省",
+  "city": "贵阳市",
+  "name": "贵州工商职业学院" },
+{
+  "province": "贵州省",
+  "city": "贵阳市",
+  "name": "贵阳幼儿师范高等专科学校" },
+{
+  "province": "贵州省",
+  "city": "铜仁市",
+  "name": "铜仁幼儿师范高等专科学校" },
+{
+  "province": "贵州省",
+  "city": "黔南布依族苗族自治州",
+  "name": "黔南民族幼儿师范高等专科学校" },
+{
+  "province": "贵州省",
+  "city": "毕节市",
+  "name": "毕节医学高等专科学校" },
+{
+  "province": "贵州省",
+  "city": "贵阳市",
+  "name": "贵州建设职业技术学院" },
+{
+  "province": "贵州省",
+  "city": "毕节市",
+  "name": "毕节幼儿师范高等专科学校" },
+{
+  "province": "贵州省",
+  "city": "贵阳市",
+  "name": "贵州农业职业学院" },
+{
+  "province": "贵州省",
+  "city": "铜仁市",
+  "name": "贵州工程职业学院" },
+{
+  "province": "贵州省",
+  "city": "毕节市",
+  "name": "贵州工贸职业学院" },
+{
+  "province": "贵州省",
+  "city": "贵阳市",
+  "name": "贵州水利水电职业技术学院" },
+{
+  "province": "贵州省",
+  "city": "贵阳市",
+  "name": "贵州电子商务职业技术学院" },
+{
+  "province": "贵州省",
+  "city": "黔南布依族苗族自治州",
+  "name": "贵州应用技术职业学院" },
+{
+  "province": "贵州省",
+  "city": "贵阳市",
+  "name": "贵州电子科技职业学院" },
+{
+  "province": "贵州省",
+  "city": "贵阳市",
+  "name": "贵州航空职业技术学院" },
+{
+  "province": "贵州省",
+  "city": "遵义市",
+  "name": "茅台学院" },
+{
+  "province": "贵州省",
+  "city": "贵阳市",
+  "name": "贵州装备制造职业学院" },
+{
+  "province": "贵州省",
+  "city": "铜仁市",
+  "name": "贵州健康职业学院" },
+{
+  "province": "贵州省",
+  "city": "贵阳市",
+  "name": "贵州食品工程职业学院" },
+{
+  "province": "贵州省",
+  "city": "黔南布依族苗族自治州",
+  "name": "贵州经贸职业技术学院" },
+{
+  "province": "贵州省",
+  "city": "黔南布依族苗族自治州",
+  "name": "贵州护理职业技术学院" },
+{
+  "province": "云南省",
+  "city": "昆明市",
+  "name": "云南大学" },
+{
+  "province": "云南省",
+  "city": "昆明市",
+  "name": "昆明理工大学" },
+{
+  "province": "云南省",
+  "city": "昆明市",
+  "name": "云南农业大学" },
+{
+  "province": "云南省",
+  "city": "昆明市",
+  "name": "西南林业大学" },
+{
+  "province": "云南省",
+  "city": "昆明市",
+  "name": "昆明医科大学" },
+{
+  "province": "云南省",
+  "city": "大理白族自治州",
+  "name": "大理大学" },
+{
+  "province": "云南省",
+  "city": "昆明市",
+  "name": "云南中医学院" },
+{
+  "province": "云南省",
+  "city": "昆明市",
+  "name": "云南师范大学" },
+{
+  "province": "云南省",
+  "city": "昭通市",
+  "name": "昭通学院" },
+{
+  "province": "云南省",
+  "city": "曲靖市",
+  "name": "曲靖师范学院" },
+{
+  "province": "云南省",
+  "city": "普洱市",
+  "name": "普洱学院" },
+{
+  "province": "云南省",
+  "city": "保山市",
+  "name": "保山学院" },
+{
+  "province": "云南省",
+  "city": "红河哈尼族彝族自治州",
+  "name": "红河学院" },
+{
+  "province": "云南省",
+  "city": "昆明市",
+  "name": "云南财经大学" },
+{
+  "province": "云南省",
+  "city": "昆明市",
+  "name": "云南艺术学院" },
+{
+  "province": "云南省",
+  "city": "昆明市",
+  "name": "云南民族大学" },
+{
+  "province": "云南省",
+  "city": "玉溪市",
+  "name": "玉溪师范学院" },
+{
+  "province": "云南省",
+  "city": "楚雄彝族自治州",
+  "name": "楚雄师范学院" },
+{
+  "province": "云南省",
+  "city": "昆明市",
+  "name": "云南警官学院" },
+{
+  "province": "云南省",
+  "city": "昆明市",
+  "name": "昆明学院" },
+{
+  "province": "云南省",
+  "city": "文山壮族苗族自治州",
+  "name": "文山学院" },
+{
+  "province": "云南省",
+  "city": "昆明市",
+  "name": "云南经济管理学院" },
+{
+  "province": "云南省",
+  "city": "昆明市",
+  "name": "云南大学滇池学院" },
+{
+  "province": "云南省",
+  "city": "丽江市",
+  "name": "云南大学旅游文化学院" },
+{
+  "province": "云南省",
+  "city": "昆明市",
+  "name": "昆明理工大学津桥学院" },
+{
+  "province": "云南省",
+  "city": "昆明市",
+  "name": "云南师范大学商学院" },
+{
+  "province": "云南省",
+  "city": "昆明市",
+  "name": "云南师范大学文理学院" },
+{
+  "province": "云南省",
+  "city": "昆明市",
+  "name": "昆明医科大学海源学院" },
+{
+  "province": "云南省",
+  "city": "昆明市",
+  "name": "云南艺术学院文华学院" },
+{
+  "province": "云南省",
+  "city": "昆明市",
+  "name": "云南工商学院" },
+{
+  "province": "云南省",
+  "city": "临沧市",
+  "name": "滇西科技师范学院" },
+{
+  "province": "云南省",
+  "city": "昆明市",
+  "name": "昆明冶金高等专科学校" },
+{
+  "province": "云南省",
+  "city": "昆明市",
+  "name": "云南国土资源职业学院" },
+{
+  "province": "云南省",
+  "city": "昆明市",
+  "name": "云南交通职业技术学院" },
+{
+  "province": "云南省",
+  "city": "昆明市",
+  "name": "昆明工业职业技术学院" },
+{
+  "province": "云南省",
+  "city": "昆明市",
+  "name": "云南农业职业技术学院" },
+{
+  "province": "云南省",
+  "city": "昆明市",
+  "name": "云南司法警官职业学院" },
+{
+  "province": "云南省",
+  "city": "昆明市",
+  "name": "云南文化艺术职业学院" },
+{
+  "province": "云南省",
+  "city": "昆明市",
+  "name": "云南体育运动职业技术学院" },
+{
+  "province": "云南省",
+  "city": "昆明市",
+  "name": "云南科技信息职业学院" },
+{
+  "province": "云南省",
+  "city": "西双版纳傣族自治州",
+  "name": "西双版纳职业技术学院" },
+{
+  "province": "云南省",
+  "city": "昆明市",
+  "name": "昆明艺术职业学院" },
+{
+  "province": "云南省",
+  "city": "玉溪市",
+  "name": "玉溪农业职业技术学院" },
+{
+  "province": "云南省",
+  "city": "曲靖市",
+  "name": "云南能源职业技术学院" },
+{
+  "province": "云南省",
+  "city": "昆明市",
+  "name": "云南国防工业职业技术学院" },
+{
+  "province": "云南省",
+  "city": "昆明市",
+  "name": "云南机电职业技术学院" },
+{
+  "province": "云南省",
+  "city": "昆明市",
+  "name": "云南林业职业技术学院" },
+{
+  "province": "云南省",
+  "city": "昆明市",
+  "name": "云南城市建设职业学院" },
+{
+  "province": "云南省",
+  "city": "昆明市",
+  "name": "云南工程职业学院" },
+{
+  "province": "云南省",
+  "city": "曲靖市",
+  "name": "曲靖医学高等专科学校" },
+{
+  "province": "云南省",
+  "city": "楚雄彝族自治州",
+  "name": "楚雄医药高等专科学校" },
+{
+  "province": "云南省",
+  "city": "保山市",
+  "name": "保山中医药高等专科学校" },
+{
+  "province": "云南省",
+  "city": "丽江市",
+  "name": "丽江师范高等专科学校" },
+{
+  "province": "云南省",
+  "city": "德宏傣族景颇族自治州",
+  "name": "德宏师范高等专科学校" },
+{
+  "province": "云南省",
+  "city": "昆明市",
+  "name": "云南新兴职业学院" },
+{
+  "province": "云南省",
+  "city": "红河哈尼族彝族自治州",
+  "name": "云南锡业职业技术学院" },
+{
+  "province": "云南省",
+  "city": "昆明市",
+  "name": "云南经贸外事职业学院" },
+{
+  "province": "云南省",
+  "city": "文山壮族苗族自治州",
+  "name": "云南三鑫职业技术学院" },
+{
+  "province": "云南省",
+  "city": "德宏傣族景颇族自治州",
+  "name": "德宏职业学院" },
+{
+  "province": "云南省",
+  "city": "昆明市",
+  "name": "云南商务职业学院" },
+{
+  "province": "云南省",
+  "city": "昆明市",
+  "name": "昆明卫生职业学院" },
+{
+  "province": "云南省",
+  "city": "楚雄彝族自治州",
+  "name": "云南现代职业技术学院" },
+{
+  "province": "云南省",
+  "city": "昆明市",
+  "name": "云南旅游职业学院" },
+{
+  "province": "云南省",
+  "city": "红河哈尼族彝族自治州",
+  "name": "红河卫生职业学院" },
+{
+  "province": "云南省",
+  "city": "昆明市",
+  "name": "云南外事外语职业学院" },
+{
+  "province": "云南省",
+  "city": "大理白族自治州",
+  "name": "大理农林职业技术学院" },
+{
+  "province": "云南省",
+  "city": "昆明市",
+  "name": "公安消防部队高等专科学校" },
+{
+  "province": "云南省",
+  "city": "昆明市",
+  "name": "云南财经职业学院" },
+{
+  "province": "云南省",
+  "city": "昆明市",
+  "name": "昆明铁道职业技术学院" },
+{
+  "province": "云南省",
+  "city": "昭通市",
+  "name": "昭通卫生职业学院" },
+{
+  "province": "云南省",
+  "city": "大理白族自治州",
+  "name": "大理护理职业学院" },
+{
+  "province": "云南省",
+  "city": "昆明市",
+  "name": "云南水利水电职业学院" },
+{
+  "province": "云南省",
+  "city": "大理白族自治州",
+  "name": "滇西应用技术大学" },
+{
+  "province": "云南省",
+  "city": "昆明市",
+  "name": "云南轻纺职业学院" },
+{
+  "province": "云南省",
+  "city": "昆明市",
+  "name": "云南特殊教育职业学院" },
+{
+  "province": "云南省",
+  "city": "昆明市",
+  "name": "云南工贸职业技术学院" },
+{
+  "province": "云南省",
+  "city": "昆明市",
+  "name": "云南交通运输职业学院" },
+{
+  "province": "西藏自治区",
+  "city": "拉萨市",
+  "name": "西藏大学" },
+{
+  "province": "西藏自治区",
+  "city": "咸阳市",
+  "name": "西藏民族大学" },
+{
+  "province": "西藏自治区",
+  "city": "拉萨市",
+  "name": "西藏藏医学院" },
+{
+  "province": "西藏自治区",
+  "city": "拉萨市",
+  "name": "西藏警官高等专科学校" },
+{
+  "province": "西藏自治区",
+  "city": "拉萨市",
+  "name": "拉萨师范高等专科学校" },
+{
+  "province": "西藏自治区",
+  "city": "拉萨市",
+  "name": "西藏职业技术学院" },
+{
+  "province": "西藏自治区",
+  "city": "林芝市",
+  "name": "西藏农牧学院" },
+{
+  "province": "陕西省",
+  "city": "西安市",
+  "name": "西北大学" },
+{
+  "province": "陕西省",
+  "city": "西安市",
+  "name": "西安交通大学" },
+{
+  "province": "陕西省",
+  "city": "西安市",
+  "name": "西北工业大学" },
+{
+  "province": "陕西省",
+  "city": "西安市",
+  "name": "西安理工大学" },
+{
+  "province": "陕西省",
+  "city": "西安市",
+  "name": "西安电子科技大学" },
+{
+  "province": "陕西省",
+  "city": "西安市",
+  "name": "西安工业大学" },
+{
+  "province": "陕西省",
+  "city": "西安市",
+  "name": "西安建筑科技大学" },
+{
+  "province": "陕西省",
+  "city": "西安市",
+  "name": "西安科技大学" },
+{
+  "province": "陕西省",
+  "city": "西安市",
+  "name": "西安石油大学" },
+{
+  "province": "陕西省",
+  "city": "西安市",
+  "name": "陕西科技大学" },
+{
+  "province": "陕西省",
+  "city": "西安市",
+  "name": "西安工程大学" },
+{
+  "province": "陕西省",
+  "city": "西安市",
+  "name": "长安大学" },
+{
+  "province": "陕西省",
+  "city": "咸阳市",
+  "name": "西北农林科技大学" },
+{
+  "province": "陕西省",
+  "city": "咸阳市",
+  "name": "陕西中医药大学" },
+{
+  "province": "陕西省",
+  "city": "西安市",
+  "name": "陕西师范大学" },
+{
+  "province": "陕西省",
+  "city": "延安市",
+  "name": "延安大学" },
+{
+  "province": "陕西省",
+  "city": "汉中市",
+  "name": "陕西理工大学" },
+{
+  "province": "陕西省",
+  "city": "宝鸡市",
+  "name": "宝鸡文理学院" },
+{
+  "province": "陕西省",
+  "city": "咸阳市",
+  "name": "咸阳师范学院" },
+{
+  "province": "陕西省",
+  "city": "渭南市",
+  "name": "渭南师范学院" },
+{
+  "province": "陕西省",
+  "city": "西安市",
+  "name": "西安外国语大学" },
+{
+  "province": "陕西省",
+  "city": "西安市",
+  "name": "西北政法大学" },
+{
+  "province": "陕西省",
+  "city": "西安市",
+  "name": "西安体育学院" },
+{
+  "province": "陕西省",
+  "city": "西安市",
+  "name": "西安音乐学院" },
+{
+  "province": "陕西省",
+  "city": "西安市",
+  "name": "西安美术学院" },
+{
+  "province": "陕西省",
+  "city": "西安市",
+  "name": "西安文理学院" },
+{
+  "province": "陕西省",
+  "city": "榆林市",
+  "name": "榆林学院" },
+{
+  "province": "陕西省",
+  "city": "商洛市",
+  "name": "商洛学院" },
+{
+  "province": "陕西省",
+  "city": "安康市",
+  "name": "安康学院" },
+{
+  "province": "陕西省",
+  "city": "西安市",
+  "name": "西安培华学院" },
+{
+  "province": "陕西省",
+  "city": "西安市",
+  "name": "西安财经学院" },
+{
+  "province": "陕西省",
+  "city": "西安市",
+  "name": "西安邮电大学" },
+{
+  "province": "陕西省",
+  "city": "西安市",
+  "name": "西安航空学院" },
+{
+  "province": "陕西省",
+  "city": "西安市",
+  "name": "西安医学院" },
+{
+  "province": "陕西省",
+  "city": "西安市",
+  "name": "西安欧亚学院" },
+{
+  "province": "陕西省",
+  "city": "西安市",
+  "name": "西安外事学院" },
+{
+  "province": "陕西省",
+  "city": "西安市",
+  "name": "西安翻译学院" },
+{
+  "province": "陕西省",
+  "city": "西安市",
+  "name": "西京学院" },
+{
+  "province": "陕西省",
+  "city": "西安市",
+  "name": "西安思源学院" },
+{
+  "province": "陕西省",
+  "city": "咸阳市",
+  "name": "陕西国际商贸学院" },
+{
+  "province": "陕西省",
+  "city": "咸阳市",
+  "name": "陕西服装工程学院" },
+{
+  "province": "陕西省",
+  "city": "西安市",
+  "name": "西安交通工程学院" },
+{
+  "province": "陕西省",
+  "city": "西安市",
+  "name": "西安交通大学城市学院" },
+{
+  "province": "陕西省",
+  "city": "西安市",
+  "name": "西北大学现代学院" },
+{
+  "province": "陕西省",
+  "city": "西安市",
+  "name": "西安建筑科技大学华清学院" },
+{
+  "province": "陕西省",
+  "city": "西安市",
+  "name": "西安财经学院行知学院" },
+{
+  "province": "陕西省",
+  "city": "咸阳市",
+  "name": "陕西科技大学镐京学院" },
+{
+  "province": "陕西省",
+  "city": "西安市",
+  "name": "西安工业大学北方信息工程学院" },
+{
+  "province": "陕西省",
+  "city": "西安市",
+  "name": "延安大学西安创新学院" },
+{
+  "province": "陕西省",
+  "city": "西安市",
+  "name": "西安电子科技大学长安学院" },
+{
+  "province": "陕西省",
+  "city": "西安市",
+  "name": "西北工业大学明德学院" },
+{
+  "province": "陕西省",
+  "city": "西安市",
+  "name": "长安大学兴华学院" },
+{
+  "province": "陕西省",
+  "city": "西安市",
+  "name": "西安理工大学高科学院" },
+{
+  "province": "陕西省",
+  "city": "西安市",
+  "name": "西安科技大学高新学院" },
+{
+  "province": "陕西省",
+  "city": "西安市",
+  "name": "陕西学前师范学院" },
+{
+  "province": "陕西省",
+  "city": "咸阳市",
+  "name": "陕西工业职业技术学院" },
+{
+  "province": "陕西省",
+  "city": "咸阳市",
+  "name": "杨凌职业技术学院" },
+{
+  "province": "陕西省",
+  "city": "西安市",
+  "name": "西安电力高等专科学校" },
+{
+  "province": "陕西省",
+  "city": "咸阳市",
+  "name": "陕西能源职业技术学院" },
+{
+  "province": "陕西省",
+  "city": "西安市",
+  "name": "陕西国防工业职业技术学院" },
+{
+  "province": "陕西省",
+  "city": "西安市",
+  "name": "西安航空职业技术学院" },
+{
+  "province": "陕西省",
+  "city": "咸阳市",
+  "name": "陕西财经职业技术学院" },
+{
+  "province": "陕西省",
+  "city": "西安市",
+  "name": "陕西交通职业技术学院" },
+{
+  "province": "陕西省",
+  "city": "西安市",
+  "name": "陕西职业技术学院" },
+{
+  "province": "陕西省",
+  "city": "西安市",
+  "name": "西安高新科技职业学院" },
+{
+  "province": "陕西省",
+  "city": "西安市",
+  "name": "西安城市建设职业学院" },
+{
+  "province": "陕西省",
+  "city": "渭南市",
+  "name": "陕西铁路工程职业技术学院" },
+{
+  "province": "陕西省",
+  "city": "宝鸡市",
+  "name": "宝鸡职业技术学院" },
+{
+  "province": "陕西省",
+  "city": "汉中市",
+  "name": "陕西航空职业技术学院" },
+{
+  "province": "陕西省",
+  "city": "西安市",
+  "name": "陕西电子信息职业技术学院" },
+{
+  "province": "陕西省",
+  "city": "咸阳市",
+  "name": "陕西邮电职业技术学院" },
+{
+  "province": "陕西省",
+  "city": "西安市",
+  "name": "西安海棠职业学院" },
+{
+  "province": "陕西省",
+  "city": "西安市",
+  "name": "西安汽车科技职业学院" },
+{
+  "province": "陕西省",
+  "city": "西安市",
+  "name": "西安东方亚太职业技术学院" },
+{
+  "province": "陕西省",
+  "city": "西安市",
+  "name": "陕西警官职业学院" },
+{
+  "province": "陕西省",
+  "city": "西安市",
+  "name": "陕西经济管理职业技术学院" },
+{
+  "province": "陕西省",
+  "city": "西安市",
+  "name": "西安铁路职业技术学院" },
+{
+  "province": "陕西省",
+  "city": "咸阳市",
+  "name": "咸阳职业技术学院" },
+{
+  "province": "陕西省",
+  "city": "西安市",
+  "name": "西安职业技术学院" },
+{
+  "province": "陕西省",
+  "city": "商洛市",
+  "name": "商洛职业技术学院" },
+{
+  "province": "陕西省",
+  "city": "汉中市",
+  "name": "汉中职业技术学院" },
+{
+  "province": "陕西省",
+  "city": "延安市",
+  "name": "延安职业技术学院" },
+{
+  "province": "陕西省",
+  "city": "渭南市",
+  "name": "渭南职业技术学院" },
+{
+  "province": "陕西省",
+  "city": "安康市",
+  "name": "安康职业技术学院" },
+{
+  "province": "陕西省",
+  "city": "铜川市",
+  "name": "铜川职业技术学院" },
+{
+  "province": "陕西省",
+  "city": "西安市",
+  "name": "陕西青年职业学院" },
+{
+  "province": "陕西省",
+  "city": "西安市",
+  "name": "陕西工商职业学院" },
+{
+  "province": "陕西省",
+  "city": "西安市",
+  "name": "陕西电子科技职业学院" },
+{
+  "province": "陕西省",
+  "city": "西安市",
+  "name": "陕西旅游烹饪职业学院" },
+{
+  "province": "陕西省",
+  "city": "西安市",
+  "name": "西安医学高等专科学校" },
+{
+  "province": "陕西省",
+  "city": "榆林市",
+  "name": "榆林职业技术学院" },
+{
+  "province": "陕西省",
+  "city": "西安市",
+  "name": "陕西艺术职业学院" },
+{
+  "province": "陕西省",
+  "city": "宝鸡市",
+  "name": "陕西机电职业技术学院" },
+{
+  "province": "陕西省",
+  "city": "西安市",
+  "name": "中国人民解放军陆军边海防学院" },
+{
+  "province": "陕西省",
+  "city": "西安市",
+  "name": "中国人民解放军空军工程大学" },
+{
+  "province": "陕西省",
+  "city": "西安市",
+  "name": "中国人民解放军空军西安飞行学院" },
+{
+  "province": "陕西省",
+  "city": "西安市",
+  "name": "中国人民解放军空军军医大学（第四军医大学）" },
+{
+  "province": "陕西省",
+  "city": "西安市",
+  "name": "中国人民解放军火箭军工程大学" },
+{
+  "province": "陕西省",
+  "city": "西安市",
+  "name": "中国人民武装警察部队工程大学" },
+{
+  "province": "甘肃省",
+  "city": "兰州市",
+  "name": "兰州大学" },
+{
+  "province": "甘肃省",
+  "city": "兰州市",
+  "name": "兰州理工大学" },
+{
+  "province": "甘肃省",
+  "city": "兰州市",
+  "name": "兰州交通大学" },
+{
+  "province": "甘肃省",
+  "city": "兰州市",
+  "name": "甘肃农业大学" },
+{
+  "province": "甘肃省",
+  "city": "兰州市",
+  "name": "甘肃中医药大学" },
+{
+  "province": "甘肃省",
+  "city": "兰州市",
+  "name": "西北师范大学" },
+{
+  "province": "甘肃省",
+  "city": "兰州市",
+  "name": "兰州城市学院" },
+{
+  "province": "甘肃省",
+  "city": "庆阳市",
+  "name": "陇东学院" },
+{
+  "province": "甘肃省",
+  "city": "天水市",
+  "name": "天水师范学院" },
+{
+  "province": "甘肃省",
+  "city": "张掖市",
+  "name": "河西学院" },
+{
+  "province": "甘肃省",
+  "city": "兰州市",
+  "name": "兰州财经大学" },
+{
+  "province": "甘肃省",
+  "city": "兰州市",
+  "name": "西北民族大学" },
+{
+  "province": "甘肃省",
+  "city": "兰州市",
+  "name": "甘肃政法学院" },
+{
+  "province": "甘肃省",
+  "city": "甘南藏族自治州",
+  "name": "甘肃民族师范学院" },
+{
+  "province": "甘肃省",
+  "city": "兰州市",
+  "name": "兰州文理学院" },
+{
+  "province": "甘肃省",
+  "city": "平凉市",
+  "name": "甘肃医学院" },
+{
+  "province": "甘肃省",
+  "city": "兰州市",
+  "name": "兰州工业学院" },
+{
+  "province": "甘肃省",
+  "city": "兰州市",
+  "name": "西北师范大学知行学院" },
+{
+  "province": "甘肃省",
+  "city": "兰州市",
+  "name": "兰州财经大学陇桥学院" },
+{
+  "province": "甘肃省",
+  "city": "兰州市",
+  "name": "兰州财经大学长青学院" },
+{
+  "province": "甘肃省",
+  "city": "兰州市",
+  "name": "兰州交通大学博文学院" },
+{
+  "province": "甘肃省",
+  "city": "兰州市",
+  "name": "兰州理工大学技术工程学院" },
+{
+  "province": "甘肃省",
+  "city": "兰州市",
+  "name": "兰州石化职业技术学院" },
+{
+  "province": "甘肃省",
+  "city": "陇南市",
+  "name": "陇南师范高等专科学校" },
+{
+  "province": "甘肃省",
+  "city": "定西市",
+  "name": "定西师范高等专科学校" },
+{
+  "province": "甘肃省",
+  "city": "兰州市",
+  "name": "甘肃建筑职业技术学院" },
+{
+  "province": "甘肃省",
+  "city": "酒泉市",
+  "name": "酒泉职业技术学院" },
+{
+  "province": "甘肃省",
+  "city": "兰州市",
+  "name": "兰州外语职业学院" },
+{
+  "province": "甘肃省",
+  "city": "兰州市",
+  "name": "兰州职业技术学院" },
+{
+  "province": "甘肃省",
+  "city": "兰州市",
+  "name": "甘肃警察职业学院" },
+{
+  "province": "甘肃省",
+  "city": "天水市",
+  "name": "甘肃林业职业技术学院" },
+{
+  "province": "甘肃省",
+  "city": "天水市",
+  "name": "甘肃工业职业技术学院" },
+{
+  "province": "甘肃省",
+  "city": "武威市",
+  "name": "武威职业学院" },
+{
+  "province": "甘肃省",
+  "city": "兰州市",
+  "name": "甘肃交通职业技术学院" },
+{
+  "province": "甘肃省",
+  "city": "兰州市",
+  "name": "兰州资源环境职业技术学院" },
+{
+  "province": "甘肃省",
+  "city": "兰州市",
+  "name": "甘肃农业职业技术学院" },
+{
+  "province": "甘肃省",
+  "city": "武威市",
+  "name": "甘肃畜牧工程职业技术学院" },
+{
+  "province": "甘肃省",
+  "city": "嘉峪关市",
+  "name": "甘肃钢铁职业技术学院" },
+{
+  "province": "甘肃省",
+  "city": "天水市",
+  "name": "甘肃机电职业技术学院" },
+{
+  "province": "甘肃省",
+  "city": "金昌市",
+  "name": "甘肃有色冶金职业技术学院" },
+{
+  "province": "甘肃省",
+  "city": "白银市",
+  "name": "白银矿冶职业技术学院" },
+{
+  "province": "甘肃省",
+  "city": "兰州市",
+  "name": "甘肃卫生职业学院" },
+{
+  "province": "甘肃省",
+  "city": "兰州市",
+  "name": "兰州科技职业学院" },
+{
+  "province": "甘肃省",
+  "city": "庆阳市",
+  "name": "庆阳职业技术学院" },
+{
+  "province": "甘肃省",
+  "city": "临夏州",
+  "name": "临夏现代职业学院" },
+{
+  "province": "甘肃省",
+  "city": "兰州市",
+  "name": "甘肃能源化工职业学院" },
+{
+  "province": "甘肃省",
+  "city": "兰州市",
+  "name": "兰州现代职业学院" },
+{
+  "province": "甘肃省",
+  "city": "平凉市",
+  "name": "平凉职业技术学院" },
+{
+  "province": "甘肃省",
+  "city": "兰州市",
+  "name": "甘肃财贸职业学院" },
+{
+  "province": "青海省",
+  "city": "西宁市",
+  "name": "青海大学" },
+{
+  "province": "青海省",
+  "city": "西宁市",
+  "name": "青海师范大学" },
+{
+  "province": "青海省",
+  "city": "西宁市",
+  "name": "青海民族大学" },
+{
+  "province": "青海省",
+  "city": "西宁市",
+  "name": "青海大学昆仑学院" },
+{
+  "province": "青海省",
+  "city": "西宁市",
+  "name": "青海卫生职业技术学院" },
+{
+  "province": "青海省",
+  "city": "西宁市",
+  "name": "青海警官职业学院" },
+{
+  "province": "青海省",
+  "city": "西宁市",
+  "name": "青海畜牧兽医职业技术学院" },
+{
+  "province": "青海省",
+  "city": "西宁市",
+  "name": "青海交通职业技术学院" },
+{
+  "province": "青海省",
+  "city": "西宁市",
+  "name": "青海建筑职业技术学院" },
+{
+  "province": "青海省",
+  "city": "西宁市",
+  "name": "西宁城市职业技术学院" },
+{
+  "province": "青海省",
+  "city": "海东市",
+  "name": "青海高等职业技术学院" },
+{
+  "province": "青海省",
+  "city": "海西蒙古族藏族自治州",
+  "name": "青海柴达木职业技术学院" },
+{
+  "province": "宁夏回族自治区",
+  "city": "银川市",
+  "name": "宁夏大学" },
+{
+  "province": "宁夏回族自治区",
+  "city": "银川市",
+  "name": "宁夏医科大学" },
+{
+  "province": "宁夏回族自治区",
+  "city": "固原市",
+  "name": "宁夏师范学院" },
+{
+  "province": "宁夏回族自治区",
+  "city": "银川市",
+  "name": "北方民族大学" },
+{
+  "province": "宁夏回族自治区",
+  "city": "石嘴山市",
+  "name": "宁夏理工学院" },
+{
+  "province": "宁夏回族自治区",
+  "city": "银川市",
+  "name": "宁夏大学新华学院" },
+{
+  "province": "宁夏回族自治区",
+  "city": "银川市",
+  "name": "银川能源学院" },
+{
+  "province": "宁夏回族自治区",
+  "city": "银川市",
+  "name": "中国矿业大学银川学院" },
+{
+  "province": "宁夏回族自治区",
+  "city": "吴忠市",
+  "name": "宁夏民族职业技术学院" },
+{
+  "province": "宁夏回族自治区",
+  "city": "银川市",
+  "name": "宁夏工业职业学院" },
+{
+  "province": "宁夏回族自治区",
+  "city": "银川市",
+  "name": "宁夏职业技术学院" },
+{
+  "province": "宁夏回族自治区",
+  "city": "银川市",
+  "name": "宁夏工商职业技术学院" },
+{
+  "province": "宁夏回族自治区",
+  "city": "银川市",
+  "name": "宁夏财经职业技术学院" },
+{
+  "province": "宁夏回族自治区",
+  "city": "银川市",
+  "name": "宁夏警官职业学院" },
+{
+  "province": "宁夏回族自治区",
+  "city": "银川市",
+  "name": "宁夏建设职业技术学院" },
+{
+  "province": "宁夏回族自治区",
+  "city": "银川市",
+  "name": "宁夏葡萄酒与防沙治沙职业技术学院" },
+{
+  "province": "宁夏回族自治区",
+  "city": "银川市",
+  "name": "宁夏幼儿师范高等专科学校" },
+{
+  "province": "宁夏回族自治区",
+  "city": "银川市",
+  "name": "宁夏艺术职业学院" },
+{
+  "province": "宁夏回族自治区",
+  "city": "银川市",
+  "name": "宁夏体育职业学院" },
+{
+  "province": "新疆维吾尔自治区",
+  "city": "乌鲁木齐市",
+  "name": "新疆大学" },
+{
+  "province": "新疆维吾尔自治区",
+  "city": "阿拉尔市",
+  "name": "塔里木大学" },
+{
+  "province": "新疆维吾尔自治区",
+  "city": "乌鲁木齐市",
+  "name": "新疆农业大学" },
+{
+  "province": "新疆维吾尔自治区",
+  "city": "石河子市",
+  "name": "石河子大学" },
+{
+  "province": "新疆维吾尔自治区",
+  "city": "乌鲁木齐市",
+  "name": "新疆医科大学" },
+{
+  "province": "新疆维吾尔自治区",
+  "city": "乌鲁木齐市",
+  "name": "新疆师范大学" },
+{
+  "province": "新疆维吾尔自治区",
+  "city": "喀什地区",
+  "name": "喀什大学" },
+{
+  "province": "新疆维吾尔自治区",
+  "city": "伊犁哈萨克自治州",
+  "name": "伊犁师范学院" },
+{
+  "province": "新疆维吾尔自治区",
+  "city": "乌鲁木齐市",
+  "name": "新疆财经大学" },
+{
+  "province": "新疆维吾尔自治区",
+  "city": "乌鲁木齐市",
+  "name": "新疆艺术学院" },
+{
+  "province": "新疆维吾尔自治区",
+  "city": "乌鲁木齐市",
+  "name": "新疆工程学院" },
+{
+  "province": "新疆维吾尔自治区",
+  "city": "昌吉回族自治州",
+  "name": "昌吉学院" },
+{
+  "province": "新疆维吾尔自治区",
+  "city": "乌鲁木齐市",
+  "name": "新疆警察学院" },
+{
+  "province": "新疆维吾尔自治区",
+  "city": "乌鲁木齐市",
+  "name": "新疆大学科学技术学院" },
+{
+  "province": "新疆维吾尔自治区",
+  "city": "乌鲁木齐市",
+  "name": "新疆农业大学科学技术学院" },
+{
+  "province": "新疆维吾尔自治区",
+  "city": "乌鲁木齐市",
+  "name": "新疆医科大学厚博学院" },
+{
+  "province": "新疆维吾尔自治区",
+  "city": "乌鲁木齐市",
+  "name": "新疆财经大学商务学院" },
+{
+  "province": "新疆维吾尔自治区",
+  "city": "石河子市",
+  "name": "石河子大学科技学院" },
+{
+  "province": "新疆维吾尔自治区",
+  "city": "和田地区",
+  "name": "和田师范专科学校" },
+{
+  "province": "新疆维吾尔自治区",
+  "city": "昌吉回族自治州",
+  "name": "新疆农业职业技术学院" },
+{
+  "province": "新疆维吾尔自治区",
+  "city": "乌鲁木齐市",
+  "name": "乌鲁木齐职业大学" },
+{
+  "province": "新疆维吾尔自治区",
+  "city": "和田地区",
+  "name": "新疆维吾尔医学专科学校" },
+{
+  "province": "新疆维吾尔自治区",
+  "city": "克拉玛依市",
+  "name": "克拉玛依职业技术学院" },
+{
+  "province": "新疆维吾尔自治区",
+  "city": "乌鲁木齐市",
+  "name": "新疆机电职业技术学院" },
+{
+  "province": "新疆维吾尔自治区",
+  "city": "乌鲁木齐市",
+  "name": "新疆轻工职业技术学院" },
+{
+  "province": "新疆维吾尔自治区",
+  "city": "乌鲁木齐市",
+  "name": "新疆能源职业技术学院" },
+{
+  "province": "新疆维吾尔自治区",
+  "city": "昌吉回族自治州",
+  "name": "昌吉职业技术学院" },
+{
+  "province": "新疆维吾尔自治区",
+  "city": "伊犁哈萨克自治州",
+  "name": "伊犁职业技术学院" },
+{
+  "province": "新疆维吾尔自治区",
+  "city": "阿克苏地区",
+  "name": "阿克苏职业技术学院" },
+{
+  "province": "新疆维吾尔自治区",
+  "city": "巴音郭楞蒙古自治州",
+  "name": "巴音郭楞职业技术学院" },
+{
+  "province": "新疆维吾尔自治区",
+  "city": "乌鲁木齐市",
+  "name": "新疆建设职业技术学院" },
+{
+  "province": "新疆维吾尔自治区",
+  "city": "五家渠市",
+  "name": "新疆兵团警官高等专科学校" },
+{
+  "province": "新疆维吾尔自治区",
+  "city": "乌鲁木齐市",
+  "name": "新疆现代职业技术学院" },
+{
+  "province": "新疆维吾尔自治区",
+  "city": "乌鲁木齐市",
+  "name": "新疆天山职业技术学院" },
+{
+  "province": "新疆维吾尔自治区",
+  "city": "乌鲁木齐市",
+  "name": "新疆交通职业技术学院" },
+{
+  "province": "新疆维吾尔自治区",
+  "city": "石河子市",
+  "name": "新疆石河子职业技术学院" },
+{
+  "province": "新疆维吾尔自治区",
+  "city": "乌鲁木齐市",
+  "name": "新疆职业大学" },
+{
+  "province": "新疆维吾尔自治区",
+  "city": "乌鲁木齐市",
+  "name": "新疆体育职业技术学院" },
+{
+  "province": "新疆维吾尔自治区",
+  "city": "伊犁哈萨克自治州",
+  "name": "新疆应用职业技术学院" },
+{
+  "province": "新疆维吾尔自治区",
+  "city": "乌鲁木齐市",
+  "name": "新疆师范高等专科学校" },
+{
+  "province": "新疆维吾尔自治区",
+  "city": "乌鲁木齐市",
+  "name": "新疆铁道职业技术学院" },
+{
+  "province": "新疆维吾尔自治区",
+  "city": "乌鲁木齐市",
+  "name": "新疆生产建设兵团兴新职业技术学院" },
+{
+  "province": "新疆维吾尔自治区",
+  "city": "哈密市",
+  "name": "哈密职业技术学院" },
+{
+  "province": "新疆维吾尔自治区",
+  "city": "乌鲁木齐市",
+  "name": "新疆科技职业技术学院" },
+{
+  "province": "新疆维吾尔自治区",
+  "city": "吐鲁番市",
+  "name": "吐鲁番职业技术学院" },
+{
+  "province": "新疆维吾尔自治区",
+  "city": "乌鲁木齐市",
+  "name": "新疆工业职业技术学院" },
+{
+  "province": "新疆维吾尔自治区",
+  "city": "博尔塔拉蒙古自治州",
+  "name": "博尔塔拉职业技术学院" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "国立台湾大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "国立中兴大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "国立成功大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "国立政治大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "国立清华大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "国立台湾海洋大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "国立交通大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "国立阳明大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "国立中央大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "国立中山大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "国立中正大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "国立东华大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "国立暨南国际大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "国立嘉义大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "国立台北大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "国立高雄大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "国立宜兰大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "国立台东大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "国立联合大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "国立台南大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "国立金门大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "台北市立大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "国立屏东大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "国立台湾师范大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "国立高雄师范大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "国立彰化师范大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "国立台北教育大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "国立台中教育大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "国立新竹教育大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "国立台湾艺术大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "国立台北艺术大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "国立台南艺术大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "国立体育大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "国立台湾体育运动大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "东海大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "辅仁大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "东吴大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "淡江大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "中原大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "逢甲大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "中国文化大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "静宜大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "世新大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "铭传大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "实践大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "义守大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "长庚大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "元智大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "华梵大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "中华大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "大叶大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "真理大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "大同大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "南华大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "慈济大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "长荣大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "玄奘大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "亚洲大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "开南大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "佛光大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "明道大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "康宁大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "台湾首府大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "高雄医学大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "台北医学大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "中山医学大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "中国医药大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "马偕医学院" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "中信金融管理学院" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "稻江科技暨管理学院" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "法鼓文理学院" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "国立台湾科技大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "国立屏东科技大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "国立台北科技大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "国立云林科技大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "国立高雄第一科技大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "国立高雄应用科技大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "国立高雄海洋科技大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "国立虎尾科技大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "国立澎湖科技大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "国立勤益科技大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "国立台北护理健康大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "国立高雄餐旅大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "国立台中科技大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "国立台北商业大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "国立台湾戏曲学院" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "国立台南护理专科学校" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "国立台东专科学校" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "朝阳科技大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "南台科技大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "昆山科技大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "嘉南药理大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "树德科技大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "龙华科技大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "辅英科技大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "明新科技大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "健行科技大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "正修科技大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "弘光科技大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "明志科技大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "建国科技大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "万能科技大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "岭东科技大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "中国科技大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "中台科技大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "大仁科技大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "圣约翰科技大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "高苑科技大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "元培医事科技大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "台南应用科技大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "远东科技大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "德明财经科技大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "中华医事科技大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "东南科技大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "景文科技大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "南开科技大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "侨光科技大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "中华科技大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "育达科技大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "吴凤科技大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "美和科技大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "环球科技大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "修平科技大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "中州科技大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "长庚科技大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "台北城市科技大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "醒吾科技大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "大华科技大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "文藻外语大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "南荣科技大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "华夏科技大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "慈济科技大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "致理科技大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "大汉技术学院" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "和春技术学院" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "亚东技术学院" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "桃园创新技术学院" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "兰阳技术学院" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "德霖技术学院" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "东方设计学院" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "经国管理暨健康学院" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "黎明技术学院" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "大同技术学院" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "崇右技术学院" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "亚太创意技术学院" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "台湾观光学院" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "台北海洋技术学院" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "仁德医护管理专科学校" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "马偕医护管理专科学校" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "慈惠医护管理专科学校" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "树人医护管理专科学校" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "耕莘健康管理专科学校" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "育英医护管理专科学校" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "敏惠医护管理专科学校" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "高美医护管理专科学校" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "新生医护管理专科学校" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "圣母医护管理专科学校" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "崇仁医护管理专科学校" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "中央警察大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "台湾警察专科学校" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "国防大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "国防医学院" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "陆军军官学校" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "海军军官学校" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "空军军官学校" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "陆军专科学校" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "空军航空技术学院" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "基督教台湾浸会神学院" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "台北基督学院" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "一贯道天皇学院" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "台湾神学院" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "玉山神学院" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "台南神学院" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "中台神学院" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "三育基督学院" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "圣光神学院" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "圣德基督学院" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "台湾浸信宣道会神学院" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "中华福音神学院" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "中华信义神学院" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "佛光山丛林学院" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "神召神学院" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "灵粮教牧宣教神学院" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "天主教台湾总修院" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "法鼓山僧伽大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "辅仁圣博敏神学院" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "国立空中大学" },
+{
+  "province": "台湾省",
+  "city": "台湾省",
+  "name": "高雄市立空中大学" },
+{
+  "province": "香港特别行政区",
+  "city": "香港特别行政区",
+  "name": "香港大学" },
+{
+  "province": "香港特别行政区",
+  "city": "香港特别行政区",
+  "name": "香港中文大学" },
+{
+  "province": "香港特别行政区",
+  "city": "香港特别行政区",
+  "name": "香港科技大学" },
+{
+  "province": "香港特别行政区",
+  "city": "香港特别行政区",
+  "name": "香港理工大学" },
+{
+  "province": "香港特别行政区",
+  "city": "香港特别行政区",
+  "name": "香港浸会大学" },
+{
+  "province": "香港特别行政区",
+  "city": "香港特别行政区",
+  "name": "香港城市大学" },
+{
+  "province": "香港特别行政区",
+  "city": "香港特别行政区",
+  "name": "香港教育学院" },
+{
+  "province": "香港特别行政区",
+  "city": "香港特别行政区",
+  "name": "岭南大学" },
+{
+  "province": "香港特别行政区",
+  "city": "香港特别行政区",
+  "name": "香港公开大学" },
+{
+  "province": "香港特别行政区",
+  "city": "香港特别行政区",
+  "name": "香港演艺学院" },
+{
+  "province": "香港特别行政区",
+  "city": "香港特别行政区",
+  "name": "香港树仁大学" },
+{
+  "province": "香港特别行政区",
+  "city": "香港特别行政区",
+  "name": "珠海学院" },
+{
+  "province": "香港特别行政区",
+  "city": "香港特别行政区",
+  "name": "明德学院" },
+{
+  "province": "香港特别行政区",
+  "city": "香港特别行政区",
+  "name": "东华学院" },
+{
+  "province": "香港特别行政区",
+  "city": "香港特别行政区",
+  "name": "明爱专上学院" },
+{
+  "province": "香港特别行政区",
+  "city": "香港特别行政区",
+  "name": "恒生管理学院" },
+{
+  "province": "香港特别行政区",
+  "city": "香港特别行政区",
+  "name": "香港能仁专上学院" },
+{
+  "province": "香港特别行政区",
+  "city": "香港特别行政区",
+  "name": "港专学院" },
+{
+  "province": "香港特别行政区",
+  "city": "香港特别行政区",
+  "name": "宏恩基督教学院" },
+{
+  "province": "香港特别行政区",
+  "city": "香港特别行政区",
+  "name": "香港高等科技教育学院" },
+{
+  "province": "香港特别行政区",
+  "city": "香港特别行政区",
+  "name": "香港专业教育学院" },
+{
+  "province": "香港特别行政区",
+  "city": "香港特别行政区",
+  "name": "香港知专设计学院" },
+{
+  "province": "香港特别行政区",
+  "city": "香港特别行政区",
+  "name": "明爱白英奇专业学校" },
+{
+  "province": "香港特别行政区",
+  "city": "香港特别行政区",
+  "name": "明爱社区书院" },
+{
+  "province": "香港特别行政区",
+  "city": "香港特别行政区",
+  "name": "香港专业进修学校" },
+{
+  "province": "香港特别行政区",
+  "city": "香港特别行政区",
+  "name": "香港艺术学院" },
+{
+  "province": "香港特别行政区",
+  "city": "香港特别行政区",
+  "name": "青年会专业书院" },
+{
+  "province": "香港特别行政区",
+  "city": "香港特别行政区",
+  "name": "香港科技专上书院" },
+{
+  "province": "香港特别行政区",
+  "city": "香港特别行政区",
+  "name": "萨凡纳艺术设计学院（香港校区）" },
+{
+  "province": "澳门特别行政区",
+  "city": "澳门特别行政区",
+  "name": "澳门大学" },
+{
+  "province": "澳门特别行政区",
+  "city": "澳门特别行政区",
+  "name": "澳门理工学院" },
+{
+  "province": "澳门特别行政区",
+  "city": "澳门特别行政区",
+  "name": "旅游学院" },
+{
+  "province": "澳门特别行政区",
+  "city": "澳门特别行政区",
+  "name": "澳门保安部队高等学校" },
+{
+  "province": "澳门特别行政区",
+  "city": "澳门特别行政区",
+  "name": "澳门城市大学" },
+{
+  "province": "澳门特别行政区",
+  "city": "澳门特别行政区",
+  "name": "澳门科技大学" },
+{
+  "province": "澳门特别行政区",
+  "city": "澳门特别行政区",
+  "name": "圣若瑟大学" },
+{
+  "province": "澳门特别行政区",
+  "city": "澳门特别行政区",
+  "name": "澳门镜湖护理学院" },
+{
+  "province": "澳门特别行政区",
+  "city": "澳门特别行政区",
+  "name": "澳门管理学院" },
+{
+  "province": "澳门特别行政区",
+  "city": "澳门特别行政区",
+  "name": "中西创新学院" }];var _default =
+
+data;exports.default = _default;
+
+/***/ }),
+
+/***/ 15:
 /*!**********************************************************************************************************!*\
   !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/runtime/componentNormalizer.js ***!
   \**********************************************************************************************************/
@@ -2184,7 +28211,7 @@ function normalizeComponent (
 
 /***/ }),
 
-/***/ 147:
+/***/ 170:
 /*!***********************************************************************************************!*\
   !*** D:/Code/front_end/小程序/薪火小程序/薪火小程序前端/uni_modules/uni-icons/components/uni-icons/icons.js ***!
   \***********************************************************************************************/
@@ -2326,152 +28353,6 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 
-/***/ 18:
-/*!***********************************************************!*\
-  !*** D:/Code/front_end/小程序/薪火小程序/薪火小程序前端/models/index.js ***!
-  \***********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.postEmailCode = exports.postEmail = exports.getUserImformation = exports.postUserImformation = exports.signUp = exports.login = void 0;var _http = __webpack_require__(/*! ../utils/http.js */ 19);
-//POST 请求案例
-
-// 用户登录注册
-var login = function login(query) {
-  return (0, _http.apiResquest)({
-    url: '/user/login',
-    method: 'POST',
-    query: query });
-
-};exports.login = login;
-
-var signUp = function signUp(query) {
-  return (0, _http.apiResquest)({
-    url: '/signUp',
-    method: 'POST',
-    query: query });
-
-};
-
-// 上传用户信息
-exports.signUp = signUp;var postUserImformation = function postUserImformation(query) {
-  return (0, _http.apiResquest)({
-    url: '/user',
-    method: 'PUT',
-    query: query });
-
-};
-// 获取用户信息
-exports.postUserImformation = postUserImformation;var getUserImformation = function getUserImformation(query) {
-  return (0, _http.apiResquest)({
-    url: '/user',
-    method: 'GET',
-    query: query });
-
-};
-// 传邮箱信息
-exports.getUserImformation = getUserImformation;var postEmail = function postEmail(query) {
-  return (0, _http.apiResquest)({
-    url: '/user/mailVerify',
-    method: 'POST',
-    query: query });
-
-};exports.postEmail = postEmail;
-
-var postEmailCode = function postEmailCode(query) {
-  return (0, _http.apiResquest)({
-    url: '/user/codeCheck',
-    method: 'POST',
-    query: query });
-
-};
-
-//GET 请求案例可以传递参数也可以不传递
-// export const validateCode  = (query) => {
-// 	let str = query
-// 	return apiResquest({
-// 		url: `您的API地址 ?${str}`,
-// 		method: 'GET'
-// 	})
-// }
-exports.postEmailCode = postEmailCode;
-
-/***/ }),
-
-/***/ 19:
-/*!*********************************************************!*\
-  !*** D:/Code/front_end/小程序/薪火小程序/薪火小程序前端/utils/http.js ***!
-  \*********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.apiResquest = void 0;var _config = __webpack_require__(/*! ./config.js */ 20);
-
-
-
-var apiResquest = function apiResquest(prams) {//prams 为我们需要调用的接口API的参数 下面会贴具体代码
-
-  // 判断请求类型
-  var headerData = {
-    'content-type': 'application/json',
-    'c': uni.getStorageSync('cookie').cookie };
-
-
-  var dataObj = null;
-  //因为我们的GET和POST请求结构不同这里我们做处理，大家根据自己后台接口所需结构灵活做调整吧
-  if (prams.method === "GET") {
-    headerData = {
-      'content-type': 'application/json',
-      'c': uni.getStorageSync('cookie').cookie };
-
-  } else {
-    dataObj = prams.query;
-  }
-  return new Promise(function (resolve, reject) {
-    var url = _config.config.base_url + prams.url; //请求的网络地址和局地的api地址组合
-    uni.showLoading({
-      title: '加载中',
-      mask: true });
-
-    return uni.request({
-      url: url,
-      data: dataObj,
-      method: prams.method,
-      header: headerData,
-      success: function success(res) {
-
-        uni.hideLoading();
-        console.log("调用成功");
-        //这里是成功的返回码，大家根据自己的实际情况调整
-        // if (res.data.code !== '00000') {
-        // 	uni.showToast({
-        // 		title: '获取数据失败:' + res.data.msg,
-        // 		duration: 1000,
-        // 		icon: "none"
-        // 	})
-        // 	return;
-        // }
-        resolve(res.data);
-      },
-      fail: function fail(err) {
-        reject(err);
-        console.log(err);
-        console.log("调用失败");
-        uni.hideLoading();
-      },
-      complete: function complete() {
-        // console.log('请求完成')
-        uni.hideLoading();
-      } });
-
-  });
-};exports.apiResquest = apiResquest;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
-
-/***/ }),
-
 /***/ 2:
 /*!***********************************!*\
   !*** (webpack)/buildin/global.js ***!
@@ -2500,19 +28381,6 @@ try {
 
 module.exports = g;
 
-
-/***/ }),
-
-/***/ 20:
-/*!***********************************************************!*\
-  !*** D:/Code/front_end/小程序/薪火小程序/薪火小程序前端/utils/config.js ***!
-  \***********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.config = void 0;var config = {
-  base_url: 'http://192.168.10.67:8002' };exports.config = config;
 
 /***/ }),
 
@@ -8043,7 +33911,7 @@ function type(obj) {
 
 function flushCallbacks$1(vm) {
     if (vm.__next_tick_callbacks && vm.__next_tick_callbacks.length) {
-        if (Object({"VUE_APP_NAME":"薪火小程序","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+        if (Object({"NODE_ENV":"development","VUE_APP_NAME":"薪火小程序","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:flushCallbacks[' + vm.__next_tick_callbacks.length + ']');
@@ -8064,14 +33932,14 @@ function nextTick$1(vm, cb) {
     //1.nextTick 之前 已 setData 且 setData 还未回调完成
     //2.nextTick 之前存在 render watcher
     if (!vm.__next_tick_pending && !hasRenderWatcher(vm)) {
-        if(Object({"VUE_APP_NAME":"薪火小程序","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"NODE_ENV":"development","VUE_APP_NAME":"薪火小程序","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:nextVueTick');
         }
         return nextTick(cb, vm)
     }else{
-        if(Object({"VUE_APP_NAME":"薪火小程序","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"NODE_ENV":"development","VUE_APP_NAME":"薪火小程序","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance$1 = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance$1.is || mpInstance$1.route) + '][' + vm._uid +
                 ']:nextMPTick');
@@ -8157,7 +34025,7 @@ var patch = function(oldVnode, vnode) {
     });
     var diffData = this.$shouldDiffData === false ? data : diff(data, mpData);
     if (Object.keys(diffData).length) {
-      if (Object({"VUE_APP_NAME":"薪火小程序","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"NODE_ENV":"development","VUE_APP_NAME":"薪火小程序","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + this._uid +
           ']差量更新',
           JSON.stringify(diffData));
@@ -8562,6 +34430,57 @@ internalMixin(Vue);
 /* harmony default export */ __webpack_exports__["default"] = (Vue);
 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../../webpack/buildin/global.js */ 2)))
+
+/***/ }),
+
+/***/ 30:
+/*!***************************************************************!*\
+  !*** D:/Code/front_end/小程序/薪火小程序/薪火小程序前端/models/uesrModel.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.postImages = exports.getActicityFeeling = exports.postActicityFeeling = exports.getVolunteerRecords = void 0;var _http = __webpack_require__(/*! ../utils/http.js */ 11);
+
+
+
+//获取做过志愿记录 参数为1代表已完成的活动
+var getVolunteerRecords = function getVolunteerRecords(query) {
+  var str = query;
+  return (0, _http.apiResquest)({
+    url: "/signUp/signInfo/".concat(str),
+    method: 'GET' });
+
+};
+
+//发布志愿心得
+exports.getVolunteerRecords = getVolunteerRecords;var postActicityFeeling = function postActicityFeeling(query) {
+  return (0, _http.apiResquest)({
+    url: '/impressions',
+    method: 'POST',
+    query: query });
+
+};
+
+// 获取志愿心得
+exports.postActicityFeeling = postActicityFeeling;var getActicityFeeling = function getActicityFeeling(query) {
+  var str = query;
+  return (0, _http.apiResquest)({
+    url: "/impressions/".concat(str),
+    method: 'GET' });
+
+
+};
+
+// 上传图片
+exports.getActicityFeeling = getActicityFeeling;var postImages = function postImages(query) {
+  return (0, _http.apiResquest)({
+    url: '/file/images',
+    method: 'POST',
+    query: query });
+
+};exports.postImages = postImages;
 
 /***/ }),
 
@@ -9029,6 +34948,61 @@ function resolveLocaleChain(locale) {
 
 /***/ }),
 
+/***/ 47:
+/*!***************************************************************!*\
+  !*** D:/Code/front_end/小程序/薪火小程序/薪火小程序前端/utils/formatTime.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.formatTime = void 0;var formatTime = function formatTime(time, format) {
+  var date = new Date(time);
+  var year = date.getFullYear();
+  var month = date.getMonth() + 1;
+  var day = date.getDate();
+  var hour = date.getHours();
+  var minute = date.getMinutes();
+  var second = date.getSeconds();
+  // 小时和分钟
+  if (format === 'time') {
+    return "".concat([hour, minute].map(formatNumber).join(':'));
+  }
+  // 年月日时分秒
+  if (format === 'year') {
+    return "".concat([year, month, day].map(formatNumber).join('/'), " ").concat([hour, minute, second].map(formatNumber).join(':'));
+  }
+  // 小时分钟 用h   min
+  if (format === 'duration') {
+    return "".concat([hour, minute].map(formatNumber).join('h'), "min");
+  }
+  // 年月日
+  if (format === 'Y-M-D') {
+    return "".concat([year, month, day].map(formatNumber).join('/'), " ");
+  }
+  // 月日
+  if (format === 'M-D') {
+    return "".concat([month, day].map(formatNumber).join('月'), "\u65E5 ");
+  }
+  // 年
+  if (format === 'Y') {
+    return "".concat([year].map(formatNumber));
+  }
+  // 年月日时分秒
+  return "".concat([year, month, day].map(formatNumber).join('/')).concat([hour, minute, second].map(formatNumber).join(':'));
+};
+
+
+
+//转换为两位数
+exports.formatTime = formatTime;var formatNumber = function formatNumber(n) {
+  n = n.toString();
+  return n[1] ? n : "0".concat(n);
+};
+// console.log(formatTime(1638098994000-1638095994000,'time'))
+
+/***/ }),
+
 /***/ 5:
 /*!******************************************************!*\
   !*** D:/Code/front_end/小程序/薪火小程序/薪火小程序前端/pages.json ***!
@@ -9037,6 +35011,302 @@ function resolveLocaleChain(locale) {
 /***/ (function(module, exports) {
 
 
+
+/***/ }),
+
+/***/ 56:
+/*!*****************************************************************************!*\
+  !*** D:/Code/front_end/小程序/薪火小程序/薪火小程序前端/node_modules/image-tools/index.js ***!
+  \*****************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.pathToBase64 = pathToBase64;exports.base64ToPath = base64ToPath;function getLocalFilePath(path) {
+  if (path.indexOf('_www') === 0 || path.indexOf('_doc') === 0 || path.indexOf('_documents') === 0 || path.indexOf('_downloads') === 0) {
+    return path;
+  }
+  if (path.indexOf('file://') === 0) {
+    return path;
+  }
+  if (path.indexOf('/storage/emulated/0/') === 0) {
+    return path;
+  }
+  if (path.indexOf('/') === 0) {
+    var localFilePath = plus.io.convertAbsoluteFileSystem(path);
+    if (localFilePath !== path) {
+      return localFilePath;
+    } else {
+      path = path.substr(1);
+    }
+  }
+  return '_www/' + path;
+}
+
+function dataUrlToBase64(str) {
+  var array = str.split(',');
+  return array[array.length - 1];
+}
+
+var index = 0;
+function getNewFileId() {
+  return Date.now() + String(index++);
+}
+
+function biggerThan(v1, v2) {
+  var v1Array = v1.split('.');
+  var v2Array = v2.split('.');
+  var update = false;
+  for (var index = 0; index < v2Array.length; index++) {
+    var diff = v1Array[index] - v2Array[index];
+    if (diff !== 0) {
+      update = diff > 0;
+      break;
+    }
+  }
+  return update;
+}
+
+function pathToBase64(path) {
+  return new Promise(function (resolve, reject) {
+    if (typeof window === 'object' && 'document' in window) {
+      if (typeof FileReader === 'function') {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', path, true);
+        xhr.responseType = 'blob';
+        xhr.onload = function () {
+          if (this.status === 200) {
+            var fileReader = new FileReader();
+            fileReader.onload = function (e) {
+              resolve(e.target.result);
+            };
+            fileReader.onerror = reject;
+            fileReader.readAsDataURL(this.response);
+          }
+        };
+        xhr.onerror = reject;
+        xhr.send();
+        return;
+      }
+      var canvas = document.createElement('canvas');
+      var c2x = canvas.getContext('2d');
+      var img = new Image();
+      img.onload = function () {
+        canvas.width = img.width;
+        canvas.height = img.height;
+        c2x.drawImage(img, 0, 0);
+        resolve(canvas.toDataURL());
+        canvas.height = canvas.width = 0;
+      };
+      img.onerror = reject;
+      img.src = path;
+      return;
+    }
+    if (typeof plus === 'object') {
+      plus.io.resolveLocalFileSystemURL(getLocalFilePath(path), function (entry) {
+        entry.file(function (file) {
+          var fileReader = new plus.io.FileReader();
+          fileReader.onload = function (data) {
+            resolve(data.target.result);
+          };
+          fileReader.onerror = function (error) {
+            reject(error);
+          };
+          fileReader.readAsDataURL(file);
+        }, function (error) {
+          reject(error);
+        });
+      }, function (error) {
+        reject(error);
+      });
+      return;
+    }
+    if (typeof wx === 'object' && wx.canIUse('getFileSystemManager')) {
+      wx.getFileSystemManager().readFile({
+        filePath: path,
+        encoding: 'base64',
+        success: function success(res) {
+          resolve('data:image/png;base64,' + res.data);
+        },
+        fail: function fail(error) {
+          reject(error);
+        } });
+
+      return;
+    }
+    reject(new Error('not support'));
+  });
+}
+
+function base64ToPath(base64) {
+  return new Promise(function (resolve, reject) {
+    if (typeof window === 'object' && 'document' in window) {
+      base64 = base64.split(',');
+      var type = base64[0].match(/:(.*?);/)[1];
+      var str = atob(base64[1]);
+      var n = str.length;
+      var array = new Uint8Array(n);
+      while (n--) {
+        array[n] = str.charCodeAt(n);
+      }
+      return resolve((window.URL || window.webkitURL).createObjectURL(new Blob([array], { type: type })));
+    }
+    var extName = base64.split(',')[0].match(/data\:\S+\/(\S+);/);
+    if (extName) {
+      extName = extName[1];
+    } else {
+      reject(new Error('base64 error'));
+    }
+    var fileName = getNewFileId() + '.' + extName;
+    if (typeof plus === 'object') {
+      var basePath = '_doc';
+      var dirPath = 'uniapp_temp';
+      var filePath = basePath + '/' + dirPath + '/' + fileName;
+      if (!biggerThan(plus.os.name === 'Android' ? '1.9.9.80627' : '1.9.9.80472', plus.runtime.innerVersion)) {
+        plus.io.resolveLocalFileSystemURL(basePath, function (entry) {
+          entry.getDirectory(dirPath, {
+            create: true,
+            exclusive: false },
+          function (entry) {
+            entry.getFile(fileName, {
+              create: true,
+              exclusive: false },
+            function (entry) {
+              entry.createWriter(function (writer) {
+                writer.onwrite = function () {
+                  resolve(filePath);
+                };
+                writer.onerror = reject;
+                writer.seek(0);
+                writer.writeAsBinary(dataUrlToBase64(base64));
+              }, reject);
+            }, reject);
+          }, reject);
+        }, reject);
+        return;
+      }
+      var bitmap = new plus.nativeObj.Bitmap(fileName);
+      bitmap.loadBase64Data(base64, function () {
+        bitmap.save(filePath, {}, function () {
+          bitmap.clear();
+          resolve(filePath);
+        }, function (error) {
+          bitmap.clear();
+          reject(error);
+        });
+      }, function (error) {
+        bitmap.clear();
+        reject(error);
+      });
+      return;
+    }
+    if (typeof wx === 'object' && wx.canIUse('getFileSystemManager')) {
+      var filePath = wx.env.USER_DATA_PATH + '/' + fileName;
+      wx.getFileSystemManager().writeFile({
+        filePath: filePath,
+        data: dataUrlToBase64(base64),
+        encoding: 'base64',
+        success: function success() {
+          resolve(filePath);
+        },
+        fail: function fail(error) {
+          reject(error);
+        } });
+
+      return;
+    }
+    reject(new Error('not support'));
+  });
+}
+
+/***/ }),
+
+/***/ 73:
+/*!*********************************************************!*\
+  !*** D:/Code/front_end/小程序/薪火小程序/薪火小程序前端/utils/uuid.js ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = guid2;
+function guid2() {
+  function S4() {
+    return ((1 + Math.random()) * 0x10000 | 0).toString(16).substring(1);
+  }
+  return S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4();
+}
+
+/***/ }),
+
+/***/ 9:
+/*!**********************************************************!*\
+  !*** D:/Code/front_end/小程序/薪火小程序/薪火小程序前端/utils/login.js ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _indexModel = __webpack_require__(/*! ../models/indexModel.js */ 10);
+
+
+// 登陆函数
+var _default = function _default(prams) {
+  // 获取code
+  uni.login({
+    provider: 'weixin',
+    success: function success(res) {
+      // 获取cookie
+      (0, _indexModel.loginApi)({
+        code: res.code }).
+      then(function (res) {
+        var status = res.data.status;
+        if (status) {
+          uni.getUserProfile({
+            desc: '用于完善会员资料', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
+            success: function success(res) {
+              console.log(res);
+              //上传用户信息
+              (0, _indexModel.postUserImformation)({
+                "avatarImage": "这是一张图",
+                "grade": "",
+                "name": "",
+                "nickName": res.userInfo.nickName,
+                "phone": "",
+                "qq": "",
+                "school": "",
+                "volAccount": "" }).
+              then(function (res) {
+                console.log(res);
+              });
+
+            } });
+
+        }
+        // 存储cookie
+        uni.setStorage({
+          key: 'cookie',
+          data: {
+            cookie: res.data.c },
+
+          success: function success() {
+            if (status) {
+              console.log('注册成功');
+            } else {
+              console.log('登陆成功');
+            }
+            console.log(uni.getStorageSync('cookie'));
+          },
+          fail: function fail() {} });
+
+      }).catch(function (err) {
+        console.log('登陆失败', err);
+      });
+    } });
+
+
+};exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ })
 

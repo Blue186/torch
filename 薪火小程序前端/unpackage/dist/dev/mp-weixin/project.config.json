@@ -4,10 +4,42 @@
     "ignore": []
   },
   "setting": {
-    "postcss": false,
-    "es6": true,
     "urlCheck": false,
-    "minified": true
+    "es6": true,
+    "enhance": true,
+    "postcss": false,
+    "preloadBackgroundData": false,
+    "minified": true,
+    "newFeature": false,
+    "coverView": true,
+    "nodeModules": false,
+    "autoAudits": false,
+    "showShadowRootInWxmlPanel": true,
+    "scopeDataCheck": false,
+    "uglifyFileName": false,
+    "checkInvalidKey": true,
+    "checkSiteMap": true,
+    "uploadWithSourceMap": true,
+    "compileHotReLoad": true,
+    "lazyloadPlaceholderEnable": false,
+    "useMultiFrameRuntime": true,
+    "useApiHook": true,
+    "useApiHostProcess": true,
+    "babelSetting": {
+      "ignore": [],
+      "disablePlugins": [],
+      "outputPath": ""
+    },
+    "enableEngineNative": false,
+    "useIsolateContext": true,
+    "userConfirmedBundleSwitch": false,
+    "packNpmManually": false,
+    "packNpmRelationList": [],
+    "minifyWXSS": true,
+    "disableUseStrict": false,
+    "showES6CompileOption": false,
+    "useCompilerPlugins": false,
+    "minifyWXML": true
   },
   "compileType": "miniprogram",
   "libVersion": "",
@@ -15,19 +47,15 @@
   "projectname": "薪火小程序",
   "condition": {
     "search": {
-      "current": -1,
       "list": []
     },
     "conversation": {
-      "current": -1,
       "list": []
     },
     "game": {
-      "current": -1,
       "list": []
     },
     "miniprogram": {
-      "current": 0,
       "list": [
         {
           "name": "ing",
@@ -39,6 +67,16 @@
           "name": "user",
           "id": 1,
           "pathName": "pages/user/user"
+        },
+        {
+          "name": "detail",
+          "id": 2,
+          "pathName": "package1/pages/activityDetail/activityDetail"
+        },
+        {
+          "name": "edit",
+          "id": 3,
+          "pathName": "package1/pages/userInformationEdit/userInformationEdit"
         }
       ]
     }

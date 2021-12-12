@@ -12,7 +12,8 @@
 			</view>
 		</view>
 		<view class="have" v-else>
-			<activity></activity>
+			<activity class="ongoingActivity" v-for="(item,index) in ongoingActivity" :key="item.id" :info="item">
+			</activity>
 
 			<text>--end--</text>
 
@@ -28,13 +29,22 @@
 		},
 		data() {
 			return {
-				none: false
+				none: false,
+				ongoingActivity: []
 			};
+		},
+		onLoad() {
+			const eventChannel = this.getOpenerEventChannel()
+			eventChannel.on('ongoingActivity', (res) => {
+				console.log("传过来的进行中的活动", res)
+				this.ongoingActivity = res
+			})
 		}
+
 	}
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 	// @import url('../../static/test.scss');
 
 	.page {
@@ -44,12 +54,22 @@
 		color: #bab7bb;
 		justify-content: flex-start;
 		padding-top: 30rpx;
+
+
 		.have {
 			display: flex;
 			flex-direction: column;
 			align-items: center;
+
 			text {
-				margin-top: 30rpx;
+				margin: 30rpx;
+			}
+
+			.ongoingActivity {
+				margin-top: 50rpx;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
 			}
 		}
 

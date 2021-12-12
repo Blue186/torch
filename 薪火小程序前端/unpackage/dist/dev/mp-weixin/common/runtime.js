@@ -105,11 +105,11 @@
 /******/
 /******/
 /******/ 		// mini-css-extract-plugin CSS loading
-/******/ 		var cssChunks = {"compoments/activity":1,"compoments/slideShow":1,"compoments/myButton":1,"compoments/volunteerRecords":1,"compoments/association":1,"compoments/message":1,"compoments/tag":1,"uni_modules/uni-rate/components/uni-rate/uni-rate":1,"compoments/associationMessage":1,"uni_modules/uni-icons/components/uni-icons/uni-icons":1};
+/******/ 		var cssChunks = {"compoments/activity":1,"compoments/slideShow":1,"compoments/myButton":1,"compoments/volunteerRecords":1,"compoments/association":1,"compoments/message":1,"compoments/tag":1,"compoments/schoolPicker/schoolPicker":1,"compoments/editImage":1,"uni_modules/uni-rate/components/uni-rate/uni-rate":1,"compoments/associationMessage":1,"uni_modules/uni-icons/components/uni-icons/uni-icons":1};
 /******/ 		if(installedCssChunks[chunkId]) promises.push(installedCssChunks[chunkId]);
 /******/ 		else if(installedCssChunks[chunkId] !== 0 && cssChunks[chunkId]) {
 /******/ 			promises.push(installedCssChunks[chunkId] = new Promise(function(resolve, reject) {
-/******/ 				var href = "" + ({"compoments/activity":"compoments/activity","compoments/slideShow":"compoments/slideShow","compoments/myButton":"compoments/myButton","compoments/volunteerRecords":"compoments/volunteerRecords","compoments/association":"compoments/association","compoments/message":"compoments/message","compoments/tag":"compoments/tag","uni_modules/uni-rate/components/uni-rate/uni-rate":"uni_modules/uni-rate/components/uni-rate/uni-rate","compoments/associationMessage":"compoments/associationMessage","uni_modules/uni-icons/components/uni-icons/uni-icons":"uni_modules/uni-icons/components/uni-icons/uni-icons"}[chunkId]||chunkId) + ".wxss";
+/******/ 				var href = "" + ({"compoments/activity":"compoments/activity","compoments/slideShow":"compoments/slideShow","compoments/myButton":"compoments/myButton","compoments/volunteerRecords":"compoments/volunteerRecords","compoments/association":"compoments/association","compoments/message":"compoments/message","compoments/tag":"compoments/tag","compoments/schoolPicker/schoolPicker":"compoments/schoolPicker/schoolPicker","compoments/editImage":"compoments/editImage","uni_modules/uni-rate/components/uni-rate/uni-rate":"uni_modules/uni-rate/components/uni-rate/uni-rate","compoments/associationMessage":"compoments/associationMessage","uni_modules/uni-icons/components/uni-icons/uni-icons":"uni_modules/uni-icons/components/uni-icons/uni-icons"}[chunkId]||chunkId) + ".wxss";
 /******/ 				var fullhref = __webpack_require__.p + href;
 /******/ 				var existingLinkTags = document.getElementsByTagName("link");
 /******/ 				for(var i = 0; i < existingLinkTags.length; i++) {

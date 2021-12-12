@@ -1,10 +1,11 @@
 <template>
 	<view class="page">
 
-		<swiper class="swiper" :indicator-dots="true" :autoplay="true" :interval="3000" :duration="1000"
+		<swiper class="swiper"  :autoplay="true" :interval="3000" :duration="1000"
 			indicator-color="#eee" indicator-active-color="#fff" circular=true>
 			<swiper-item v-for="image in images" :key="image.name">
 				<view class="swiper-item">
+				
 					<image :src="image.url" mode="aspectFill" class="image"></image>
 				</view>
 			</swiper-item>

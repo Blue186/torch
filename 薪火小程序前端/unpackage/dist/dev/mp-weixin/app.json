@@ -28,6 +28,7 @@
   ],
   "window": {
     "navigationBarTextStyle": "black",
+    "onReachBottomDistance": 1,
     "navigationBarTitleText": "uni-app",
     "navigationBarBackgroundColor": "#fff",
     "enablePullDownRefresh": true,

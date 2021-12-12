@@ -1,13 +1,13 @@
 <template>
 	
 		<!-- <input type="text" value="name" disabled="true"/> -->
-		<button class="btn" type="default"  >{{name}}</button>
+		<button class="btn" type="default" :style="{backgroundColor: backgroundColor}" >{{name}}</button>
 	
-</template>
+</template>	
 
 <script>
 	export default {
-		props:['name'],
+		props:['name','backgroundColor'],
 		data(){
 			return {
 				
@@ -22,7 +22,7 @@
 			display: inline-block;
 			padding: 0 20rpx;
 			color: #fff;
-			background-color: #ffaa7f;
+			// background-color: #ffaa7f;
 			font-size: 30rpx;
 		}
 		// input {

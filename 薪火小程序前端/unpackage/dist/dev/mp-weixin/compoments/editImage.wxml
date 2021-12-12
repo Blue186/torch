@@ -1,0 +1,1 @@
+<view data-event-opts="{{[['tap',[['changeAvatar',['$event']]]]]}}" class="avatar box data-v-90a0b6f6" bindtap="__e"><label class="label data-v-90a0b6f6" for="name">头像：</label><image class="image data-v-90a0b6f6" src="{{image}}" mode></image><image class="right data-v-90a0b6f6" src="/package1/static/images/right.png" mode></image></view>
