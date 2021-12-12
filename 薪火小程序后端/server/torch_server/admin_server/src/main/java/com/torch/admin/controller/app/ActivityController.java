@@ -84,7 +84,6 @@ public class ActivityController {
             List<ActivityChild> activityChildren = activityChildService.getByParentId(activity.getId());
             for (ActivityChild child : activityChildren) {
                 ActivityTimes activityTimes = activityTimesService.selectByChildId(child.getId());
-                if (activityTimes == null) return R.error().message("志愿活动时间段缺失!");
                 WaitForPassActivityChild waitForPassActivityChild = new WaitForPassActivityChild(child.getId(), child.getCreateTime(), child.getUpdateTime(), activityTimes.getRecruiting(), activityTimes.getVolTime(), activityTimes.getStartTime(), activityTimes.getEndTime(), activityTimes.getAddress());
                 waitForPassActivity.children.add(waitForPassActivityChild);
             }
