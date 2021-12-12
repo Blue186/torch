@@ -8,7 +8,6 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="admin_server" />
-        <module name="common_utils" />
         <module name="app_server" />
       </profile>
     </annotationProcessing>
