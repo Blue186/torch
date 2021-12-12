@@ -62,4 +62,11 @@ public class TorchMemberServiceImpl extends ServiceImpl<TorchMemberMapper, Torch
         TorchMember torchMember = baseMapper.selectById(id);
         return torchMember;
     }
+
+    @Override
+    public Integer setPowerId(Integer uid, Integer powerId) {
+        TorchMember torchMember = baseMapper.selectById(uid);
+        torchMember.setPowerId(powerId);
+        return baseMapper.updateById(torchMember);
+    }
 }

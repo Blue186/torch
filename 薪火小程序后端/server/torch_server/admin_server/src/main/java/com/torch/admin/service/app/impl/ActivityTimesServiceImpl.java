@@ -22,7 +22,8 @@ public class ActivityTimesServiceImpl  extends ServiceImpl<ActivityTimesMapper, 
         activityTimes.setRecruiting(child.getRecruiting());
         activityTimes.setActId(activityId);
         activityTimes.setActChiId(childId);
-        return null;
+        baseMapper.insert(activityTimes);
+        return activityTimes.getId();
     }
 
     @Override

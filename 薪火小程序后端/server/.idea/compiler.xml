@@ -11,12 +11,19 @@
         <module name="common_utils" />
         <module name="app_server" />
       </profile>
+      <profile name="Annotation profile for Unknown" enabled="true">
+        <sourceOutputDir name="../../target/generated-sources/annotations" />
+        <sourceTestOutputDir name="../../target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="wrapper" />
+      </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="8">
       <module name="admin_server" target="1.8" />
       <module name="app_server" target="1.8" />
       <module name="common_utils" target="1.8" />
       <module name="torch_server" target="1.8" />
+      <module name="wrapper" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">

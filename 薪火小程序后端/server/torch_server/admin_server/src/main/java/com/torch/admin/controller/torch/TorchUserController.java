@@ -61,7 +61,8 @@ public class TorchUserController {
         Integer suggestLevelId = torchSuggestLevelService.add(1, uid);
         Integer birthLevelId = torchBirthLevelService.add(1, uid);
         Integer powerId = torchPowerService.add(uid, publishLevelId, suggestLevelId, birthLevelId);
-        if (powerId == null) return R.error().message("权限信息初始化失败!");
+        Integer setPowerId = memberService.setPowerId(uid, powerId);
+        if (setPowerId == null || setPowerId == -1) return R.error().message("权限信息初始化失败!");
         return R.ok().message("成员添加成功!");
     }
 
