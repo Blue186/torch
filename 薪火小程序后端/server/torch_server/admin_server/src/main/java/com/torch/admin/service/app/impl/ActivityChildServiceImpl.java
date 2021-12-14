@@ -8,9 +8,11 @@ import com.torch.admin.entity.app.ActivityChild;
 import com.torch.admin.entity.app.vo.PublishActivityChild;
 import com.torch.admin.mapper.app.ActivityChildMapper;
 import com.torch.admin.service.app.ActivityChildService;
+import com.torch.admin.utils.ActivityUtils;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
+import java.util.Calendar;
 import java.util.List;
 
 @Service
@@ -20,15 +22,10 @@ public class ActivityChildServiceImpl extends ServiceImpl<ActivityChildMapper, A
     public Integer addActivityChild(PublishActivityChild publishActivityChild, Integer activityId) {
         ActivityChild activityChild = new ActivityChild();
         activityChild.setActivityId(activityId);
-        Date date = new Date(new java.util.Date().getTime());
-        activityChild.setCreateTime(date);
-        activityChild.setUpdateTime(date);
-        activityChild.setNumber(publishActivityChild.getNumber());
-        activityChild.setVolTime(publishActivityChild.getVolTime());
-        // 将时间格式化？或者就时间戳
-        activityChild.setStartTime(publishActivityChild.getStartTime());
-        activityChild.setEndTime(publishActivityChild.getEndTime());
-        activityChild.setAddress(publishActivityChild.getAddress());
+        long time = Calendar.getInstance().getTimeInMillis();
+        activityChild.setCreateTime(time);
+        activityChild.setUpdateTime(time);
+        activityChild.setServicePeriod(publishActivityChild.getServicePeriod());
         baseMapper.insert(activityChild);
         return activityChild.getId();
     }

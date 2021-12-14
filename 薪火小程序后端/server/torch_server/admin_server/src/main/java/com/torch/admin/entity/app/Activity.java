@@ -20,14 +20,19 @@ public class Activity {
     private String identifier;
     private Integer isPass;
     private Integer createrId;
-    private Date createTime;
-    private Date passTime;
+    private long createTime;
+    private long passTime;
     private String organizer;
     private Integer headcount;
     private String remarks;
-    private String content;
     private Integer totalNumber;
     private String attention;
     private String actImage;
     private String qqNumber;
+    private String name;
+    private String address;
+    private long deadline;
+    private String content;
+    private String volTimeDesc;
+    private String volTimePeriod;
 }

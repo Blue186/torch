@@ -2,11 +2,14 @@ package com.torch.admin.controller.app;
 
 import com.torch.admin.entity.app.Activity;
 import com.torch.admin.entity.app.ActivityChild;
+import com.torch.admin.entity.app.ActivityTimes;
 import com.torch.admin.entity.app.vo.*;
 import com.torch.admin.entity.torch.TorchMember;
 import com.torch.admin.service.app.ActivityChildService;
 import com.torch.admin.service.app.ActivityService;
+import com.torch.admin.service.app.ActivityTimesService;
 import com.torch.admin.service.torch.TorchMemberService;
+import com.torch.admin.utils.ActivityUtils;
 import com.torch.admin.utils.CookieUtils;
 import com.torch.admin.utils.R;
 import io.swagger.annotations.Api;
@@ -17,7 +20,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 @Api(tags = {"志愿活动增删查改统一接口"})
@@ -35,6 +37,9 @@ public class ActivityController {
     private ActivityChildService activityChildService;
 
     @Resource
+    private ActivityTimesService activityTimesService;
+
+    @Resource
     private CookieUtils cookieUtils;
 
     @ApiOperation("发布志愿活动接口")
@@ -49,17 +54,16 @@ public class ActivityController {
         // 验证提交内容的完整性
 
         // 创建活动
-        long timeInMillis = Calendar.getInstance().getTimeInMillis();
-        String identifier = String.valueOf(timeInMillis);
-        identifier = identifier + String.valueOf(new Double(Math.random() * 100 + 100).intValue());
+        String identifier = ActivityUtils.generateIdentify(publishActivity.getOrganizer());
         List<PublishActivityChild> activityChildren = publishActivity.getActivityChildren();
         int headcount = 0;
         for (PublishActivityChild child : activityChildren) {
-            headcount += child.getNumber();
+            headcount += child.getRecruiting();
         }
         Integer activityId = activityService.addActivity(publishActivity, uid, identifier, headcount);
         for (PublishActivityChild child : activityChildren) {
-            activityChildService.addActivityChild(child, activityId);
+            Integer childId = activityChildService.addActivityChild(child, activityId);
+            activityTimesService.addOne(child, activityId, childId);
         }
         return R.ok().message("发布成功!");
     }
@@ -79,8 +83,8 @@ public class ActivityController {
                     activity.getQqNumber());
             List<ActivityChild> activityChildren = activityChildService.getByParentId(activity.getId());
             for (ActivityChild child : activityChildren) {
-                WaitForPassActivityChild waitForPassActivityChild = new WaitForPassActivityChild(child.getId(), child.getCreateTime(), child.getUpdateTime(), child.getNumber(),
-                        child.getVolTime(), child.getStartTime(), child.getEndTime(), child.getAddress(), child.getDistinct());
+                ActivityTimes activityTimes = activityTimesService.selectByChildId(child.getId());
+                WaitForPassActivityChild waitForPassActivityChild = new WaitForPassActivityChild(child.getId(), child.getCreateTime(), child.getUpdateTime(), activityTimes.getRecruiting(), activityTimes.getVolTime(), activityTimes.getStartTime(), activityTimes.getEndTime(), activityTimes.getAddress());
                 waitForPassActivity.children.add(waitForPassActivityChild);
             }
             waitForPassActivityList.add(waitForPassActivity);
@@ -117,7 +121,8 @@ public class ActivityController {
             PassedActivity passedActivity = new PassedActivity(activity.getId(), activity.getIdentifier(), torchMember, activity.getCreateTime(), activity.getPassTime(), activity.getOrganizer(), activity.getHeadcount(), activity.getRemarks(), activity.getContent(), activity.getTotalNumber(), activity.getAttention(), activity.getActImage(), activity.getQqNumber());
             List<ActivityChild> activityChildren = activityChildService.getByParentId(activity.getId());
             for (ActivityChild activityChild : activityChildren) {
-                PassedActivityChild passedActivityChild = new PassedActivityChild(activityChild.getId(), activityChild.getCreateTime(), activityChild.getUpdateTime(), activityChild.getNumber(), activityChild.getVolTime(), activityChild.getStartTime(), activityChild.getEndTime(), activityChild.getAddress(), activity.getActImage());
+                ActivityTimes activityTimes = activityTimesService.selectByChildId(activityChild.getId());
+                PassedActivityChild passedActivityChild = new PassedActivityChild(activityChild.getId(), activityChild.getCreateTime(), activityChild.getUpdateTime(), activityTimes.getRecruiting(), activityTimes.getVolTime(), activityTimes.getStartTime(), activityTimes.getEndTime(), activityTimes.getAddress(), activity.getActImage());
                 passedActivity.children.add(passedActivityChild);
             }
             passedActivities.add(passedActivity);

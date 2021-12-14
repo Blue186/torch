@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface GroupNumberService extends IService<GroupNumber> {
 
-    List<GroupNumber> getGroupNumberList();
+    List<GroupNumber> getGroupNumberList(String groupNumber, Integer limit);
 
 }

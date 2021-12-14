@@ -24,8 +24,14 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
+.note {
+  color: red;
+  text-align: center;
+  margin-top: 30rpx;
+  font-size: 30rpx;
+}
 .page {
-  background-color: #fff;
+  background-color: #eee;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -34,27 +40,38 @@
 .page .title {
   margin-top: 20rpx;
 }
-.page .title ._img {
+.page .title .image {
   vertical-align: bottom;
   width: 50rpx;
-  height: 50rpx;
+  height: 55rpx;
+}
+.page .information .selfIntroduction .label {
+  width: 40%;
+}
+.page .information .emailConfirm .label {
+  width: 17%;
 }
 .page .information .emailConfirm input {
-  width: 50%;
+  width: 59%;
 }
 .page .information .emailConfirm .sent {
   font-size: 20rpx;
+  background-color: orange;
+  padding: 5rpx 20rpx;
 }
-.page .information label {
-  width: 150rpx;
-  text-align: right;
+.page .information .emailConfirm .active {
+  background-color: #eee;
 }
-.page .information input {
+.page .information .label {
+  width: 20%;
+}
+.page .information .input {
   display: inline-block;
   width: 80%;
   height: 80%;
 }
-.page .information view {
+.page .information .box {
+  box-sizing: border-box;
   width: 650rpx;
   background-color: #fff;
   border-radius: 10rpx;
@@ -63,17 +80,29 @@
   display: flex;
   align-items: center;
   justify-content: space-around;
-  padding: 30rpx 10rpx;
+  padding: 20rpx 30rpx;
+  box-shadow: 3rpx 3rpx 3rpx 1rpx #6f6f6f;
+  z-index: 1;
 }
-.page .information .verificationCode input {
+.page .information .volAccount .label {
+  width: 30%;
+}
+.page .information .verificationCode .input {
   width: 50%;
 }
-.page .information .verificationCode button {
+.page .information .verificationCode .label {
+  width: 23%;
+}
+.page .information .verificationCode .button {
   width: 150rpx;
   font-size: 20rpx;
   background-color: orange;
 }
 .page .information .save {
   margin-top: 50rpx;
+  background-color: #ffaa00;
+}
+.page .information .save_hover {
+  background-color: #ffd56b;
 }
 

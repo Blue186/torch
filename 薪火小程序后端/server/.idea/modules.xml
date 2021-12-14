@@ -5,7 +5,6 @@
       <module fileurl="file://$PROJECT_DIR$/torch_server/admin_server/admin_server.iml" filepath="$PROJECT_DIR$/torch_server/admin_server/admin_server.iml" />
       <module fileurl="file://$PROJECT_DIR$/torch_server/app_server/app_server.iml" filepath="$PROJECT_DIR$/torch_server/app_server/app_server.iml" />
       <module fileurl="file://$PROJECT_DIR$/torch_server/common_utils/common_utils.iml" filepath="$PROJECT_DIR$/torch_server/common_utils/common_utils.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/server.iml" filepath="$PROJECT_DIR$/.idea/server.iml" />
       <module fileurl="file://$PROJECT_DIR$/torch_server/torch_server.iml" filepath="$PROJECT_DIR$/torch_server/torch_server.iml" />
     </modules>
   </component>

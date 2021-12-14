@@ -16,4 +16,5 @@ public interface TorchMemberService extends IService<TorchMember> {
 
     TorchMember selectById(Integer id);
 
+    Integer setPowerId(Integer uid, Integer powerId);
 }

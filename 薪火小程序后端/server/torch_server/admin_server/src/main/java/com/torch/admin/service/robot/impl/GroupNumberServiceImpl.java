@@ -1,6 +1,7 @@
 package com.torch.admin.service.robot.impl;
 
 import com.baomidou.dynamic.datasource.annotation.DS;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.torch.admin.entity.robot.GroupNumber;
 import com.torch.admin.mapper.robot.GroupNumberMapper;
@@ -13,8 +14,10 @@ import java.util.List;
 @DS("robot")
 public class GroupNumberServiceImpl extends ServiceImpl<GroupNumberMapper, GroupNumber> implements GroupNumberService {
     @Override
-    public List<GroupNumber> getGroupNumberList() {
-        List<GroupNumber> numberList = baseMapper.selectList(null);
+    public List<GroupNumber> getGroupNumberList(String groupNumber, Integer limit) {
+        QueryWrapper<GroupNumber> wrapper = new QueryWrapper<>();
+        wrapper.eq("group_code", groupNumber).orderByDesc("id").last("limit " + limit);
+        List<GroupNumber> numberList = baseMapper.selectList(wrapper);
         return numberList;
     }
 }

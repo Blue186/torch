@@ -15,27 +15,25 @@ import java.sql.Date;
 @Data
 public class WaitForPassActivityChild {
     private Integer id;
-    private Date createTime;
-    private Date updateTime;
-    private Integer number;
-    private String volTime;
-    private String startTime;
-    private String endTime;
+    private long createTime;
+    private long updateTime;
+    private Integer recruiting;
+    private float volTime;
+    private long startTime;
+    private long endTime;
     private String address;
-    private String distinct;
 
     public WaitForPassActivityChild() {
     }
 
-    public WaitForPassActivityChild(Integer id, Date createTime, Date updateTime, Integer number, String volTime, String startTime, String endTime, String address, String distinct) {
+    public WaitForPassActivityChild(Integer id, long createTime, long updateTime, Integer recruiting, float volTime, long startTime, long endTime, String address) {
         this.id = id;
         this.createTime = createTime;
         this.updateTime = updateTime;
-        this.number = number;
+        this.recruiting = recruiting;
         this.volTime = volTime;
         this.startTime = startTime;
         this.endTime = endTime;
         this.address = address;
-        this.distinct = distinct;
     }
 }

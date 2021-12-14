@@ -25,14 +25,16 @@
 /* 透明度 */
 /* 文章场景相关 */
 .activity.data-v-3c94e5ab {
+  background-color: #fff;
   position: relative;
-  border: 1rpx solid #808080;
-  width: 90vw;
+  box-shadow: 2rpx 2rpx 4rpx 4rpx #dadada;
+  width: 674rpx;
   height: 400rpx;
   border-radius: 20rpx;
   display: flex;
   flex-direction: column;
   align-items: center;
+  color: #000;
 }
 .activity .btn.data-v-3c94e5ab {
   position: absolute;
@@ -68,6 +70,10 @@
 .activity .activityInformation .activityTime.data-v-3c94e5ab {
   font-size: 28rpx;
   color: #5566cd;
+  margin-right: 20rpx;
+}
+.activity .activityInformation .activityDate.data-v-3c94e5ab {
+  font-size: 28rpx;
 }
 .activity .activityInformation .activityNumber.data-v-3c94e5ab {
   font-size: 32rpx;

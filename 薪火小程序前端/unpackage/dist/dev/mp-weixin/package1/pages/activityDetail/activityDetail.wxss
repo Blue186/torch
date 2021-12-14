@@ -33,14 +33,15 @@
   background-color: #ffdc88;
   border: 5rpx solid #000;
   border-left: none;
-  border-radius: 0  10rpx 10rpx 0;
+  border-radius: 0 10rpx 10rpx 0;
 }
 .content {
-  width: 80%;
+  width: 83%;
   margin: 20rpx auto;
   border: 2rpx solid #fd8933;
   border-radius: 10rpx;
   background-color: #eefdff;
+  padding: 25rpx;
 }
 .detailPage {
   width: 95%;
@@ -64,6 +65,9 @@
 }
 .detailPage .activityMessage {
   margin-top: 50rpx;
+}
+.detailPage .activityMessage .content .messageItem {
+  display: flex;
 }
 .detailPage .activityMessage .content .messageItem .messageName {
   width: 25%;
