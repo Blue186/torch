@@ -1,71 +1,76 @@
 package com.torch.app.util.tools;
 
 import cn.hutool.core.util.IdUtil;
-import cn.hutool.core.util.StrUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import org.springframework.web.multipart.MultipartFile;
-
-import javax.servlet.http.HttpServletResponse;
+import sun.misc.BASE64Decoder;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.net.URLEncoder;
-import java.util.List;
+
 
 @Component
 public class FileUtil {
     @Value("${server.port}")
     private String port;
+    private static final String ip = "http://139.186.170.118";
 
-    private static final String ip = "http://localhost";
-
-    /**
-     * 上传文件到image文件夹下
-     * @param images 图片
-     * @return 路径
-     */
-    public String[] uploadImage(MultipartFile[] images){
-        String[] url = new String[images.length];
-        String[] originalImageName = new String[images.length];
-        for (int i=0;i<images.length;i++){
-            originalImageName[i] = images[i].getOriginalFilename();
-
-            String flag = IdUtil.fastSimpleUUID();
-
-            String rootImagePath = System.getProperty("user.dir")+"/app_server/main/resource/images/"+flag+"_"+originalImageName[i];
-            try {
-                cn.hutool.core.io.FileUtil.writeBytes(images[i].getBytes(),rootImagePath);//把文件写入该路径
-            } catch (IOException e) {
-                e.printStackTrace();
+    public String uploadImage(String base64Str){
+        //            这里要先截取一下图片原编码和拿到图片后缀
+        String prefix = "";
+        String data = "";//实体部分数据
+        if(base64Str==null||"".equals(base64Str)){
+            return "0";//上传失败，上传图片数据为空
+        }else {
+            String [] d = base64Str.split("base64,");//将字符串分成数组
+            if(d != null && d.length == 2){
+                prefix = d[0];
+                data = d[1];
+            }else {
+                return "-1";//上传失败，数据不合法
             }
-            url[i] = ip+":"+port+"/images/"+flag;
         }
-        return url;
-    }
 
-    /**
-     * 图片下载
-     * @param flag uuid
-     * @param response 响应
-     */
-    public void downloadImage(String flag, HttpServletResponse response){
-        OutputStream os;
-        String basePath = System.getProperty("user.dir")+"/app_server/src/main/resources/images/";//文件路径
-        List<String> fileNames = cn.hutool.core.io.FileUtil.listFileNames((basePath));//获取所有的文件名称
-        String fileName = fileNames.stream().filter(name -> name.contains(flag)).findAny().orElse("");//找到根参数一致的文件
+        String suffix = "";//图片后缀，用以识别哪种格式数据
+        //data:image/jpeg;base64,base64编码的jpeg图片数据
+        if("data:image/jpeg;".equalsIgnoreCase(prefix)){
+            suffix = ".jpg";
+        }else if("data:image/x-icon;".equalsIgnoreCase(prefix)){
+            //data:image/x-icon;base64,base64编码的icon图片数据
+            suffix = ".ico";
+        }else if("data:image/gif;".equalsIgnoreCase(prefix)){
+            //data:image/gif;base64,base64编码的gif图片数据
+            suffix = ".gif";
+        }else if("data:image/png;".equalsIgnoreCase(prefix)){
+            //data:image/png;base64,base64编码的png图片数据
+            suffix = ".png";
+        }else {
+            return "-2";//上传图片格式不合法,支持jpg,ico,png,gif
+        }
 
+        String flag = IdUtil.fastSimpleUUID();//生成随记UUID码
+        String imageName = flag+suffix;
+//        String imageFilePath = System.getProperty("user.dir")+"/torch_server/app_server/src/main/resources/static/images/"+imageName;
+        String imageFilePath = System.getProperty("user.dir")+"/static/images/"+imageName;
+        BASE64Decoder base64Decoder = new BASE64Decoder();
         try {
-            if (StrUtil.isNotEmpty(fileName)){
-                response.addHeader("Content-Disposition","attachment;filename="+ URLEncoder.encode(fileName,"UTF-8"));
-                response.setContentType("application/octet-stream");
-                byte[] bytes = cn.hutool.core.io.FileUtil.readBytes(basePath + fileName);//通过文件路径读取文字节流
-                os = response.getOutputStream();//通过输出流返回文件
-                os.write(bytes);
-                os.flush();
-                os.close();
+            //Base64解码
+            byte[] b = base64Decoder.decodeBuffer(data);
+            for(int i=0;i<b.length;++i) {
+                if(b[i]<0) {
+                    //调整异常数据
+                    b[i]+=256;
+                }
             }
-        }catch (Exception e){
-            System.out.println("文件下载失败");
+            OutputStream out = new FileOutputStream(imageFilePath);
+            out.write(b);
+            out.flush();
+            out.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+        return ip+":"+port+"/static/images/" +imageName;
+//        return ip+":"+port+"/static/images/" +imageName;
     }
+
 }

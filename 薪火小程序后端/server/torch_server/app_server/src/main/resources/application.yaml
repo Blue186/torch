@@ -11,13 +11,12 @@ spring:
       minimum-idle : 3
       maximum-pool-size: 5
       max-lifetime: 1800000
-
 #  jackson:
 #    date-format: yyyy-MM-dd HH:mm:ss
 #    time-zone: GMT+8
   #邮件发送配置，目前是小码
   mail:
-    host: smtp.qq.com
+    host: 120.241.186.196 #smtp.qq.com,linux服务器上要配置为ip地址
     username: 3057179865@qq.com
     password: lyduypdnolpodcfj
     default-encoding: utf-8
@@ -28,6 +27,7 @@ spring:
           starttls:
             enable: true
             required: true
+    port: 587
   redis:
     host: 127.0.0.1
     port: 6379

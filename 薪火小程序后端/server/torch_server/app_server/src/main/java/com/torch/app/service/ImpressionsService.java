@@ -8,8 +8,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 public interface ImpressionsService extends IService<Impressions> {
-    void insertImages(MultipartFile[] images, Integer impId);
-    void updateImages(MultipartFile[] images,Integer impId);
-    List<ImpressionsInfo> getImpressionsInfo(List<Impressions> records);
+    void insertImages(String[] imagesUrls, Integer impId);
+    void updateImages(String[] imagesUrls,Integer impId);
+//    List<ImpressionsInfo> getImpressionsInfo(List<Impressions> records);
     ImpressionsInfo getImpressionsInfo(Impressions impression);
 }

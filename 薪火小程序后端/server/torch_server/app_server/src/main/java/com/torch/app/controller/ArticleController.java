@@ -16,6 +16,7 @@ import commonutils.R;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import io.swagger.models.auth.In;
 import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -32,10 +33,6 @@ public class ArticleController {
     private RedisUtil redisUtil;
     @Resource
     private JudgeCookieToken judgeCookieToken;
-    @Resource
-    private FileUtil fileUtil;
-    @Resource
-    private ArtImagesService artImagesService;
 
 /**
  * 薪火推文在管理端接口，此处为用户所发文章相应接口
@@ -53,7 +50,7 @@ public class ArticleController {
         Article article = articleService.setPublishArt((Integer) uid, publishArt);
         int insert = articleService.getBaseMapper().insert(article);
 //            插入图片
-        articleService.insertImages(publishArt.getImages(), article.getId());
+        articleService.insertImages(publishArt.getImagesUrls(), article.getId());
         if (insert==1){
             return R.ok().message("用户文章发布成功");
         }else {
@@ -90,7 +87,7 @@ public class ArticleController {
         article.setContent(updateArt.getContent());
         article.setUpdateTime(new Date().getTime());
         int res = articleService.getBaseMapper().updateById(article);
-        articleService.updateImages(updateArt.getImages(), article.getId());
+        articleService.updateImages(updateArt.getImagesUrls(), article.getId());
         if (res==1){
             return R.ok().message("修改成功");
         }else {
@@ -115,6 +112,22 @@ public class ArticleController {
 //        上面只是文章内容，没有图片，这里我必须加上去
         List<ArticleInfo> articleInfos = articleService.getArticleInfos(records);
         return R.ok().message("查询成功").data(articleInfos);
+    }
+
+    @ApiOperation(value = "获取用户自己发布的所有文章")
+    @GetMapping("/myArticles")
+    public R<?> getMyArticles(HttpServletRequest request){
+        Boolean judge = judgeCookieToken.judge(request);
+        if (!judge){
+            return R.error().code(-100);
+        }
+        String cookie = judgeCookieToken.getCookie(request);
+        Object uid = redisUtil.hmGet(cookie, "uid");
+        QueryWrapper<Article> wrapper = new QueryWrapper<>();
+        wrapper.eq("author_id",uid);
+        wrapper.orderByDesc("create_time");
+        List<Article> articles = articleService.getBaseMapper().selectList(wrapper);
+        return R.ok().data(articles);
     }
     @ApiOperation(value = "获取一篇文章的内容")
     @GetMapping("/{id}")

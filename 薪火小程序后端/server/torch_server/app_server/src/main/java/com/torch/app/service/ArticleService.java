@@ -11,8 +11,8 @@ import java.util.List;
 
 public interface ArticleService extends IService<Article> {
     Article setPublishArt(Integer id, PublishArticle publishArt);
-    void insertImages(MultipartFile[] images,Integer artId);
-    void updateImages(MultipartFile[] images,Integer artId);
+    void insertImages(String[] imagesUrls,Integer artId);
+    void updateImages(String[] imagesUrls,Integer artId);
     List<ArticleInfo> getArticleInfos(List<Article> records);
     ArticleInfo getArticleInfos(Article article);
 }

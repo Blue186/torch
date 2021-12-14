@@ -2,11 +2,8 @@ package com.torch.app.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.torch.app.entity.ArtImages;
-import com.torch.app.entity.Article;
 import com.torch.app.entity.ImpImages;
 import com.torch.app.entity.Impressions;
-import com.torch.app.entity.vo.ArticleCon.ArticleInfo;
 import com.torch.app.entity.vo.ImpressionsCon.ImpressionsInfo;
 import com.torch.app.mapper.ImpressionsMapper;
 import com.torch.app.service.ImpImagesService;
@@ -28,9 +25,8 @@ public class ImpressionsServiceImpl extends ServiceImpl<ImpressionsMapper, Impre
     @Resource
     private ImpImagesService impImagesService;
     @Override
-    public void insertImages(MultipartFile[] images, Integer impId) {
-        String[] urls = fileUtil.uploadImage(images);
-        for (String url : urls) {
+    public void insertImages(String[] imagesUrls, Integer impId) {
+        for (String url : imagesUrls) {
             ImpImages impImages = new ImpImages();
             impImages.setUrl(url);
             impImages.setImpId(impId);
@@ -39,11 +35,12 @@ public class ImpressionsServiceImpl extends ServiceImpl<ImpressionsMapper, Impre
     }
 
     @Override
-    public void updateImages(MultipartFile[] images, Integer impId) {
-        int res = impImagesService.getBaseMapper().deleteById(impId);
+    public void updateImages(String[] imagesUrls, Integer impId) {
+        QueryWrapper<ImpImages> wrapper = new QueryWrapper<>();
+        wrapper.eq("imp_id",impId);
+        int res = impImagesService.getBaseMapper().delete(wrapper);//这里删除掉上传的图片
         if (res==1){
-            String[] urls = fileUtil.uploadImage(images);
-            for (String url : urls) {
+            for (String url : imagesUrls) {
                 ImpImages impImages = new ImpImages();
                 impImages.setUrl(url);
                 impImages.setImpId(impId);
@@ -52,27 +49,29 @@ public class ImpressionsServiceImpl extends ServiceImpl<ImpressionsMapper, Impre
         }
     }
 
-    @Override
-    public List<ImpressionsInfo> getImpressionsInfo(List<Impressions> records) {
-        List<ImpressionsInfo> impressionsInfos = new ArrayList<>();
-        for (Impressions record : records) {
-            QueryWrapper<ImpImages> wrapper = new QueryWrapper<>();
-            wrapper.eq("imp_id",record.getId());
-            List<ImpImages> impImages = impImagesService.getBaseMapper().selectList(wrapper);
-
-            ImpressionsInfo impressionsInfo = new ImpressionsInfo();
-            impressionsInfo.setImpImages(impImages);
-            impressionsInfo.setActId(record.getActId());
-            impressionsInfo.setContent(record.getContent());
-            impressionsInfo.setActStars(record.getActStars());
-            impressionsInfo.setCreateTime(record.getCreateTime());
-            impressionsInfo.setUpdateTime(record.getUpdateTime());
-            impressionsInfo.setId(record.getId());
-            impressionsInfo.setUserId(record.getUserId());
-            impressionsInfos.add(impressionsInfo);
-        }
-        return impressionsInfos;
-    }
+//    @Override
+//    public List<ImpressionsInfo> getImpressionsInfo(List<Impressions> records) {
+//        List<ImpressionsInfo> impressionsInfos = new ArrayList<>();
+//        for (Impressions record : records) {
+//            QueryWrapper<ImpImages> wrapper = new QueryWrapper<>();
+//            wrapper.eq("imp_id",record.getId());
+//            List<ImpImages> impImages = impImagesService.getBaseMapper().selectList(wrapper);
+//
+//            ImpressionsInfo impressionsInfo = new ImpressionsInfo();
+//            impressionsInfo.setImpImages(impImages);
+//            impressionsInfo.setActId(record.getActId());
+//            impressionsInfo.setContent(record.getContent());
+//            impressionsInfo.setActStars(record.getActStars());
+//            impressionsInfo.setCreateTime(record.getCreateTime());
+//            impressionsInfo.setUpdateTime(record.getUpdateTime());
+//            impressionsInfo.setId(record.getId());
+//            impressionsInfo.setUserId(record.getUserId());
+//            impressionsInfo.setActChiId(record.getActChiId());
+//            impressionsInfo.setActTimesId(record.getActTimesId());
+//            impressionsInfos.add(impressionsInfo);
+//        }
+//        return impressionsInfos;
+//    }
 
     @Override
     public ImpressionsInfo getImpressionsInfo(Impressions impression) {
@@ -80,8 +79,11 @@ public class ImpressionsServiceImpl extends ServiceImpl<ImpressionsMapper, Impre
         QueryWrapper<ImpImages> wrapper = new QueryWrapper<>();
         wrapper.eq("imp_id",impression.getId());
         List<ImpImages> impImages = impImagesService.getBaseMapper().selectList(wrapper);
-
-        impressionsInfo.setImpImages(impImages);
+        List<String> imgUrls = new ArrayList<>();
+        for (ImpImages impImage : impImages) {
+            imgUrls.add(impImage.getUrl());
+        }
+        impressionsInfo.setImpImages(imgUrls);
         impressionsInfo.setActId(impression.getActId());
         impressionsInfo.setContent(impression.getContent());
         impressionsInfo.setActStars(impression.getActStars());
@@ -89,7 +91,8 @@ public class ImpressionsServiceImpl extends ServiceImpl<ImpressionsMapper, Impre
         impressionsInfo.setUpdateTime(impression.getUpdateTime());
         impressionsInfo.setId(impression.getId());
         impressionsInfo.setUserId(impression.getUserId());
-
+        impressionsInfo.setActChiId(impression.getActChiId());
+        impressionsInfo.setActTimesId(impression.getActTimesId());
         return impressionsInfo;
     }
 }

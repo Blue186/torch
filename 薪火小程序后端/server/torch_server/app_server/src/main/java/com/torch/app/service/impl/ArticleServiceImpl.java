@@ -39,9 +39,8 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     }
 
     @Override
-    public void insertImages(MultipartFile[] images, Integer artId) {
-        String[] urls = fileUtil.uploadImage(images);
-        for (String url : urls) {
+    public void insertImages(String[] imagesUrls, Integer artId) {
+        for (String url : imagesUrls) {
             ArtImages artImages = new ArtImages();
             artImages.setUrl(url);
             artImages.setArtId(artId);
@@ -50,11 +49,10 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     }
 
     @Override
-    public void updateImages(MultipartFile[] images, Integer artId) {
+    public void updateImages(String[] imagesUrls, Integer artId) {
         int res = artImagesService.getBaseMapper().deleteById(artId);
         if (res==1){
-            String[] urls = fileUtil.uploadImage(images);
-            for (String url : urls) {
+            for (String url : imagesUrls) {
                 ArtImages artImages = new ArtImages();
                 artImages.setUrl(url);
                 artImages.setArtId(artId);
