@@ -42,6 +42,14 @@ mybatis-plus:
   mapper-locations: classpath:mapper/*.xml #  xml文件所在位置
   type-aliases-package: com/torch/app/entity #别名文件位置
 
+#配置swagger登陆验证
+swagger:
+  production: false
+  basic:
+    enable: true
+    username: torch
+    password: torchapp
+
 wx:
   appid: wx340fc38eece916c2
   secret: ad527c3572bd15f95a47df54aa47e25c

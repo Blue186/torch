@@ -74,7 +74,7 @@ public class R<T> {
 
     public R<T> setErrorCode(Integer errorCode) {
         Map<String, Integer> resultMap = new HashMap<>();
-        resultMap.put("code", errorCode);
+        resultMap.put("errorCode", errorCode);
         this.data((T) resultMap);
         return this;
     }
