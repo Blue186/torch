@@ -34,7 +34,7 @@ public class ArtCommentController {
                                HttpServletRequest request){
         Boolean judge = judgeCookieToken.judge(request);
         if (!judge){
-            return R.error().code(-100);
+            return R.error().setReLoginData();
         }
         Semaphore semaphore = new Semaphore(1);
         if (semaphore.availablePermits()==0){
@@ -65,7 +65,7 @@ public class ArtCommentController {
                               HttpServletRequest request){
         Boolean judge = judgeCookieToken.judge(request);
         if (!judge){
-            return R.error().code(-100);
+            return R.error().setReLoginData();
         }
         Semaphore semaphore = new Semaphore(1);
         if (semaphore.availablePermits()==0){
@@ -98,13 +98,12 @@ public class ArtCommentController {
                                HttpServletRequest request){
         Boolean judge = judgeCookieToken.judge(request);
         if (!judge){
-            QueryWrapper<ArtComment> wrapper = new QueryWrapper<>();
-            wrapper.eq("art_id",artId);
-            wrapper.orderByDesc("create_time");
-            List<ArtComment> artComments = artCommentService.getBaseMapper().selectList(wrapper);
-            return R.ok().data(artComments);
-        }else {
-            return R.error().code(-100);
+            return R.error().setReLoginData();
         }
+        QueryWrapper<ArtComment> wrapper = new QueryWrapper<>();
+        wrapper.eq("art_id",artId);
+        wrapper.orderByDesc("create_time");
+        List<ArtComment> artComments = artCommentService.getBaseMapper().selectList(wrapper);
+        return R.ok().data(artComments);
     }
 }

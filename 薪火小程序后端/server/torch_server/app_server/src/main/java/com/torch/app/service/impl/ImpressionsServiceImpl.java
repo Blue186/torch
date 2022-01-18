@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -38,14 +39,12 @@ public class ImpressionsServiceImpl extends ServiceImpl<ImpressionsMapper, Impre
     public void updateImages(String[] imagesUrls, Integer impId) {
         QueryWrapper<ImpImages> wrapper = new QueryWrapper<>();
         wrapper.eq("imp_id",impId);
-        int res = impImagesService.getBaseMapper().delete(wrapper);//这里删除掉上传的图片
-        if (res==1){
-            for (String url : imagesUrls) {
-                ImpImages impImages = new ImpImages();
-                impImages.setUrl(url);
-                impImages.setImpId(impId);
-                impImagesService.getBaseMapper().insert(impImages);
-            }
+        impImagesService.getBaseMapper().delete(wrapper);//这里删除掉上传的图片
+        for (String url : imagesUrls) {
+            ImpImages impImages = new ImpImages();
+            impImages.setUrl(url);
+            impImages.setImpId(impId);
+            impImagesService.getBaseMapper().insert(impImages);
         }
     }
 

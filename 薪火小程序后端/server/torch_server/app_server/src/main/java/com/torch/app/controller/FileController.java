@@ -28,7 +28,7 @@ public class FileController {
                              HttpServletRequest request){
         Boolean judge = judgeCookieToken.judge(request);
         if (!judge){
-            return R.error().code(-100);
+            return R.error().setReLoginData();
         }
         if (base64Str==null){
             return R.error().message("图片为空");

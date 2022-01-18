@@ -24,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -48,7 +49,7 @@ public class ImpressionsController {
                                    HttpServletRequest request){
         Boolean judge = judgeCookieToken.judge(request);
         if (!judge){
-            return R.error().code(-100);
+            return R.error().setReLoginData();
         }
         String cookie = judgeCookieToken.getCookie(request);
         Object uid = redisUtil.hmGet(cookie, "uid");
@@ -82,7 +83,7 @@ public class ImpressionsController {
                                   HttpServletRequest request){
         Boolean judge = judgeCookieToken.judge(request);
         if (!judge){
-            return R.error().code(-100);
+            return R.error().setReLoginData();
         }
         int res = impressionsService.getBaseMapper().deleteById(id);
         if (res==1){
@@ -98,7 +99,7 @@ public class ImpressionsController {
                                   HttpServletRequest request){
         Boolean judge = judgeCookieToken.judge(request);
         if (!judge) {
-            return R.error().code(-100);
+            return R.error().setReLoginData();
         }
         Impressions impressions = impressionsService.getBaseMapper().selectById(updateImp.getId());
         impressions.setUpdateTime(new Date().getTime());
@@ -158,8 +159,9 @@ public class ImpressionsController {
     public R<?> getOneImpressions(@ApiParam(name = "actId",value = "志愿活动的id",required = true)@PathVariable Integer actId,
                                   HttpServletRequest request){
         Boolean judge = judgeCookieToken.judge(request);
+
         if (!judge){
-            return R.error().code(-100);
+            return R.error().setReLoginData();
         }
         String cookie = judgeCookieToken.getCookie(request);
         Object uid = redisUtil.hmGet(cookie, "uid");

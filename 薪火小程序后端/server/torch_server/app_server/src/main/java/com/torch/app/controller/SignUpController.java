@@ -4,7 +4,6 @@ import com.torch.app.entity.Activity;
 import com.torch.app.entity.ActivityChild;
 import com.torch.app.entity.SignUp;
 import com.torch.app.entity.User;
-import com.torch.app.entity.vo.SignUpCon.SignUpInfo;
 import com.torch.app.entity.vo.SignUpCon.Sign;
 import com.torch.app.service.ActivityChildService;
 import com.torch.app.service.ActivityService;
@@ -14,6 +13,7 @@ import com.torch.app.util.tools.EmailSendUtil;
 import com.torch.app.util.tools.JudgeCookieToken;
 import com.torch.app.util.tools.RedisUtil;
 import commonutils.R;
+import commonutils.ResultCode;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -53,7 +53,7 @@ public class SignUpController {
                      HttpServletRequest request){
         Boolean judge = judgeCookieToken.judge(request);
         if (!judge){
-            return R.error().code(-100);
+            return R.error().setReLoginData();
         }
         Semaphore semaphore = new Semaphore(1);
         if (semaphore.availablePermits()==0){
@@ -63,9 +63,8 @@ public class SignUpController {
         Object uid = redisUtil.hmGet(cookie, "uid");
         User user = userService.getBaseMapper().selectById(uid.toString());//拿到用户信息
         if (user.getIsActive()==0){
-            Map<String,Object> map = new HashMap<>();
-            map.put("register",false);//如果未激活，将直接拒绝此请求。
-            return R.error().data(map);
+            //如果未激活，将直接拒绝此请求。
+            return R.error().setErrorCode(ResultCode.notRegister);
         }
 
         ActivityChild activityChild = activityChildService.getBaseMapper().selectById(sign.getActChiId());
@@ -98,9 +97,8 @@ public class SignUpController {
                 return R.error().message("未拿到用户信息");
             }
         }else {
-            Map<String,Object> map = new HashMap<>();
-            map.put("signNum",60);//如果报名人数满了，返回signNum
-            return R.error().data(map);
+            //如果报名人数满了，返回signNum
+            return R.error().setErrorCode(ResultCode.fullPeople);
         }
 
     }
@@ -117,7 +115,7 @@ public class SignUpController {
 //        验证用户请求是否合法
         Boolean judge = judgeCookieToken.judge(request);
         if (!judge){
-            return R.error().code(-100);
+            return R.error().setReLoginData();
         }
 //        检验多线程
         Semaphore semaphore = new Semaphore(1);
@@ -135,9 +133,7 @@ public class SignUpController {
                 activity.setTotalNumber(activity.getTotalNumber()-1);//取消报名后，报名人数减一。
                 activityService.getBaseMapper().updateById(activity);
             }else {
-                Map<String,Object> map = new HashMap<>();
-                map.put("signNum",61);
-                return R.error().data(map);
+                return R.error().setErrorCode(ResultCode.noPeople);
             }
             res = signUpService.getBaseMapper().deleteById(signId);
         } catch (InterruptedException e) {
@@ -158,7 +154,7 @@ public class SignUpController {
             HttpServletRequest request){
         Boolean judge = judgeCookieToken.judge(request);
         if (!judge) {
-            return R.error().code(-100);
+            return R.error().setReLoginData();
         }
         String cookie = judgeCookieToken.getCookie(request);
         Object uid = redisUtil.hmGet(cookie, "uid");

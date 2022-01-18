@@ -42,7 +42,7 @@ public class ThumbsController {
                          HttpServletRequest request){
         Boolean judge = judgeCookieToken.judge(request);
         if (!judge){
-            return R.error().code(-100);
+            return R.error().setReLoginData();
         }
         String cookie = judgeCookieToken.getCookie(request);
         Object uid = redisUtil.hmGet(cookie, "uid");
@@ -68,7 +68,7 @@ public class ThumbsController {
                              HttpServletRequest request){
         Boolean judge = judgeCookieToken.judge(request);
         if (!judge) {
-            return R.error().code(-100);
+            return R.error().setReLoginData();
         }
         String cookie = judgeCookieToken.getCookie(request);
         Object uid = redisUtil.hmGet(cookie, "uid");
@@ -90,7 +90,7 @@ public class ThumbsController {
                               HttpServletRequest request){
         Boolean judge = judgeCookieToken.judge(request);
         if (!judge){
-            return R.error().code(-100);
+            return R.error().setReLoginData();
         }
         QueryWrapper<Thumbs> wrapper = new QueryWrapper<>();
         wrapper.eq("art_id",id);

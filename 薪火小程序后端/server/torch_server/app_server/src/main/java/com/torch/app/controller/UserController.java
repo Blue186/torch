@@ -9,6 +9,7 @@ import com.torch.app.entity.vo.UserCon.UserLogin;
 import com.torch.app.service.UserService;
 import com.torch.app.util.tools.*;
 import commonutils.R;
+import commonutils.ResultCode;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -88,7 +89,7 @@ public class UserController {
 //        获取用户请求中的cookie，并进行校验，可以封装成一个工具类。
         Boolean judge = judgeCookieToken.judge(request);//判断请求是否合法
         if (!judge){
-            return R.error().code(-100);//这里有误的情况下就要进行重新登录操作，我返回一个login_error,-100进行判断
+            return R.error().setReLoginData();//这里有误的情况下就要进行重新登录操作，我返回一个login_error,-100进行判断
         }
         String cookie = judgeCookieToken.getCookie(request);
         Object uid = redisUtil.hmGet(cookie, "uid");
@@ -106,7 +107,7 @@ public class UserController {
                            HttpServletRequest request){
         Boolean judge = judgeCookieToken.judge(request);
         if (!judge){
-            return R.error().code(-100);
+            return R.error().setReLoginData();
         }
         String cookie = judgeCookieToken.getCookie(request);
         User user = userService.setUserInfo((Integer) redisUtil.hmGet(cookie, "uid"), userInfo);
@@ -130,7 +131,7 @@ public class UserController {
                            HttpServletRequest request){
         Boolean judge = judgeCookieToken.judge(request);
         if (!judge){
-            return R.error().code(-100);
+            return R.error().setReLoginData();
         }
         JSONObject jsonObject = new JSONObject(mail);
         String userMail = jsonObject.getStr("mail");
@@ -150,16 +151,13 @@ public class UserController {
                           HttpServletRequest request){
         Boolean judge = judgeCookieToken.judge(request);
         if (!judge){
-            return R.error().code(-100);
+            return R.error().setReLoginData();
         }
-        System.out.println("codeCheck = " + codeCheck);
         String cookie = judgeCookieToken.getCookie(request);
         String md5_R = redisUtil.get(codeCheck.getMail()).toString();
         String md5 = tokenUtil.generateMd5(codeCheck.getMail(), cookie, codeCheck.getCode());
         if (md5_R==null){
-            Map<String,Object> map = new HashMap<>();
-            map.put("timeout",40);
-            return R.error().data(map);
+            return R.error().setErrorCode(ResultCode.timeOut);
         }else {
             if (md5.equals(md5_R)){
                 String uid = redisUtil.hmGet(cookie, "uid").toString();

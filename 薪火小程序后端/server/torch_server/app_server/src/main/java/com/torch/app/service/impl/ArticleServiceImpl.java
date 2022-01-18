@@ -50,14 +50,12 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
     @Override
     public void updateImages(String[] imagesUrls, Integer artId) {
-        int res = artImagesService.getBaseMapper().deleteById(artId);
-        if (res==1){
-            for (String url : imagesUrls) {
-                ArtImages artImages = new ArtImages();
-                artImages.setUrl(url);
-                artImages.setArtId(artId);
-                artImagesService.getBaseMapper().insert(artImages);
-            }
+        artImagesService.getBaseMapper().deleteById(artId);
+        for (String url : imagesUrls) {
+            ArtImages artImages = new ArtImages();
+            artImages.setUrl(url);
+            artImages.setArtId(artId);
+            artImagesService.getBaseMapper().insert(artImages);
         }
     }
 

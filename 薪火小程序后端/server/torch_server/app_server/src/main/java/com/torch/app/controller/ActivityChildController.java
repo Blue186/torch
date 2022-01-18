@@ -38,7 +38,7 @@ public class ActivityChildController {
                          HttpServletRequest request){
         Boolean judge = judgeCookieToken.judge(request);
         if (!judge){
-            return R.error().code(-100);
+            return R.error().setReLoginData();
         }
         List<GetChild> getChildren = new ArrayList<>();
         List<ActivityChild> activityChildren = activityChildService.selectChild(activityId);//这是子活动

@@ -38,21 +38,20 @@ public class ContactUsController {
                             HttpServletRequest request){
         Boolean judge = judgeCookieToken.judge(request);
         if (!judge){
-            String cookie = judgeCookieToken.getCookie(request);
-            Object uid = redisUtil.hmGet(cookie, "uid");
-            ContactUs contactUs = new ContactUs();
-            contactUs.setContent(content);
-            contactUs.setUserId((Integer)uid);
-            contactUs.setCreateTime(new Date().getTime());
-            contactUs.setUpdateTime(new Date().getTime());
-            int res = contactUsService.getBaseMapper().insert(contactUs);
-            if (res==1){
-                return R.ok().message("发送成功");
-            }else {
-                return R.error().message("发送失败");
-            }
+            return R.error().setReLoginData();
+        }
+        String cookie = judgeCookieToken.getCookie(request);
+        Object uid = redisUtil.hmGet(cookie, "uid");
+        ContactUs contactUs = new ContactUs();
+        contactUs.setContent(content);
+        contactUs.setUserId((Integer)uid);
+        contactUs.setCreateTime(new Date().getTime());
+        contactUs.setUpdateTime(new Date().getTime());
+        int res = contactUsService.getBaseMapper().insert(contactUs);
+        if (res==1){
+            return R.ok().message("发送成功");
         }else {
-            return R.error().code(-100);
+            return R.error().message("发送失败");
         }
     }
 
@@ -62,15 +61,14 @@ public class ContactUsController {
                               HttpServletRequest request){
         Boolean judge = judgeCookieToken.judge(request);
         if (!judge){
-//            这里可以模仿消息撤回，超过2分钟，不允许撤回
-            int res = contactUsService.getBaseMapper().deleteById(id);
-            if (res==1){
-                return R.ok().message("消息撤回成功");
-            }else {
-                return R.error().message("消息撤回失败");
-            }
+            return R.error().setReLoginData();
+        }
+        //            这里可以模仿消息撤回，超过2分钟，不允许撤回
+        int res = contactUsService.getBaseMapper().deleteById(id);
+        if (res==1){
+            return R.ok().message("消息撤回成功");
         }else {
-            return R.error().code(-100);
+            return R.error().message("消息撤回失败");
         }
     }
 //    若设置撤回，则不需要修改接口，可以先写着，后面再更改
@@ -80,17 +78,16 @@ public class ContactUsController {
                               HttpServletRequest request){
         Boolean judge = judgeCookieToken.judge(request);
         if (!judge){
-            ContactUs contactUs = contactUsService.getBaseMapper().selectById(updateMes.getId());
-            contactUs.setContent(updateMes.getContent());
-            contactUs.setUpdateTime(new Date().getTime());
-            int res = contactUsService.getBaseMapper().insert(contactUs);
-            if (res==1){
-                return R.ok().message("更新成功");
-            }else {
-                return R.error().message("更新失败");
-            }
+            return R.error().setReLoginData();
+        }
+        ContactUs contactUs = contactUsService.getBaseMapper().selectById(updateMes.getId());
+        contactUs.setContent(updateMes.getContent());
+        contactUs.setUpdateTime(new Date().getTime());
+        int res = contactUsService.getBaseMapper().insert(contactUs);
+        if (res==1){
+            return R.ok().message("更新成功");
         }else {
-            return R.error().code(-100);
+            return R.error().message("更新失败");
         }
     }
 
@@ -101,19 +98,17 @@ public class ContactUsController {
                                HttpServletRequest request){
         Boolean judge = judgeCookieToken.judge(request);
         if (!judge){
-            String cookie = judgeCookieToken.getCookie(request);
-            Object uid = redisUtil.hmGet(cookie, "uid");
-            Page<ContactUs> page = new Page<>(current,limit);
-
-            QueryWrapper<ContactUs> wrapper = new QueryWrapper<>();
-            wrapper.eq("user_id",uid);
-            wrapper.orderByDesc("update_time");
-            contactUsService.page(page,wrapper);
-            List<ContactUs> records = page.getRecords();
-            return R.ok().data(records);
-        }else {
-            return R.error().code(-100);
+            return R.error().setReLoginData();
         }
+        String cookie = judgeCookieToken.getCookie(request);
+        Object uid = redisUtil.hmGet(cookie, "uid");
+        Page<ContactUs> page = new Page<>(current,limit);
+        QueryWrapper<ContactUs> wrapper = new QueryWrapper<>();
+        wrapper.eq("user_id",uid);
+        wrapper.orderByDesc("update_time");
+        contactUsService.page(page,wrapper);
+        List<ContactUs> records = page.getRecords();
+        return R.ok().data(records);
     }
 
     @ApiOperation(value = "获取一条信息的详细")
@@ -122,10 +117,9 @@ public class ContactUsController {
                               HttpServletRequest request){
         Boolean judge = judgeCookieToken.judge(request);
         if (!judge){
-            ContactUs contactUs = contactUsService.getBaseMapper().selectById(id);
-            return R.ok().data(contactUs);
-        }else {
-            return R.error().code(-100);
+            return R.error().setReLoginData();
         }
+        ContactUs contactUs = contactUsService.getBaseMapper().selectById(id);
+        return R.ok().data(contactUs);
     }
 }

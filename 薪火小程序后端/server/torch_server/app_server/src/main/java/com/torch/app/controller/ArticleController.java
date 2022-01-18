@@ -43,7 +43,7 @@ public class ArticleController {
                                HttpServletRequest request){
         Boolean judge = judgeCookieToken.judge(request);
         if (!judge){
-            return R.error().code(-100);
+            return R.error().setReLoginData();
         }
         String cookie = judgeCookieToken.getCookie(request);
         Object uid = redisUtil.hmGet(cookie, "uid");
@@ -65,7 +65,7 @@ public class ArticleController {
                               HttpServletRequest request){
         Boolean judge = judgeCookieToken.judge(request);
         if (!judge){
-            return R.error().code(-100);
+            return R.error().setReLoginData();
         }
         int res = articleService.getBaseMapper().deleteById(id);
         if (res==1){
@@ -81,7 +81,7 @@ public class ArticleController {
                               HttpServletRequest request){
         Boolean judge = judgeCookieToken.judge(request);
         if (!judge) {
-            return R.error().code(-100);
+            return R.error().setReLoginData();
         }
         Article article = articleService.getBaseMapper().selectById(updateArt.getId());
         article.setContent(updateArt.getContent());
@@ -102,7 +102,7 @@ public class ArticleController {
                                HttpServletRequest request){
         Boolean judge = judgeCookieToken.judge(request);
         if (!judge){
-            return R.error().code(-100);
+            return R.error().setReLoginData();
         }
         Page<Article> page = new Page<>(current,limit);
         QueryWrapper<Article> wrapper = new QueryWrapper<>();
@@ -119,7 +119,7 @@ public class ArticleController {
     public R<?> getMyArticles(HttpServletRequest request){
         Boolean judge = judgeCookieToken.judge(request);
         if (!judge){
-            return R.error().code(-100);
+            return R.error().setReLoginData();
         }
         String cookie = judgeCookieToken.getCookie(request);
         Object uid = redisUtil.hmGet(cookie, "uid");
@@ -135,7 +135,7 @@ public class ArticleController {
                               HttpServletRequest request){
         Boolean judge = judgeCookieToken.judge(request);
         if (!judge){
-            return R.error().code(-100);
+            return R.error().setReLoginData();
         }
         Article article = articleService.getBaseMapper().selectById(id);
         ArticleInfo articleInfo = articleService.getArticleInfos(article);
@@ -148,9 +148,8 @@ public class ArticleController {
                         HttpServletRequest request){
         Boolean judge = judgeCookieToken.judge(request);
         if (!judge){
-            return R.error().code(-100);
+            return R.error().setReLoginData();
         }
-
         Article article = articleService.getBaseMapper().selectById(id);
         article.setViews(article.getViews()+1);
         int res = articleService.getBaseMapper().updateById(article);
