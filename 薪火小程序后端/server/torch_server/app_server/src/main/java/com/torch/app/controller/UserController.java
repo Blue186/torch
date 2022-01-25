@@ -42,7 +42,7 @@ public class UserController {
     private OpenIdUtil openIdUtil;
 
     @Value("${spring.mail.username}")
-    private static String MAIL;
+    private String MAIL;
 
     @ApiOperation(value = "用户登录注册接口")
     @PostMapping("/login")

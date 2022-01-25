@@ -45,7 +45,7 @@ public class SignUpController {
     private EmailSendUtil emailSendUtil;
 
     @Value("${spring.mail.username}")
-    private static String MAIL;
+    private String MAIL;
 
     private static final Integer INCREASE_NUMBER = 1;
     /**
@@ -79,7 +79,6 @@ public class SignUpController {
         if (!satisfy){
             return R.error().setErrorCode(ResultCode.notSatisfySign);
         }
-
 //----------
         ActivityChild activityChild = activityChildService.getBaseMapper().selectById(sign.getActChiId());
         Activity activity = activityService.getBaseMapper().selectById(activityChild.getActivityId());
@@ -114,9 +113,7 @@ public class SignUpController {
             //如果报名人数满了，返回signNum
             return R.error().setErrorCode(ResultCode.fullPeople);
         }
-
     }
-
 
 //    @ApiOperation("添加用户报名信息")
 //    @PostMapping()
@@ -125,7 +122,6 @@ public class SignUpController {
 //        if (semaphore.availablePermits()==0){
 //            return R.error().message("资源已被占用请稍后");
 //        }
-//
 //        User user = userService.getBaseMapper().selectById(uid);//拿到用户信息
 //        if (user.getIsActive()==0){
 //            //如果未激活，将直接拒绝此请求。
@@ -138,7 +134,6 @@ public class SignUpController {
 //        if (!satisfy){
 //            return R.error().setErrorCode(ResultCode.notSatisfySign);
 //        }
-//
 ////----------
 //        ActivityChild activityChild = activityChildService.getBaseMapper().selectById(sign.getActChiId());
 //        Activity activity = activityService.getBaseMapper().selectById(activityChild.getActivityId());
@@ -147,7 +142,7 @@ public class SignUpController {
 //            signUp.setActTimesId(sign.getActTimesId());
 //            signUp.setActChiId(sign.getActChiId());
 //            signUp.setActId(sign.getActId());
-//            signUp.setUserId((Integer) uid);//设置用户id
+//            signUp.setUserId(uid);//设置用户id
 //            signUp.setIsOver(0);
 //            signUp.setImpWrote(0);
 //            signUp.setCreateTime(new Date().getTime());
@@ -155,7 +150,7 @@ public class SignUpController {
 //            try {
 //                semaphore.acquire(1);
 //                res = signUpService.getBaseMapper().insert(signUp);//插入报名信息
-//                activity.setTotalNumber(activity.getTotalNumber()+1);//报名实现对应报名人数加一
+//                activity.setTotalNumber(activity.getTotalNumber()+INCREASE_NUMBER);//报名实现对应报名人数加一
 //                activityService.getBaseMapper().updateById(activity);
 //            } catch (InterruptedException e) {
 //                e.printStackTrace();
@@ -164,7 +159,7 @@ public class SignUpController {
 //            }
 //            if (res==1){
 ////            这里可以添加邮件发送类，发送邮件，后续添加
-//                emailSendUtil.simpleEmail("3057179865@qq.com",user,"薪火志愿报名成功通知", activity.getName()+"活动报名成功");
+//                emailSendUtil.simpleEmail(MAIL,user,"薪火志愿报名成功通知", "亲爱的志愿者，请注意您参与的"+activity.getName()+"活动报名成功");
 //                return R.ok();
 //            }else {
 //                return R.error().message("未拿到用户信息");
@@ -173,7 +168,6 @@ public class SignUpController {
 //            //如果报名人数满了，返回signNum
 //            return R.error().setErrorCode(ResultCode.fullPeople);
 //        }
-//
 //    }
 
     /**
