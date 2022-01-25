@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiParam;
 import lombok.Data;
 
 /**
@@ -51,4 +52,6 @@ public class Activity {
     private String volTimeDesc;
     @ApiModelProperty(name = "volTimePeriod",value = "活动时间范围")
     private String volTimePeriod;
+    @ApiModelProperty(name = "",value = "活动发起方的联系方式")
+    private String organizerContact;
 }

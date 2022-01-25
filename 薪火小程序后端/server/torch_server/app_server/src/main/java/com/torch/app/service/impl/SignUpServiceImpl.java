@@ -2,10 +2,12 @@ package com.torch.app.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import com.torch.app.entity.Activity;
 import com.torch.app.entity.ActivityChild;
 import com.torch.app.entity.ActivityTimes;
 import com.torch.app.entity.SignUp;
+import com.torch.app.entity.vo.SignUpCon.Sign;
 import com.torch.app.entity.vo.SignUpCon.SignUpInfo;
 import com.torch.app.entity.vo.SignUpCon.SignUpInfoNot;
 import com.torch.app.mapper.SignUpMapper;
@@ -91,5 +93,27 @@ public class SignUpServiceImpl extends ServiceImpl<SignUpMapper, SignUp> impleme
             }
             return signUpInfoNot;
         }
+    }
+
+    @Override
+    public Boolean satisfySign(Integer uid, Sign sign) {
+        boolean flag = true;
+        ActivityTimes signTime = activityTimesService.getBaseMapper().selectById(sign.getActTimesId());//报名时间
+        Long startTime = signTime.getStartTime();//开始时间
+        Long endTime = signTime.getEndTime();//结束时间
+        QueryWrapper<SignUp> wrapper = new QueryWrapper<>();
+        wrapper.eq("user_id",uid);
+        wrapper.eq("is_over",0);
+        List<SignUp> signUps = baseMapper.selectList(wrapper);//那到报名信息（未完成的），然后再拿到时间段
+        for (SignUp signUp : signUps) {
+            ActivityTimes activityTimes = activityTimesService.getBaseMapper().selectById(signUp.getActTimesId());//每一个时间段
+            if ((activityTimes.getStartTime()<endTime&&activityTimes.getEndTime()>endTime)||(activityTimes.getStartTime()<startTime&&activityTimes.getEndTime()>startTime)){
+                flag = false;
+            }
+            if (signUp.getActTimesId().equals(sign.getActTimesId())){
+                flag = false;
+            }
+        }
+        return flag;
     }
 }

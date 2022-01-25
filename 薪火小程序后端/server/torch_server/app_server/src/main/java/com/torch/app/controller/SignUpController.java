@@ -55,6 +55,7 @@ public class SignUpController {
         if (!judge){
             return R.error().setReLoginData();
         }
+
         Semaphore semaphore = new Semaphore(1);
         if (semaphore.availablePermits()==0){
             return R.error().message("资源已被占用请稍后");
@@ -66,7 +67,15 @@ public class SignUpController {
             //如果未激活，将直接拒绝此请求。
             return R.error().setErrorCode(ResultCode.notRegister);
         }
+//这里用来判断是否满足报名条件，已报名时间是否存在冲突
+//        sign.getActTimesId();//这是现在报名的时间段，包括开始结束
+//        应该先拿到用户id，然后通过用户id去拿到已经报名但是未完成的任务，再进行时间匹配
+        Boolean satisfy = signUpService.satisfySign((Integer) uid, sign);
+        if (!satisfy){
+            return R.error().setErrorCode(ResultCode.notSatisfySign);
+        }
 
+//----------
         ActivityChild activityChild = activityChildService.getBaseMapper().selectById(sign.getActChiId());
         Activity activity = activityService.getBaseMapper().selectById(activityChild.getActivityId());
         if (activity.getTotalNumber()<activity.getHeadcount()){
@@ -102,6 +111,68 @@ public class SignUpController {
         }
 
     }
+
+
+//    @ApiOperation("添加用户报名信息")
+//    @PostMapping()
+//    public R<?> sign(@ApiParam(name = "sign", value = "用户的报名信息", required = true) @RequestBody Sign sign,Integer uid){
+//        Semaphore semaphore = new Semaphore(1);
+//        if (semaphore.availablePermits()==0){
+//            return R.error().message("资源已被占用请稍后");
+//        }
+//
+//        User user = userService.getBaseMapper().selectById(uid);//拿到用户信息
+//        if (user.getIsActive()==0){
+//            //如果未激活，将直接拒绝此请求。
+//            return R.error().setErrorCode(ResultCode.notRegister);
+//        }
+////这里用来判断是否满足报名条件，已报名时间是否存在冲突
+////        sign.getActTimesId();//这是现在报名的时间段，包括开始结束
+////        应该先拿到用户id，然后通过用户id去拿到已经报名但是未完成的任务，再进行时间匹配
+//        Boolean satisfy = signUpService.satisfySign(uid, sign);
+//        if (!satisfy){
+//            return R.error().setErrorCode(ResultCode.notSatisfySign);
+//        }
+//
+////----------
+//        ActivityChild activityChild = activityChildService.getBaseMapper().selectById(sign.getActChiId());
+//        Activity activity = activityService.getBaseMapper().selectById(activityChild.getActivityId());
+//        if (activity.getTotalNumber()<activity.getHeadcount()){
+//            SignUp signUp = new SignUp();
+//            signUp.setActTimesId(sign.getActTimesId());
+//            signUp.setActChiId(sign.getActChiId());
+//            signUp.setActId(sign.getActId());
+//            signUp.setUserId((Integer) uid);//设置用户id
+//            signUp.setIsOver(0);
+//            signUp.setImpWrote(0);
+//            signUp.setCreateTime(new Date().getTime());
+//            int res=0;
+//            try {
+//                semaphore.acquire(1);
+//                res = signUpService.getBaseMapper().insert(signUp);//插入报名信息
+//                activity.setTotalNumber(activity.getTotalNumber()+1);//报名实现对应报名人数加一
+//                activityService.getBaseMapper().updateById(activity);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }finally {
+//                semaphore.release(1);
+//            }
+//            if (res==1){
+////            这里可以添加邮件发送类，发送邮件，后续添加
+//                emailSendUtil.simpleEmail("3057179865@qq.com",user,"薪火志愿报名成功通知", activity.getName()+"活动报名成功");
+//                return R.ok();
+//            }else {
+//                return R.error().message("未拿到用户信息");
+//            }
+//        }else {
+//            //如果报名人数满了，返回signNum
+//            return R.error().setErrorCode(ResultCode.fullPeople);
+//        }
+//
+//    }
+
+
+
 
     /**
      * 删除用户的报名信息
