@@ -6,7 +6,7 @@ import com.torch.app.entity.vo.CommentCon.PublishComment;
 import com.torch.app.service.ArtCommentService;
 import com.torch.app.util.tools.JudgeCookieToken;
 import com.torch.app.util.tools.RedisUtil;
-import commonutils.R;
+import com.torch.app.util.commonutils.R;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;

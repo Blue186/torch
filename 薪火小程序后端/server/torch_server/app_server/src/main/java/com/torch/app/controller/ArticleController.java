@@ -7,16 +7,13 @@ import com.torch.app.entity.Article;
 import com.torch.app.entity.vo.ArticleCon.ArticleInfo;
 import com.torch.app.entity.vo.ArticleCon.PublishArticle;
 import com.torch.app.entity.vo.ArticleCon.UpdateArticle;
-import com.torch.app.service.ArtImagesService;
 import com.torch.app.service.ArticleService;
-import com.torch.app.util.tools.FileUtil;
 import com.torch.app.util.tools.JudgeCookieToken;
 import com.torch.app.util.tools.RedisUtil;
-import commonutils.R;
+import com.torch.app.util.commonutils.R;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import io.swagger.models.auth.In;
 import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -34,6 +31,7 @@ public class ArticleController {
     @Resource
     private JudgeCookieToken judgeCookieToken;
 
+    private static final Integer VIEW_NUMBER = 1;
 /**
  * 薪火推文在管理端接口，此处为用户所发文章相应接口
  */
@@ -50,7 +48,9 @@ public class ArticleController {
         Article article = articleService.setPublishArt((Integer) uid, publishArt);
         int insert = articleService.getBaseMapper().insert(article);
 //            插入图片
-        articleService.insertImages(publishArt.getImagesUrls(), article.getId());
+        if (publishArt.getImagesUrls()!=null){
+            articleService.insertImages(publishArt.getImagesUrls(), article.getId());
+        }
         if (insert==1){
             return R.ok().message("用户文章发布成功");
         }else {
@@ -151,7 +151,7 @@ public class ArticleController {
             return R.error().setReLoginData();
         }
         Article article = articleService.getBaseMapper().selectById(id);
-        article.setViews(article.getViews()+1);
+        article.setViews(article.getViews()+VIEW_NUMBER);
         int res = articleService.getBaseMapper().updateById(article);
         if (res==1){
             return R.ok().message("用户浏览文章加1");

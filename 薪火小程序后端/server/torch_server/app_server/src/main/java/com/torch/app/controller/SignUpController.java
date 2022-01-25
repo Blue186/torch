@@ -12,11 +12,12 @@ import com.torch.app.service.UserService;
 import com.torch.app.util.tools.EmailSendUtil;
 import com.torch.app.util.tools.JudgeCookieToken;
 import com.torch.app.util.tools.RedisUtil;
-import commonutils.R;
-import commonutils.ResultCode;
+import com.torch.app.util.commonutils.R;
+import com.torch.app.util.commonutils.ResultCode;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -42,6 +43,11 @@ public class SignUpController {
     private JudgeCookieToken judgeCookieToken;
     @Resource
     private EmailSendUtil emailSendUtil;
+
+    @Value("${spring.mail.username}")
+    private static String MAIL;
+
+    private static final Integer INCREASE_NUMBER = 1;
     /**
      * 添加用户报名信息
      * @param sign 报名信息
@@ -55,7 +61,6 @@ public class SignUpController {
         if (!judge){
             return R.error().setReLoginData();
         }
-
         Semaphore semaphore = new Semaphore(1);
         if (semaphore.availablePermits()==0){
             return R.error().message("资源已被占用请稍后");
@@ -91,7 +96,7 @@ public class SignUpController {
             try {
                 semaphore.acquire(1);
                 res = signUpService.getBaseMapper().insert(signUp);//插入报名信息
-                activity.setTotalNumber(activity.getTotalNumber()+1);//报名实现对应报名人数加一
+                activity.setTotalNumber(activity.getTotalNumber()+INCREASE_NUMBER);//报名实现对应报名人数加一
                 activityService.getBaseMapper().updateById(activity);
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -100,7 +105,7 @@ public class SignUpController {
             }
             if (res==1){
 //            这里可以添加邮件发送类，发送邮件，后续添加
-                emailSendUtil.simpleEmail("3057179865@qq.com",user,"薪火志愿报名成功通知", activity.getName()+"活动报名成功");
+                emailSendUtil.simpleEmail(MAIL,user,"薪火志愿报名成功通知", "亲爱的志愿者，请注意您参与的"+activity.getName()+"活动报名成功");
                 return R.ok();
             }else {
                 return R.error().message("未拿到用户信息");
@@ -171,9 +176,6 @@ public class SignUpController {
 //
 //    }
 
-
-
-
     /**
      * 删除用户的报名信息
      * @param signId 取消报名
@@ -201,7 +203,7 @@ public class SignUpController {
         try {
             semaphore.acquire(1);
             if (activity.getTotalNumber()>0){
-                activity.setTotalNumber(activity.getTotalNumber()-1);//取消报名后，报名人数减一。
+                activity.setTotalNumber(activity.getTotalNumber()-INCREASE_NUMBER);//取消报名后，报名人数减一。
                 activityService.getBaseMapper().updateById(activity);
             }else {
                 return R.error().setErrorCode(ResultCode.noPeople);

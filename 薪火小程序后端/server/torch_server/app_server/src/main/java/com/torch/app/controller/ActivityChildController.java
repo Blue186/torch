@@ -4,7 +4,7 @@ import com.torch.app.entity.ActivityChild;
 import com.torch.app.entity.vo.ActivityChildCon.GetChild;
 import com.torch.app.service.ActivityChildService;
 import com.torch.app.util.tools.JudgeCookieToken;
-import commonutils.R;
+import com.torch.app.util.commonutils.R;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;

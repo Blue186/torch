@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.torch.app.entity.Activity;
 import com.torch.app.service.ActivityService;
 import com.torch.app.util.tools.JudgeCookieToken;
-import commonutils.R;
+import com.torch.app.util.commonutils.R;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;

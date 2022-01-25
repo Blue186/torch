@@ -8,11 +8,12 @@ import com.torch.app.entity.vo.UserCon.UserInfo;
 import com.torch.app.entity.vo.UserCon.UserLogin;
 import com.torch.app.service.UserService;
 import com.torch.app.util.tools.*;
-import commonutils.R;
-import commonutils.ResultCode;
+import com.torch.app.util.commonutils.R;
+import com.torch.app.util.commonutils.ResultCode;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -39,6 +40,9 @@ public class UserController {
     private CookieUtils cookieUtils;
     @Resource
     private OpenIdUtil openIdUtil;
+
+    @Value("${spring.mail.username}")
+    private static String MAIL;
 
     @ApiOperation(value = "用户登录注册接口")
     @PostMapping("/login")
@@ -136,7 +140,7 @@ public class UserController {
         JSONObject jsonObject = new JSONObject(mail);
         String userMail = jsonObject.getStr("mail");
         String cookie = judgeCookieToken.getCookie(request);
-        emailSendUtil.sendMailVerify("3057179865@qq.com", userMail,cookie);
+        emailSendUtil.sendMailVerify(MAIL, userMail,cookie);
         return R.ok().message("验证码成功发送");
     }
 
