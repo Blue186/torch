@@ -3,6 +3,8 @@ package com.torch.app.util.tools;
 
 
 import com.torch.app.entity.User;
+import org.redisson.api.RedissonClient;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -15,12 +17,22 @@ import java.util.Random;
 //邮件发送类
 @Component
 public class EmailSendUtil {
-    @Resource
+
     private JavaMailSenderImpl mailSender;
-    @Resource
+
     private RedisUtil redisUtil;
-    @Resource
+
     private TokenUtil tokenUtil;
+
+    private RedissonClient redissonClient;
+
+    @Autowired
+    public EmailSendUtil(JavaMailSenderImpl mailSender, RedisUtil redisUtil, TokenUtil tokenUtil, RedissonClient redissonClient) {
+        this.mailSender = mailSender;
+        this.redisUtil = redisUtil;
+        this.tokenUtil = tokenUtil;
+        this.redissonClient = redissonClient;
+    }
 
     /**
      * 简易样式邮箱
@@ -52,6 +64,7 @@ public class EmailSendUtil {
 
 
         String md5 = tokenUtil.generateMd5(mail, cookie,code);
+//        ---------------------------,就不用布隆过滤器了吧
         redisUtil.set(mail,md5,60);//将mail和cookie加密的md5上传redis。
 
 

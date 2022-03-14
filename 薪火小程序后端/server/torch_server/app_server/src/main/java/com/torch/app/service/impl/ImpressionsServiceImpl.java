@@ -8,7 +8,10 @@ import com.torch.app.entity.vo.ImpressionsCon.ImpressionsInfo;
 import com.torch.app.mapper.ImpressionsMapper;
 import com.torch.app.service.ImpImagesService;
 import com.torch.app.service.ImpressionsService;
+import com.torch.app.util.commonutils.CacheCode;
 import com.torch.app.util.tools.FileUtil;
+import org.redisson.api.RedissonClient;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -16,15 +19,21 @@ import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class ImpressionsServiceImpl extends ServiceImpl<ImpressionsMapper, Impressions> implements ImpressionsService {
-    @Resource
-    private ImpressionsMapper impressionsMapper;
-    @Resource
-    private FileUtil fileUtil;
-    @Resource
+
     private ImpImagesService impImagesService;
+
+    private RedissonClient redissonClient;
+
+    @Autowired
+    public ImpressionsServiceImpl(ImpImagesService impImagesService, RedissonClient redissonClient) {
+        this.impImagesService = impImagesService;
+        this.redissonClient = redissonClient;
+    }
+
     @Override
     public void insertImages(String[] imagesUrls, Integer impId) {
         for (String url : imagesUrls) {
@@ -32,6 +41,7 @@ public class ImpressionsServiceImpl extends ServiceImpl<ImpressionsMapper, Impre
             impImages.setUrl(url);
             impImages.setImpId(impId);
             impImagesService.getBaseMapper().insert(impImages);
+            redissonClient.getBucket(CacheCode.CACHE_IMP_IMAGES+impImages.getId()).trySet(impImages,CacheCode.IMP_IMAGES_TIME, TimeUnit.MINUTES);
         }
     }
 
@@ -45,6 +55,7 @@ public class ImpressionsServiceImpl extends ServiceImpl<ImpressionsMapper, Impre
             impImages.setUrl(url);
             impImages.setImpId(impId);
             impImagesService.getBaseMapper().insert(impImages);
+            redissonClient.getBucket(CacheCode.CACHE_IMP_IMAGES+impImages.getId()).trySet(impImages,CacheCode.IMP_IMAGES_TIME, TimeUnit.MINUTES);
         }
     }
 

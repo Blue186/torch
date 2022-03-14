@@ -31,13 +31,14 @@ spring:
   redis:
     host: 127.0.0.1
     port: 6379
-#    password:
+    database: 0
+    password: keepacat
 #    lettuce:
 #      pool:
-#        max-active:
-#        max-idle:
-#        max-wait:
-#      shutdown-timeout:
+#        max-active: 20
+#        max-idle: -1
+#        max-wait: 0
+#      shutdown-timeout: 10
 mybatis-plus:
   mapper-locations: classpath:mapper/*.xml #  xml文件所在位置
   type-aliases-package: com/torch/app/entity #别名文件位置
@@ -53,3 +54,7 @@ swagger:
 wx:
   appid: wx340fc38eece916c2
   secret: ad527c3572bd15f95a47df54aa47e25c
+logging:
+  config: classpath:log/logback-spring.xml
+  level:
+    root: off

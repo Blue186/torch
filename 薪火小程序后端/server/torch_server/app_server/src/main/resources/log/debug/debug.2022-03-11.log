@@ -1,0 +1,57 @@
+2022-03-11 17:27:20.482|[main]|DEBUG|com.torch.app.AppApplication-Running with Spring Boot v2.5.5, Spring v5.3.10
+2022-03-11 17:27:42.454|[http-nio-0.0.0.0-8002-exec-3]|DEBUG|c.t.a.m.A.selectChild-==>  Preparing: select *from activity_child where activity_id = ?;
+2022-03-11 17:27:42.473|[http-nio-0.0.0.0-8002-exec-3]|DEBUG|c.t.a.m.A.selectChild-==> Parameters: 11(Integer)
+2022-03-11 17:27:42.530|[http-nio-0.0.0.0-8002-exec-3]|DEBUG|c.t.a.m.A.selectChild-<==      Total: 3
+2022-03-11 17:27:42.583|[http-nio-0.0.0.0-8002-exec-3]|DEBUG|c.t.a.m.A.selectList-==>  Preparing: SELECT id,start_time,end_time,address,recruiting,recruited,act_chi_id,act_id,vol_time FROM activity_times WHERE (act_chi_id = ? AND act_id = ?)
+2022-03-11 17:27:42.584|[http-nio-0.0.0.0-8002-exec-3]|DEBUG|c.t.a.m.A.selectList-==> Parameters: 10(Integer), 11(Integer)
+2022-03-11 17:27:42.621|[http-nio-0.0.0.0-8002-exec-3]|DEBUG|c.t.a.m.A.selectList-<==      Total: 2
+2022-03-11 17:27:42.624|[http-nio-0.0.0.0-8002-exec-3]|DEBUG|c.t.a.m.A.selectList-==>  Preparing: SELECT id,start_time,end_time,address,recruiting,recruited,act_chi_id,act_id,vol_time FROM activity_times WHERE (act_chi_id = ? AND act_id = ?)
+2022-03-11 17:27:42.624|[http-nio-0.0.0.0-8002-exec-3]|DEBUG|c.t.a.m.A.selectList-==> Parameters: 11(Integer), 11(Integer)
+2022-03-11 17:27:42.661|[http-nio-0.0.0.0-8002-exec-3]|DEBUG|c.t.a.m.A.selectList-<==      Total: 2
+2022-03-11 17:27:42.663|[http-nio-0.0.0.0-8002-exec-3]|DEBUG|c.t.a.m.A.selectList-==>  Preparing: SELECT id,start_time,end_time,address,recruiting,recruited,act_chi_id,act_id,vol_time FROM activity_times WHERE (act_chi_id = ? AND act_id = ?)
+2022-03-11 17:27:42.664|[http-nio-0.0.0.0-8002-exec-3]|DEBUG|c.t.a.m.A.selectList-==> Parameters: 12(Integer), 11(Integer)
+2022-03-11 17:27:42.701|[http-nio-0.0.0.0-8002-exec-3]|DEBUG|c.t.a.m.A.selectList-<==      Total: 1
+2022-03-11 18:22:58.201|[main]|DEBUG|com.torch.app.AppApplication-Running with Spring Boot v2.5.5, Spring v5.3.10
+2022-03-11 18:32:08.029|[main]|DEBUG|com.torch.app.AppApplication-Running with Spring Boot v2.5.5, Spring v5.3.10
+2022-03-11 18:39:38.131|[main]|DEBUG|com.torch.app.AppApplication-Running with Spring Boot v2.5.5, Spring v5.3.10
+2022-03-11 18:42:50.392|[main]|DEBUG|com.torch.app.AppApplication-Running with Spring Boot v2.5.5, Spring v5.3.10
+2022-03-11 18:43:43.889|[main]|DEBUG|com.torch.app.AppApplication-Running with Spring Boot v2.5.5, Spring v5.3.10
+2022-03-11 18:46:45.946|[main]|DEBUG|com.torch.app.AppApplication-Running with Spring Boot v2.5.5, Spring v5.3.10
+2022-03-11 18:47:21.231|[http-nio-0.0.0.0-8002-exec-7]|DEBUG|c.t.a.m.A.selectChild-==>  Preparing: select *from activity_child where activity_id = ?;
+2022-03-11 18:47:21.255|[http-nio-0.0.0.0-8002-exec-7]|DEBUG|c.t.a.m.A.selectChild-==> Parameters: 11(Integer)
+2022-03-11 18:47:21.315|[http-nio-0.0.0.0-8002-exec-7]|DEBUG|c.t.a.m.A.selectChild-<==      Total: 3
+2022-03-11 18:47:21.368|[http-nio-0.0.0.0-8002-exec-7]|DEBUG|c.t.a.m.A.selectList-==>  Preparing: SELECT id,start_time,end_time,address,recruiting,recruited,act_chi_id,act_id,vol_time FROM activity_times WHERE (act_chi_id = ? AND act_id = ?)
+2022-03-11 18:47:21.368|[http-nio-0.0.0.0-8002-exec-7]|DEBUG|c.t.a.m.A.selectList-==> Parameters: 10(Integer), 11(Integer)
+2022-03-11 18:47:21.408|[http-nio-0.0.0.0-8002-exec-7]|DEBUG|c.t.a.m.A.selectList-<==      Total: 2
+2022-03-11 18:47:21.409|[http-nio-0.0.0.0-8002-exec-7]|DEBUG|c.t.a.m.A.selectList-==>  Preparing: SELECT id,start_time,end_time,address,recruiting,recruited,act_chi_id,act_id,vol_time FROM activity_times WHERE (act_chi_id = ? AND act_id = ?)
+2022-03-11 18:47:21.409|[http-nio-0.0.0.0-8002-exec-7]|DEBUG|c.t.a.m.A.selectList-==> Parameters: 11(Integer), 11(Integer)
+2022-03-11 18:47:21.448|[http-nio-0.0.0.0-8002-exec-7]|DEBUG|c.t.a.m.A.selectList-<==      Total: 2
+2022-03-11 18:47:21.451|[http-nio-0.0.0.0-8002-exec-7]|DEBUG|c.t.a.m.A.selectList-==>  Preparing: SELECT id,start_time,end_time,address,recruiting,recruited,act_chi_id,act_id,vol_time FROM activity_times WHERE (act_chi_id = ? AND act_id = ?)
+2022-03-11 18:47:21.452|[http-nio-0.0.0.0-8002-exec-7]|DEBUG|c.t.a.m.A.selectList-==> Parameters: 12(Integer), 11(Integer)
+2022-03-11 18:47:21.490|[http-nio-0.0.0.0-8002-exec-7]|DEBUG|c.t.a.m.A.selectList-<==      Total: 1
+2022-03-11 18:48:22.076|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectChild-==>  Preparing: select *from activity_child where activity_id = ?;
+2022-03-11 18:48:22.076|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectChild-==> Parameters: 11(Integer)
+2022-03-11 18:48:22.113|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectChild-<==      Total: 3
+2022-03-11 18:48:22.115|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectList-==>  Preparing: SELECT id,start_time,end_time,address,recruiting,recruited,act_chi_id,act_id,vol_time FROM activity_times WHERE (act_chi_id = ? AND act_id = ?)
+2022-03-11 18:48:22.115|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectList-==> Parameters: 10(Integer), 11(Integer)
+2022-03-11 18:48:22.151|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectList-<==      Total: 2
+2022-03-11 18:48:22.153|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectList-==>  Preparing: SELECT id,start_time,end_time,address,recruiting,recruited,act_chi_id,act_id,vol_time FROM activity_times WHERE (act_chi_id = ? AND act_id = ?)
+2022-03-11 18:48:22.153|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectList-==> Parameters: 11(Integer), 11(Integer)
+2022-03-11 18:48:22.191|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectList-<==      Total: 2
+2022-03-11 18:48:22.192|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectList-==>  Preparing: SELECT id,start_time,end_time,address,recruiting,recruited,act_chi_id,act_id,vol_time FROM activity_times WHERE (act_chi_id = ? AND act_id = ?)
+2022-03-11 18:48:22.192|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectList-==> Parameters: 12(Integer), 11(Integer)
+2022-03-11 18:48:22.231|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectList-<==      Total: 1
+2022-03-11 18:48:32.863|[http-nio-0.0.0.0-8002-exec-1]|DEBUG|c.t.a.m.A.selectChild-==>  Preparing: select *from activity_child where activity_id = ?;
+2022-03-11 18:48:32.864|[http-nio-0.0.0.0-8002-exec-1]|DEBUG|c.t.a.m.A.selectChild-==> Parameters: 11(Integer)
+2022-03-11 18:48:32.906|[http-nio-0.0.0.0-8002-exec-1]|DEBUG|c.t.a.m.A.selectChild-<==      Total: 3
+2022-03-11 18:48:32.907|[http-nio-0.0.0.0-8002-exec-1]|DEBUG|c.t.a.m.A.selectList-==>  Preparing: SELECT id,start_time,end_time,address,recruiting,recruited,act_chi_id,act_id,vol_time FROM activity_times WHERE (act_chi_id = ? AND act_id = ?)
+2022-03-11 18:48:32.908|[http-nio-0.0.0.0-8002-exec-1]|DEBUG|c.t.a.m.A.selectList-==> Parameters: 10(Integer), 11(Integer)
+2022-03-11 18:48:33.001|[http-nio-0.0.0.0-8002-exec-1]|DEBUG|c.t.a.m.A.selectList-<==      Total: 2
+2022-03-11 18:48:33.003|[http-nio-0.0.0.0-8002-exec-1]|DEBUG|c.t.a.m.A.selectList-==>  Preparing: SELECT id,start_time,end_time,address,recruiting,recruited,act_chi_id,act_id,vol_time FROM activity_times WHERE (act_chi_id = ? AND act_id = ?)
+2022-03-11 18:48:33.003|[http-nio-0.0.0.0-8002-exec-1]|DEBUG|c.t.a.m.A.selectList-==> Parameters: 11(Integer), 11(Integer)
+2022-03-11 18:48:33.074|[http-nio-0.0.0.0-8002-exec-1]|DEBUG|c.t.a.m.A.selectList-<==      Total: 2
+2022-03-11 18:48:33.076|[http-nio-0.0.0.0-8002-exec-1]|DEBUG|c.t.a.m.A.selectList-==>  Preparing: SELECT id,start_time,end_time,address,recruiting,recruited,act_chi_id,act_id,vol_time FROM activity_times WHERE (act_chi_id = ? AND act_id = ?)
+2022-03-11 18:48:33.076|[http-nio-0.0.0.0-8002-exec-1]|DEBUG|c.t.a.m.A.selectList-==> Parameters: 12(Integer), 11(Integer)
+2022-03-11 18:48:33.146|[http-nio-0.0.0.0-8002-exec-1]|DEBUG|c.t.a.m.A.selectList-<==      Total: 1
+2022-03-11 20:42:59.469|[main]|DEBUG|com.torch.app.AppApplication-Running with Spring Boot v2.5.5, Spring v5.3.10
+2022-03-11 20:53:23.903|[main]|DEBUG|com.torch.app.AppApplication-Running with Spring Boot v2.5.5, Spring v5.3.10

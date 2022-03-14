@@ -6,11 +6,12 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.Date;
 
 @Data
 @TableName("activity_times")
-public class ActivityTimes {
+public class ActivityTimes implements Serializable {
     @ApiModelProperty(name ="id",value = "子活动时间段表格")
     @TableId(type = IdType.AUTO)
     private Integer id;

@@ -15,4 +15,6 @@ public interface ResultCode {
     Integer timeOut = 103;//超时错误码
 
     Integer notSatisfySign = 104;//不满足志愿报名条件，时间冲突
+
+    Integer wrongMsg = 105;//代表错误的请求，布隆过滤器中没有。
 }

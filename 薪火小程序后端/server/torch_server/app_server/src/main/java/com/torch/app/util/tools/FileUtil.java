@@ -8,6 +8,19 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
+/**
+ *上传图片
+ * 前端传递Base64编码到后端，String
+ * 后端根据Base64进行解码操作，拿到文件后缀名。
+ * 转存文件到本地的目录
+ * 将目录信息+文件名保存到数据库==图片的地址
+ * 将地址返回给前端。
+ * data:image/png;base64,iVBORw0KGgoAAA
+ * ANSUhEUgAAB1EAAAGdCAYAAABD6YrOAAAAAXNSR0IArs4c
+ * 6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAA
+ * P4dSURBVHhe7N0NYBTVvT7+J0iiN0UEJRDejYZyS8r9BavUECqSe4lyoV
+ *IiIiIKnrBT3
+ */
 
 @Component
 public class FileUtil {
@@ -33,7 +46,7 @@ public class FileUtil {
 
         String suffix = "";//图片后缀，用以识别哪种格式数据
         //data:image/jpeg;base64,base64编码的jpeg图片数据
-        if("data:image/jpeg;".equalsIgnoreCase(prefix)){
+        if("data:image/jpeg;".equalsIgnoreCase(prefix)){//JPG
             suffix = ".jpg";
         }else if("data:image/x-icon;".equalsIgnoreCase(prefix)){
             //data:image/x-icon;base64,base64编码的icon图片数据
@@ -48,20 +61,15 @@ public class FileUtil {
             return "-2";//上传图片格式不合法,支持jpg,ico,png,gif
         }
 
-        String flag = IdUtil.fastSimpleUUID();//生成随记UUID码
+        String flag = IdUtil.fastSimpleUUID();//生成随记UUID码:ajspdjasdkjasasdasjdla
         String imageName = flag+suffix;
-//        String imageFilePath = System.getProperty("user.dir")+"/torch_server/app_server/src/main/resources/static/images/"+imageName;
-        String imageFilePath = System.getProperty("user.dir")+"/static/images/"+imageName;
+        String imageFilePath = System.getProperty("user.dir")+"/torch_server/app_server/src/main/resources/static/images/"+imageName;//本地使用
+//        String imageFilePath = System.getProperty("user.dir")+"/static/images/"+imageName;服务器使用
         BASE64Decoder base64Decoder = new BASE64Decoder();
         try {
             //Base64解码
-            byte[] b = base64Decoder.decodeBuffer(data);
-            for(int i=0;i<b.length;++i) {
-                if(b[i]<0) {
-                    //调整异常数据
-                    b[i]+=256;
-                }
-            }
+            byte[] b = base64Decoder.decodeBuffer(data);//转成2进制
+
             OutputStream out = new FileOutputStream(imageFilePath);
             out.write(b);
             out.flush();

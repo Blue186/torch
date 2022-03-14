@@ -4,13 +4,14 @@ import com.torch.app.entity.ActivityTimes;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 
 @Data
-public class GetChild {
+public class GetChild implements Serializable {
     @ApiModelProperty(name = "id",value = "子活动id")
     private Integer id;
     @ApiModelProperty(name = "activity",value = "活动id")

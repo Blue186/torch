@@ -6,9 +6,11 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Data
 @TableName("art_images")
-public class ArtImages {
+public class ArtImages implements Serializable {
     @ApiModelProperty(name = "id",value = "图片id")
     @TableId(type = IdType.AUTO)
     private Integer id;

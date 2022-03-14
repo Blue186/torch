@@ -1,0 +1,4 @@
+2022-03-08 10:11:04.514 [main]INFO  com.torch.app.AppApplication-Starting AppApplication using Java 1.8.0_202 on LAPTOP-B8LA37VK with PID 18512 (D:\Desktop\薪火技术部\微信小程序\torch\薪火小程序后端\server\torch_server\app_server\target\classes started by 79014 in D:\Desktop\薪火技术部\微信小程序\torch\薪火小程序后端\server)
+2022-03-08 10:11:04.518 [main]INFO  com.torch.app.AppApplication-No active profile set, falling back to default profiles: default
+2022-03-08 10:11:08.558 [main]INFO  com.torch.app.AppApplication-Started AppApplication in 4.695 seconds (JVM running for 5.654)
+2022-03-08 10:11:43.085 [http-nio-0.0.0.0-8002-exec-1]INFO  c.t.a.w.annotation.LogCostTime-com.torch.app.controller.ActivityChildController.getChild cost:1148ms

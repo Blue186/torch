@@ -40,6 +40,7 @@ public class OpenIdUtil {
             System.out.println("secret:-----------"+secret);
             System.out.println("openid:-----------"+sb.toString());
             JSONObject jsonObject = JSONObject.fromObject(sb.toString());
+
             Object openid = jsonObject.get("openid");
             System.out.println("openid---------------"+openid.toString());
             return openid.toString();

@@ -12,7 +12,7 @@ public class CookieUtils {
 
     // cookie 字符串长度
     private static final int COOKIE_LENGTH = 24;
-
+//用户登录的时候，我们发送一个cookie给用户，然后用户每次请求接口的时候都要携带我们的cookie。
     @Resource
     private RedisUtil redisUtil;
 

@@ -1,0 +1,150 @@
+2022-03-12 13:57:43.358|[main]|INFO |com.torch.app.AppApplication-Starting AppApplication using Java 1.8.0_202 on LAPTOP-B8LA37VK with PID 7956 (D:\Desktop\薪火技术部\微信小程序\torch\薪火小程序后端\server\torch_server\app_server\target\classes started by 79014 in D:\Desktop\薪火技术部\微信小程序\torch\薪火小程序后端\server)
+2022-03-12 13:57:43.384|[main]|INFO |com.torch.app.AppApplication-No active profile set, falling back to default profiles: default
+2022-03-12 13:57:51.084|[main]|INFO |com.torch.app.AppApplication-Started AppApplication in 8.838 seconds (JVM running for 10.588)
+2022-03-12 13:58:16.396|[http-nio-0.0.0.0-8002-exec-7]|INFO |c.t.a.w.annotation.LogCostTime-请求时间：2022-03-12 13:58:16.395
+2022-03-12 13:58:16.397|[http-nio-0.0.0.0-8002-exec-7]|INFO |c.t.a.w.annotation.LogCostTime-请求IP：0:0:0:0:0:0:0:1
+2022-03-12 13:58:16.398|[http-nio-0.0.0.0-8002-exec-7]|INFO |c.t.a.w.annotation.LogCostTime-请求方式：GET，方法：getChild
+2022-03-12 13:58:16.399|[http-nio-0.0.0.0-8002-exec-7]|INFO |c.t.a.w.annotation.LogCostTime-请求参数：[11]
+2022-03-12 13:59:19.240|[http-nio-0.0.0.0-8002-exec-8]|INFO |c.t.a.w.annotation.LogCostTime-请求时间：2022-03-12 13:59:19.240
+2022-03-12 13:59:19.240|[http-nio-0.0.0.0-8002-exec-8]|INFO |c.t.a.w.annotation.LogCostTime-请求IP：0:0:0:0:0:0:0:1
+2022-03-12 13:59:19.240|[http-nio-0.0.0.0-8002-exec-8]|INFO |c.t.a.w.annotation.LogCostTime-请求方式：GET，方法：getChild
+2022-03-12 13:59:19.240|[http-nio-0.0.0.0-8002-exec-8]|INFO |c.t.a.w.annotation.LogCostTime-请求参数：[11]
+2022-03-12 13:59:48.579|[http-nio-0.0.0.0-8002-exec-8]|INFO |c.t.a.w.annotation.LogCostTime-请求结束时间：2022-03-12 13:59:48.579
+2022-03-12 13:59:48.579|[http-nio-0.0.0.0-8002-exec-8]|INFO |c.t.a.w.annotation.LogCostTime-请求耗时：29339
+2022-03-12 14:00:21.808|[main]|INFO |com.torch.app.AppApplication-Starting AppApplication using Java 1.8.0_202 on LAPTOP-B8LA37VK with PID 3008 (D:\Desktop\薪火技术部\微信小程序\torch\薪火小程序后端\server\torch_server\app_server\target\classes started by 79014 in D:\Desktop\薪火技术部\微信小程序\torch\薪火小程序后端\server)
+2022-03-12 14:00:21.812|[main]|INFO |com.torch.app.AppApplication-No active profile set, falling back to default profiles: default
+2022-03-12 14:00:27.713|[main]|INFO |com.torch.app.AppApplication-Started AppApplication in 6.68 seconds (JVM running for 7.773)
+2022-03-12 14:00:33.174|[http-nio-0.0.0.0-8002-exec-1]|INFO |c.t.a.w.annotation.LogCostTime-请求时间：2022-03-12 14:00:33.173
+2022-03-12 14:00:33.174|[http-nio-0.0.0.0-8002-exec-1]|INFO |c.t.a.w.annotation.LogCostTime-请求IP：0:0:0:0:0:0:0:1
+2022-03-12 14:00:33.175|[http-nio-0.0.0.0-8002-exec-1]|INFO |c.t.a.w.annotation.LogCostTime-请求方式：GET，方法：getChild
+2022-03-12 14:00:33.175|[http-nio-0.0.0.0-8002-exec-1]|INFO |c.t.a.w.annotation.LogCostTime-请求参数：[11]
+2022-03-12 14:04:41.816|[main]|INFO |com.torch.app.AppApplication-Starting AppApplication using Java 1.8.0_202 on LAPTOP-B8LA37VK with PID 16804 (D:\Desktop\薪火技术部\微信小程序\torch\薪火小程序后端\server\torch_server\app_server\target\classes started by 79014 in D:\Desktop\薪火技术部\微信小程序\torch\薪火小程序后端\server)
+2022-03-12 14:04:41.821|[main]|INFO |com.torch.app.AppApplication-No active profile set, falling back to default profiles: default
+2022-03-12 14:04:47.843|[main]|INFO |com.torch.app.AppApplication-Started AppApplication in 6.818 seconds (JVM running for 7.937)
+2022-03-12 14:04:50.952|[http-nio-0.0.0.0-8002-exec-1]|INFO |c.t.a.w.annotation.LogCostTime-请求时间：2022-03-12 14:04:50.951
+2022-03-12 14:04:50.952|[http-nio-0.0.0.0-8002-exec-1]|INFO |c.t.a.w.annotation.LogCostTime-请求IP：0:0:0:0:0:0:0:1
+2022-03-12 14:04:50.953|[http-nio-0.0.0.0-8002-exec-1]|INFO |c.t.a.w.annotation.LogCostTime-请求方式：GET，方法：getChild
+2022-03-12 14:04:50.953|[http-nio-0.0.0.0-8002-exec-1]|INFO |c.t.a.w.annotation.LogCostTime-请求参数：[11]
+2022-03-12 14:05:04.045|[http-nio-0.0.0.0-8002-exec-2]|INFO |c.t.a.w.annotation.LogCostTime-请求时间：2022-03-12 14:05:04.045
+2022-03-12 14:05:04.045|[http-nio-0.0.0.0-8002-exec-2]|INFO |c.t.a.w.annotation.LogCostTime-请求IP：0:0:0:0:0:0:0:1
+2022-03-12 14:05:04.046|[http-nio-0.0.0.0-8002-exec-2]|INFO |c.t.a.w.annotation.LogCostTime-请求方式：GET，方法：getChild
+2022-03-12 14:05:04.046|[http-nio-0.0.0.0-8002-exec-2]|INFO |c.t.a.w.annotation.LogCostTime-请求参数：[11]
+2022-03-12 14:07:01.152|[main]|INFO |com.torch.app.AppApplication-Starting AppApplication using Java 1.8.0_202 on LAPTOP-B8LA37VK with PID 12804 (D:\Desktop\薪火技术部\微信小程序\torch\薪火小程序后端\server\torch_server\app_server\target\classes started by 79014 in D:\Desktop\薪火技术部\微信小程序\torch\薪火小程序后端\server)
+2022-03-12 14:07:01.161|[main]|INFO |com.torch.app.AppApplication-No active profile set, falling back to default profiles: default
+2022-03-12 14:07:06.664|[main]|INFO |com.torch.app.AppApplication-Started AppApplication in 6.126 seconds (JVM running for 7.371)
+2022-03-12 14:07:12.547|[http-nio-0.0.0.0-8002-exec-1]|INFO |c.t.a.w.annotation.LogCostTime-请求时间：2022-03-12 14:07:12.545
+2022-03-12 14:07:12.547|[http-nio-0.0.0.0-8002-exec-1]|INFO |c.t.a.w.annotation.LogCostTime-请求IP：0:0:0:0:0:0:0:1
+2022-03-12 14:07:12.548|[http-nio-0.0.0.0-8002-exec-1]|INFO |c.t.a.w.annotation.LogCostTime-请求方式：GET，方法：getChild
+2022-03-12 14:07:12.548|[http-nio-0.0.0.0-8002-exec-1]|INFO |c.t.a.w.annotation.LogCostTime-请求参数：[11]
+2022-03-12 14:07:13.432|[http-nio-0.0.0.0-8002-exec-1]|INFO |c.t.a.w.annotation.LogCostTime-请求结束时间：2022-03-12 14:07:13.432
+2022-03-12 14:07:13.432|[http-nio-0.0.0.0-8002-exec-1]|INFO |c.t.a.w.annotation.LogCostTime-请求耗时：890
+2022-03-12 14:18:55.639|[main]|INFO |com.torch.app.AppApplication-Starting AppApplication using Java 1.8.0_202 on LAPTOP-B8LA37VK with PID 17996 (D:\Desktop\薪火技术部\微信小程序\torch\薪火小程序后端\server\torch_server\app_server\target\classes started by 79014 in D:\Desktop\薪火技术部\微信小程序\torch\薪火小程序后端\server)
+2022-03-12 14:18:55.651|[main]|INFO |com.torch.app.AppApplication-No active profile set, falling back to default profiles: default
+2022-03-12 14:19:01.264|[main]|INFO |com.torch.app.AppApplication-Started AppApplication in 6.29 seconds (JVM running for 7.278)
+2022-03-12 14:20:00.941|[http-nio-0.0.0.0-8002-exec-1]|INFO |c.t.a.w.annotation.LogCostTime-请求时间：2022-03-12 14:20:00.940
+2022-03-12 14:20:00.941|[http-nio-0.0.0.0-8002-exec-1]|INFO |c.t.a.w.annotation.LogCostTime-请求IP：0:0:0:0:0:0:0:1
+2022-03-12 14:20:00.942|[http-nio-0.0.0.0-8002-exec-1]|INFO |c.t.a.w.annotation.LogCostTime-请求方式：GET，方法：getChild
+2022-03-12 14:20:00.942|[http-nio-0.0.0.0-8002-exec-1]|INFO |c.t.a.w.annotation.LogCostTime-请求参数：[11]
+2022-03-12 14:20:01.843|[http-nio-0.0.0.0-8002-exec-1]|INFO |c.t.a.w.annotation.LogCostTime-请求结束时间：2022-03-12 14:20:01.842
+2022-03-12 14:20:01.843|[http-nio-0.0.0.0-8002-exec-1]|INFO |c.t.a.w.annotation.LogCostTime-请求耗时：905
+2022-03-12 15:26:26.297|[main]|INFO |com.torch.app.AppApplication-Starting AppApplication using Java 1.8.0_202 on LAPTOP-B8LA37VK with PID 12112 (D:\Desktop\薪火技术部\微信小程序\torch\薪火小程序后端\server\torch_server\app_server\target\classes started by 79014 in D:\Desktop\薪火技术部\微信小程序\torch\薪火小程序后端\server)
+2022-03-12 15:26:26.311|[main]|INFO |com.torch.app.AppApplication-No active profile set, falling back to default profiles: default
+2022-03-12 15:26:32.618|[main]|INFO |com.torch.app.AppApplication-Started AppApplication in 7.102 seconds (JVM running for 8.233)
+2022-03-12 15:30:31.164|[main]|INFO |com.torch.app.AppApplication-Starting AppApplication using Java 1.8.0_202 on LAPTOP-B8LA37VK with PID 17832 (D:\Desktop\薪火技术部\微信小程序\torch\薪火小程序后端\server\torch_server\app_server\target\classes started by 79014 in D:\Desktop\薪火技术部\微信小程序\torch\薪火小程序后端\server)
+2022-03-12 15:30:31.169|[main]|INFO |com.torch.app.AppApplication-No active profile set, falling back to default profiles: default
+2022-03-12 15:30:36.945|[main]|INFO |com.torch.app.AppApplication-Started AppApplication in 6.517 seconds (JVM running for 7.723)
+2022-03-12 15:33:34.704|[main]|INFO |com.torch.app.AppApplication-Starting AppApplication using Java 1.8.0_202 on LAPTOP-B8LA37VK with PID 11904 (D:\Desktop\薪火技术部\微信小程序\torch\薪火小程序后端\server\torch_server\app_server\target\classes started by 79014 in D:\Desktop\薪火技术部\微信小程序\torch\薪火小程序后端\server)
+2022-03-12 15:33:34.707|[main]|INFO |com.torch.app.AppApplication-No active profile set, falling back to default profiles: default
+2022-03-12 15:33:40.384|[main]|INFO |com.torch.app.AppApplication-Started AppApplication in 6.382 seconds (JVM running for 7.508)
+2022-03-12 15:34:59.516|[main]|INFO |com.torch.app.AppApplication-Starting AppApplication using Java 1.8.0_202 on LAPTOP-B8LA37VK with PID 7480 (D:\Desktop\薪火技术部\微信小程序\torch\薪火小程序后端\server\torch_server\app_server\target\classes started by 79014 in D:\Desktop\薪火技术部\微信小程序\torch\薪火小程序后端\server)
+2022-03-12 15:34:59.528|[main]|INFO |com.torch.app.AppApplication-No active profile set, falling back to default profiles: default
+2022-03-12 15:35:05.303|[main]|INFO |com.torch.app.AppApplication-Started AppApplication in 6.543 seconds (JVM running for 7.74)
+2022-03-12 15:35:25.464|[main]|INFO |com.torch.app.AppApplication-Starting AppApplication using Java 1.8.0_202 on LAPTOP-B8LA37VK with PID 17948 (D:\Desktop\薪火技术部\微信小程序\torch\薪火小程序后端\server\torch_server\app_server\target\classes started by 79014 in D:\Desktop\薪火技术部\微信小程序\torch\薪火小程序后端\server)
+2022-03-12 15:35:25.469|[main]|INFO |com.torch.app.AppApplication-No active profile set, falling back to default profiles: default
+2022-03-12 15:35:31.033|[main]|INFO |com.torch.app.AppApplication-Started AppApplication in 6.304 seconds (JVM running for 7.381)
+2022-03-12 15:37:12.212|[main]|INFO |com.torch.app.AppApplication-Starting AppApplication using Java 1.8.0_202 on LAPTOP-B8LA37VK with PID 13288 (D:\Desktop\薪火技术部\微信小程序\torch\薪火小程序后端\server\torch_server\app_server\target\classes started by 79014 in D:\Desktop\薪火技术部\微信小程序\torch\薪火小程序后端\server)
+2022-03-12 15:37:12.218|[main]|INFO |com.torch.app.AppApplication-No active profile set, falling back to default profiles: default
+2022-03-12 15:37:19.512|[main]|INFO |com.torch.app.AppApplication-Started AppApplication in 8.197 seconds (JVM running for 9.772)
+2022-03-12 15:42:42.486|[main]|INFO |com.torch.app.AppApplication-Starting AppApplication using Java 1.8.0_202 on LAPTOP-B8LA37VK with PID 6092 (D:\Desktop\薪火技术部\微信小程序\torch\薪火小程序后端\server\torch_server\app_server\target\classes started by 79014 in D:\Desktop\薪火技术部\微信小程序\torch\薪火小程序后端\server)
+2022-03-12 15:42:42.492|[main]|INFO |com.torch.app.AppApplication-No active profile set, falling back to default profiles: default
+2022-03-12 15:42:49.060|[main]|INFO |com.torch.app.AppApplication-Started AppApplication in 7.402 seconds (JVM running for 8.653)
+2022-03-12 15:49:54.470|[main]|INFO |com.torch.app.AppApplication-Starting AppApplication using Java 1.8.0_202 on LAPTOP-B8LA37VK with PID 16884 (D:\Desktop\薪火技术部\微信小程序\torch\薪火小程序后端\server\torch_server\app_server\target\classes started by 79014 in D:\Desktop\薪火技术部\微信小程序\torch\薪火小程序后端\server)
+2022-03-12 15:49:54.484|[main]|INFO |com.torch.app.AppApplication-No active profile set, falling back to default profiles: default
+2022-03-12 15:50:00.802|[main]|INFO |com.torch.app.AppApplication-Started AppApplication in 7.299 seconds (JVM running for 8.401)
+2022-03-12 15:50:18.427|[main]|INFO |com.torch.app.AppApplication-Starting AppApplication using Java 1.8.0_202 on LAPTOP-B8LA37VK with PID 15784 (D:\Desktop\薪火技术部\微信小程序\torch\薪火小程序后端\server\torch_server\app_server\target\classes started by 79014 in D:\Desktop\薪火技术部\微信小程序\torch\薪火小程序后端\server)
+2022-03-12 15:50:18.433|[main]|INFO |com.torch.app.AppApplication-No active profile set, falling back to default profiles: default
+2022-03-12 15:50:24.635|[main]|INFO |com.torch.app.AppApplication-Started AppApplication in 7.277 seconds (JVM running for 8.875)
+2022-03-12 18:20:31.598|[main]|INFO |com.torch.app.AppApplication-Starting AppApplication using Java 1.8.0_202 on LAPTOP-B8LA37VK with PID 2632 (D:\Desktop\薪火技术部\微信小程序\torch\薪火小程序后端\server\torch_server\app_server\target\classes started by 79014 in D:\Desktop\薪火技术部\微信小程序\torch\薪火小程序后端\server)
+2022-03-12 18:20:31.605|[main]|INFO |com.torch.app.AppApplication-No active profile set, falling back to default profiles: default
+2022-03-12 18:20:38.095|[main]|INFO |com.torch.app.AppApplication-Started AppApplication in 7.496 seconds (JVM running for 8.835)
+2022-03-12 18:20:52.199|[http-nio-0.0.0.0-8002-exec-1]|INFO |c.t.a.w.annotation.LogCostTime-请求时间：2022-03-12 18:20:52.198
+2022-03-12 18:20:52.199|[http-nio-0.0.0.0-8002-exec-1]|INFO |c.t.a.w.annotation.LogCostTime-请求IP：0:0:0:0:0:0:0:1
+2022-03-12 18:20:52.200|[http-nio-0.0.0.0-8002-exec-1]|INFO |c.t.a.w.annotation.LogCostTime-请求方式：GET，方法：getChild
+2022-03-12 18:20:52.200|[http-nio-0.0.0.0-8002-exec-1]|INFO |c.t.a.w.annotation.LogCostTime-请求参数：[11]
+2022-03-12 18:20:52.215|[http-nio-0.0.0.0-8002-exec-1]|INFO |c.t.a.w.annotation.LogCostTime-请求结束时间：2022-03-12 18:20:52.215
+2022-03-12 18:20:52.215|[http-nio-0.0.0.0-8002-exec-1]|INFO |c.t.a.w.annotation.LogCostTime-请求耗时：17
+2022-03-12 18:21:37.132|[http-nio-0.0.0.0-8002-exec-2]|INFO |c.t.a.w.annotation.LogCostTime-请求时间：2022-03-12 18:21:37.132
+2022-03-12 18:21:37.132|[http-nio-0.0.0.0-8002-exec-2]|INFO |c.t.a.w.annotation.LogCostTime-请求IP：0:0:0:0:0:0:0:1
+2022-03-12 18:21:37.132|[http-nio-0.0.0.0-8002-exec-2]|INFO |c.t.a.w.annotation.LogCostTime-请求方式：GET，方法：getChild
+2022-03-12 18:21:37.132|[http-nio-0.0.0.0-8002-exec-2]|INFO |c.t.a.w.annotation.LogCostTime-请求参数：[11]
+2022-03-12 18:21:37.139|[http-nio-0.0.0.0-8002-exec-2]|INFO |c.t.a.w.annotation.LogCostTime-请求结束时间：2022-03-12 18:21:37.139
+2022-03-12 18:21:37.139|[http-nio-0.0.0.0-8002-exec-2]|INFO |c.t.a.w.annotation.LogCostTime-请求耗时：7
+2022-03-12 18:24:13.081|[http-nio-0.0.0.0-8002-exec-4]|INFO |c.t.a.w.annotation.LogCostTime-请求时间：2022-03-12 18:24:13.081
+2022-03-12 18:24:13.082|[http-nio-0.0.0.0-8002-exec-4]|INFO |c.t.a.w.annotation.LogCostTime-请求IP：0:0:0:0:0:0:0:1
+2022-03-12 18:24:13.082|[http-nio-0.0.0.0-8002-exec-4]|INFO |c.t.a.w.annotation.LogCostTime-请求方式：GET，方法：getChild
+2022-03-12 18:24:13.082|[http-nio-0.0.0.0-8002-exec-4]|INFO |c.t.a.w.annotation.LogCostTime-请求参数：[44]
+2022-03-12 18:24:13.086|[http-nio-0.0.0.0-8002-exec-4]|INFO |c.t.a.w.annotation.LogCostTime-请求结束时间：2022-03-12 18:24:13.086
+2022-03-12 18:24:13.087|[http-nio-0.0.0.0-8002-exec-4]|INFO |c.t.a.w.annotation.LogCostTime-请求耗时：5
+2022-03-12 18:28:17.359|[main]|INFO |com.torch.app.AppApplication-Starting AppApplication using Java 1.8.0_202 on LAPTOP-B8LA37VK with PID 18484 (D:\Desktop\薪火技术部\微信小程序\torch\薪火小程序后端\server\torch_server\app_server\target\classes started by 79014 in D:\Desktop\薪火技术部\微信小程序\torch\薪火小程序后端\server)
+2022-03-12 18:28:17.362|[main]|INFO |com.torch.app.AppApplication-No active profile set, falling back to default profiles: default
+2022-03-12 18:28:23.831|[main]|INFO |com.torch.app.AppApplication-Started AppApplication in 7.153 seconds (JVM running for 8.283)
+2022-03-12 18:28:39.665|[http-nio-0.0.0.0-8002-exec-1]|INFO |c.t.a.w.annotation.LogCostTime-请求时间：2022-03-12 18:28:39.665
+2022-03-12 18:28:39.666|[http-nio-0.0.0.0-8002-exec-1]|INFO |c.t.a.w.annotation.LogCostTime-请求IP：0:0:0:0:0:0:0:1
+2022-03-12 18:28:39.668|[http-nio-0.0.0.0-8002-exec-1]|INFO |c.t.a.w.annotation.LogCostTime-请求方式：GET，方法：getChild
+2022-03-12 18:28:39.668|[http-nio-0.0.0.0-8002-exec-1]|INFO |c.t.a.w.annotation.LogCostTime-请求参数：[11]
+2022-03-12 18:28:39.680|[http-nio-0.0.0.0-8002-exec-1]|INFO |c.t.a.w.annotation.LogCostTime-请求结束时间：2022-03-12 18:28:39.680
+2022-03-12 18:28:39.680|[http-nio-0.0.0.0-8002-exec-1]|INFO |c.t.a.w.annotation.LogCostTime-请求耗时：15
+2022-03-12 18:29:19.362|[http-nio-0.0.0.0-8002-exec-2]|INFO |c.t.a.w.annotation.LogCostTime-请求时间：2022-03-12 18:29:19.362
+2022-03-12 18:29:19.362|[http-nio-0.0.0.0-8002-exec-2]|INFO |c.t.a.w.annotation.LogCostTime-请求IP：0:0:0:0:0:0:0:1
+2022-03-12 18:29:19.362|[http-nio-0.0.0.0-8002-exec-2]|INFO |c.t.a.w.annotation.LogCostTime-请求方式：GET，方法：getChild
+2022-03-12 18:29:19.362|[http-nio-0.0.0.0-8002-exec-2]|INFO |c.t.a.w.annotation.LogCostTime-请求参数：[11]
+2022-03-12 18:29:19.367|[http-nio-0.0.0.0-8002-exec-2]|INFO |c.t.a.w.annotation.LogCostTime-请求结束时间：2022-03-12 18:29:19.367
+2022-03-12 18:29:19.367|[http-nio-0.0.0.0-8002-exec-2]|INFO |c.t.a.w.annotation.LogCostTime-请求耗时：5
+2022-03-12 18:29:44.775|[http-nio-0.0.0.0-8002-exec-3]|INFO |c.t.a.w.annotation.LogCostTime-请求时间：2022-03-12 18:29:44.775
+2022-03-12 18:29:44.775|[http-nio-0.0.0.0-8002-exec-3]|INFO |c.t.a.w.annotation.LogCostTime-请求IP：0:0:0:0:0:0:0:1
+2022-03-12 18:29:44.775|[http-nio-0.0.0.0-8002-exec-3]|INFO |c.t.a.w.annotation.LogCostTime-请求方式：GET，方法：getChild
+2022-03-12 18:29:44.775|[http-nio-0.0.0.0-8002-exec-3]|INFO |c.t.a.w.annotation.LogCostTime-请求参数：[11]
+2022-03-12 18:29:44.806|[http-nio-0.0.0.0-8002-exec-3]|INFO |c.t.a.w.annotation.LogCostTime-请求结束时间：2022-03-12 18:29:44.806
+2022-03-12 18:29:44.806|[http-nio-0.0.0.0-8002-exec-3]|INFO |c.t.a.w.annotation.LogCostTime-请求耗时：31
+2022-03-12 18:43:22.267|[http-nio-0.0.0.0-8002-exec-5]|INFO |c.t.a.w.annotation.LogCostTime-请求时间：2022-03-12 18:43:22.267
+2022-03-12 18:43:22.267|[http-nio-0.0.0.0-8002-exec-5]|INFO |c.t.a.w.annotation.LogCostTime-请求IP：0:0:0:0:0:0:0:1
+2022-03-12 18:43:22.267|[http-nio-0.0.0.0-8002-exec-5]|INFO |c.t.a.w.annotation.LogCostTime-请求方式：GET，方法：getChild
+2022-03-12 18:43:22.268|[http-nio-0.0.0.0-8002-exec-5]|INFO |c.t.a.w.annotation.LogCostTime-请求参数：[55]
+2022-03-12 18:44:01.561|[http-nio-0.0.0.0-8002-exec-6]|INFO |c.t.a.w.annotation.LogCostTime-请求时间：2022-03-12 18:44:01.561
+2022-03-12 18:44:01.561|[http-nio-0.0.0.0-8002-exec-6]|INFO |c.t.a.w.annotation.LogCostTime-请求IP：0:0:0:0:0:0:0:1
+2022-03-12 18:44:01.561|[http-nio-0.0.0.0-8002-exec-6]|INFO |c.t.a.w.annotation.LogCostTime-请求方式：GET，方法：getChild
+2022-03-12 18:44:01.561|[http-nio-0.0.0.0-8002-exec-6]|INFO |c.t.a.w.annotation.LogCostTime-请求参数：[55]
+2022-03-12 18:45:42.478|[main]|INFO |com.torch.app.AppApplication-Starting AppApplication using Java 1.8.0_202 on LAPTOP-B8LA37VK with PID 15812 (D:\Desktop\薪火技术部\微信小程序\torch\薪火小程序后端\server\torch_server\app_server\target\classes started by 79014 in D:\Desktop\薪火技术部\微信小程序\torch\薪火小程序后端\server)
+2022-03-12 18:45:42.484|[main]|INFO |com.torch.app.AppApplication-No active profile set, falling back to default profiles: default
+2022-03-12 18:45:48.352|[main]|INFO |com.torch.app.AppApplication-Started AppApplication in 6.565 seconds (JVM running for 7.635)
+2022-03-12 18:46:00.221|[http-nio-0.0.0.0-8002-exec-1]|INFO |c.t.a.w.annotation.LogCostTime-请求时间：2022-03-12 18:46:00.220
+2022-03-12 18:46:00.221|[http-nio-0.0.0.0-8002-exec-1]|INFO |c.t.a.w.annotation.LogCostTime-请求IP：0:0:0:0:0:0:0:1
+2022-03-12 18:46:00.222|[http-nio-0.0.0.0-8002-exec-1]|INFO |c.t.a.w.annotation.LogCostTime-请求方式：GET，方法：getChild
+2022-03-12 18:46:00.222|[http-nio-0.0.0.0-8002-exec-1]|INFO |c.t.a.w.annotation.LogCostTime-请求参数：[55]
+2022-03-12 18:46:00.236|[http-nio-0.0.0.0-8002-exec-1]|INFO |c.t.a.w.annotation.LogCostTime-请求结束时间：2022-03-12 18:46:00.236
+2022-03-12 18:46:00.236|[http-nio-0.0.0.0-8002-exec-1]|INFO |c.t.a.w.annotation.LogCostTime-请求耗时：16
+2022-03-12 18:46:04.978|[http-nio-0.0.0.0-8002-exec-2]|INFO |c.t.a.w.annotation.LogCostTime-请求时间：2022-03-12 18:46:04.978
+2022-03-12 18:46:04.978|[http-nio-0.0.0.0-8002-exec-2]|INFO |c.t.a.w.annotation.LogCostTime-请求IP：0:0:0:0:0:0:0:1
+2022-03-12 18:46:04.978|[http-nio-0.0.0.0-8002-exec-2]|INFO |c.t.a.w.annotation.LogCostTime-请求方式：GET，方法：getChild
+2022-03-12 18:46:04.978|[http-nio-0.0.0.0-8002-exec-2]|INFO |c.t.a.w.annotation.LogCostTime-请求参数：[11]
+2022-03-12 18:46:04.982|[http-nio-0.0.0.0-8002-exec-2]|INFO |c.t.a.w.annotation.LogCostTime-请求结束时间：2022-03-12 18:46:04.982
+2022-03-12 18:46:04.983|[http-nio-0.0.0.0-8002-exec-2]|INFO |c.t.a.w.annotation.LogCostTime-请求耗时：4
+2022-03-12 18:46:17.155|[http-nio-0.0.0.0-8002-exec-3]|INFO |c.t.a.w.annotation.LogCostTime-请求时间：2022-03-12 18:46:17.154
+2022-03-12 18:46:17.155|[http-nio-0.0.0.0-8002-exec-3]|INFO |c.t.a.w.annotation.LogCostTime-请求IP：0:0:0:0:0:0:0:1
+2022-03-12 18:46:17.155|[http-nio-0.0.0.0-8002-exec-3]|INFO |c.t.a.w.annotation.LogCostTime-请求方式：GET，方法：getChild
+2022-03-12 18:46:17.155|[http-nio-0.0.0.0-8002-exec-3]|INFO |c.t.a.w.annotation.LogCostTime-请求参数：[11]
+2022-03-12 18:46:17.159|[http-nio-0.0.0.0-8002-exec-3]|INFO |c.t.a.w.annotation.LogCostTime-请求结束时间：2022-03-12 18:46:17.159
+2022-03-12 18:46:17.159|[http-nio-0.0.0.0-8002-exec-3]|INFO |c.t.a.w.annotation.LogCostTime-请求耗时：5
+2022-03-12 18:51:36.770|[main]|INFO |com.torch.app.AppApplication-Starting AppApplication using Java 1.8.0_202 on LAPTOP-B8LA37VK with PID 19348 (D:\Desktop\薪火技术部\微信小程序\torch\薪火小程序后端\server\torch_server\app_server\target\classes started by 79014 in D:\Desktop\薪火技术部\微信小程序\torch\薪火小程序后端\server)
+2022-03-12 18:51:36.776|[main]|INFO |com.torch.app.AppApplication-No active profile set, falling back to default profiles: default
+2022-03-12 18:51:43.254|[main]|INFO |com.torch.app.AppApplication-Started AppApplication in 7.221 seconds (JVM running for 8.358)

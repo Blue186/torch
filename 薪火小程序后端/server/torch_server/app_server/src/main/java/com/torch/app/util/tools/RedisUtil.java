@@ -1,5 +1,6 @@
 package com.torch.app.util.tools;
 
+import com.torch.app.util.commonutils.CacheCode;
 import org.springframework.data.redis.core.*;
 import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
@@ -10,10 +11,9 @@ import java.util.concurrent.TimeUnit;
 
 @Component
 public class RedisUtil {
-//    @Autowired
+
     @Resource
     private RedisTemplate<String,Object> redisTemplate;
-
     /**
      * 写入缓存
      *
@@ -137,7 +137,7 @@ public class RedisUtil {
      */
     public void hmSet(String key, Map<String,Object> map) {
         redisTemplate.opsForHash().putAll(key,map);
-        redisTemplate.expire(key,60,TimeUnit.MINUTES);
+        redisTemplate.expire(key, CacheCode.TOKEN_TIME,TimeUnit.MINUTES);
     }
 
     /**

@@ -6,12 +6,14 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * 用户信息表
  */
 @TableName("user")
 @Data
-public class User {
+public class User implements Serializable {
     @ApiModelProperty(name = "id",value = "用户id")
     @TableId(type = IdType.AUTO)
     private Integer id;

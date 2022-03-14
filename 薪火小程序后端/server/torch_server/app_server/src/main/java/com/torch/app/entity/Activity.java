@@ -7,12 +7,14 @@ import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiParam;
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * 活动信息表
  */
 @TableName("activity")
 @Data
-public class Activity {
+public class Activity implements Serializable {
     @ApiModelProperty(name = "id",value = "活动id")
     @TableId(type = IdType.AUTO)
     private Integer id;

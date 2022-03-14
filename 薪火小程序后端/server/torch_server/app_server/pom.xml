@@ -34,11 +34,17 @@
             <artifactId>spring-boot-starter-mail</artifactId>
             <version>2.5.5</version>
         </dependency>
-
+        <!--主要用了其JSON封装函数-->
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
             <version>5.7.7</version>
+        </dependency>
+        <!--布隆过滤器-->
+        <dependency>
+            <groupId>org.redisson</groupId>
+            <artifactId>redisson</artifactId>
+            <version>3.16.8</version>
         </dependency>
     </dependencies>
 

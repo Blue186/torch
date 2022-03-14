@@ -1,56 +1,68 @@
 package com.torch.app.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.torch.app.entity.Article;
 import com.torch.app.entity.Impressions;
 import com.torch.app.entity.SignUp;
 import com.torch.app.entity.vo.ImpressionsCon.ImpressionsInfo;
 import com.torch.app.entity.vo.ImpressionsCon.PublishImpressions;
 import com.torch.app.entity.vo.ImpressionsCon.UpdateImpressions;
-import com.torch.app.service.ArticleService;
 import com.torch.app.service.ImpressionsService;
 import com.torch.app.service.SignUpService;
-import com.torch.app.util.tools.FileUtil;
+import com.torch.app.util.commonutils.CacheCode;
 import com.torch.app.util.tools.JudgeCookieToken;
 import com.torch.app.util.tools.RedisUtil;
 import com.torch.app.util.commonutils.R;
+import com.torch.app.webtools.annotation.LogCostTime;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import org.apache.commons.lang.StringUtils;
+import lombok.extern.slf4j.Slf4j;
+import org.redisson.api.RBloomFilter;
+import org.redisson.api.RedissonClient;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
+@Slf4j
 @Api(tags = {"用户心得体会相关接口"},value = "用户心得体会相关接口")
 @RestController
 @RequestMapping("/impressions")
 public class ImpressionsController {
-    @Resource
+
     private ImpressionsService impressionsService;
-    @Resource
+
     private RedisUtil redisUtil;
-    @Resource
+
     private JudgeCookieToken judgeCookieToken;
-    @Resource
+
     private SignUpService signUpService;
+
+    private RedissonClient redissonClient;
+
+    @Autowired
+    public ImpressionsController(ImpressionsService impressionsService,
+                                 RedisUtil redisUtil,
+                                 JudgeCookieToken judgeCookieToken,
+                                 SignUpService signUpService,
+                                 RedissonClient redissonClient) {
+        this.impressionsService = impressionsService;
+        this.redisUtil = redisUtil;
+        this.judgeCookieToken = judgeCookieToken;
+        this.signUpService = signUpService;
+        this.redissonClient = redissonClient;
+    }
+
     /**
      * 薪火推文在管理端接口，此处为用户所发文章相应接口
      */
+    @LogCostTime
     @ApiOperation(value = "用户填写心得接口")
     @PostMapping()
     public R<?> publishImpressions(@ApiParam(name = "impressions",value = "用户心得信息",required = true) @RequestBody PublishImpressions publishImp,
                                    HttpServletRequest request){
-        Boolean judge = judgeCookieToken.judge(request);
-        if (!judge){
-            return R.error().setReLoginData();
-        }
         String cookie = judgeCookieToken.getCookie(request);
         Object uid = redisUtil.hmGet(cookie, "uid");
         Impressions impressions = new Impressions();
@@ -71,36 +83,34 @@ public class ImpressionsController {
             signUpService.getBaseMapper().updateById(signUp);
         }//这里完成？？
         if (res==1){
+            log.info("用户心得发布成功");
+            redissonClient.getBucket(CacheCode.CACHE_IMPRESSION+impressions.getId()).trySet(impressions,CacheCode.IMPRESSIONS_TIME, TimeUnit.MINUTES);
             return R.ok().message("发布成功");
         }else {
+            log.error("用户心得发布失败");
             return R.error().message("发布失败");
         }
     }
 
+    @LogCostTime
     @ApiOperation(value = "用户删除已发布的心得接口")
     @DeleteMapping("/{id}")
-    public R<?> deleteImpressions(@ApiParam(name = "id",value = "心得的id")@PathVariable Integer id,
-                                  HttpServletRequest request){
-        Boolean judge = judgeCookieToken.judge(request);
-        if (!judge){
-            return R.error().setReLoginData();
-        }
+    public R<?> deleteImpressions(@ApiParam(name = "id",value = "心得的id")@PathVariable Integer id){
         int res = impressionsService.getBaseMapper().deleteById(id);
         if (res==1){
+            log.info("用户心得删除成功");
+            redissonClient.getBucket(CacheCode.CACHE_IMPRESSION+id).delete();
             return R.ok().message("删除成功");
         }else {
+            log.error("用户心得删除失败");
             return R.error().message("删除失败");
         }
     }
 
+    @LogCostTime
     @ApiOperation(value = "用户修改心得")
     @PutMapping()
-    public R<?> updateImpressions(@ApiParam(name = "impressions",value = "用户心得信息",required = true) @RequestBody UpdateImpressions updateImp,
-                                  HttpServletRequest request){
-        Boolean judge = judgeCookieToken.judge(request);
-        if (!judge) {
-            return R.error().setReLoginData();
-        }
+    public R<?> updateImpressions(@ApiParam(name = "impressions",value = "用户心得信息",required = true) @RequestBody UpdateImpressions updateImp){
         Impressions impressions = impressionsService.getBaseMapper().selectById(updateImp.getId());
         impressions.setUpdateTime(new Date().getTime());
         impressions.setActStars(updateImp.getActStars());
@@ -108,80 +118,37 @@ public class ImpressionsController {
         int res = impressionsService.getBaseMapper().updateById(impressions);
         impressionsService.updateImages(updateImp.getImagesUrls(), impressions.getId());
         if (res==1){
+            log.info("用户心得更新成功");
+            redissonClient.getBucket(CacheCode.CACHE_IMPRESSION+impressions.getId()).trySet(impressions,CacheCode.IMPRESSIONS_TIME,TimeUnit.MINUTES);
             return R.ok().message("更新成功");
         }else {
+            log.error("用户心得更新失败");
             return R.error().message("更新失败");
         }
     }
 
-//    @ApiOperation(value = "用户修改心得")
-//    @PutMapping()
-//    public R<?> updateImpressions(@ApiParam(name = "impressions",value = "用户心得信息",required = true) @RequestBody UpdateImpressions updateImp){
-//
-//        Impressions impressions = impressionsService.getBaseMapper().selectById(updateImp.getId());
-//        impressions.setUpdateTime(new Date().getTime());
-//        impressions.setActStars(updateImp.getActStars());
-//        impressions.setContent(updateImp.getContent());
-//        int res = impressionsService.getBaseMapper().updateById(impressions);
-//        impressionsService.updateImages(updateImp.getImagesUrls(), impressions.getId());
-//        if (res==1){
-//            return R.ok().message("更新成功");
-//        }else {
-//            return R.error().message("更新失败");
-//        }
-//    }
-
-//    @ApiOperation(value = "获取所有心得")
-//    @GetMapping("/{current}/{limit}")
-//    public R<?> getAllImpressions(@ApiParam(name = "current", value = "当前页码", required = true) @PathVariable long current,
-//                               @ApiParam(name = "limit", value = "要获取的数量", required = true) @PathVariable long limit,
-//                               HttpServletRequest request){
-//        Boolean judge = judgeCookieToken.judge(request);
-//        if (!judge) {
-//            return R.error().code(-100);
-//        }
-//        String cookie = judgeCookieToken.getCookie(request);
-//        Object uid = redisUtil.hmGet(cookie, "uid");
-//        Page<Impressions> page = new Page<>(current,limit);
-//        QueryWrapper<Impressions> wrapper = new QueryWrapper<>();
-//        wrapper.orderByDesc("update_time");
-//        wrapper.eq("user_id",uid);
-//        impressionsService.page(page,wrapper);
-//        List<Impressions> records = page.getRecords();
-//
-//        List<ImpressionsInfo> impressionsInfos = impressionsService.getImpressionsInfo(records);
-//
-//        return R.ok().message("查询成功").data(impressionsInfos);
-//    }
-
+    @LogCostTime
     @ApiOperation(value = "获取单篇心得的内容")
     @GetMapping("/{actId}")
     public R<?> getOneImpressions(@ApiParam(name = "actId",value = "志愿活动的id",required = true)@PathVariable Integer actId,
                                   HttpServletRequest request){
-        Boolean judge = judgeCookieToken.judge(request);
-
-        if (!judge){
-            return R.error().setReLoginData();
-        }
         String cookie = judgeCookieToken.getCookie(request);
         Object uid = redisUtil.hmGet(cookie, "uid");
         QueryWrapper<Impressions> wrapper = new QueryWrapper<>();
         wrapper.eq("user_id",uid);
         wrapper.eq("act_id",actId);
-        Impressions impressions = impressionsService.getBaseMapper().selectOne(wrapper);
+        //因为心得存储后只能通过父活动id＋用户id来获取，那么我们存储在redis中的缓存也应该是这种形式。
+        RBloomFilter<Object> bloomFilter = redissonClient.getBloomFilter("bloom-filter");
+        String key = CacheCode.CACHE_IMPRESSION+actId+uid;
+        Impressions impressions;//缓存中拿数据
+        if (bloomFilter.contains(key)){
+            log.info("用户从缓存中拿到心得信息");
+            impressions = (Impressions) redissonClient.getBucket(key).get();
+        }else {
+            log.info("用户从数据库中拿到心得信息");
+            impressions = impressionsService.getBaseMapper().selectOne(wrapper);
+        }
         ImpressionsInfo impressionsInfo = impressionsService.getImpressionsInfo(impressions);
         return R.ok().data(impressionsInfo);
     }
-//    @ApiOperation(value = "获取单篇心得的内容")
-//    @GetMapping("/{actId}")
-//    public R<?> getOneImpressions(@ApiParam(name = "actId",value = "志愿活动的id",required = true)@PathVariable Integer actId,
-//                                  Integer uid){
-//
-//        QueryWrapper<Impressions> wrapper = new QueryWrapper<>();
-//        wrapper.eq("user_id",uid);
-//        wrapper.eq("act_id",actId);
-//        Impressions impressions = impressionsService.getBaseMapper().selectOne(wrapper);
-//        ImpressionsInfo impressionsInfo = impressionsService.getImpressionsInfo(impressions);
-//        return R.ok().data(impressionsInfo);
-//    }
 }

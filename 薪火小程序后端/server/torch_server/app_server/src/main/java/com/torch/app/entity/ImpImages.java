@@ -7,9 +7,11 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Data
 @TableName("imp_images")
-public class ImpImages {
+public class ImpImages implements Serializable {
     @ApiModelProperty(name = "id",value = "心得图片id")
     @TableId(type = IdType.AUTO)
     private Integer id;
