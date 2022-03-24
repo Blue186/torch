@@ -43,7 +43,6 @@ public class FileUtil {
                 return "-1";//上传失败，数据不合法
             }
         }
-
         String suffix = "";//图片后缀，用以识别哪种格式数据
         //data:image/jpeg;base64,base64编码的jpeg图片数据
         if("data:image/jpeg;".equalsIgnoreCase(prefix)){//JPG
@@ -61,15 +60,14 @@ public class FileUtil {
             return "-2";//上传图片格式不合法,支持jpg,ico,png,gif
         }
 
-        String flag = IdUtil.fastSimpleUUID();//生成随记UUID码:ajspdjasdkjasasdasjdla
+        String flag = IdUtil.fastSimpleUUID();//生成随记UUID码
         String imageName = flag+suffix;
-        String imageFilePath = System.getProperty("user.dir")+"/torch_server/app_server/src/main/resources/static/images/"+imageName;//本地使用
-//        String imageFilePath = System.getProperty("user.dir")+"/static/images/"+imageName;服务器使用
+//        String imageFilePath = System.getProperty("user.dir")+"/torch_server/app_server/src/main/resources/static/images/"+imageName;//本地使用
+        String imageFilePath = System.getProperty("user.dir")+"/static/images/"+imageName;//服务器使用
         BASE64Decoder base64Decoder = new BASE64Decoder();
         try {
             //Base64解码
             byte[] b = base64Decoder.decodeBuffer(data);//转成2进制
-
             OutputStream out = new FileOutputStream(imageFilePath);
             out.write(b);
             out.flush();
@@ -78,7 +76,6 @@ public class FileUtil {
             e.printStackTrace();
         }
         return ip+":"+port+"/static/images/" +imageName;
-//        return ip+":"+port+"/static/images/" +imageName;
     }
 
 }

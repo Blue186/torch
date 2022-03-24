@@ -3,8 +3,8 @@ server:
   address: 0.0.0.0
 spring:
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://www.torchcqs.cn:3306/torch?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://www.torchcqs.cn:3306/torch?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8
     username: root
     password: cjsd10-3
     hikari:

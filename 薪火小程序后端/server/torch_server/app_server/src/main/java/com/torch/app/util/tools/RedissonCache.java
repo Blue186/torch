@@ -59,6 +59,7 @@ public class RedissonCache {
     /**
      * 用户信息缓存定时更新
      */
+//    @Scheduled(cron = "0 44 16 1/1 1-12 ?")
     @Scheduled(cron = "0 0 8 1/1 1-12 ?")
     public void userCacheUpdate(){
         RBloomFilter<Object> bloomFilter = redissonClient.getBloomFilter("bloom-filter");
@@ -75,6 +76,7 @@ public class RedissonCache {
     /**
      * 报名信息定时更新
      */
+//    @Scheduled(cron = "0 44 16 1/1 1-12 ?")
     @Scheduled(cron = "0 0 6,14,22 1/1 1-12 ?")
     private void signUpCacheUpdate(){
         RBloomFilter<Object> bloomFilter = redissonClient.getBloomFilter("bloom-filter");
@@ -91,6 +93,7 @@ public class RedissonCache {
     /**
      * 心得缓存定时更新
      */
+//    @Scheduled(cron = "0 44 16 1/1 1-12 ?")
     @Scheduled(cron = "0 0 12 1/1 1-12 ?")
     private void impressionsCacheUpdate(){
         RBloomFilter<Object> bloomFilter = redissonClient.getBloomFilter("bloom-filter");
@@ -107,6 +110,7 @@ public class RedissonCache {
     /**
      * 子活动缓存定时更新
      */
+//    @Scheduled(cron = "0 44 16 1/1 1-12 ?")
     @Scheduled(cron = "0 0 6,14,22 1/1 1-12 ?")
     private void activityChildCacheUpdate(){
         RBloomFilter<Object> bloomFilter = redissonClient.getBloomFilter("bloom-filter");
@@ -123,6 +127,7 @@ public class RedissonCache {
     /**
      * 父活动信息定时更新
      */
+//    @Scheduled(cron = "0 44 16 1/1 1-12 ?")
     @Scheduled(cron = "0 0 6,14,22 1/1 1-12 ?")
     private void activityCacheUpdate(){
         RBloomFilter<Object> bloomFilter = redissonClient.getBloomFilter("bloom-filter");
@@ -139,6 +144,7 @@ public class RedissonCache {
     /**
      * 志愿活动时间的缓存
      */
+//    @Scheduled(cron = "0 44 16 1/1 1-12 ?")
     @Scheduled(cron = "0 0 6,14,22 1/1 1-12 ?")
     private void activityTimesCacheUpdate(){
         RBloomFilter<Object> bloomFilter = redissonClient.getBloomFilter("bloom-filter");
@@ -155,8 +161,8 @@ public class RedissonCache {
     /**
      * 心得图片的缓存
      */
-//    @Scheduled(cron = "0 0 12 1/1 1-12 ?")
-    @Scheduled(cron = "0 21 17 1/1 1-12 ?")
+//    @Scheduled(cron = "0 44 16 1/1 1-12 ?")
+    @Scheduled(cron = "0 0 12 1/1 1-12 ?")
     private void impImagesCacheUpdate(){
         RBloomFilter<Object> bloomFilter = redissonClient.getBloomFilter("bloom-filter");
         QueryWrapper<ImpImages> wrapper = new QueryWrapper<>();
@@ -172,8 +178,8 @@ public class RedissonCache {
     /**
      * 这里添加志愿活动详细信息到缓存中
      */
-//    @Scheduled(cron = "0 0 6,14,22 1/1 1-12 ?")
-    @Scheduled(cron = "0 21 17 1/1 1-12 ?")
+//    @Scheduled(cron = "0 44 16 1/1 1-12 ?")
+    @Scheduled(cron = "0 0 6,14,22 1/1 1-12 ?")
     private void activityInfo(){
         RBloomFilter<Object> bloomFilter = redissonClient.getBloomFilter("bloom-filter");
         QueryWrapper<Activity> wrapper = new QueryWrapper<>();

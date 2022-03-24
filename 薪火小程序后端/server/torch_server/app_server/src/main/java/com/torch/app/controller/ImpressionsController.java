@@ -9,6 +9,7 @@ import com.torch.app.entity.vo.ImpressionsCon.UpdateImpressions;
 import com.torch.app.service.ImpressionsService;
 import com.torch.app.service.SignUpService;
 import com.torch.app.util.commonutils.CacheCode;
+import com.torch.app.util.commonutils.ResultCode;
 import com.torch.app.util.tools.JudgeCookieToken;
 import com.torch.app.util.tools.RedisUtil;
 import com.torch.app.util.commonutils.R;
@@ -84,7 +85,7 @@ public class ImpressionsController {
         }//这里完成？？
         if (res==1){
             log.info("用户心得发布成功");
-            redissonClient.getBucket(CacheCode.CACHE_IMPRESSION+impressions.getId()).trySet(impressions,CacheCode.IMPRESSIONS_TIME, TimeUnit.MINUTES);
+            redissonClient.getBucket(CacheCode.CACHE_IMPRESSION+impressions.getId()).set(impressions,CacheCode.IMPRESSIONS_TIME, TimeUnit.MINUTES);
             return R.ok().message("发布成功");
         }else {
             log.error("用户心得发布失败");
@@ -116,10 +117,10 @@ public class ImpressionsController {
         impressions.setActStars(updateImp.getActStars());
         impressions.setContent(updateImp.getContent());
         int res = impressionsService.getBaseMapper().updateById(impressions);
-        impressionsService.updateImages(updateImp.getImagesUrls(), impressions.getId());
+        impressionsService.updateImages(updateImp.getImagesUrls(), impressions.getId());//这里存在逻辑问题，如果第一次没有提交图片，这样就更新不了了，后面添加更多的图片也不行了。
         if (res==1){
             log.info("用户心得更新成功");
-            redissonClient.getBucket(CacheCode.CACHE_IMPRESSION+impressions.getId()).trySet(impressions,CacheCode.IMPRESSIONS_TIME,TimeUnit.MINUTES);
+            redissonClient.getBucket(CacheCode.CACHE_IMPRESSION+impressions.getId()).set(impressions,CacheCode.IMPRESSIONS_TIME,TimeUnit.MINUTES);
             return R.ok().message("更新成功");
         }else {
             log.error("用户心得更新失败");
@@ -140,14 +141,18 @@ public class ImpressionsController {
         //因为心得存储后只能通过父活动id＋用户id来获取，那么我们存储在redis中的缓存也应该是这种形式。
         RBloomFilter<Object> bloomFilter = redissonClient.getBloomFilter("bloom-filter");
         String key = CacheCode.CACHE_IMPRESSION+actId+uid;
-        Impressions impressions;//缓存中拿数据
-        if (bloomFilter.contains(key)){
-            log.info("用户从缓存中拿到心得信息");
-            impressions = (Impressions) redissonClient.getBucket(key).get();
-        }else {
-            log.info("用户从数据库中拿到心得信息");
-            impressions = impressionsService.getBaseMapper().selectOne(wrapper);
+        if (!bloomFilter.contains(key)){
+            log.info("布隆过滤器中不存在该key");
+            return R.error().setErrorCode(ResultCode.wrongMsg);
         }
+        //布隆中存在
+        Impressions impressions = (Impressions) redissonClient.getBucket(key).get();
+        if (impressions==null){
+            log.info("从数据库中拿到的心得信息并更新redis");
+            impressions = impressionsService.getBaseMapper().selectOne(wrapper);
+            redissonClient.getBucket(key).set(impressions,CacheCode.IMPRESSIONS_TIME,TimeUnit.MINUTES);
+        }
+        log.info("从redis中拿到的心得数据");
         ImpressionsInfo impressionsInfo = impressionsService.getImpressionsInfo(impressions);
         return R.ok().data(impressionsInfo);
     }

@@ -16,6 +16,8 @@ import com.torch.app.service.ActivityService;
 import com.torch.app.service.ActivityTimesService;
 import com.torch.app.service.SignUpService;
 import com.torch.app.util.commonutils.CacheCode;
+import com.torch.app.util.commonutils.R;
+import com.torch.app.util.commonutils.ResultCode;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RBloomFilter;
 import org.redisson.api.RedissonClient;
@@ -55,7 +57,6 @@ public class SignUpServiceImpl extends ServiceImpl<SignUpMapper, SignUp> impleme
 
     @Override
     public List<?> getSignUpInfo(Integer uid,Integer done) {
-        RBloomFilter<Object> bloomFilter = redissonClient.getBloomFilter("bloom-filter");
         QueryWrapper<SignUp> wrapper = new QueryWrapper<>();
         wrapper.eq("user_id",uid);
         wrapper.eq("is_over",done);
@@ -64,30 +65,11 @@ public class SignUpServiceImpl extends ServiceImpl<SignUpMapper, SignUp> impleme
         if (done==1){//已完成志愿活动
             List<SignUpInfo> signUpInfoList = new ArrayList<>();
             for (SignUp signUp : signUps) {
-                Activity activity;
-                if (bloomFilter.contains(CacheCode.CACHE_ACTIVITY+signUp.getActId())){
-                    log.info("从缓存拿到父活动信息");
-                    activity = (Activity) redissonClient.getBucket(CacheCode.CACHE_ACTIVITY + signUp.getActId()).get();
-                }else {
-                    log.info("从数据库拿到父活动信息");
-                    activity = activityService.getBaseMapper().selectById(signUp.getActId());
-                }
-                ActivityChild activityChild;
-                if (bloomFilter.contains(CacheCode.CACHE_ACTIVITY_CHILD+signUp.getActChiId())){
-                    log.info("从缓存拿到子活动信息");
-                    activityChild = (ActivityChild) redissonClient.getBucket(CacheCode.CACHE_ACTIVITY_CHILD + signUp.getActChiId()).get();
-                }else {
-                    log.info("从数据库拿到子活动信息");
-                    activityChild = activityChildService.getBaseMapper().selectById(signUp.getActChiId());
-                }
-                ActivityTimes activityTimes;
-                if (bloomFilter.contains(CacheCode.CACHE_ACTIVITY_TIMES+signUp.getActTimesId())){
-                    log.info("从缓存拿到活动时间段信息");
-                    activityTimes = (ActivityTimes) redissonClient.getBucket(CacheCode.CACHE_ACTIVITY_TIMES + signUp.getActTimesId()).get();
-                }else {
-                    log.info("从数据库拿到活动时间段信息");
-                    activityTimes = activityTimesService.getBaseMapper().selectById(signUp.getActTimesId());
-                }
+                Activity activity = activityService.getBaseMapper().selectById(signUp.getActId());
+                log.info("从缓存拿到父活动信息");
+                ActivityChild activityChild = activityChildService.getBaseMapper().selectById(signUp.getActChiId());
+                ActivityTimes activityTimes = activityTimesService.getBaseMapper().selectById(signUp.getActTimesId());
+                log.info("activity:-----,{}",activity);
                 SignUpInfo signUpInfo = new SignUpInfo();
                 signUpInfo.setId(signUp.getId());
                 signUpInfo.setActId(signUp.getActId());
@@ -106,33 +88,13 @@ public class SignUpServiceImpl extends ServiceImpl<SignUpMapper, SignUp> impleme
         }else {//未完成志愿活动
             List<SignUpInfoNot> signUpInfoNot = new ArrayList<>();
             for (SignUp signUp : signUps) {
-                Activity activity;
-                if (bloomFilter.contains(CacheCode.CACHE_ACTIVITY+signUp.getActId())){
-                    log.info("从缓存拿到父活动信息");
-                    activity = (Activity) redissonClient.getBucket(CacheCode.CACHE_ACTIVITY + signUp.getActId()).get();
-                }else {
-                    log.info("从数据库拿到父活动信息");
-                    activity = activityService.getBaseMapper().selectById(signUp.getActId());
-                }
-                ActivityChild activityChild;
-                if (bloomFilter.contains(CacheCode.CACHE_ACTIVITY_CHILD+signUp.getActChiId())){
-                    log.info("从缓存拿到子活动信息");
-                    activityChild = (ActivityChild) redissonClient.getBucket(CacheCode.CACHE_ACTIVITY_CHILD + signUp.getActChiId()).get();
-                }else {
-                    log.info("从数据库拿到子活动信息");
-                    activityChild = activityChildService.getBaseMapper().selectById(signUp.getActChiId());
-                }
-                ActivityTimes activityTimes;
-                if (bloomFilter.contains(CacheCode.CACHE_ACTIVITY_TIMES+signUp.getActTimesId())){
-                    log.info("从缓存拿到活动时间段信息");
-                    activityTimes = (ActivityTimes) redissonClient.getBucket(CacheCode.CACHE_ACTIVITY_TIMES + signUp.getActTimesId()).get();
-                }else {
-                    log.info("从数据库拿到活动时间段信息");
-                    activityTimes = activityTimesService.getBaseMapper().selectById(signUp.getActTimesId());
-                }
-//                Activity activity = activityService.getBaseMapper().selectById(signUp.getActId());
-//                ActivityChild activityChild = activityChildService.getBaseMapper().selectById(signUp.getActChiId());
-//                ActivityTimes activityTimes = activityTimesService.getBaseMapper().selectById(signUp.getActTimesId());
+                Activity activity = activityService.getBaseMapper().selectById(signUp.getActId());
+
+                ActivityChild activityChild = activityChildService.getBaseMapper().selectById(signUp.getActChiId());
+
+                ActivityTimes activityTimes = activityTimesService.getBaseMapper().selectById(signUp.getActTimesId());
+
+                log.info("activity:-----,{}",activity);
                 SignUpInfoNot infoNot = new SignUpInfoNot();
                 infoNot.setVolTime(activityTimes.getVolTime());
                 infoNot.setServicePeriod(activityChild.getServicePeriod());
@@ -164,15 +126,7 @@ public class SignUpServiceImpl extends ServiceImpl<SignUpMapper, SignUp> impleme
     @Override
     public Boolean satisfySign(Integer uid, Sign sign) {
         boolean flag = true;
-        RBloomFilter<Object> bloomFilter = redissonClient.getBloomFilter("bloom-filter");
-        ActivityTimes signTime;
-        if (bloomFilter.contains(CacheCode.CACHE_ACTIVITY_TIMES+sign.getActTimesId())){
-            log.info("从缓存拿到活动时间段信息");
-            signTime = (ActivityTimes) redissonClient.getBucket(CacheCode.CACHE_ACTIVITY_TIMES + sign.getActTimesId()).get();
-        }else {
-            log.info("从数据库拿到活动时间段信息");
-            signTime = activityTimesService.getBaseMapper().selectById(sign.getActTimesId());//报名时间
-        }
+        ActivityTimes signTime = activityTimesService.getBaseMapper().selectById(sign.getActTimesId());//报名时间
         Long startTime = signTime.getStartTime();//开始时间
         Long endTime = signTime.getEndTime();//结束时间
         QueryWrapper<SignUp> wrapper = new QueryWrapper<>();
@@ -180,15 +134,7 @@ public class SignUpServiceImpl extends ServiceImpl<SignUpMapper, SignUp> impleme
         wrapper.eq("is_over",0);
         List<SignUp> signUps = baseMapper.selectList(wrapper);//那到报名信息（未完成的），然后再拿到时间段
         for (SignUp signUp : signUps) {
-            ActivityTimes activityTimes;
-            if (bloomFilter.contains(CacheCode.CACHE_ACTIVITY_TIMES+sign.getActTimesId())){
-                log.info("从缓存拿到活动时间段信息");
-                activityTimes = (ActivityTimes) redissonClient.getBucket(CacheCode.CACHE_ACTIVITY_TIMES + signUp.getActTimesId()).get();
-            }else {
-                log.info("从数据库拿到活动时间段信息");
-                activityTimes = activityTimesService.getBaseMapper().selectById(signUp.getActTimesId());//每一个时间段
-            }
-
+            ActivityTimes activityTimes = activityTimesService.getBaseMapper().selectById(signUp.getActTimesId());//每一个时间段
             if ((activityTimes.getStartTime()<endTime&&activityTimes.getEndTime()>endTime)||
                     (activityTimes.getStartTime()<startTime&&activityTimes.getEndTime()>startTime)){
                 flag = false;

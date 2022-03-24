@@ -10,6 +10,7 @@ import com.torch.app.service.ImpImagesService;
 import com.torch.app.service.ImpressionsService;
 import com.torch.app.util.commonutils.CacheCode;
 import com.torch.app.util.tools.FileUtil;
+import org.redisson.api.RBloomFilter;
 import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,6 +42,8 @@ public class ImpressionsServiceImpl extends ServiceImpl<ImpressionsMapper, Impre
             impImages.setUrl(url);
             impImages.setImpId(impId);
             impImagesService.getBaseMapper().insert(impImages);
+            RBloomFilter<Object> bloomFilter = redissonClient.getBloomFilter("bloom-filter");
+            bloomFilter.add(CacheCode.CACHE_IMP_IMAGES+impImages.getId());
             redissonClient.getBucket(CacheCode.CACHE_IMP_IMAGES+impImages.getId()).trySet(impImages,CacheCode.IMP_IMAGES_TIME, TimeUnit.MINUTES);
         }
     }
@@ -49,45 +52,24 @@ public class ImpressionsServiceImpl extends ServiceImpl<ImpressionsMapper, Impre
     public void updateImages(String[] imagesUrls, Integer impId) {
         QueryWrapper<ImpImages> wrapper = new QueryWrapper<>();
         wrapper.eq("imp_id",impId);
-        impImagesService.getBaseMapper().delete(wrapper);//这里删除掉上传的图片
+        impImagesService.getBaseMapper().delete(wrapper);//这里先删除以前的图片链接
         for (String url : imagesUrls) {
             ImpImages impImages = new ImpImages();
             impImages.setUrl(url);
             impImages.setImpId(impId);
-            impImagesService.getBaseMapper().insert(impImages);
+            impImagesService.getBaseMapper().insert(impImages);//再重新插入新的图片及对应id
+            RBloomFilter<Object> bloomFilter = redissonClient.getBloomFilter("bloom-filter");
+            bloomFilter.add(CacheCode.CACHE_IMP_IMAGES+impImages.getId());
             redissonClient.getBucket(CacheCode.CACHE_IMP_IMAGES+impImages.getId()).trySet(impImages,CacheCode.IMP_IMAGES_TIME, TimeUnit.MINUTES);
         }
     }
-
-//    @Override
-//    public List<ImpressionsInfo> getImpressionsInfo(List<Impressions> records) {
-//        List<ImpressionsInfo> impressionsInfos = new ArrayList<>();
-//        for (Impressions record : records) {
-//            QueryWrapper<ImpImages> wrapper = new QueryWrapper<>();
-//            wrapper.eq("imp_id",record.getId());
-//            List<ImpImages> impImages = impImagesService.getBaseMapper().selectList(wrapper);
-//
-//            ImpressionsInfo impressionsInfo = new ImpressionsInfo();
-//            impressionsInfo.setImpImages(impImages);
-//            impressionsInfo.setActId(record.getActId());
-//            impressionsInfo.setContent(record.getContent());
-//            impressionsInfo.setActStars(record.getActStars());
-//            impressionsInfo.setCreateTime(record.getCreateTime());
-//            impressionsInfo.setUpdateTime(record.getUpdateTime());
-//            impressionsInfo.setId(record.getId());
-//            impressionsInfo.setUserId(record.getUserId());
-//            impressionsInfo.setActChiId(record.getActChiId());
-//            impressionsInfo.setActTimesId(record.getActTimesId());
-//            impressionsInfos.add(impressionsInfo);
-//        }
-//        return impressionsInfos;
-//    }
 
     @Override
     public ImpressionsInfo getImpressionsInfo(Impressions impression) {
         ImpressionsInfo impressionsInfo = new ImpressionsInfo();
         QueryWrapper<ImpImages> wrapper = new QueryWrapper<>();
         wrapper.eq("imp_id",impression.getId());
+        //这里没有用布隆过滤器，因为缓存中的image没有使用impid。
         List<ImpImages> impImages = impImagesService.getBaseMapper().selectList(wrapper);
         List<String> imgUrls = new ArrayList<>();
         for (ImpImages impImage : impImages) {

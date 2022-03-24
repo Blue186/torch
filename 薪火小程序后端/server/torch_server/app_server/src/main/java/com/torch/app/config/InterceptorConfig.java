@@ -33,7 +33,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
         };
         String[] excludePath = {
                 "/user/login",
-                "/swagger-ui.html"
+                "/swagger-ui.html",
         };
         registry.addInterceptor(interceptor).addPathPatterns(path).excludePathPatterns(excludePath);
     }
@@ -47,7 +47,5 @@ public class InterceptorConfig implements WebMvcConfigurer {
 //        String path = System.getProperty("user.dir")+"/torch_server/app_server/src/main/resources/static/";
         String path = System.getProperty("user.dir")+"/static/";
         registry.addResourceHandler("/static/**").addResourceLocations("file:"+path);
-        registry.addResourceHandler("/swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
-        registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
 }

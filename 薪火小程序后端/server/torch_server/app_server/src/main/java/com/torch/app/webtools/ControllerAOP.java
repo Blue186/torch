@@ -46,7 +46,7 @@ public class ControllerAOP {
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = attributes.getRequest();
         String cookie = judgeCookieToken.getCookie(request);
-//        Object openid = redisUtil.hmGet(cookie, "openid");
+        Object openid = redisUtil.hmGet(cookie, "openid");
 /**
  *          这个时候应该怎么判断这次请求具体的要求，据体的想法？可以拿到方法、参数、URL但是我怎么知道
  *他要干什么，有的也只是request，缓存主要应对查的部分吧，更新，新增后应该更新缓存的，
@@ -61,7 +61,7 @@ public class ControllerAOP {
         startTime = System.currentTimeMillis();
         LOG.info("请求时间：{}",LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS")));
         LOG.info("请求IP：{}",request.getRemoteAddr());
-//        LOG.info("请求用户：{}",openid.toString());
+        LOG.info("请求用户：{}",openid.toString());
         Signature signature = joinPoint.getSignature();
         LOG.info("请求方式：{}，方法：{}",request.getMethod(),signature.getName());
         LOG.info("请求参数：{}",Arrays.toString(joinPoint.getArgs()));

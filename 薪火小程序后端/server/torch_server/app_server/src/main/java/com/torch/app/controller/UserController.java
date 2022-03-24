@@ -122,13 +122,16 @@ public class UserController {
         Object uid = redisUtil.hmGet(cookie, "uid");//这里获取uid的过程依然用redisUtil来完成，方便一些，都是获取redis中的数据嘛
         String key = CacheCode.CACHE_USER+uid;
         RBloomFilter<Object> bloomFilter = redissonClient.getBloomFilter("bloom-filter");
-        if (bloomFilter.contains(key)){//如果缓存中有用户信息就通过缓存来返回
-            log.info("从缓存中拿到用户信息");
-            return R.ok().data(redissonClient.getBucket(key).get());
+        if (!bloomFilter.contains(key)){//如果缓存中有用户信息就通过缓存来返回
+            return R.error().setErrorCode(ResultCode.wrongMsg);
         }
-        log.info("从数据库中拿到用户信息，并更新缓存");
-        User user = userService.getBaseMapper().selectById(uid.toString());
-        redissonClient.getBucket(key).trySet(user);
+        User user = (User)redissonClient.getBucket(key).get();
+        if (user==null){
+            log.info("从数据库中拿到用户信息，并更新缓存");
+            user = userService.getBaseMapper().selectById(uid.toString());
+            redissonClient.getBucket(key).set(user,CacheCode.USER_TIME,TimeUnit.SECONDS);
+        }
+        log.info("从缓存中拿到用户信息");
         return R.ok().data(user);
     }
 
@@ -142,14 +145,14 @@ public class UserController {
     public R<?> updateUser(@ApiParam(name = "user", value = "用户提交个人信息", required = true)@RequestBody UserInfo userInfo,
                            HttpServletRequest request){
         String cookie = judgeCookieToken.getCookie(request);
-        RBloomFilter<Object> bloomFilter = redissonClient.getBloomFilter("bloom-filter");
         User user = userService.setUserInfo((Integer) redisUtil.hmGet(cookie, "uid"), userInfo);
+        log.info("user:{}",userInfo);
         int res = userService.getBaseMapper().updateById(user);
         if (res==1){
             String key = CacheCode.CACHE_USER+user.getId();
-            bloomFilter.add(key);
-            redissonClient.getBucket(key).trySet(user,CacheCode.USER_TIME,TimeUnit.SECONDS);
-            log.info("用户修改个人信息成功");
+            redissonClient.getBucket(key).set(user, CacheCode.USER_TIME, TimeUnit.SECONDS);
+
+            log.info("用户修改个人信息成功,OK?");
             return R.ok();
         }else {
             log.error("用户修改数据失败");
@@ -207,7 +210,7 @@ public class UserController {
                 if (res==1){
                     //缓存更新
                     bloomFilter.add(key);
-                    redissonClient.getBucket(key).trySet(user,CacheCode.USER_TIME,TimeUnit.SECONDS);
+                    redissonClient.getBucket(key).set(user,CacheCode.USER_TIME,TimeUnit.SECONDS);
                     log.info("用户邮箱更新成功");
                     return R.ok().message("用户邮箱更新成功");
                 }else {
@@ -219,5 +222,13 @@ public class UserController {
                 return R.error().message("邮箱验证码错误");
             }
         }
+    }
+
+
+    @GetMapping("/info")
+    public R<?> getBoxInfo(){
+        String boxInfo = "{\"school\":{\"content\":\"喜好1\",\"placeholder\":\"\"},\"name\":{\"content\":\"备用昵称1\",\"placeholder\":\"\"},\"nickName\":{\"content\":\"备用昵称2\",\"placeholder\":\"\"},\"grade\":{\"content\":\"喜好2\",\"placeholder\":\"\"},\"qq\":{\"content\":\"喜好3\",\"placeholder\":\"\"},\"phone\":{\"content\":\"喜好4\",\"placeholder\":\"\"},\"volAccount\":{\"content\":\"1+1\",\"placeholder\":\"\"},\"verificationCode\":{\"content\":\"1+2\",\"placeholder\":\"\"},\"email\":{\"content\":\"1+3\",\"placeholder\":\"\"},\"button\":{\"code\":\"\",\"confirm\":\"\"},\"selfIntroduction\":{\"content\":\"特长\",\"placeholder\":\"\"}}";
+        JSONObject jsonObject = new JSONObject(boxInfo);
+        return R.ok().data(jsonObject);
     }
 }

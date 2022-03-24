@@ -131,8 +131,8 @@ public class SignUpController {
                 activity.setTotalNumber(activity.getTotalNumber()+INCREASE_NUMBER);//报名实现对应报名人数加一
                 activityService.getBaseMapper().updateById(activity);
                 //添加新增报名信息缓存和activity信息
-                redissonClient.getBucket(CacheCode.CACHE_SIGN_UP+signUp.getId()).trySet(sign);
-                redissonClient.getBucket(CacheCode.CACHE_ACTIVITY+activity.getId()).trySet(activity);
+                redissonClient.getBucket(CacheCode.CACHE_SIGN_UP+signUp.getId()).set(sign);
+                redissonClient.getBucket(CacheCode.CACHE_ACTIVITY+activity.getId()).set(activity);
                 log.info("报名信息缓存添加成功");
 //            这里可以添加邮件发送类，发送邮件，后续添加
                 emailSendUtil.simpleEmail(MAIL,user,"薪火志愿报名成功通知", "亲爱的志愿者，请注意您参与的"+activity.getName()+"活动报名成功");
@@ -166,13 +166,17 @@ public class SignUpController {
 //        单线程则进行如下操作
         RBloomFilter<Object> bloomFilter = redissonClient.getBloomFilter("bloom-filter");
         SignUp signUp;//如果缓存中存在signUp就直接用
-        if (bloomFilter.contains(CacheCode.CACHE_SIGN_UP+signId)){
-            log.info("从缓存中拿到报名信息");
-            signUp = (SignUp) redissonClient.getBucket(CacheCode.CACHE_SIGN_UP + signId).get();
-        }else {
+        if (!bloomFilter.contains(CacheCode.CACHE_SIGN_UP+signId)){
+            log.info("布隆过滤器中没有该key");
+            return R.error().setErrorCode(ResultCode.wrongMsg);
+        }
+        signUp = (SignUp) redissonClient.getBucket(CacheCode.CACHE_SIGN_UP + signId).get();
+        if (signUp==null){
             log.info("从数据库中拿到报名信息");
             signUp = signUpService.getBaseMapper().selectById(signId);
         }
+        log.info("从缓存中拿到报名信息");
+
         Activity activity = activityService.getBaseMapper().selectById(signUp.getActId());
         int res=0;
         try {
@@ -180,7 +184,7 @@ public class SignUpController {
             if (activity.getTotalNumber()>0){
                 activity.setTotalNumber(activity.getTotalNumber()-INCREASE_NUMBER);//取消报名后，报名人数减一。
                 activityService.getBaseMapper().updateById(activity);
-                redissonClient.getBucket(CacheCode.CACHE_ACTIVITY+activity.getId()).trySet(activity,CacheCode.ACTIVITY_TIME, TimeUnit.SECONDS);
+                redissonClient.getBucket(CacheCode.CACHE_ACTIVITY+activity.getId()).set(activity,CacheCode.ACTIVITY_TIME, TimeUnit.SECONDS);
                 log.info("更新志愿活动信息到缓存");
             }else {
                 log.error("已经没有人了呀");
