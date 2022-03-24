@@ -13,7 +13,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 /**
  * 定时执行缓存添加任务
@@ -23,12 +22,8 @@ public class RedissonCache {
 
     private RedissonClient redissonClient;
     private UserService userService;
-//    private ThumbsService thumbsService;
     private SignUpService signUpService;
     private ImpressionsService impressionsService;
-    private ContactUsService contactUsService;
-//    private ArticleService articleService;
-//    private ArtCommentService artCommentService;
     private ActivityChildService activityChildService;
     private ActivityService activityService;
     private ActivityTimesService activityTimesService;
@@ -39,7 +34,6 @@ public class RedissonCache {
                          UserService userService,
                          SignUpService signUpService,
                          ImpressionsService impressionsService,
-                         ContactUsService contactUsService,
                          ActivityChildService activityChildService,
                          ActivityService activityService,
                          ActivityTimesService activityTimesService,
@@ -48,7 +42,6 @@ public class RedissonCache {
         this.userService = userService;
         this.signUpService = signUpService;
         this.impressionsService = impressionsService;
-        this.contactUsService = contactUsService;
         this.activityChildService = activityChildService;
         this.activityService = activityService;
         this.activityTimesService = activityTimesService;
@@ -69,7 +62,7 @@ public class RedissonCache {
         for (User user : users) {
             String key = CacheCode.CACHE_USER+user.getId();
             bloomFilter.add(key);
-            redissonClient.getBucket(key).trySet(user,CacheCode.USER_TIME,TimeUnit.MINUTES);//这里在添加到布隆过滤器中的同时，添加到redis缓存。
+            redissonClient.getBucket(key).set(user);//这里在添加到布隆过滤器中的同时，添加到redis缓存。
         }
     }
 
@@ -86,7 +79,7 @@ public class RedissonCache {
         for (SignUp signUp : signUps) {
             String key = CacheCode.CACHE_SIGN_UP+signUp.getId();
             bloomFilter.add(key);
-            redissonClient.getBucket(key).trySet(signUp,CacheCode.SIGN_UP_TIME,TimeUnit.MINUTES);
+            redissonClient.getBucket(key).set(signUp);
         }
     }
 
@@ -103,7 +96,7 @@ public class RedissonCache {
         for (Impressions impression : impressions) {
             String key = CacheCode.CACHE_IMPRESSION+impression.getActId()+impression.getUserId();//前端只能通过活动名和用户名来获取缓存，而不是impId
             bloomFilter.add(key);
-            redissonClient.getBucket(key).trySet(impression,CacheCode.IMPRESSIONS_TIME,TimeUnit.MINUTES);
+            redissonClient.getBucket(key).set(impression);
         }
     }
 
@@ -120,7 +113,7 @@ public class RedissonCache {
         for (ActivityChild activityChild : activityChildren) {
             String key = CacheCode.CACHE_ACTIVITY_CHILD+activityChild.getId();
             bloomFilter.add(key);
-            redissonClient.getBucket(key).trySet(activityChild,CacheCode.ACTIVITY_CHILD_TIME,TimeUnit.MINUTES);
+            redissonClient.getBucket(key).set(activityChild);
         }
     }
 
@@ -137,7 +130,7 @@ public class RedissonCache {
         for (Activity activity : activities) {
             String key = CacheCode.CACHE_ACTIVITY+activity.getId();
             bloomFilter.add(key);
-            redissonClient.getBucket(key).trySet(activity,CacheCode.ACTIVITY_TIME,TimeUnit.MINUTES);
+            redissonClient.getBucket(key).set(activity);
         }
     }
 
@@ -154,7 +147,7 @@ public class RedissonCache {
         for (ActivityTimes activityTime : activityTimes) {
             String key = CacheCode.CACHE_ACTIVITY_TIMES+activityTime.getId();
             bloomFilter.add(key);
-            redissonClient.getBucket(key).trySet(activityTime,CacheCode.ACTIVITY_TIMES_TIME,TimeUnit.MINUTES);
+            redissonClient.getBucket(key).set(activityTime);
         }
     }
 
@@ -171,7 +164,7 @@ public class RedissonCache {
         for (ImpImages impImage : impImages) {
             String key = CacheCode.CACHE_IMP_IMAGES+impImage.getId();
             bloomFilter.add(key);
-            redissonClient.getBucket(key).trySet(impImage,CacheCode.IMP_IMAGES_TIME, TimeUnit.MINUTES);
+            redissonClient.getBucket(key).set(impImage);
         }
     }
 

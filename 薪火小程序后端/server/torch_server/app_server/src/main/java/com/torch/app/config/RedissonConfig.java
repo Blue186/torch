@@ -36,7 +36,7 @@ public class RedissonConfig {
         try{
             redissonClient = Redisson.create(config);
             RBloomFilter<Object> bloomFilter = redissonClient.getBloomFilter("bloom-filter");
-            bloomFilter.tryInit(100000,0.001);
+            bloomFilter.tryInit(500000,0.001);
             log.info("布隆过滤器初始化成功");
             return redissonClient;
         }catch (Exception e){

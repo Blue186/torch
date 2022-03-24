@@ -36,16 +36,13 @@ public class JudgeCookieToken {
      * @return true/false
      */
     public Boolean judge(HttpServletRequest request){
-
         userCookie = request.getHeader("c");
-        System.out.println("---------------------C:"+userCookie);
         if (userCookie==null){
             return false;
         }
 //        判断user的cookie
         boolean exists = redisUtil.exists(userCookie);
         if (exists){
-            System.out.println("这里---");
 //            如果未过期，且cookie正确，则拿到tk,openid
             String openid = redisUtil.hmGet(userCookie, "openid").toString();
             String tk = redisUtil.hmGet(userCookie, "tk").toString();

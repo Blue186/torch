@@ -7,19 +7,19 @@ public interface CacheCode {
 
     long TOKEN_TIME = (long) (3600+Math.random()*10);//用户登录时产生的token的有效时间,s
 
-    long USER_TIME = (long) (1440+Math.random()*10);//用户信息缓存有效时间,s
-
-    long ACTIVITY_TIME = (long) (480+Math.random()*10);//父活动有效时间,m
-
-    long ACTIVITY_CHILD_TIME = (long) (480+Math.random()*10);//子活动有效时间,m
-
-    long ACTIVITY_TIMES_TIME = (long) (480+Math.random()*10);//活动时间段有效时间,m
-
-    long SIGN_UP_TIME = (long) (480+Math.random()*10);//报名信息有效时间,m
-
-    long IMP_IMAGES_TIME = (long) (1440+Math.random()*10);//心得图片有效时间,m
-
-    long IMPRESSIONS_TIME = (long) (1440+Math.random()*10);//心得有效时间,m
+//    long USER_TIME = (long) (1440+Math.random()*10);//用户信息缓存有效时间,s
+//
+//    long ACTIVITY_TIME = (long) (480+Math.random()*10);//父活动有效时间,m
+//
+//    long ACTIVITY_CHILD_TIME = (long) (480+Math.random()*10);//子活动有效时间,m
+//
+//    long ACTIVITY_TIMES_TIME = (long) (480+Math.random()*10);//活动时间段有效时间,m
+//
+//    long SIGN_UP_TIME = (long) (480+Math.random()*10);//报名信息有效时间,m
+//
+//    long IMP_IMAGES_TIME = (long) (1440+Math.random()*10);//心得图片有效时间,m
+//
+//    long IMPRESSIONS_TIME = (long) (1440+Math.random()*10);//心得有效时间,m
 
     String CACHE_USER = "user:";//用户信息缓存前缀
 

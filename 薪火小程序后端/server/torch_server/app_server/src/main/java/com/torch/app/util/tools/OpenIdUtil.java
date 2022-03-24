@@ -35,14 +35,8 @@ public class OpenIdUtil {
             while ((line = in.readLine()) != null) {
                 sb.append(line);
             }
-            System.out.println("code:-------"+code);
-            System.out.println("appid:-----------"+appid);
-            System.out.println("secret:-----------"+secret);
-            System.out.println("openid:-----------"+sb.toString());
             JSONObject jsonObject = JSONObject.fromObject(sb.toString());
-
             Object openid = jsonObject.get("openid");
-            System.out.println("openid---------------"+openid.toString());
             return openid.toString();
         } catch (Exception e1) {
             throw new RuntimeException(e1);

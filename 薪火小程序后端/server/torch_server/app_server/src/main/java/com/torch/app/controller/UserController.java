@@ -25,7 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Slf4j
 @Api(tags = {"用户登录注册相关接口"},value = "用户登录注册相关接口")
@@ -81,7 +81,7 @@ public class UserController {
         User user = userService.getBaseMapper().selectOne(queryWrapper);
         String cookie = cookieUtils.setCookie(response);
         String token = tokenUtil.generateToken(cookie, openId);
-        Map<String,Object> map = new HashMap<>();
+        ConcurrentHashMap<String,Object> map = new ConcurrentHashMap<>();
         map.put("openid",openId);
         map.put("tk",token);
         if (user==null){
@@ -129,7 +129,7 @@ public class UserController {
         if (user==null){
             log.info("从数据库中拿到用户信息，并更新缓存");
             user = userService.getBaseMapper().selectById(uid.toString());
-            redissonClient.getBucket(key).set(user,CacheCode.USER_TIME,TimeUnit.SECONDS);
+            redissonClient.getBucket(key).set(user);
         }
         log.info("从缓存中拿到用户信息");
         return R.ok().data(user);
@@ -150,7 +150,7 @@ public class UserController {
         int res = userService.getBaseMapper().updateById(user);
         if (res==1){
             String key = CacheCode.CACHE_USER+user.getId();
-            redissonClient.getBucket(key).set(user, CacheCode.USER_TIME, TimeUnit.SECONDS);
+            redissonClient.getBucket(key).set(user);
 
             log.info("用户修改个人信息成功,OK?");
             return R.ok();
@@ -210,7 +210,7 @@ public class UserController {
                 if (res==1){
                     //缓存更新
                     bloomFilter.add(key);
-                    redissonClient.getBucket(key).set(user,CacheCode.USER_TIME,TimeUnit.SECONDS);
+                    redissonClient.getBucket(key).set(user);
                     log.info("用户邮箱更新成功");
                     return R.ok().message("用户邮箱更新成功");
                 }else {

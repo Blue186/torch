@@ -25,7 +25,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 @Slf4j
 @Api(tags = {"用户心得体会相关接口"},value = "用户心得体会相关接口")
@@ -85,7 +84,7 @@ public class ImpressionsController {
         }//这里完成？？
         if (res==1){
             log.info("用户心得发布成功");
-            redissonClient.getBucket(CacheCode.CACHE_IMPRESSION+impressions.getId()).set(impressions,CacheCode.IMPRESSIONS_TIME, TimeUnit.MINUTES);
+            redissonClient.getBucket(CacheCode.CACHE_IMPRESSION+impressions.getId()).set(impressions);
             return R.ok().message("发布成功");
         }else {
             log.error("用户心得发布失败");
@@ -120,7 +119,7 @@ public class ImpressionsController {
         impressionsService.updateImages(updateImp.getImagesUrls(), impressions.getId());//这里存在逻辑问题，如果第一次没有提交图片，这样就更新不了了，后面添加更多的图片也不行了。
         if (res==1){
             log.info("用户心得更新成功");
-            redissonClient.getBucket(CacheCode.CACHE_IMPRESSION+impressions.getId()).set(impressions,CacheCode.IMPRESSIONS_TIME,TimeUnit.MINUTES);
+            redissonClient.getBucket(CacheCode.CACHE_IMPRESSION+impressions.getId()).set(impressions);
             return R.ok().message("更新成功");
         }else {
             log.error("用户心得更新失败");
@@ -150,7 +149,7 @@ public class ImpressionsController {
         if (impressions==null){
             log.info("从数据库中拿到的心得信息并更新redis");
             impressions = impressionsService.getBaseMapper().selectOne(wrapper);
-            redissonClient.getBucket(key).set(impressions,CacheCode.IMPRESSIONS_TIME,TimeUnit.MINUTES);
+            redissonClient.getBucket(key).set(impressions);
         }
         log.info("从redis中拿到的心得数据");
         ImpressionsInfo impressionsInfo = impressionsService.getImpressionsInfo(impressions);

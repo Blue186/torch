@@ -28,7 +28,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 import java.util.concurrent.Semaphore;
-import java.util.concurrent.TimeUnit;
 
 @Slf4j
 @Api(tags = {"用户报名志愿活动相关接口"},value = "用户报名志愿活动相关接口")
@@ -184,7 +183,7 @@ public class SignUpController {
             if (activity.getTotalNumber()>0){
                 activity.setTotalNumber(activity.getTotalNumber()-INCREASE_NUMBER);//取消报名后，报名人数减一。
                 activityService.getBaseMapper().updateById(activity);
-                redissonClient.getBucket(CacheCode.CACHE_ACTIVITY+activity.getId()).set(activity,CacheCode.ACTIVITY_TIME, TimeUnit.SECONDS);
+                redissonClient.getBucket(CacheCode.CACHE_ACTIVITY+activity.getId()).set(activity);
                 log.info("更新志愿活动信息到缓存");
             }else {
                 log.error("已经没有人了呀");

@@ -35,9 +35,7 @@ public class ActivityChildServiceImpl extends ServiceImpl<ActivityChildMapper, A
         QueryWrapper<ActivityTimes> wrapper = new QueryWrapper<>();
         wrapper.eq("act_chi_id",activityChild.getId());
         wrapper.eq("act_id",activityChild.getActivityId());
-//        wrapper.orderByDesc("start_time");字符串不管用
         List<ActivityTimes> activityTimes = activityTimesService.getBaseMapper().selectList(wrapper);
-
         GetChild getChild = new GetChild();
         getChild.setId(activityChild.getId());
         getChild.setActivityId(activityChild.getActivityId());

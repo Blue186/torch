@@ -69,7 +69,6 @@ public class SignUpServiceImpl extends ServiceImpl<SignUpMapper, SignUp> impleme
                 log.info("从缓存拿到父活动信息");
                 ActivityChild activityChild = activityChildService.getBaseMapper().selectById(signUp.getActChiId());
                 ActivityTimes activityTimes = activityTimesService.getBaseMapper().selectById(signUp.getActTimesId());
-                log.info("activity:-----,{}",activity);
                 SignUpInfo signUpInfo = new SignUpInfo();
                 signUpInfo.setId(signUp.getId());
                 signUpInfo.setActId(signUp.getActId());
@@ -89,12 +88,8 @@ public class SignUpServiceImpl extends ServiceImpl<SignUpMapper, SignUp> impleme
             List<SignUpInfoNot> signUpInfoNot = new ArrayList<>();
             for (SignUp signUp : signUps) {
                 Activity activity = activityService.getBaseMapper().selectById(signUp.getActId());
-
                 ActivityChild activityChild = activityChildService.getBaseMapper().selectById(signUp.getActChiId());
-
                 ActivityTimes activityTimes = activityTimesService.getBaseMapper().selectById(signUp.getActTimesId());
-
-                log.info("activity:-----,{}",activity);
                 SignUpInfoNot infoNot = new SignUpInfoNot();
                 infoNot.setVolTime(activityTimes.getVolTime());
                 infoNot.setServicePeriod(activityChild.getServicePeriod());
