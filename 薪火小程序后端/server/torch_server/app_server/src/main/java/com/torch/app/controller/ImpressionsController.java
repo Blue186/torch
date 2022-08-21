@@ -63,6 +63,7 @@ public class ImpressionsController {
     @PostMapping()
     public R<?> publishImpressions(@ApiParam(name = "impressions",value = "用户心得信息",required = true) @RequestBody PublishImpressions publishImp,
                                    HttpServletRequest request){
+        RBloomFilter<Object> bloomFilter = redissonClient.getBloomFilter("bloom-filter");
         String cookie = judgeCookieToken.getCookie(request);
         Object uid = redisUtil.hmGet(cookie, "uid");
         Impressions impressions = new Impressions();
@@ -82,9 +83,11 @@ public class ImpressionsController {
             signUp.setImpWrote(1);
             signUpService.getBaseMapper().updateById(signUp);
         }//这里完成？？
+        String key = CacheCode.CACHE_IMPRESSION+impressions.getActId()+impressions.getUserId();
         if (res==1){
             log.info("用户心得发布成功");
-            redissonClient.getBucket(CacheCode.CACHE_IMPRESSION+impressions.getId()).set(impressions);
+            bloomFilter.add(key);
+            redissonClient.getBucket(key).set(impressions);
             return R.ok().message("发布成功");
         }else {
             log.error("用户心得发布失败");
@@ -96,10 +99,12 @@ public class ImpressionsController {
     @ApiOperation(value = "用户删除已发布的心得接口")
     @DeleteMapping("/{id}")
     public R<?> deleteImpressions(@ApiParam(name = "id",value = "心得的id")@PathVariable Integer id){
+        Impressions impressions = impressionsService.getBaseMapper().selectById(id);
         int res = impressionsService.getBaseMapper().deleteById(id);
+        String key = CacheCode.CACHE_IMPRESSION+impressions.getActId()+impressions.getUserId();
         if (res==1){
             log.info("用户心得删除成功");
-            redissonClient.getBucket(CacheCode.CACHE_IMPRESSION+id).delete();
+            redissonClient.getBucket(key).delete();
             return R.ok().message("删除成功");
         }else {
             log.error("用户心得删除失败");
@@ -117,9 +122,10 @@ public class ImpressionsController {
         impressions.setContent(updateImp.getContent());
         int res = impressionsService.getBaseMapper().updateById(impressions);
         impressionsService.updateImages(updateImp.getImagesUrls(), impressions.getId());//这里存在逻辑问题，如果第一次没有提交图片，这样就更新不了了，后面添加更多的图片也不行了。
+        String key = CacheCode.CACHE_IMPRESSION+impressions.getActId()+impressions.getUserId();
         if (res==1){
             log.info("用户心得更新成功");
-            redissonClient.getBucket(CacheCode.CACHE_IMPRESSION+impressions.getId()).set(impressions);
+            redissonClient.getBucket(key).set(impressions);
             return R.ok().message("更新成功");
         }else {
             log.error("用户心得更新失败");

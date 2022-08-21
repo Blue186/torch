@@ -1,76 +1,233 @@
-2022-03-24 16:24:11.882|[main]|INFO |com.torch.app.AppApplication-Starting AppApplication using Java 1.8.0_202 on LAPTOP-B8LA37VK with PID 30096 (D:\Desktop\薪火技术部\微信小程序\torch\薪火小程序后端\server\torch_server\app_server\target\classes started by 79014 in D:\Desktop\薪火技术部\微信小程序\torch\薪火小程序后端\server)
-2022-03-24 16:24:11.890|[main]|INFO |com.torch.app.AppApplication-No active profile set, falling back to default profiles: default
-2022-03-24 16:24:16.748|[main]|INFO |c.t.app.config.RedissonConfig-布隆过滤器初始化失败
-2022-03-24 16:24:16.914|[main]|INFO |c.t.app.config.RedissonConfig-布隆过滤器初始化失败
-2022-03-24 16:24:29.107|[main]|INFO |com.torch.app.AppApplication-Starting AppApplication using Java 1.8.0_202 on LAPTOP-B8LA37VK with PID 34028 (D:\Desktop\薪火技术部\微信小程序\torch\薪火小程序后端\server\torch_server\app_server\target\classes started by 79014 in D:\Desktop\薪火技术部\微信小程序\torch\薪火小程序后端\server)
-2022-03-24 16:24:29.122|[main]|INFO |com.torch.app.AppApplication-No active profile set, falling back to default profiles: default
-2022-03-24 16:24:33.263|[main]|INFO |c.t.app.config.RedissonConfig-布隆过滤器初始化失败
-2022-03-24 16:24:33.394|[main]|INFO |c.t.app.config.RedissonConfig-布隆过滤器初始化失败
-2022-03-24 16:25:03.636|[main]|INFO |com.torch.app.AppApplication-Starting AppApplication using Java 1.8.0_202 on LAPTOP-B8LA37VK with PID 3868 (D:\Desktop\薪火技术部\微信小程序\torch\薪火小程序后端\server\torch_server\app_server\target\classes started by 79014 in D:\Desktop\薪火技术部\微信小程序\torch\薪火小程序后端\server)
-2022-03-24 16:25:03.638|[main]|INFO |com.torch.app.AppApplication-No active profile set, falling back to default profiles: default
-2022-03-24 16:25:07.618|[main]|INFO |c.t.app.config.RedissonConfig-布隆过滤器初始化失败
-2022-03-24 16:25:07.775|[main]|INFO |c.t.app.config.RedissonConfig-布隆过滤器初始化失败
-2022-03-24 16:25:42.857|[main]|INFO |com.torch.app.AppApplication-Starting AppApplication using Java 1.8.0_202 on LAPTOP-B8LA37VK with PID 32744 (D:\Desktop\薪火技术部\微信小程序\torch\薪火小程序后端\server\torch_server\app_server\target\classes started by 79014 in D:\Desktop\薪火技术部\微信小程序\torch\薪火小程序后端\server)
-2022-03-24 16:25:42.861|[main]|INFO |com.torch.app.AppApplication-No active profile set, falling back to default profiles: default
-2022-03-24 16:25:47.051|[main]|INFO |c.t.app.config.RedissonConfig-布隆过滤器初始化成功
-2022-03-24 16:25:48.805|[main]|INFO |com.torch.app.AppApplication-Started AppApplication in 6.65 seconds (JVM running for 7.767)
-2022-03-24 16:28:59.750|[main]|INFO |com.torch.app.AppApplication-Starting AppApplication using Java 1.8.0_202 on LAPTOP-B8LA37VK with PID 28724 (D:\Desktop\薪火技术部\微信小程序\torch\薪火小程序后端\server\torch_server\app_server\target\classes started by 79014 in D:\Desktop\薪火技术部\微信小程序\torch\薪火小程序后端\server)
-2022-03-24 16:28:59.755|[main]|INFO |com.torch.app.AppApplication-No active profile set, falling back to default profiles: default
-2022-03-24 16:29:04.117|[main]|INFO |c.t.app.config.RedissonConfig-布隆过滤器初始化成功
-2022-03-24 16:29:05.759|[main]|INFO |com.torch.app.AppApplication-Started AppApplication in 6.72 seconds (JVM running for 8.043)
-2022-03-24 16:30:17.321|[main]|INFO |com.torch.app.AppApplication-Starting AppApplication using Java 1.8.0_202 on LAPTOP-B8LA37VK with PID 36972 (D:\Desktop\薪火技术部\微信小程序\torch\薪火小程序后端\server\torch_server\app_server\target\classes started by 79014 in D:\Desktop\薪火技术部\微信小程序\torch\薪火小程序后端\server)
-2022-03-24 16:30:17.325|[main]|INFO |com.torch.app.AppApplication-No active profile set, falling back to default profiles: default
-2022-03-24 16:30:21.548|[main]|INFO |c.t.app.config.RedissonConfig-布隆过滤器初始化成功
-2022-03-24 16:30:23.194|[main]|INFO |com.torch.app.AppApplication-Started AppApplication in 6.824 seconds (JVM running for 8.062)
-2022-03-24 16:30:31.751|[http-nio-0.0.0.0-8002-exec-1]|INFO |c.t.a.w.annotation.LogCostTime-请求时间：2022-03-24 16:30:31.751
-2022-03-24 16:30:31.752|[http-nio-0.0.0.0-8002-exec-1]|INFO |c.t.a.w.annotation.LogCostTime-请求IP：0:0:0:0:0:0:0:1
-2022-03-24 16:30:31.753|[http-nio-0.0.0.0-8002-exec-1]|INFO |c.t.a.w.annotation.LogCostTime-请求方式：GET，方法：getOneImpressions
-2022-03-24 16:30:31.753|[http-nio-0.0.0.0-8002-exec-1]|INFO |c.t.a.w.annotation.LogCostTime-请求参数：[11, org.apache.catalina.connector.RequestFacade@442e912b]
-2022-03-24 16:31:37.323|[main]|INFO |com.torch.app.AppApplication-Starting AppApplication using Java 1.8.0_202 on LAPTOP-B8LA37VK with PID 19580 (D:\Desktop\薪火技术部\微信小程序\torch\薪火小程序后端\server\torch_server\app_server\target\classes started by 79014 in D:\Desktop\薪火技术部\微信小程序\torch\薪火小程序后端\server)
-2022-03-24 16:31:37.326|[main]|INFO |com.torch.app.AppApplication-No active profile set, falling back to default profiles: default
-2022-03-24 16:31:41.887|[main]|INFO |c.t.app.config.RedissonConfig-布隆过滤器初始化成功
-2022-03-24 16:31:43.515|[http-nio-0.0.0.0-8002-exec-1]|INFO |c.t.a.w.annotation.LogCostTime-请求时间：2022-03-24 16:31:43.515
-2022-03-24 16:31:43.516|[http-nio-0.0.0.0-8002-exec-1]|INFO |c.t.a.w.annotation.LogCostTime-请求IP：0:0:0:0:0:0:0:1
-2022-03-24 16:31:43.519|[http-nio-0.0.0.0-8002-exec-1]|INFO |c.t.a.w.annotation.LogCostTime-请求方式：GET，方法：getOneImpressions
-2022-03-24 16:31:43.519|[http-nio-0.0.0.0-8002-exec-1]|INFO |c.t.a.w.annotation.LogCostTime-请求参数：[11, org.apache.catalina.connector.RequestFacade@711f8351]
-2022-03-24 16:31:43.546|[http-nio-0.0.0.0-8002-exec-1]|INFO |c.t.a.c.ImpressionsController-布隆过滤器中不存在该key
-2022-03-24 16:31:43.547|[http-nio-0.0.0.0-8002-exec-1]|INFO |c.t.a.w.annotation.LogCostTime-请求结束时间：2022-03-24 16:31:43.547
-2022-03-24 16:31:43.547|[http-nio-0.0.0.0-8002-exec-1]|INFO |c.t.a.w.annotation.LogCostTime-请求耗时：32
-2022-03-24 16:31:43.698|[main]|INFO |com.torch.app.AppApplication-Started AppApplication in 7.091 seconds (JVM running for 8.155)
-2022-03-24 16:33:45.384|[main]|INFO |com.torch.app.AppApplication-Starting AppApplication using Java 1.8.0_202 on LAPTOP-B8LA37VK with PID 26128 (D:\Desktop\薪火技术部\微信小程序\torch\薪火小程序后端\server\torch_server\app_server\target\classes started by 79014 in D:\Desktop\薪火技术部\微信小程序\torch\薪火小程序后端\server)
-2022-03-24 16:33:45.388|[main]|INFO |com.torch.app.AppApplication-No active profile set, falling back to default profiles: default
-2022-03-24 16:33:49.494|[main]|INFO |c.t.app.config.RedissonConfig-布隆过滤器初始化失败
-2022-03-24 16:33:49.647|[main]|INFO |c.t.app.config.RedissonConfig-布隆过滤器初始化失败
-2022-03-24 16:34:25.844|[main]|INFO |com.torch.app.AppApplication-Starting AppApplication using Java 1.8.0_202 on LAPTOP-B8LA37VK with PID 37332 (D:\Desktop\薪火技术部\微信小程序\torch\薪火小程序后端\server\torch_server\app_server\target\classes started by 79014 in D:\Desktop\薪火技术部\微信小程序\torch\薪火小程序后端\server)
-2022-03-24 16:34:25.856|[main]|INFO |com.torch.app.AppApplication-No active profile set, falling back to default profiles: default
-2022-03-24 16:34:31.813|[main]|INFO |c.t.app.config.RedissonConfig-布隆过滤器初始化成功
-2022-03-24 16:34:34.210|[main]|INFO |com.torch.app.AppApplication-Started AppApplication in 9.092 seconds (JVM running for 10.118)
-2022-03-24 16:34:42.872|[http-nio-0.0.0.0-8002-exec-1]|INFO |c.t.a.w.annotation.LogCostTime-请求时间：2022-03-24 16:34:42.871
-2022-03-24 16:34:42.872|[http-nio-0.0.0.0-8002-exec-1]|INFO |c.t.a.w.annotation.LogCostTime-请求IP：0:0:0:0:0:0:0:1
-2022-03-24 16:34:42.873|[http-nio-0.0.0.0-8002-exec-1]|INFO |c.t.a.w.annotation.LogCostTime-请求方式：GET，方法：getOneImpressions
-2022-03-24 16:34:42.873|[http-nio-0.0.0.0-8002-exec-1]|INFO |c.t.a.w.annotation.LogCostTime-请求参数：[11, org.apache.catalina.connector.RequestFacade@593fee0a]
-2022-03-24 16:34:42.923|[http-nio-0.0.0.0-8002-exec-1]|INFO |c.t.a.c.ImpressionsController-从redis中拿到的心得数据
-2022-03-24 16:34:44.361|[http-nio-0.0.0.0-8002-exec-1]|INFO |c.t.a.w.annotation.LogCostTime-请求结束时间：2022-03-24 16:34:44.361
-2022-03-24 16:34:44.361|[http-nio-0.0.0.0-8002-exec-1]|INFO |c.t.a.w.annotation.LogCostTime-请求耗时：1490
-2022-03-24 16:36:02.489|[http-nio-0.0.0.0-8002-exec-3]|INFO |c.t.a.w.annotation.LogCostTime-请求时间：2022-03-24 16:36:02.489
-2022-03-24 16:36:02.489|[http-nio-0.0.0.0-8002-exec-3]|INFO |c.t.a.w.annotation.LogCostTime-请求IP：0:0:0:0:0:0:0:1
-2022-03-24 16:36:02.489|[http-nio-0.0.0.0-8002-exec-3]|INFO |c.t.a.w.annotation.LogCostTime-请求方式：GET，方法：getOneImpressions
-2022-03-24 16:36:02.489|[http-nio-0.0.0.0-8002-exec-3]|INFO |c.t.a.w.annotation.LogCostTime-请求参数：[12, org.apache.catalina.connector.RequestFacade@593fee0a]
-2022-03-24 16:36:02.498|[http-nio-0.0.0.0-8002-exec-3]|INFO |c.t.a.c.ImpressionsController-从数据库中拿到的心得信息并更新redis
-2022-03-24 16:36:02.582|[http-nio-0.0.0.0-8002-exec-3]|INFO |c.t.a.c.ImpressionsController-从redis中拿到的心得数据
-2022-03-24 16:36:02.620|[http-nio-0.0.0.0-8002-exec-3]|INFO |c.t.a.w.annotation.LogCostTime-请求结束时间：2022-03-24 16:36:02.620
-2022-03-24 16:36:02.620|[http-nio-0.0.0.0-8002-exec-3]|INFO |c.t.a.w.annotation.LogCostTime-请求耗时：131
-2022-03-24 16:38:19.741|[http-nio-0.0.0.0-8002-exec-5]|INFO |c.t.a.w.annotation.LogCostTime-请求时间：2022-03-24 16:38:19.741
-2022-03-24 16:38:19.741|[http-nio-0.0.0.0-8002-exec-5]|INFO |c.t.a.w.annotation.LogCostTime-请求IP：0:0:0:0:0:0:0:1
-2022-03-24 16:38:19.742|[http-nio-0.0.0.0-8002-exec-5]|INFO |c.t.a.w.annotation.LogCostTime-请求方式：PUT，方法：updateImpressions
-2022-03-24 16:38:19.742|[http-nio-0.0.0.0-8002-exec-5]|INFO |c.t.a.w.annotation.LogCostTime-请求参数：[UpdateImpressions(content=test修改, imagesUrls=[http://139.186.170.118:8002/static/images/47d86261b7924802aba9bd6b8c9d548e.png], actStars=3, id=33)]
-2022-03-24 16:38:19.971|[http-nio-0.0.0.0-8002-exec-5]|INFO |c.t.a.c.ImpressionsController-用户心得更新成功
-2022-03-24 16:38:19.979|[http-nio-0.0.0.0-8002-exec-5]|INFO |c.t.a.w.annotation.LogCostTime-请求结束时间：2022-03-24 16:38:19.979
-2022-03-24 16:38:19.979|[http-nio-0.0.0.0-8002-exec-5]|INFO |c.t.a.w.annotation.LogCostTime-请求耗时：238
-2022-03-24 16:38:34.196|[http-nio-0.0.0.0-8002-exec-6]|INFO |c.t.a.w.annotation.LogCostTime-请求时间：2022-03-24 16:38:34.196
-2022-03-24 16:38:34.197|[http-nio-0.0.0.0-8002-exec-6]|INFO |c.t.a.w.annotation.LogCostTime-请求IP：0:0:0:0:0:0:0:1
-2022-03-24 16:38:34.197|[http-nio-0.0.0.0-8002-exec-6]|INFO |c.t.a.w.annotation.LogCostTime-请求方式：GET，方法：getOneImpressions
-2022-03-24 16:38:34.197|[http-nio-0.0.0.0-8002-exec-6]|INFO |c.t.a.w.annotation.LogCostTime-请求参数：[11, org.apache.catalina.connector.RequestFacade@593fee0a]
-2022-03-24 16:38:34.208|[http-nio-0.0.0.0-8002-exec-6]|INFO |c.t.a.c.ImpressionsController-从redis中拿到的心得数据
-2022-03-24 16:38:34.277|[http-nio-0.0.0.0-8002-exec-6]|INFO |c.t.a.w.annotation.LogCostTime-请求结束时间：2022-03-24 16:38:34.277
-2022-03-24 16:38:34.277|[http-nio-0.0.0.0-8002-exec-6]|INFO |c.t.a.w.annotation.LogCostTime-请求耗时：81
+2022-03-25 12:42:25.819|[main]|INFO |com.torch.app.AppApplication-Starting AppApplication using Java 1.8.0_202 on LAPTOP-B8LA37VK with PID 16308 (D:\Desktop\薪火技术部\微信小程序\torch\薪火小程序后端\server\torch_server\app_server\target\classes started by 79014 in D:\Desktop\薪火技术部\微信小程序\torch\薪火小程序后端\server)
+2022-03-25 12:42:25.836|[main]|INFO |com.torch.app.AppApplication-No active profile set, falling back to default profiles: default
+2022-03-25 12:42:30.444|[main]|INFO |c.t.app.config.RedissonConfig-布隆过滤器初始化成功
+2022-03-25 12:42:32.240|[main]|INFO |com.torch.app.AppApplication-Started AppApplication in 7.144 seconds (JVM running for 8.669)
+2022-03-25 12:49:35.658|[http-nio-0.0.0.0-8002-exec-1]|INFO |c.t.a.c.UserController-用户登录成功：4
+2022-03-25 12:49:35.790|[http-nio-0.0.0.0-8002-exec-2]|INFO |c.t.a.w.annotation.LogCostTime-请求时间：2022-03-25 12:49:35.789
+2022-03-25 12:49:35.790|[http-nio-0.0.0.0-8002-exec-2]|INFO |c.t.a.w.annotation.LogCostTime-请求IP：192.168.10.25
+2022-03-25 12:49:35.790|[http-nio-0.0.0.0-8002-exec-2]|INFO |c.t.a.w.annotation.LogCostTime-请求用户：oBfby4h_1hj7bP3cNTnPesDkZYU0
+2022-03-25 12:49:35.791|[http-nio-0.0.0.0-8002-exec-2]|INFO |c.t.a.w.annotation.LogCostTime-请求方式：GET，方法：getActivities
+2022-03-25 12:49:35.792|[http-nio-0.0.0.0-8002-exec-2]|INFO |c.t.a.w.annotation.LogCostTime-请求参数：[0, 4]
+2022-03-25 12:49:36.042|[http-nio-0.0.0.0-8002-exec-2]|INFO |c.t.a.w.annotation.LogCostTime-请求结束时间：2022-03-25 12:49:36.042
+2022-03-25 12:49:36.042|[http-nio-0.0.0.0-8002-exec-2]|INFO |c.t.a.w.annotation.LogCostTime-请求耗时：253
+2022-03-25 12:49:38.399|[http-nio-0.0.0.0-8002-exec-4]|INFO |c.t.a.w.annotation.LogCostTime-请求时间：2022-03-25 12:49:38.399
+2022-03-25 12:49:38.399|[http-nio-0.0.0.0-8002-exec-5]|INFO |c.t.a.w.annotation.LogCostTime-请求时间：2022-03-25 12:49:38.399
+2022-03-25 12:49:38.399|[http-nio-0.0.0.0-8002-exec-4]|INFO |c.t.a.w.annotation.LogCostTime-请求IP：192.168.10.25
+2022-03-25 12:49:38.399|[http-nio-0.0.0.0-8002-exec-5]|INFO |c.t.a.w.annotation.LogCostTime-请求IP：192.168.10.25
+2022-03-25 12:49:38.399|[http-nio-0.0.0.0-8002-exec-4]|INFO |c.t.a.w.annotation.LogCostTime-请求用户：oBfby4h_1hj7bP3cNTnPesDkZYU0
+2022-03-25 12:49:38.399|[http-nio-0.0.0.0-8002-exec-5]|INFO |c.t.a.w.annotation.LogCostTime-请求用户：oBfby4h_1hj7bP3cNTnPesDkZYU0
+2022-03-25 12:49:38.400|[http-nio-0.0.0.0-8002-exec-5]|INFO |c.t.a.w.annotation.LogCostTime-请求方式：GET，方法：getVolInfoOver
+2022-03-25 12:49:38.400|[http-nio-0.0.0.0-8002-exec-4]|INFO |c.t.a.w.annotation.LogCostTime-请求方式：GET，方法：getUser
+2022-03-25 12:49:38.400|[http-nio-0.0.0.0-8002-exec-5]|INFO |c.t.a.w.annotation.LogCostTime-请求参数：[0, org.apache.catalina.connector.RequestFacade@372cb146]
+2022-03-25 12:49:38.400|[http-nio-0.0.0.0-8002-exec-4]|INFO |c.t.a.w.annotation.LogCostTime-请求参数：[org.apache.catalina.connector.RequestFacade@3828859a]
+2022-03-25 12:49:38.468|[http-nio-0.0.0.0-8002-exec-4]|INFO |c.t.a.c.UserController-从缓存中拿到用户信息
+2022-03-25 12:49:38.468|[http-nio-0.0.0.0-8002-exec-4]|INFO |c.t.a.w.annotation.LogCostTime-请求结束时间：2022-03-25 12:49:38.468
+2022-03-25 12:49:38.468|[http-nio-0.0.0.0-8002-exec-4]|INFO |c.t.a.w.annotation.LogCostTime-请求耗时：69
+2022-03-25 12:49:38.626|[http-nio-0.0.0.0-8002-exec-6]|INFO |c.t.a.w.annotation.LogCostTime-请求时间：2022-03-25 12:49:38.626
+2022-03-25 12:49:38.626|[http-nio-0.0.0.0-8002-exec-6]|INFO |c.t.a.w.annotation.LogCostTime-请求IP：192.168.10.25
+2022-03-25 12:49:38.626|[http-nio-0.0.0.0-8002-exec-6]|INFO |c.t.a.w.annotation.LogCostTime-请求用户：oBfby4h_1hj7bP3cNTnPesDkZYU0
+2022-03-25 12:49:38.626|[http-nio-0.0.0.0-8002-exec-6]|INFO |c.t.a.w.annotation.LogCostTime-请求方式：GET，方法：getVolInfoOver
+2022-03-25 12:49:38.626|[http-nio-0.0.0.0-8002-exec-6]|INFO |c.t.a.w.annotation.LogCostTime-请求参数：[1, org.apache.catalina.connector.RequestFacade@3828859a]
+2022-03-25 12:49:38.838|[http-nio-0.0.0.0-8002-exec-6]|INFO |c.t.a.s.impl.SignUpServiceImpl-从缓存拿到父活动信息
+2022-03-25 12:49:39.921|[http-nio-0.0.0.0-8002-exec-6]|INFO |c.t.a.s.impl.SignUpServiceImpl-从缓存拿到父活动信息
+2022-03-25 12:49:40.032|[http-nio-0.0.0.0-8002-exec-5]|INFO |c.t.a.w.annotation.LogCostTime-请求结束时间：2022-03-25 12:49:40.032
+2022-03-25 12:49:40.032|[http-nio-0.0.0.0-8002-exec-5]|INFO |c.t.a.w.annotation.LogCostTime-请求耗时：1406
+2022-03-25 12:49:40.213|[http-nio-0.0.0.0-8002-exec-6]|INFO |c.t.a.s.impl.SignUpServiceImpl-从缓存拿到父活动信息
+2022-03-25 12:49:40.588|[http-nio-0.0.0.0-8002-exec-6]|INFO |c.t.a.s.impl.SignUpServiceImpl-从缓存拿到父活动信息
+2022-03-25 12:49:41.540|[http-nio-0.0.0.0-8002-exec-6]|INFO |c.t.a.s.impl.SignUpServiceImpl-从缓存拿到父活动信息
+2022-03-25 12:49:41.616|[http-nio-0.0.0.0-8002-exec-6]|INFO |c.t.a.w.annotation.LogCostTime-请求结束时间：2022-03-25 12:49:41.616
+2022-03-25 12:49:41.616|[http-nio-0.0.0.0-8002-exec-6]|INFO |c.t.a.w.annotation.LogCostTime-请求耗时：2990
+2022-03-25 12:49:44.668|[http-nio-0.0.0.0-8002-exec-7]|INFO |c.t.a.w.annotation.LogCostTime-请求时间：2022-03-25 12:49:44.668
+2022-03-25 12:49:44.668|[http-nio-0.0.0.0-8002-exec-7]|INFO |c.t.a.w.annotation.LogCostTime-请求IP：192.168.10.25
+2022-03-25 12:49:44.668|[http-nio-0.0.0.0-8002-exec-7]|INFO |c.t.a.w.annotation.LogCostTime-请求用户：oBfby4h_1hj7bP3cNTnPesDkZYU0
+2022-03-25 12:49:44.668|[http-nio-0.0.0.0-8002-exec-7]|INFO |c.t.a.w.annotation.LogCostTime-请求方式：GET，方法：getOneImpressions
+2022-03-25 12:49:44.668|[http-nio-0.0.0.0-8002-exec-7]|INFO |c.t.a.w.annotation.LogCostTime-请求参数：[11, org.apache.catalina.connector.RequestFacade@3828859a]
+2022-03-25 12:49:44.698|[http-nio-0.0.0.0-8002-exec-7]|INFO |c.t.a.c.ImpressionsController-从redis中拿到的心得数据
+2022-03-25 12:49:44.782|[http-nio-0.0.0.0-8002-exec-7]|INFO |c.t.a.w.annotation.LogCostTime-请求结束时间：2022-03-25 12:49:44.782
+2022-03-25 12:49:44.782|[http-nio-0.0.0.0-8002-exec-7]|INFO |c.t.a.w.annotation.LogCostTime-请求耗时：114
+2022-03-25 12:49:49.926|[http-nio-0.0.0.0-8002-exec-1]|INFO |c.t.a.w.annotation.LogCostTime-请求时间：2022-03-25 12:49:49.926
+2022-03-25 12:49:49.926|[http-nio-0.0.0.0-8002-exec-1]|INFO |c.t.a.w.annotation.LogCostTime-请求IP：192.168.10.25
+2022-03-25 12:49:49.926|[http-nio-0.0.0.0-8002-exec-1]|INFO |c.t.a.w.annotation.LogCostTime-请求用户：oBfby4h_1hj7bP3cNTnPesDkZYU0
+2022-03-25 12:49:49.927|[http-nio-0.0.0.0-8002-exec-1]|INFO |c.t.a.w.annotation.LogCostTime-请求方式：GET，方法：getOneImpressions
+2022-03-25 12:49:49.927|[http-nio-0.0.0.0-8002-exec-1]|INFO |c.t.a.w.annotation.LogCostTime-请求参数：[13, org.apache.catalina.connector.RequestFacade@4a7a2aab]
+2022-03-25 12:49:49.958|[http-nio-0.0.0.0-8002-exec-1]|INFO |c.t.a.c.ImpressionsController-从redis中拿到的心得数据
+2022-03-25 12:49:50.035|[http-nio-0.0.0.0-8002-exec-1]|INFO |c.t.a.w.annotation.LogCostTime-请求结束时间：2022-03-25 12:49:50.034
+2022-03-25 12:49:50.035|[http-nio-0.0.0.0-8002-exec-1]|INFO |c.t.a.w.annotation.LogCostTime-请求耗时：108
+2022-03-25 12:50:09.092|[http-nio-0.0.0.0-8002-exec-3]|INFO |c.t.a.w.annotation.LogCostTime-请求时间：2022-03-25 12:50:09.092
+2022-03-25 12:50:09.092|[http-nio-0.0.0.0-8002-exec-3]|INFO |c.t.a.w.annotation.LogCostTime-请求IP：192.168.10.25
+2022-03-25 12:50:09.092|[http-nio-0.0.0.0-8002-exec-3]|INFO |c.t.a.w.annotation.LogCostTime-请求用户：oBfby4h_1hj7bP3cNTnPesDkZYU0
+2022-03-25 12:50:09.092|[http-nio-0.0.0.0-8002-exec-3]|INFO |c.t.a.w.annotation.LogCostTime-请求方式：PUT，方法：updateImpressions
+2022-03-25 12:50:09.092|[http-nio-0.0.0.0-8002-exec-3]|INFO |c.t.a.w.annotation.LogCostTime-请求参数：[UpdateImpressions(content=222, imagesUrls=[], actStars=3, id=8)]
+2022-03-25 13:06:33.787|[main]|INFO |com.torch.app.AppApplication-Starting AppApplication using Java 1.8.0_202 on LAPTOP-B8LA37VK with PID 7848 (D:\Desktop\薪火技术部\微信小程序\torch\薪火小程序后端\server\torch_server\app_server\target\classes started by 79014 in D:\Desktop\薪火技术部\微信小程序\torch\薪火小程序后端\server)
+2022-03-25 13:06:33.791|[main]|INFO |com.torch.app.AppApplication-No active profile set, falling back to default profiles: default
+2022-03-25 13:06:37.939|[main]|INFO |c.t.app.config.RedissonConfig-布隆过滤器初始化成功
+2022-03-25 13:06:39.324|[main]|INFO |com.torch.app.AppApplication-Started AppApplication in 6.183 seconds (JVM running for 7.173)
+2022-03-25 13:07:12.282|[http-nio-0.0.0.0-8002-exec-1]|INFO |c.t.a.c.UserController-用户登录成功：4
+2022-03-25 13:07:12.412|[http-nio-0.0.0.0-8002-exec-2]|INFO |c.t.a.w.annotation.LogCostTime-请求时间：2022-03-25 13:07:12.412
+2022-03-25 13:07:12.413|[http-nio-0.0.0.0-8002-exec-2]|INFO |c.t.a.w.annotation.LogCostTime-请求IP：192.168.10.25
+2022-03-25 13:07:12.413|[http-nio-0.0.0.0-8002-exec-2]|INFO |c.t.a.w.annotation.LogCostTime-请求用户：oBfby4h_1hj7bP3cNTnPesDkZYU0
+2022-03-25 13:07:12.414|[http-nio-0.0.0.0-8002-exec-2]|INFO |c.t.a.w.annotation.LogCostTime-请求方式：GET，方法：getActivities
+2022-03-25 13:07:12.414|[http-nio-0.0.0.0-8002-exec-2]|INFO |c.t.a.w.annotation.LogCostTime-请求参数：[0, 4]
+2022-03-25 13:07:12.679|[http-nio-0.0.0.0-8002-exec-2]|INFO |c.t.a.w.annotation.LogCostTime-请求结束时间：2022-03-25 13:07:12.679
+2022-03-25 13:07:12.679|[http-nio-0.0.0.0-8002-exec-2]|INFO |c.t.a.w.annotation.LogCostTime-请求耗时：267
+2022-03-25 13:07:14.216|[http-nio-0.0.0.0-8002-exec-3]|INFO |c.t.a.w.annotation.LogCostTime-请求时间：2022-03-25 13:07:14.216
+2022-03-25 13:07:14.216|[http-nio-0.0.0.0-8002-exec-3]|INFO |c.t.a.w.annotation.LogCostTime-请求IP：192.168.10.25
+2022-03-25 13:07:14.216|[http-nio-0.0.0.0-8002-exec-3]|INFO |c.t.a.w.annotation.LogCostTime-请求用户：oBfby4h_1hj7bP3cNTnPesDkZYU0
+2022-03-25 13:07:14.216|[http-nio-0.0.0.0-8002-exec-3]|INFO |c.t.a.w.annotation.LogCostTime-请求方式：GET，方法：getUser
+2022-03-25 13:07:14.217|[http-nio-0.0.0.0-8002-exec-3]|INFO |c.t.a.w.annotation.LogCostTime-请求参数：[org.apache.catalina.connector.RequestFacade@3adc716f]
+2022-03-25 13:07:14.250|[http-nio-0.0.0.0-8002-exec-4]|INFO |c.t.a.w.annotation.LogCostTime-请求时间：2022-03-25 13:07:14.250
+2022-03-25 13:07:14.250|[http-nio-0.0.0.0-8002-exec-4]|INFO |c.t.a.w.annotation.LogCostTime-请求IP：192.168.10.25
+2022-03-25 13:07:14.250|[http-nio-0.0.0.0-8002-exec-4]|INFO |c.t.a.w.annotation.LogCostTime-请求用户：oBfby4h_1hj7bP3cNTnPesDkZYU0
+2022-03-25 13:07:14.250|[http-nio-0.0.0.0-8002-exec-4]|INFO |c.t.a.w.annotation.LogCostTime-请求方式：GET，方法：getVolInfoOver
+2022-03-25 13:07:14.250|[http-nio-0.0.0.0-8002-exec-4]|INFO |c.t.a.w.annotation.LogCostTime-请求参数：[0, org.apache.catalina.connector.RequestFacade@57d1ce54]
+2022-03-25 13:07:14.256|[http-nio-0.0.0.0-8002-exec-5]|INFO |c.t.a.w.annotation.LogCostTime-请求时间：2022-03-25 13:07:14.256
+2022-03-25 13:07:14.256|[http-nio-0.0.0.0-8002-exec-5]|INFO |c.t.a.w.annotation.LogCostTime-请求IP：192.168.10.25
+2022-03-25 13:07:14.256|[http-nio-0.0.0.0-8002-exec-5]|INFO |c.t.a.w.annotation.LogCostTime-请求用户：oBfby4h_1hj7bP3cNTnPesDkZYU0
+2022-03-25 13:07:14.256|[http-nio-0.0.0.0-8002-exec-5]|INFO |c.t.a.w.annotation.LogCostTime-请求方式：GET，方法：getVolInfoOver
+2022-03-25 13:07:14.256|[http-nio-0.0.0.0-8002-exec-5]|INFO |c.t.a.w.annotation.LogCostTime-请求参数：[1, org.apache.catalina.connector.RequestFacade@3f21305e]
+2022-03-25 13:07:14.287|[http-nio-0.0.0.0-8002-exec-3]|INFO |c.t.a.c.UserController-从缓存中拿到用户信息
+2022-03-25 13:07:14.288|[http-nio-0.0.0.0-8002-exec-3]|INFO |c.t.a.w.annotation.LogCostTime-请求结束时间：2022-03-25 13:07:14.288
+2022-03-25 13:07:14.288|[http-nio-0.0.0.0-8002-exec-3]|INFO |c.t.a.w.annotation.LogCostTime-请求耗时：32
+2022-03-25 13:07:14.507|[http-nio-0.0.0.0-8002-exec-5]|INFO |c.t.a.s.impl.SignUpServiceImpl-从缓存拿到父活动信息
+2022-03-25 13:07:15.205|[http-nio-0.0.0.0-8002-exec-5]|INFO |c.t.a.s.impl.SignUpServiceImpl-从缓存拿到父活动信息
+2022-03-25 13:07:15.700|[http-nio-0.0.0.0-8002-exec-5]|INFO |c.t.a.s.impl.SignUpServiceImpl-从缓存拿到父活动信息
+2022-03-25 13:07:16.550|[http-nio-0.0.0.0-8002-exec-5]|INFO |c.t.a.s.impl.SignUpServiceImpl-从缓存拿到父活动信息
+2022-03-25 13:07:16.814|[http-nio-0.0.0.0-8002-exec-4]|INFO |c.t.a.w.annotation.LogCostTime-请求结束时间：2022-03-25 13:07:16.814
+2022-03-25 13:07:16.814|[http-nio-0.0.0.0-8002-exec-4]|INFO |c.t.a.w.annotation.LogCostTime-请求耗时：2558
+2022-03-25 13:07:17.274|[http-nio-0.0.0.0-8002-exec-5]|INFO |c.t.a.s.impl.SignUpServiceImpl-从缓存拿到父活动信息
+2022-03-25 13:07:17.427|[http-nio-0.0.0.0-8002-exec-5]|INFO |c.t.a.w.annotation.LogCostTime-请求结束时间：2022-03-25 13:07:17.427
+2022-03-25 13:07:17.427|[http-nio-0.0.0.0-8002-exec-5]|INFO |c.t.a.w.annotation.LogCostTime-请求耗时：3171
+2022-03-25 13:07:33.362|[http-nio-0.0.0.0-8002-exec-6]|INFO |c.t.a.c.UserController-用户登录成功：4
+2022-03-25 13:07:33.483|[http-nio-0.0.0.0-8002-exec-7]|INFO |c.t.a.w.annotation.LogCostTime-请求时间：2022-03-25 13:07:33.483
+2022-03-25 13:07:33.483|[http-nio-0.0.0.0-8002-exec-7]|INFO |c.t.a.w.annotation.LogCostTime-请求IP：192.168.10.25
+2022-03-25 13:07:33.483|[http-nio-0.0.0.0-8002-exec-7]|INFO |c.t.a.w.annotation.LogCostTime-请求用户：oBfby4h_1hj7bP3cNTnPesDkZYU0
+2022-03-25 13:07:33.483|[http-nio-0.0.0.0-8002-exec-7]|INFO |c.t.a.w.annotation.LogCostTime-请求方式：GET，方法：getActivities
+2022-03-25 13:07:33.483|[http-nio-0.0.0.0-8002-exec-7]|INFO |c.t.a.w.annotation.LogCostTime-请求参数：[0, 4]
+2022-03-25 13:07:33.769|[http-nio-0.0.0.0-8002-exec-7]|INFO |c.t.a.w.annotation.LogCostTime-请求结束时间：2022-03-25 13:07:33.769
+2022-03-25 13:07:33.769|[http-nio-0.0.0.0-8002-exec-7]|INFO |c.t.a.w.annotation.LogCostTime-请求耗时：286
+2022-03-25 13:07:34.671|[http-nio-0.0.0.0-8002-exec-9]|INFO |c.t.a.w.annotation.LogCostTime-请求时间：2022-03-25 13:07:34.671
+2022-03-25 13:07:34.671|[http-nio-0.0.0.0-8002-exec-8]|INFO |c.t.a.w.annotation.LogCostTime-请求时间：2022-03-25 13:07:34.671
+2022-03-25 13:07:34.671|[http-nio-0.0.0.0-8002-exec-9]|INFO |c.t.a.w.annotation.LogCostTime-请求IP：192.168.10.25
+2022-03-25 13:07:34.671|[http-nio-0.0.0.0-8002-exec-8]|INFO |c.t.a.w.annotation.LogCostTime-请求IP：192.168.10.25
+2022-03-25 13:07:34.671|[http-nio-0.0.0.0-8002-exec-9]|INFO |c.t.a.w.annotation.LogCostTime-请求用户：oBfby4h_1hj7bP3cNTnPesDkZYU0
+2022-03-25 13:07:34.671|[http-nio-0.0.0.0-8002-exec-8]|INFO |c.t.a.w.annotation.LogCostTime-请求用户：oBfby4h_1hj7bP3cNTnPesDkZYU0
+2022-03-25 13:07:34.671|[http-nio-0.0.0.0-8002-exec-8]|INFO |c.t.a.w.annotation.LogCostTime-请求方式：GET，方法：getUser
+2022-03-25 13:07:34.671|[http-nio-0.0.0.0-8002-exec-9]|INFO |c.t.a.w.annotation.LogCostTime-请求方式：GET，方法：getVolInfoOver
+2022-03-25 13:07:34.671|[http-nio-0.0.0.0-8002-exec-8]|INFO |c.t.a.w.annotation.LogCostTime-请求参数：[org.apache.catalina.connector.RequestFacade@3f21305e]
+2022-03-25 13:07:34.671|[http-nio-0.0.0.0-8002-exec-9]|INFO |c.t.a.w.annotation.LogCostTime-请求参数：[0, org.apache.catalina.connector.RequestFacade@57d1ce54]
+2022-03-25 13:07:34.717|[http-nio-0.0.0.0-8002-exec-8]|INFO |c.t.a.c.UserController-从缓存中拿到用户信息
+2022-03-25 13:07:34.718|[http-nio-0.0.0.0-8002-exec-8]|INFO |c.t.a.w.annotation.LogCostTime-请求结束时间：2022-03-25 13:07:34.717
+2022-03-25 13:07:34.718|[http-nio-0.0.0.0-8002-exec-8]|INFO |c.t.a.w.annotation.LogCostTime-请求耗时：46
+2022-03-25 13:07:34.778|[http-nio-0.0.0.0-8002-exec-10]|INFO |c.t.a.w.annotation.LogCostTime-请求时间：2022-03-25 13:07:34.778
+2022-03-25 13:07:34.778|[http-nio-0.0.0.0-8002-exec-10]|INFO |c.t.a.w.annotation.LogCostTime-请求IP：192.168.10.25
+2022-03-25 13:07:34.778|[http-nio-0.0.0.0-8002-exec-10]|INFO |c.t.a.w.annotation.LogCostTime-请求用户：oBfby4h_1hj7bP3cNTnPesDkZYU0
+2022-03-25 13:07:34.778|[http-nio-0.0.0.0-8002-exec-10]|INFO |c.t.a.w.annotation.LogCostTime-请求方式：GET，方法：getVolInfoOver
+2022-03-25 13:07:34.778|[http-nio-0.0.0.0-8002-exec-10]|INFO |c.t.a.w.annotation.LogCostTime-请求参数：[1, org.apache.catalina.connector.RequestFacade@3adc716f]
+2022-03-25 13:07:35.132|[http-nio-0.0.0.0-8002-exec-10]|INFO |c.t.a.s.impl.SignUpServiceImpl-从缓存拿到父活动信息
+2022-03-25 13:07:35.446|[http-nio-0.0.0.0-8002-exec-10]|INFO |c.t.a.s.impl.SignUpServiceImpl-从缓存拿到父活动信息
+2022-03-25 13:07:36.392|[http-nio-0.0.0.0-8002-exec-9]|INFO |c.t.a.w.annotation.LogCostTime-请求结束时间：2022-03-25 13:07:36.392
+2022-03-25 13:07:36.392|[http-nio-0.0.0.0-8002-exec-9]|INFO |c.t.a.w.annotation.LogCostTime-请求耗时：1614
+2022-03-25 13:07:36.608|[http-nio-0.0.0.0-8002-exec-10]|INFO |c.t.a.s.impl.SignUpServiceImpl-从缓存拿到父活动信息
+2022-03-25 13:07:37.251|[http-nio-0.0.0.0-8002-exec-10]|INFO |c.t.a.s.impl.SignUpServiceImpl-从缓存拿到父活动信息
+2022-03-25 13:07:37.707|[http-nio-0.0.0.0-8002-exec-10]|INFO |c.t.a.s.impl.SignUpServiceImpl-从缓存拿到父活动信息
+2022-03-25 13:07:37.783|[http-nio-0.0.0.0-8002-exec-10]|INFO |c.t.a.w.annotation.LogCostTime-请求结束时间：2022-03-25 13:07:37.783
+2022-03-25 13:07:37.783|[http-nio-0.0.0.0-8002-exec-10]|INFO |c.t.a.w.annotation.LogCostTime-请求耗时：3005
+2022-03-25 13:07:40.252|[http-nio-0.0.0.0-8002-exec-4]|INFO |c.t.a.w.annotation.LogCostTime-请求时间：2022-03-25 13:07:40.252
+2022-03-25 13:07:40.252|[http-nio-0.0.0.0-8002-exec-4]|INFO |c.t.a.w.annotation.LogCostTime-请求IP：192.168.10.25
+2022-03-25 13:07:40.252|[http-nio-0.0.0.0-8002-exec-4]|INFO |c.t.a.w.annotation.LogCostTime-请求用户：oBfby4h_1hj7bP3cNTnPesDkZYU0
+2022-03-25 13:07:40.252|[http-nio-0.0.0.0-8002-exec-4]|INFO |c.t.a.w.annotation.LogCostTime-请求方式：GET，方法：getOneImpressions
+2022-03-25 13:07:40.252|[http-nio-0.0.0.0-8002-exec-4]|INFO |c.t.a.w.annotation.LogCostTime-请求参数：[11, org.apache.catalina.connector.RequestFacade@3f21305e]
+2022-03-25 13:07:44.970|[http-nio-0.0.0.0-8002-exec-4]|INFO |c.t.a.c.ImpressionsController-从redis中拿到的心得数据
+2022-03-25 13:07:45.052|[http-nio-0.0.0.0-8002-exec-4]|INFO |c.t.a.w.annotation.LogCostTime-请求结束时间：2022-03-25 13:07:45.052
+2022-03-25 13:07:45.052|[http-nio-0.0.0.0-8002-exec-4]|INFO |c.t.a.w.annotation.LogCostTime-请求耗时：4800
+2022-03-25 13:07:49.742|[http-nio-0.0.0.0-8002-exec-5]|INFO |c.t.a.w.annotation.LogCostTime-请求时间：2022-03-25 13:07:49.742
+2022-03-25 13:07:49.742|[http-nio-0.0.0.0-8002-exec-5]|INFO |c.t.a.w.annotation.LogCostTime-请求IP：192.168.10.25
+2022-03-25 13:07:49.742|[http-nio-0.0.0.0-8002-exec-5]|INFO |c.t.a.w.annotation.LogCostTime-请求用户：oBfby4h_1hj7bP3cNTnPesDkZYU0
+2022-03-25 13:07:49.742|[http-nio-0.0.0.0-8002-exec-5]|INFO |c.t.a.w.annotation.LogCostTime-请求方式：GET，方法：getOneImpressions
+2022-03-25 13:07:49.742|[http-nio-0.0.0.0-8002-exec-5]|INFO |c.t.a.w.annotation.LogCostTime-请求参数：[13, org.apache.catalina.connector.RequestFacade@3f21305e]
+2022-03-25 13:07:49.770|[http-nio-0.0.0.0-8002-exec-5]|INFO |c.t.a.c.ImpressionsController-从redis中拿到的心得数据
+2022-03-25 13:07:49.848|[http-nio-0.0.0.0-8002-exec-5]|INFO |c.t.a.w.annotation.LogCostTime-请求结束时间：2022-03-25 13:07:49.848
+2022-03-25 13:07:49.848|[http-nio-0.0.0.0-8002-exec-5]|INFO |c.t.a.w.annotation.LogCostTime-请求耗时：106
+2022-03-25 13:09:06.245|[http-nio-0.0.0.0-8002-exec-7]|INFO |c.t.a.c.UserController-用户登录成功：4
+2022-03-25 13:09:06.319|[http-nio-0.0.0.0-8002-exec-8]|INFO |c.t.a.w.annotation.LogCostTime-请求时间：2022-03-25 13:09:06.319
+2022-03-25 13:09:06.319|[http-nio-0.0.0.0-8002-exec-8]|INFO |c.t.a.w.annotation.LogCostTime-请求IP：192.168.10.25
+2022-03-25 13:09:06.319|[http-nio-0.0.0.0-8002-exec-8]|INFO |c.t.a.w.annotation.LogCostTime-请求用户：oBfby4h_1hj7bP3cNTnPesDkZYU0
+2022-03-25 13:09:06.319|[http-nio-0.0.0.0-8002-exec-8]|INFO |c.t.a.w.annotation.LogCostTime-请求方式：GET，方法：getActivities
+2022-03-25 13:09:06.319|[http-nio-0.0.0.0-8002-exec-8]|INFO |c.t.a.w.annotation.LogCostTime-请求参数：[0, 4]
+2022-03-25 13:09:06.666|[http-nio-0.0.0.0-8002-exec-8]|INFO |c.t.a.w.annotation.LogCostTime-请求结束时间：2022-03-25 13:09:06.666
+2022-03-25 13:09:06.666|[http-nio-0.0.0.0-8002-exec-8]|INFO |c.t.a.w.annotation.LogCostTime-请求耗时：347
+2022-03-25 13:09:07.725|[http-nio-0.0.0.0-8002-exec-9]|INFO |c.t.a.w.annotation.LogCostTime-请求时间：2022-03-25 13:09:07.724
+2022-03-25 13:09:07.725|[http-nio-0.0.0.0-8002-exec-9]|INFO |c.t.a.w.annotation.LogCostTime-请求IP：192.168.10.25
+2022-03-25 13:09:07.725|[http-nio-0.0.0.0-8002-exec-9]|INFO |c.t.a.w.annotation.LogCostTime-请求用户：oBfby4h_1hj7bP3cNTnPesDkZYU0
+2022-03-25 13:09:07.725|[http-nio-0.0.0.0-8002-exec-9]|INFO |c.t.a.w.annotation.LogCostTime-请求方式：GET，方法：getUser
+2022-03-25 13:09:07.725|[http-nio-0.0.0.0-8002-exec-9]|INFO |c.t.a.w.annotation.LogCostTime-请求参数：[org.apache.catalina.connector.RequestFacade@3f21305e]
+2022-03-25 13:09:07.773|[http-nio-0.0.0.0-8002-exec-3]|INFO |c.t.a.w.annotation.LogCostTime-请求时间：2022-03-25 13:09:07.773
+2022-03-25 13:09:07.773|[http-nio-0.0.0.0-8002-exec-10]|INFO |c.t.a.w.annotation.LogCostTime-请求时间：2022-03-25 13:09:07.773
+2022-03-25 13:09:07.774|[http-nio-0.0.0.0-8002-exec-3]|INFO |c.t.a.w.annotation.LogCostTime-请求IP：192.168.10.25
+2022-03-25 13:09:07.774|[http-nio-0.0.0.0-8002-exec-10]|INFO |c.t.a.w.annotation.LogCostTime-请求IP：192.168.10.25
+2022-03-25 13:09:07.774|[http-nio-0.0.0.0-8002-exec-3]|INFO |c.t.a.w.annotation.LogCostTime-请求用户：oBfby4h_1hj7bP3cNTnPesDkZYU0
+2022-03-25 13:09:07.774|[http-nio-0.0.0.0-8002-exec-10]|INFO |c.t.a.w.annotation.LogCostTime-请求用户：oBfby4h_1hj7bP3cNTnPesDkZYU0
+2022-03-25 13:09:07.774|[http-nio-0.0.0.0-8002-exec-3]|INFO |c.t.a.w.annotation.LogCostTime-请求方式：GET，方法：getVolInfoOver
+2022-03-25 13:09:07.774|[http-nio-0.0.0.0-8002-exec-10]|INFO |c.t.a.w.annotation.LogCostTime-请求方式：GET，方法：getVolInfoOver
+2022-03-25 13:09:07.774|[http-nio-0.0.0.0-8002-exec-10]|INFO |c.t.a.w.annotation.LogCostTime-请求参数：[0, org.apache.catalina.connector.RequestFacade@57d1ce54]
+2022-03-25 13:09:07.774|[http-nio-0.0.0.0-8002-exec-3]|INFO |c.t.a.w.annotation.LogCostTime-请求参数：[1, org.apache.catalina.connector.RequestFacade@3adc716f]
+2022-03-25 13:09:07.858|[http-nio-0.0.0.0-8002-exec-9]|INFO |c.t.a.c.UserController-从缓存中拿到用户信息
+2022-03-25 13:09:07.858|[http-nio-0.0.0.0-8002-exec-9]|INFO |c.t.a.w.annotation.LogCostTime-请求结束时间：2022-03-25 13:09:07.858
+2022-03-25 13:09:07.858|[http-nio-0.0.0.0-8002-exec-9]|INFO |c.t.a.w.annotation.LogCostTime-请求耗时：85
+2022-03-25 13:09:08.126|[http-nio-0.0.0.0-8002-exec-3]|INFO |c.t.a.s.impl.SignUpServiceImpl-从缓存拿到父活动信息
+2022-03-25 13:09:08.500|[http-nio-0.0.0.0-8002-exec-3]|INFO |c.t.a.s.impl.SignUpServiceImpl-从缓存拿到父活动信息
+2022-03-25 13:09:08.784|[http-nio-0.0.0.0-8002-exec-3]|INFO |c.t.a.s.impl.SignUpServiceImpl-从缓存拿到父活动信息
+2022-03-25 13:09:09.349|[http-nio-0.0.0.0-8002-exec-3]|INFO |c.t.a.s.impl.SignUpServiceImpl-从缓存拿到父活动信息
+2022-03-25 13:09:10.077|[http-nio-0.0.0.0-8002-exec-3]|INFO |c.t.a.s.impl.SignUpServiceImpl-从缓存拿到父活动信息
+2022-03-25 13:09:10.320|[http-nio-0.0.0.0-8002-exec-3]|INFO |c.t.a.w.annotation.LogCostTime-请求结束时间：2022-03-25 13:09:10.320
+2022-03-25 13:09:10.320|[http-nio-0.0.0.0-8002-exec-3]|INFO |c.t.a.w.annotation.LogCostTime-请求耗时：2547
+2022-03-25 13:09:10.972|[http-nio-0.0.0.0-8002-exec-10]|INFO |c.t.a.w.annotation.LogCostTime-请求结束时间：2022-03-25 13:09:10.972
+2022-03-25 13:09:10.972|[http-nio-0.0.0.0-8002-exec-10]|INFO |c.t.a.w.annotation.LogCostTime-请求耗时：3199
+2022-03-25 13:09:14.226|[http-nio-0.0.0.0-8002-exec-2]|INFO |c.t.a.w.annotation.LogCostTime-请求时间：2022-03-25 13:09:14.226
+2022-03-25 13:09:14.226|[http-nio-0.0.0.0-8002-exec-2]|INFO |c.t.a.w.annotation.LogCostTime-请求IP：192.168.10.25
+2022-03-25 13:09:14.226|[http-nio-0.0.0.0-8002-exec-2]|INFO |c.t.a.w.annotation.LogCostTime-请求用户：oBfby4h_1hj7bP3cNTnPesDkZYU0
+2022-03-25 13:09:14.226|[http-nio-0.0.0.0-8002-exec-2]|INFO |c.t.a.w.annotation.LogCostTime-请求方式：GET，方法：getOneImpressions
+2022-03-25 13:09:14.226|[http-nio-0.0.0.0-8002-exec-2]|INFO |c.t.a.w.annotation.LogCostTime-请求参数：[13, org.apache.catalina.connector.RequestFacade@57d1ce54]
+2022-03-25 13:09:14.256|[http-nio-0.0.0.0-8002-exec-2]|INFO |c.t.a.c.ImpressionsController-从redis中拿到的心得数据
+2022-03-25 13:09:14.342|[http-nio-0.0.0.0-8002-exec-2]|INFO |c.t.a.w.annotation.LogCostTime-请求结束时间：2022-03-25 13:09:14.342
+2022-03-25 13:09:14.342|[http-nio-0.0.0.0-8002-exec-2]|INFO |c.t.a.w.annotation.LogCostTime-请求耗时：116
+2022-03-25 13:09:49.660|[http-nio-0.0.0.0-8002-exec-1]|INFO |c.t.a.w.annotation.LogCostTime-请求时间：2022-03-25 13:09:49.660
+2022-03-25 13:09:49.660|[http-nio-0.0.0.0-8002-exec-1]|INFO |c.t.a.w.annotation.LogCostTime-请求IP：192.168.10.25
+2022-03-25 13:09:49.660|[http-nio-0.0.0.0-8002-exec-1]|INFO |c.t.a.w.annotation.LogCostTime-请求用户：oBfby4h_1hj7bP3cNTnPesDkZYU0
+2022-03-25 13:09:49.660|[http-nio-0.0.0.0-8002-exec-1]|INFO |c.t.a.w.annotation.LogCostTime-请求方式：GET，方法：getOneImpressions
+2022-03-25 13:09:49.660|[http-nio-0.0.0.0-8002-exec-1]|INFO |c.t.a.w.annotation.LogCostTime-请求参数：[11, org.apache.catalina.connector.RequestFacade@57d1ce54]
+2022-03-25 13:09:49.686|[http-nio-0.0.0.0-8002-exec-1]|INFO |c.t.a.c.ImpressionsController-从redis中拿到的心得数据
+2022-03-25 13:09:49.772|[http-nio-0.0.0.0-8002-exec-1]|INFO |c.t.a.w.annotation.LogCostTime-请求结束时间：2022-03-25 13:09:49.772
+2022-03-25 13:09:49.772|[http-nio-0.0.0.0-8002-exec-1]|INFO |c.t.a.w.annotation.LogCostTime-请求耗时：112
+2022-03-25 13:10:00.641|[http-nio-0.0.0.0-8002-exec-4]|INFO |c.t.a.w.annotation.LogCostTime-请求时间：2022-03-25 13:10:00.641
+2022-03-25 13:10:00.642|[http-nio-0.0.0.0-8002-exec-4]|INFO |c.t.a.w.annotation.LogCostTime-请求IP：192.168.10.25
+2022-03-25 13:10:00.642|[http-nio-0.0.0.0-8002-exec-4]|INFO |c.t.a.w.annotation.LogCostTime-请求用户：oBfby4h_1hj7bP3cNTnPesDkZYU0
+2022-03-25 13:10:00.642|[http-nio-0.0.0.0-8002-exec-4]|INFO |c.t.a.w.annotation.LogCostTime-请求方式：GET，方法：getOneImpressions
+2022-03-25 13:10:00.642|[http-nio-0.0.0.0-8002-exec-4]|INFO |c.t.a.w.annotation.LogCostTime-请求参数：[15, org.apache.catalina.connector.RequestFacade@57d1ce54]
+2022-03-25 13:10:00.671|[http-nio-0.0.0.0-8002-exec-4]|INFO |c.t.a.c.ImpressionsController-从redis中拿到的心得数据
+2022-03-25 13:10:00.756|[http-nio-0.0.0.0-8002-exec-4]|INFO |c.t.a.w.annotation.LogCostTime-请求结束时间：2022-03-25 13:10:00.756
+2022-03-25 13:10:00.756|[http-nio-0.0.0.0-8002-exec-4]|INFO |c.t.a.w.annotation.LogCostTime-请求耗时：115
+2022-03-25 13:10:09.984|[http-nio-0.0.0.0-8002-exec-6]|INFO |c.t.a.w.annotation.LogCostTime-请求时间：2022-03-25 13:10:09.984
+2022-03-25 13:10:09.984|[http-nio-0.0.0.0-8002-exec-6]|INFO |c.t.a.w.annotation.LogCostTime-请求IP：192.168.10.25
+2022-03-25 13:10:09.984|[http-nio-0.0.0.0-8002-exec-6]|INFO |c.t.a.w.annotation.LogCostTime-请求用户：oBfby4h_1hj7bP3cNTnPesDkZYU0
+2022-03-25 13:10:09.984|[http-nio-0.0.0.0-8002-exec-6]|INFO |c.t.a.w.annotation.LogCostTime-请求方式：GET，方法：getOneImpressions
+2022-03-25 13:10:09.984|[http-nio-0.0.0.0-8002-exec-6]|INFO |c.t.a.w.annotation.LogCostTime-请求参数：[15, org.apache.catalina.connector.RequestFacade@57d1ce54]
+2022-03-25 13:10:10.018|[http-nio-0.0.0.0-8002-exec-6]|INFO |c.t.a.c.ImpressionsController-从redis中拿到的心得数据
+2022-03-25 13:10:10.106|[http-nio-0.0.0.0-8002-exec-6]|INFO |c.t.a.w.annotation.LogCostTime-请求结束时间：2022-03-25 13:10:10.105
+2022-03-25 13:10:10.106|[http-nio-0.0.0.0-8002-exec-6]|INFO |c.t.a.w.annotation.LogCostTime-请求耗时：121
+2022-03-25 13:10:13.742|[http-nio-0.0.0.0-8002-exec-8]|INFO |c.t.a.w.annotation.LogCostTime-请求时间：2022-03-25 13:10:13.742
+2022-03-25 13:10:13.742|[http-nio-0.0.0.0-8002-exec-8]|INFO |c.t.a.w.annotation.LogCostTime-请求IP：192.168.10.25
+2022-03-25 13:10:13.742|[http-nio-0.0.0.0-8002-exec-8]|INFO |c.t.a.w.annotation.LogCostTime-请求用户：oBfby4h_1hj7bP3cNTnPesDkZYU0
+2022-03-25 13:10:13.742|[http-nio-0.0.0.0-8002-exec-8]|INFO |c.t.a.w.annotation.LogCostTime-请求方式：PUT，方法：updateImpressions
+2022-03-25 13:10:13.742|[http-nio-0.0.0.0-8002-exec-8]|INFO |c.t.a.w.annotation.LogCostTime-请求参数：[UpdateImpressions(content=4, imagesUrls=[], actStars=5, id=37)]
+2022-03-25 13:10:13.904|[http-nio-0.0.0.0-8002-exec-8]|INFO |c.t.a.c.ImpressionsController-用户心得更新成功
+2022-03-25 13:10:13.912|[http-nio-0.0.0.0-8002-exec-8]|INFO |c.t.a.w.annotation.LogCostTime-请求结束时间：2022-03-25 13:10:13.912
+2022-03-25 13:10:13.912|[http-nio-0.0.0.0-8002-exec-8]|INFO |c.t.a.w.annotation.LogCostTime-请求耗时：170
+2022-03-25 13:10:15.613|[http-nio-0.0.0.0-8002-exec-9]|INFO |c.t.a.w.annotation.LogCostTime-请求时间：2022-03-25 13:10:15.612
+2022-03-25 13:10:15.613|[http-nio-0.0.0.0-8002-exec-9]|INFO |c.t.a.w.annotation.LogCostTime-请求IP：192.168.10.25
+2022-03-25 13:10:15.613|[http-nio-0.0.0.0-8002-exec-9]|INFO |c.t.a.w.annotation.LogCostTime-请求用户：oBfby4h_1hj7bP3cNTnPesDkZYU0
+2022-03-25 13:10:15.613|[http-nio-0.0.0.0-8002-exec-9]|INFO |c.t.a.w.annotation.LogCostTime-请求方式：GET，方法：getOneImpressions
+2022-03-25 13:10:15.613|[http-nio-0.0.0.0-8002-exec-9]|INFO |c.t.a.w.annotation.LogCostTime-请求参数：[15, org.apache.catalina.connector.RequestFacade@57d1ce54]
+2022-03-25 13:10:15.646|[http-nio-0.0.0.0-8002-exec-9]|INFO |c.t.a.c.ImpressionsController-从redis中拿到的心得数据
+2022-03-25 13:10:15.761|[http-nio-0.0.0.0-8002-exec-9]|INFO |c.t.a.w.annotation.LogCostTime-请求结束时间：2022-03-25 13:10:15.761
+2022-03-25 13:10:15.761|[http-nio-0.0.0.0-8002-exec-9]|INFO |c.t.a.w.annotation.LogCostTime-请求耗时：149

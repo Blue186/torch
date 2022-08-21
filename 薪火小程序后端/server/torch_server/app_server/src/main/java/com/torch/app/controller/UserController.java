@@ -75,6 +75,7 @@ public class UserController {
     @PostMapping("/login")
     public R<?> loginUser(@ApiParam(value = "用户登录信息",name = "userLogin",required = true) @RequestBody UserLogin userLogin,
                           HttpServletResponse response){
+        RBloomFilter<Object> bloomFilter = redissonClient.getBloomFilter("bloom-filter");
         String openId = openIdUtil.getOpenid(userLogin.getCode());
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("openid",openId);
@@ -89,19 +90,23 @@ public class UserController {
             newUser.setOpenid(openId);
             newUser.setIsActive(0);
             userService.getBaseMapper().insert(newUser);
+            log.info("newUser:{}",newUser);
             //这里应该直接就能通过newUser拿到id
             map.put("uid",newUser.getId());
             redisUtil.hmSet(cookie,map);//完成cookie、openid和token的缓存填入
-            Map<String,Object> map_R = new HashMap<>();
+            ConcurrentHashMap<String,Object> map_R = new ConcurrentHashMap<>();
             map_R.put("c",cookie);
             map_R.put("status",true);
             log.info("新用户注册:{}",newUser.getId());
+            String key = CacheCode.CACHE_USER+newUser.getId();
+            bloomFilter.add(key);
+            redissonClient.getBucket(key).set(newUser);
             return R.ok().message("注册成功").data(map_R);
         }else {
 //            这里登录成功后，我们返回一个cookie和token用于校验用户登录安全，以后每次用户请求接口时，都需要将cookie和token携带上
             map.put("uid",user.getId());
             redisUtil.hmSet(cookie,map);//完成cookie、openid和token的缓存填入
-            Map<String,Object> map_R = new HashMap<>();
+            ConcurrentHashMap<String,Object> map_R = new ConcurrentHashMap<>();
             map_R.put("c",cookie);
             map_R.put("status",false);
             log.info("用户登录成功：{}",user.getId());
@@ -144,6 +149,8 @@ public class UserController {
     @PutMapping()
     public R<?> updateUser(@ApiParam(name = "user", value = "用户提交个人信息", required = true)@RequestBody UserInfo userInfo,
                            HttpServletRequest request){
+        RBloomFilter<Object> bloomFilter = redissonClient.getBloomFilter("bloom-filter");
+
         String cookie = judgeCookieToken.getCookie(request);
         User user = userService.setUserInfo((Integer) redisUtil.hmGet(cookie, "uid"), userInfo);
         log.info("user:{}",userInfo);
@@ -151,7 +158,6 @@ public class UserController {
         if (res==1){
             String key = CacheCode.CACHE_USER+user.getId();
             redissonClient.getBucket(key).set(user);
-
             log.info("用户修改个人信息成功,OK?");
             return R.ok();
         }else {
@@ -173,6 +179,7 @@ public class UserController {
                            HttpServletRequest request){
         JSONObject jsonObject = new JSONObject(mail);
         String userMail = jsonObject.getStr("mail");
+//        这里应该对空进行校验
         String cookie = judgeCookieToken.getCookie(request);
         emailSendUtil.sendMailVerify(MAIL, userMail,cookie);
         log.info("邮箱验证码发送成功");

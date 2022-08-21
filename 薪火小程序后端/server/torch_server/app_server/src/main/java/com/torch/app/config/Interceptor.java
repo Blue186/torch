@@ -1,13 +1,14 @@
 package com.torch.app.config;
 
 import com.torch.app.util.tools.JudgeCookieToken;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+@Slf4j
 @Component
 public class Interceptor implements HandlerInterceptor {
     /**
@@ -41,10 +42,12 @@ public class Interceptor implements HandlerInterceptor {
             response.setStatus(404);
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
-            response.getWriter().write("{\"loginCode:\":-100}");
+            response.getWriter().write("{\"loginCode:\":100}");
             response.getWriter().flush();
+            log.info("拦截器拦截");
             return false;
         }
+        log.info("通过拦截器");
         return true;
     }
 

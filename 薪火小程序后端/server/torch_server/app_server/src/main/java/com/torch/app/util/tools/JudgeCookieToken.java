@@ -49,7 +49,6 @@ public class JudgeCookieToken {
 //            比较
             TokenUtil tokenUtil = new TokenUtil();
             String token = tokenUtil.generateToken(userCookie, openid);
-            System.out.println(openid+":"+tk+"这里");
             return tk.equals(token);
         }else {
             return false;

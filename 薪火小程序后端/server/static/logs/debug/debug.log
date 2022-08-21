@@ -1,33 +1,425 @@
-2022-03-24 16:24:11.888|[main]|DEBUG|com.torch.app.AppApplication-Running with Spring Boot v2.5.5, Spring v5.3.10
-2022-03-24 16:24:29.121|[main]|DEBUG|com.torch.app.AppApplication-Running with Spring Boot v2.5.5, Spring v5.3.10
-2022-03-24 16:25:03.638|[main]|DEBUG|com.torch.app.AppApplication-Running with Spring Boot v2.5.5, Spring v5.3.10
-2022-03-24 16:25:42.860|[main]|DEBUG|com.torch.app.AppApplication-Running with Spring Boot v2.5.5, Spring v5.3.10
-2022-03-24 16:28:59.755|[main]|DEBUG|com.torch.app.AppApplication-Running with Spring Boot v2.5.5, Spring v5.3.10
-2022-03-24 16:30:17.324|[main]|DEBUG|com.torch.app.AppApplication-Running with Spring Boot v2.5.5, Spring v5.3.10
-2022-03-24 16:31:37.325|[main]|DEBUG|com.torch.app.AppApplication-Running with Spring Boot v2.5.5, Spring v5.3.10
-2022-03-24 16:33:45.388|[main]|DEBUG|com.torch.app.AppApplication-Running with Spring Boot v2.5.5, Spring v5.3.10
-2022-03-24 16:34:25.855|[main]|DEBUG|com.torch.app.AppApplication-Running with Spring Boot v2.5.5, Spring v5.3.10
-2022-03-24 16:34:44.295|[http-nio-0.0.0.0-8002-exec-1]|DEBUG|c.t.a.m.I.selectList-==>  Preparing: SELECT id,url,imp_id FROM imp_images WHERE (imp_id = ?)
-2022-03-24 16:34:44.307|[http-nio-0.0.0.0-8002-exec-1]|DEBUG|c.t.a.m.I.selectList-==> Parameters: 33(Integer)
-2022-03-24 16:34:44.353|[http-nio-0.0.0.0-8002-exec-1]|DEBUG|c.t.a.m.I.selectList-<==      Total: 2
-2022-03-24 16:36:02.537|[http-nio-0.0.0.0-8002-exec-3]|DEBUG|c.t.a.m.I.selectOne-==>  Preparing: SELECT id,user_id,act_id,act_chi_id,act_times_id,content,create_time,update_time,act_stars FROM impressions WHERE (user_id = ? AND act_id = ?)
-2022-03-24 16:36:02.538|[http-nio-0.0.0.0-8002-exec-3]|DEBUG|c.t.a.m.I.selectOne-==> Parameters: 4(Integer), 12(Integer)
-2022-03-24 16:36:02.575|[http-nio-0.0.0.0-8002-exec-3]|DEBUG|c.t.a.m.I.selectOne-<==      Total: 1
-2022-03-24 16:36:02.583|[http-nio-0.0.0.0-8002-exec-3]|DEBUG|c.t.a.m.I.selectList-==>  Preparing: SELECT id,url,imp_id FROM imp_images WHERE (imp_id = ?)
-2022-03-24 16:36:02.583|[http-nio-0.0.0.0-8002-exec-3]|DEBUG|c.t.a.m.I.selectList-==> Parameters: 34(Integer)
-2022-03-24 16:36:02.619|[http-nio-0.0.0.0-8002-exec-3]|DEBUG|c.t.a.m.I.selectList-<==      Total: 1
-2022-03-24 16:38:19.779|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.I.selectById-==>  Preparing: SELECT id,user_id,act_id,act_chi_id,act_times_id,content,create_time,update_time,act_stars FROM impressions WHERE id=?
-2022-03-24 16:38:19.779|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.I.selectById-==> Parameters: 33(Integer)
-2022-03-24 16:38:19.814|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.I.selectById-<==      Total: 1
-2022-03-24 16:38:19.817|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.I.updateById-==>  Preparing: UPDATE impressions SET user_id=?, act_id=?, content=?, create_time=?, update_time=?, act_stars=? WHERE id=?
-2022-03-24 16:38:19.818|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.I.updateById-==> Parameters: 4(Integer), 11(Integer), test修改(String), 1639203089502(Long), 1648111099814(Long), 3(Integer), 33(Integer)
-2022-03-24 16:38:19.867|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.I.updateById-<==    Updates: 1
-2022-03-24 16:38:19.869|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.ImpImagesMapper.delete-==>  Preparing: DELETE FROM imp_images WHERE (imp_id = ?)
-2022-03-24 16:38:19.869|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.ImpImagesMapper.delete-==> Parameters: 33(Integer)
-2022-03-24 16:38:19.904|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.ImpImagesMapper.delete-<==    Updates: 2
-2022-03-24 16:38:19.905|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.ImpImagesMapper.insert-==>  Preparing: INSERT INTO imp_images ( url, imp_id ) VALUES ( ?, ? )
-2022-03-24 16:38:19.906|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.ImpImagesMapper.insert-==> Parameters: http://139.186.170.118:8002/static/images/47d86261b7924802aba9bd6b8c9d548e.png(String), 33(Integer)
-2022-03-24 16:38:19.942|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.ImpImagesMapper.insert-<==    Updates: 1
-2022-03-24 16:38:34.243|[http-nio-0.0.0.0-8002-exec-6]|DEBUG|c.t.a.m.I.selectList-==>  Preparing: SELECT id,url,imp_id FROM imp_images WHERE (imp_id = ?)
-2022-03-24 16:38:34.243|[http-nio-0.0.0.0-8002-exec-6]|DEBUG|c.t.a.m.I.selectList-==> Parameters: 33(Integer)
-2022-03-24 16:38:34.277|[http-nio-0.0.0.0-8002-exec-6]|DEBUG|c.t.a.m.I.selectList-<==      Total: 1
+2022-03-25 12:42:25.827|[main]|DEBUG|com.torch.app.AppApplication-Running with Spring Boot v2.5.5, Spring v5.3.10
+2022-03-25 12:49:35.357|[http-nio-0.0.0.0-8002-exec-1]|DEBUG|c.t.a.m.UserMapper.selectOne-==>  Preparing: SELECT id,name,phone,qq,email,school,grade,is_active,level,account,password,vol_account,openid,nick_name,avatar_image,sex,self_intro,total_time FROM user WHERE (openid = ?)
+2022-03-25 12:49:35.371|[http-nio-0.0.0.0-8002-exec-1]|DEBUG|c.t.a.m.UserMapper.selectOne-==> Parameters: oBfby4h_1hj7bP3cNTnPesDkZYU0(String)
+2022-03-25 12:49:35.417|[http-nio-0.0.0.0-8002-exec-1]|DEBUG|c.t.a.m.UserMapper.selectOne-<==      Total: 1
+2022-03-25 12:49:35.840|[http-nio-0.0.0.0-8002-exec-2]|DEBUG|c.t.a.m.A.selectPage_mpCount-==>  Preparing: SELECT COUNT(*) FROM activity WHERE (is_pass = ?)
+2022-03-25 12:49:35.841|[http-nio-0.0.0.0-8002-exec-2]|DEBUG|c.t.a.m.A.selectPage_mpCount-==> Parameters: 1(Integer)
+2022-03-25 12:49:35.876|[http-nio-0.0.0.0-8002-exec-2]|DEBUG|c.t.a.m.A.selectPage_mpCount-<==      Total: 1
+2022-03-25 12:49:35.880|[http-nio-0.0.0.0-8002-exec-2]|DEBUG|c.t.a.m.A.selectPage-==>  Preparing: SELECT id,identifier,is_pass,creater_id,create_time,pass_time,organizer,headcount,remarks,total_number,attention,act_image,qq_number,name,address,deadline,content,vol_time_desc,vol_time_period,organizer_contact FROM activity WHERE (is_pass = ?) ORDER BY create_time DESC LIMIT ?
+2022-03-25 12:49:35.881|[http-nio-0.0.0.0-8002-exec-2]|DEBUG|c.t.a.m.A.selectPage-==> Parameters: 1(Integer), 4(Long)
+2022-03-25 12:49:36.042|[http-nio-0.0.0.0-8002-exec-2]|DEBUG|c.t.a.m.A.selectPage-<==      Total: 4
+2022-03-25 12:49:38.457|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.S.selectList-==>  Preparing: SELECT id,user_id,act_chi_id,create_time,is_over,act_id,act_times_id,imp_wrote FROM sign_up WHERE (user_id = ? AND is_over = ?) ORDER BY create_time DESC
+2022-03-25 12:49:38.457|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.S.selectList-==> Parameters: 4(Integer), 0(Integer)
+2022-03-25 12:49:38.493|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.S.selectList-<==      Total: 4
+2022-03-25 12:49:38.494|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,identifier,is_pass,creater_id,create_time,pass_time,organizer,headcount,remarks,total_number,attention,act_image,qq_number,name,address,deadline,content,vol_time_desc,vol_time_period,organizer_contact FROM activity WHERE id=?
+2022-03-25 12:49:38.494|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 11(Integer)
+2022-03-25 12:49:38.620|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 12:49:38.623|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,activity_id,create_time,update_time,service_period FROM activity_child WHERE id=?
+2022-03-25 12:49:38.624|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 11(Integer)
+2022-03-25 12:49:38.659|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 12:49:38.662|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,start_time,end_time,address,recruiting,recruited,act_chi_id,act_id,vol_time FROM activity_times WHERE id=?
+2022-03-25 12:49:38.662|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 4(Integer)
+2022-03-25 12:49:38.677|[http-nio-0.0.0.0-8002-exec-6]|DEBUG|c.t.a.m.S.selectList-==>  Preparing: SELECT id,user_id,act_chi_id,create_time,is_over,act_id,act_times_id,imp_wrote FROM sign_up WHERE (user_id = ? AND is_over = ?) ORDER BY create_time DESC
+2022-03-25 12:49:38.677|[http-nio-0.0.0.0-8002-exec-6]|DEBUG|c.t.a.m.S.selectList-==> Parameters: 4(Integer), 1(Integer)
+2022-03-25 12:49:38.696|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 12:49:38.697|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,identifier,is_pass,creater_id,create_time,pass_time,organizer,headcount,remarks,total_number,attention,act_image,qq_number,name,address,deadline,content,vol_time_desc,vol_time_period,organizer_contact FROM activity WHERE id=?
+2022-03-25 12:49:38.697|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 11(Integer)
+2022-03-25 12:49:38.715|[http-nio-0.0.0.0-8002-exec-6]|DEBUG|c.t.a.m.S.selectList-<==      Total: 5
+2022-03-25 12:49:38.715|[http-nio-0.0.0.0-8002-exec-6]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,identifier,is_pass,creater_id,create_time,pass_time,organizer,headcount,remarks,total_number,attention,act_image,qq_number,name,address,deadline,content,vol_time_desc,vol_time_period,organizer_contact FROM activity WHERE id=?
+2022-03-25 12:49:38.715|[http-nio-0.0.0.0-8002-exec-6]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 11(Integer)
+2022-03-25 12:49:38.757|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 12:49:38.758|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,activity_id,create_time,update_time,service_period FROM activity_child WHERE id=?
+2022-03-25 12:49:38.758|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 12(Integer)
+2022-03-25 12:49:38.796|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 12:49:38.796|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,start_time,end_time,address,recruiting,recruited,act_chi_id,act_id,vol_time FROM activity_times WHERE id=?
+2022-03-25 12:49:38.796|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 5(Integer)
+2022-03-25 12:49:38.831|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 12:49:38.832|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,identifier,is_pass,creater_id,create_time,pass_time,organizer,headcount,remarks,total_number,attention,act_image,qq_number,name,address,deadline,content,vol_time_desc,vol_time_period,organizer_contact FROM activity WHERE id=?
+2022-03-25 12:49:38.832|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 11(Integer)
+2022-03-25 12:49:38.838|[http-nio-0.0.0.0-8002-exec-6]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 12:49:38.838|[http-nio-0.0.0.0-8002-exec-6]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,activity_id,create_time,update_time,service_period FROM activity_child WHERE id=?
+2022-03-25 12:49:38.839|[http-nio-0.0.0.0-8002-exec-6]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 10(Integer)
+2022-03-25 12:49:38.877|[http-nio-0.0.0.0-8002-exec-6]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 12:49:38.878|[http-nio-0.0.0.0-8002-exec-6]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,start_time,end_time,address,recruiting,recruited,act_chi_id,act_id,vol_time FROM activity_times WHERE id=?
+2022-03-25 12:49:38.878|[http-nio-0.0.0.0-8002-exec-6]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 1(Integer)
+2022-03-25 12:49:38.929|[http-nio-0.0.0.0-8002-exec-6]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 12:49:38.930|[http-nio-0.0.0.0-8002-exec-6]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,identifier,is_pass,creater_id,create_time,pass_time,organizer,headcount,remarks,total_number,attention,act_image,qq_number,name,address,deadline,content,vol_time_desc,vol_time_period,organizer_contact FROM activity WHERE id=?
+2022-03-25 12:49:38.930|[http-nio-0.0.0.0-8002-exec-6]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 12(Integer)
+2022-03-25 12:49:39.347|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 12:49:39.347|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,activity_id,create_time,update_time,service_period FROM activity_child WHERE id=?
+2022-03-25 12:49:39.347|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 10(Integer)
+2022-03-25 12:49:39.408|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 12:49:39.409|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,start_time,end_time,address,recruiting,recruited,act_chi_id,act_id,vol_time FROM activity_times WHERE id=?
+2022-03-25 12:49:39.411|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 2(Integer)
+2022-03-25 12:49:39.448|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 12:49:39.449|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,identifier,is_pass,creater_id,create_time,pass_time,organizer,headcount,remarks,total_number,attention,act_image,qq_number,name,address,deadline,content,vol_time_desc,vol_time_period,organizer_contact FROM activity WHERE id=?
+2022-03-25 12:49:39.449|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 11(Integer)
+2022-03-25 12:49:39.920|[http-nio-0.0.0.0-8002-exec-6]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 12:49:39.921|[http-nio-0.0.0.0-8002-exec-6]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,activity_id,create_time,update_time,service_period FROM activity_child WHERE id=?
+2022-03-25 12:49:39.921|[http-nio-0.0.0.0-8002-exec-6]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 11(Integer)
+2022-03-25 12:49:39.954|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 12:49:39.955|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,activity_id,create_time,update_time,service_period FROM activity_child WHERE id=?
+2022-03-25 12:49:39.955|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 10(Integer)
+2022-03-25 12:49:39.959|[http-nio-0.0.0.0-8002-exec-6]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 12:49:39.959|[http-nio-0.0.0.0-8002-exec-6]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,start_time,end_time,address,recruiting,recruited,act_chi_id,act_id,vol_time FROM activity_times WHERE id=?
+2022-03-25 12:49:39.959|[http-nio-0.0.0.0-8002-exec-6]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 2(Integer)
+2022-03-25 12:49:39.993|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 12:49:39.993|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,start_time,end_time,address,recruiting,recruited,act_chi_id,act_id,vol_time FROM activity_times WHERE id=?
+2022-03-25 12:49:39.993|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 1(Integer)
+2022-03-25 12:49:39.997|[http-nio-0.0.0.0-8002-exec-6]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 12:49:39.997|[http-nio-0.0.0.0-8002-exec-6]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,identifier,is_pass,creater_id,create_time,pass_time,organizer,headcount,remarks,total_number,attention,act_image,qq_number,name,address,deadline,content,vol_time_desc,vol_time_period,organizer_contact FROM activity WHERE id=?
+2022-03-25 12:49:39.997|[http-nio-0.0.0.0-8002-exec-6]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 13(Integer)
+2022-03-25 12:49:40.032|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 12:49:40.212|[http-nio-0.0.0.0-8002-exec-6]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 12:49:40.213|[http-nio-0.0.0.0-8002-exec-6]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,activity_id,create_time,update_time,service_period FROM activity_child WHERE id=?
+2022-03-25 12:49:40.213|[http-nio-0.0.0.0-8002-exec-6]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 12(Integer)
+2022-03-25 12:49:40.253|[http-nio-0.0.0.0-8002-exec-6]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 12:49:40.253|[http-nio-0.0.0.0-8002-exec-6]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,start_time,end_time,address,recruiting,recruited,act_chi_id,act_id,vol_time FROM activity_times WHERE id=?
+2022-03-25 12:49:40.253|[http-nio-0.0.0.0-8002-exec-6]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 3(Integer)
+2022-03-25 12:49:40.331|[http-nio-0.0.0.0-8002-exec-6]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 12:49:40.331|[http-nio-0.0.0.0-8002-exec-6]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,identifier,is_pass,creater_id,create_time,pass_time,organizer,headcount,remarks,total_number,attention,act_image,qq_number,name,address,deadline,content,vol_time_desc,vol_time_period,organizer_contact FROM activity WHERE id=?
+2022-03-25 12:49:40.332|[http-nio-0.0.0.0-8002-exec-6]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 15(Integer)
+2022-03-25 12:49:40.588|[http-nio-0.0.0.0-8002-exec-6]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 12:49:40.589|[http-nio-0.0.0.0-8002-exec-6]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,activity_id,create_time,update_time,service_period FROM activity_child WHERE id=?
+2022-03-25 12:49:40.589|[http-nio-0.0.0.0-8002-exec-6]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 10(Integer)
+2022-03-25 12:49:40.678|[http-nio-0.0.0.0-8002-exec-6]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 12:49:40.678|[http-nio-0.0.0.0-8002-exec-6]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,start_time,end_time,address,recruiting,recruited,act_chi_id,act_id,vol_time FROM activity_times WHERE id=?
+2022-03-25 12:49:40.678|[http-nio-0.0.0.0-8002-exec-6]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 7(Integer)
+2022-03-25 12:49:40.753|[http-nio-0.0.0.0-8002-exec-6]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 12:49:40.753|[http-nio-0.0.0.0-8002-exec-6]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,identifier,is_pass,creater_id,create_time,pass_time,organizer,headcount,remarks,total_number,attention,act_image,qq_number,name,address,deadline,content,vol_time_desc,vol_time_period,organizer_contact FROM activity WHERE id=?
+2022-03-25 12:49:40.754|[http-nio-0.0.0.0-8002-exec-6]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 14(Integer)
+2022-03-25 12:49:41.540|[http-nio-0.0.0.0-8002-exec-6]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 12:49:41.541|[http-nio-0.0.0.0-8002-exec-6]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,activity_id,create_time,update_time,service_period FROM activity_child WHERE id=?
+2022-03-25 12:49:41.541|[http-nio-0.0.0.0-8002-exec-6]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 13(Integer)
+2022-03-25 12:49:41.578|[http-nio-0.0.0.0-8002-exec-6]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 12:49:41.578|[http-nio-0.0.0.0-8002-exec-6]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,start_time,end_time,address,recruiting,recruited,act_chi_id,act_id,vol_time FROM activity_times WHERE id=?
+2022-03-25 12:49:41.578|[http-nio-0.0.0.0-8002-exec-6]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 3(Integer)
+2022-03-25 12:49:41.615|[http-nio-0.0.0.0-8002-exec-6]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 12:49:44.742|[http-nio-0.0.0.0-8002-exec-7]|DEBUG|c.t.a.m.I.selectList-==>  Preparing: SELECT id,url,imp_id FROM imp_images WHERE (imp_id = ?)
+2022-03-25 12:49:44.743|[http-nio-0.0.0.0-8002-exec-7]|DEBUG|c.t.a.m.I.selectList-==> Parameters: 33(Integer)
+2022-03-25 12:49:44.782|[http-nio-0.0.0.0-8002-exec-7]|DEBUG|c.t.a.m.I.selectList-<==      Total: 2
+2022-03-25 12:49:49.994|[http-nio-0.0.0.0-8002-exec-1]|DEBUG|c.t.a.m.I.selectList-==>  Preparing: SELECT id,url,imp_id FROM imp_images WHERE (imp_id = ?)
+2022-03-25 12:49:49.994|[http-nio-0.0.0.0-8002-exec-1]|DEBUG|c.t.a.m.I.selectList-==> Parameters: 35(Integer)
+2022-03-25 12:49:50.034|[http-nio-0.0.0.0-8002-exec-1]|DEBUG|c.t.a.m.I.selectList-<==      Total: 1
+2022-03-25 12:50:09.126|[http-nio-0.0.0.0-8002-exec-3]|DEBUG|c.t.a.m.I.selectById-==>  Preparing: SELECT id,user_id,act_id,act_chi_id,act_times_id,content,create_time,update_time,act_stars FROM impressions WHERE id=?
+2022-03-25 12:50:09.126|[http-nio-0.0.0.0-8002-exec-3]|DEBUG|c.t.a.m.I.selectById-==> Parameters: 8(Integer)
+2022-03-25 12:50:09.159|[http-nio-0.0.0.0-8002-exec-3]|DEBUG|c.t.a.m.I.selectById-<==      Total: 0
+2022-03-25 13:06:33.791|[main]|DEBUG|com.torch.app.AppApplication-Running with Spring Boot v2.5.5, Spring v5.3.10
+2022-03-25 13:07:12.026|[http-nio-0.0.0.0-8002-exec-1]|DEBUG|c.t.a.m.UserMapper.selectOne-==>  Preparing: SELECT id,name,phone,qq,email,school,grade,is_active,level,account,password,vol_account,openid,nick_name,avatar_image,sex,self_intro,total_time FROM user WHERE (openid = ?)
+2022-03-25 13:07:12.037|[http-nio-0.0.0.0-8002-exec-1]|DEBUG|c.t.a.m.UserMapper.selectOne-==> Parameters: oBfby4h_1hj7bP3cNTnPesDkZYU0(String)
+2022-03-25 13:07:12.086|[http-nio-0.0.0.0-8002-exec-1]|DEBUG|c.t.a.m.UserMapper.selectOne-<==      Total: 1
+2022-03-25 13:07:12.453|[http-nio-0.0.0.0-8002-exec-2]|DEBUG|c.t.a.m.A.selectPage_mpCount-==>  Preparing: SELECT COUNT(*) FROM activity WHERE (is_pass = ?)
+2022-03-25 13:07:12.453|[http-nio-0.0.0.0-8002-exec-2]|DEBUG|c.t.a.m.A.selectPage_mpCount-==> Parameters: 1(Integer)
+2022-03-25 13:07:12.494|[http-nio-0.0.0.0-8002-exec-2]|DEBUG|c.t.a.m.A.selectPage_mpCount-<==      Total: 1
+2022-03-25 13:07:12.498|[http-nio-0.0.0.0-8002-exec-2]|DEBUG|c.t.a.m.A.selectPage-==>  Preparing: SELECT id,identifier,is_pass,creater_id,create_time,pass_time,organizer,headcount,remarks,total_number,attention,act_image,qq_number,name,address,deadline,content,vol_time_desc,vol_time_period,organizer_contact FROM activity WHERE (is_pass = ?) ORDER BY create_time DESC LIMIT ?
+2022-03-25 13:07:12.498|[http-nio-0.0.0.0-8002-exec-2]|DEBUG|c.t.a.m.A.selectPage-==> Parameters: 1(Integer), 4(Long)
+2022-03-25 13:07:12.679|[http-nio-0.0.0.0-8002-exec-2]|DEBUG|c.t.a.m.A.selectPage-<==      Total: 4
+2022-03-25 13:07:14.308|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.S.selectList-==>  Preparing: SELECT id,user_id,act_chi_id,create_time,is_over,act_id,act_times_id,imp_wrote FROM sign_up WHERE (user_id = ? AND is_over = ?) ORDER BY create_time DESC
+2022-03-25 13:07:14.308|[http-nio-0.0.0.0-8002-exec-4]|DEBUG|c.t.a.m.S.selectList-==>  Preparing: SELECT id,user_id,act_chi_id,create_time,is_over,act_id,act_times_id,imp_wrote FROM sign_up WHERE (user_id = ? AND is_over = ?) ORDER BY create_time DESC
+2022-03-25 13:07:14.308|[http-nio-0.0.0.0-8002-exec-4]|DEBUG|c.t.a.m.S.selectList-==> Parameters: 4(Integer), 0(Integer)
+2022-03-25 13:07:14.308|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.S.selectList-==> Parameters: 4(Integer), 1(Integer)
+2022-03-25 13:07:14.364|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.S.selectList-<==      Total: 5
+2022-03-25 13:07:14.364|[http-nio-0.0.0.0-8002-exec-4]|DEBUG|c.t.a.m.S.selectList-<==      Total: 4
+2022-03-25 13:07:14.365|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,identifier,is_pass,creater_id,create_time,pass_time,organizer,headcount,remarks,total_number,attention,act_image,qq_number,name,address,deadline,content,vol_time_desc,vol_time_period,organizer_contact FROM activity WHERE id=?
+2022-03-25 13:07:14.365|[http-nio-0.0.0.0-8002-exec-4]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,identifier,is_pass,creater_id,create_time,pass_time,organizer,headcount,remarks,total_number,attention,act_image,qq_number,name,address,deadline,content,vol_time_desc,vol_time_period,organizer_contact FROM activity WHERE id=?
+2022-03-25 13:07:14.365|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 11(Integer)
+2022-03-25 13:07:14.365|[http-nio-0.0.0.0-8002-exec-4]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 11(Integer)
+2022-03-25 13:07:14.499|[http-nio-0.0.0.0-8002-exec-4]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 13:07:14.502|[http-nio-0.0.0.0-8002-exec-4]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,activity_id,create_time,update_time,service_period FROM activity_child WHERE id=?
+2022-03-25 13:07:14.503|[http-nio-0.0.0.0-8002-exec-4]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 11(Integer)
+2022-03-25 13:07:14.506|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 13:07:14.508|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,activity_id,create_time,update_time,service_period FROM activity_child WHERE id=?
+2022-03-25 13:07:14.508|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 10(Integer)
+2022-03-25 13:07:14.541|[http-nio-0.0.0.0-8002-exec-4]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 13:07:14.544|[http-nio-0.0.0.0-8002-exec-4]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,start_time,end_time,address,recruiting,recruited,act_chi_id,act_id,vol_time FROM activity_times WHERE id=?
+2022-03-25 13:07:14.544|[http-nio-0.0.0.0-8002-exec-4]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 4(Integer)
+2022-03-25 13:07:14.549|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 13:07:14.549|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,start_time,end_time,address,recruiting,recruited,act_chi_id,act_id,vol_time FROM activity_times WHERE id=?
+2022-03-25 13:07:14.550|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 1(Integer)
+2022-03-25 13:07:14.589|[http-nio-0.0.0.0-8002-exec-4]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 13:07:14.589|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 13:07:14.590|[http-nio-0.0.0.0-8002-exec-4]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,identifier,is_pass,creater_id,create_time,pass_time,organizer,headcount,remarks,total_number,attention,act_image,qq_number,name,address,deadline,content,vol_time_desc,vol_time_period,organizer_contact FROM activity WHERE id=?
+2022-03-25 13:07:14.590|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,identifier,is_pass,creater_id,create_time,pass_time,organizer,headcount,remarks,total_number,attention,act_image,qq_number,name,address,deadline,content,vol_time_desc,vol_time_period,organizer_contact FROM activity WHERE id=?
+2022-03-25 13:07:14.590|[http-nio-0.0.0.0-8002-exec-4]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 11(Integer)
+2022-03-25 13:07:14.590|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 12(Integer)
+2022-03-25 13:07:15.071|[http-nio-0.0.0.0-8002-exec-4]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 13:07:15.072|[http-nio-0.0.0.0-8002-exec-4]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,activity_id,create_time,update_time,service_period FROM activity_child WHERE id=?
+2022-03-25 13:07:15.072|[http-nio-0.0.0.0-8002-exec-4]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 12(Integer)
+2022-03-25 13:07:15.129|[http-nio-0.0.0.0-8002-exec-4]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 13:07:15.130|[http-nio-0.0.0.0-8002-exec-4]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,start_time,end_time,address,recruiting,recruited,act_chi_id,act_id,vol_time FROM activity_times WHERE id=?
+2022-03-25 13:07:15.130|[http-nio-0.0.0.0-8002-exec-4]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 5(Integer)
+2022-03-25 13:07:15.204|[http-nio-0.0.0.0-8002-exec-4]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 13:07:15.205|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 13:07:15.205|[http-nio-0.0.0.0-8002-exec-4]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,identifier,is_pass,creater_id,create_time,pass_time,organizer,headcount,remarks,total_number,attention,act_image,qq_number,name,address,deadline,content,vol_time_desc,vol_time_period,organizer_contact FROM activity WHERE id=?
+2022-03-25 13:07:15.205|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,activity_id,create_time,update_time,service_period FROM activity_child WHERE id=?
+2022-03-25 13:07:15.205|[http-nio-0.0.0.0-8002-exec-4]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 11(Integer)
+2022-03-25 13:07:15.206|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 11(Integer)
+2022-03-25 13:07:15.303|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 13:07:15.306|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,start_time,end_time,address,recruiting,recruited,act_chi_id,act_id,vol_time FROM activity_times WHERE id=?
+2022-03-25 13:07:15.307|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 2(Integer)
+2022-03-25 13:07:15.451|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 13:07:15.452|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,identifier,is_pass,creater_id,create_time,pass_time,organizer,headcount,remarks,total_number,attention,act_image,qq_number,name,address,deadline,content,vol_time_desc,vol_time_period,organizer_contact FROM activity WHERE id=?
+2022-03-25 13:07:15.452|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 13(Integer)
+2022-03-25 13:07:15.700|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 13:07:15.700|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,activity_id,create_time,update_time,service_period FROM activity_child WHERE id=?
+2022-03-25 13:07:15.700|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 12(Integer)
+2022-03-25 13:07:15.784|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 13:07:15.784|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,start_time,end_time,address,recruiting,recruited,act_chi_id,act_id,vol_time FROM activity_times WHERE id=?
+2022-03-25 13:07:15.784|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 3(Integer)
+2022-03-25 13:07:15.824|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 13:07:15.825|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,identifier,is_pass,creater_id,create_time,pass_time,organizer,headcount,remarks,total_number,attention,act_image,qq_number,name,address,deadline,content,vol_time_desc,vol_time_period,organizer_contact FROM activity WHERE id=?
+2022-03-25 13:07:15.825|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 15(Integer)
+2022-03-25 13:07:15.861|[http-nio-0.0.0.0-8002-exec-4]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 13:07:15.861|[http-nio-0.0.0.0-8002-exec-4]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,activity_id,create_time,update_time,service_period FROM activity_child WHERE id=?
+2022-03-25 13:07:15.861|[http-nio-0.0.0.0-8002-exec-4]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 10(Integer)
+2022-03-25 13:07:15.902|[http-nio-0.0.0.0-8002-exec-4]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 13:07:15.903|[http-nio-0.0.0.0-8002-exec-4]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,start_time,end_time,address,recruiting,recruited,act_chi_id,act_id,vol_time FROM activity_times WHERE id=?
+2022-03-25 13:07:15.903|[http-nio-0.0.0.0-8002-exec-4]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 2(Integer)
+2022-03-25 13:07:15.941|[http-nio-0.0.0.0-8002-exec-4]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 13:07:15.941|[http-nio-0.0.0.0-8002-exec-4]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,identifier,is_pass,creater_id,create_time,pass_time,organizer,headcount,remarks,total_number,attention,act_image,qq_number,name,address,deadline,content,vol_time_desc,vol_time_period,organizer_contact FROM activity WHERE id=?
+2022-03-25 13:07:15.941|[http-nio-0.0.0.0-8002-exec-4]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 11(Integer)
+2022-03-25 13:07:16.550|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 13:07:16.550|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,activity_id,create_time,update_time,service_period FROM activity_child WHERE id=?
+2022-03-25 13:07:16.550|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 10(Integer)
+2022-03-25 13:07:16.587|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 13:07:16.588|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,start_time,end_time,address,recruiting,recruited,act_chi_id,act_id,vol_time FROM activity_times WHERE id=?
+2022-03-25 13:07:16.588|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 7(Integer)
+2022-03-25 13:07:16.629|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 13:07:16.629|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,identifier,is_pass,creater_id,create_time,pass_time,organizer,headcount,remarks,total_number,attention,act_image,qq_number,name,address,deadline,content,vol_time_desc,vol_time_period,organizer_contact FROM activity WHERE id=?
+2022-03-25 13:07:16.629|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 14(Integer)
+2022-03-25 13:07:16.734|[http-nio-0.0.0.0-8002-exec-4]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 13:07:16.735|[http-nio-0.0.0.0-8002-exec-4]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,activity_id,create_time,update_time,service_period FROM activity_child WHERE id=?
+2022-03-25 13:07:16.735|[http-nio-0.0.0.0-8002-exec-4]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 10(Integer)
+2022-03-25 13:07:16.773|[http-nio-0.0.0.0-8002-exec-4]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 13:07:16.773|[http-nio-0.0.0.0-8002-exec-4]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,start_time,end_time,address,recruiting,recruited,act_chi_id,act_id,vol_time FROM activity_times WHERE id=?
+2022-03-25 13:07:16.773|[http-nio-0.0.0.0-8002-exec-4]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 1(Integer)
+2022-03-25 13:07:16.814|[http-nio-0.0.0.0-8002-exec-4]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 13:07:17.273|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 13:07:17.274|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,activity_id,create_time,update_time,service_period FROM activity_child WHERE id=?
+2022-03-25 13:07:17.274|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 13(Integer)
+2022-03-25 13:07:17.313|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 13:07:17.313|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,start_time,end_time,address,recruiting,recruited,act_chi_id,act_id,vol_time FROM activity_times WHERE id=?
+2022-03-25 13:07:17.313|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 3(Integer)
+2022-03-25 13:07:17.427|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 13:07:33.301|[http-nio-0.0.0.0-8002-exec-6]|DEBUG|c.t.a.m.UserMapper.selectOne-==>  Preparing: SELECT id,name,phone,qq,email,school,grade,is_active,level,account,password,vol_account,openid,nick_name,avatar_image,sex,self_intro,total_time FROM user WHERE (openid = ?)
+2022-03-25 13:07:33.301|[http-nio-0.0.0.0-8002-exec-6]|DEBUG|c.t.a.m.UserMapper.selectOne-==> Parameters: oBfby4h_1hj7bP3cNTnPesDkZYU0(String)
+2022-03-25 13:07:33.340|[http-nio-0.0.0.0-8002-exec-6]|DEBUG|c.t.a.m.UserMapper.selectOne-<==      Total: 1
+2022-03-25 13:07:33.485|[http-nio-0.0.0.0-8002-exec-7]|DEBUG|c.t.a.m.A.selectPage_mpCount-==>  Preparing: SELECT COUNT(*) FROM activity WHERE (is_pass = ?)
+2022-03-25 13:07:33.485|[http-nio-0.0.0.0-8002-exec-7]|DEBUG|c.t.a.m.A.selectPage_mpCount-==> Parameters: 1(Integer)
+2022-03-25 13:07:33.523|[http-nio-0.0.0.0-8002-exec-7]|DEBUG|c.t.a.m.A.selectPage_mpCount-<==      Total: 1
+2022-03-25 13:07:33.524|[http-nio-0.0.0.0-8002-exec-7]|DEBUG|c.t.a.m.A.selectPage-==>  Preparing: SELECT id,identifier,is_pass,creater_id,create_time,pass_time,organizer,headcount,remarks,total_number,attention,act_image,qq_number,name,address,deadline,content,vol_time_desc,vol_time_period,organizer_contact FROM activity WHERE (is_pass = ?) ORDER BY create_time DESC LIMIT ?
+2022-03-25 13:07:33.524|[http-nio-0.0.0.0-8002-exec-7]|DEBUG|c.t.a.m.A.selectPage-==> Parameters: 1(Integer), 4(Long)
+2022-03-25 13:07:33.769|[http-nio-0.0.0.0-8002-exec-7]|DEBUG|c.t.a.m.A.selectPage-<==      Total: 4
+2022-03-25 13:07:34.778|[http-nio-0.0.0.0-8002-exec-9]|DEBUG|c.t.a.m.S.selectList-==>  Preparing: SELECT id,user_id,act_chi_id,create_time,is_over,act_id,act_times_id,imp_wrote FROM sign_up WHERE (user_id = ? AND is_over = ?) ORDER BY create_time DESC
+2022-03-25 13:07:34.778|[http-nio-0.0.0.0-8002-exec-9]|DEBUG|c.t.a.m.S.selectList-==> Parameters: 4(Integer), 0(Integer)
+2022-03-25 13:07:34.868|[http-nio-0.0.0.0-8002-exec-9]|DEBUG|c.t.a.m.S.selectList-<==      Total: 4
+2022-03-25 13:07:34.868|[http-nio-0.0.0.0-8002-exec-9]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,identifier,is_pass,creater_id,create_time,pass_time,organizer,headcount,remarks,total_number,attention,act_image,qq_number,name,address,deadline,content,vol_time_desc,vol_time_period,organizer_contact FROM activity WHERE id=?
+2022-03-25 13:07:34.868|[http-nio-0.0.0.0-8002-exec-9]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 11(Integer)
+2022-03-25 13:07:34.906|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.S.selectList-==>  Preparing: SELECT id,user_id,act_chi_id,create_time,is_over,act_id,act_times_id,imp_wrote FROM sign_up WHERE (user_id = ? AND is_over = ?) ORDER BY create_time DESC
+2022-03-25 13:07:34.906|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.S.selectList-==> Parameters: 4(Integer), 1(Integer)
+2022-03-25 13:07:34.957|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.S.selectList-<==      Total: 5
+2022-03-25 13:07:34.958|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,identifier,is_pass,creater_id,create_time,pass_time,organizer,headcount,remarks,total_number,attention,act_image,qq_number,name,address,deadline,content,vol_time_desc,vol_time_period,organizer_contact FROM activity WHERE id=?
+2022-03-25 13:07:34.959|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 11(Integer)
+2022-03-25 13:07:35.053|[http-nio-0.0.0.0-8002-exec-9]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 13:07:35.053|[http-nio-0.0.0.0-8002-exec-9]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,activity_id,create_time,update_time,service_period FROM activity_child WHERE id=?
+2022-03-25 13:07:35.054|[http-nio-0.0.0.0-8002-exec-9]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 11(Integer)
+2022-03-25 13:07:35.093|[http-nio-0.0.0.0-8002-exec-9]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 13:07:35.093|[http-nio-0.0.0.0-8002-exec-9]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,start_time,end_time,address,recruiting,recruited,act_chi_id,act_id,vol_time FROM activity_times WHERE id=?
+2022-03-25 13:07:35.094|[http-nio-0.0.0.0-8002-exec-9]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 4(Integer)
+2022-03-25 13:07:35.132|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 13:07:35.132|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,activity_id,create_time,update_time,service_period FROM activity_child WHERE id=?
+2022-03-25 13:07:35.132|[http-nio-0.0.0.0-8002-exec-9]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 13:07:35.132|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 10(Integer)
+2022-03-25 13:07:35.133|[http-nio-0.0.0.0-8002-exec-9]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,identifier,is_pass,creater_id,create_time,pass_time,organizer,headcount,remarks,total_number,attention,act_image,qq_number,name,address,deadline,content,vol_time_desc,vol_time_period,organizer_contact FROM activity WHERE id=?
+2022-03-25 13:07:35.133|[http-nio-0.0.0.0-8002-exec-9]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 11(Integer)
+2022-03-25 13:07:35.198|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 13:07:35.198|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,start_time,end_time,address,recruiting,recruited,act_chi_id,act_id,vol_time FROM activity_times WHERE id=?
+2022-03-25 13:07:35.199|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 1(Integer)
+2022-03-25 13:07:35.276|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 13:07:35.277|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,identifier,is_pass,creater_id,create_time,pass_time,organizer,headcount,remarks,total_number,attention,act_image,qq_number,name,address,deadline,content,vol_time_desc,vol_time_period,organizer_contact FROM activity WHERE id=?
+2022-03-25 13:07:35.277|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 12(Integer)
+2022-03-25 13:07:35.384|[http-nio-0.0.0.0-8002-exec-9]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 13:07:35.385|[http-nio-0.0.0.0-8002-exec-9]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,activity_id,create_time,update_time,service_period FROM activity_child WHERE id=?
+2022-03-25 13:07:35.385|[http-nio-0.0.0.0-8002-exec-9]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 12(Integer)
+2022-03-25 13:07:35.446|[http-nio-0.0.0.0-8002-exec-9]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 13:07:35.446|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 13:07:35.446|[http-nio-0.0.0.0-8002-exec-9]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,start_time,end_time,address,recruiting,recruited,act_chi_id,act_id,vol_time FROM activity_times WHERE id=?
+2022-03-25 13:07:35.446|[http-nio-0.0.0.0-8002-exec-9]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 5(Integer)
+2022-03-25 13:07:35.447|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,activity_id,create_time,update_time,service_period FROM activity_child WHERE id=?
+2022-03-25 13:07:35.447|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 11(Integer)
+2022-03-25 13:07:35.524|[http-nio-0.0.0.0-8002-exec-9]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 13:07:35.524|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 13:07:35.525|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,start_time,end_time,address,recruiting,recruited,act_chi_id,act_id,vol_time FROM activity_times WHERE id=?
+2022-03-25 13:07:35.525|[http-nio-0.0.0.0-8002-exec-9]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,identifier,is_pass,creater_id,create_time,pass_time,organizer,headcount,remarks,total_number,attention,act_image,qq_number,name,address,deadline,content,vol_time_desc,vol_time_period,organizer_contact FROM activity WHERE id=?
+2022-03-25 13:07:35.525|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 2(Integer)
+2022-03-25 13:07:35.525|[http-nio-0.0.0.0-8002-exec-9]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 11(Integer)
+2022-03-25 13:07:35.850|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 13:07:35.850|[http-nio-0.0.0.0-8002-exec-9]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 13:07:35.850|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,identifier,is_pass,creater_id,create_time,pass_time,organizer,headcount,remarks,total_number,attention,act_image,qq_number,name,address,deadline,content,vol_time_desc,vol_time_period,organizer_contact FROM activity WHERE id=?
+2022-03-25 13:07:35.850|[http-nio-0.0.0.0-8002-exec-9]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,activity_id,create_time,update_time,service_period FROM activity_child WHERE id=?
+2022-03-25 13:07:35.850|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 13(Integer)
+2022-03-25 13:07:35.850|[http-nio-0.0.0.0-8002-exec-9]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 10(Integer)
+2022-03-25 13:07:35.962|[http-nio-0.0.0.0-8002-exec-9]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 13:07:35.962|[http-nio-0.0.0.0-8002-exec-9]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,start_time,end_time,address,recruiting,recruited,act_chi_id,act_id,vol_time FROM activity_times WHERE id=?
+2022-03-25 13:07:35.962|[http-nio-0.0.0.0-8002-exec-9]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 2(Integer)
+2022-03-25 13:07:36.028|[http-nio-0.0.0.0-8002-exec-9]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 13:07:36.028|[http-nio-0.0.0.0-8002-exec-9]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,identifier,is_pass,creater_id,create_time,pass_time,organizer,headcount,remarks,total_number,attention,act_image,qq_number,name,address,deadline,content,vol_time_desc,vol_time_period,organizer_contact FROM activity WHERE id=?
+2022-03-25 13:07:36.028|[http-nio-0.0.0.0-8002-exec-9]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 11(Integer)
+2022-03-25 13:07:36.313|[http-nio-0.0.0.0-8002-exec-9]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 13:07:36.313|[http-nio-0.0.0.0-8002-exec-9]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,activity_id,create_time,update_time,service_period FROM activity_child WHERE id=?
+2022-03-25 13:07:36.313|[http-nio-0.0.0.0-8002-exec-9]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 10(Integer)
+2022-03-25 13:07:36.353|[http-nio-0.0.0.0-8002-exec-9]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 13:07:36.354|[http-nio-0.0.0.0-8002-exec-9]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,start_time,end_time,address,recruiting,recruited,act_chi_id,act_id,vol_time FROM activity_times WHERE id=?
+2022-03-25 13:07:36.354|[http-nio-0.0.0.0-8002-exec-9]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 1(Integer)
+2022-03-25 13:07:36.392|[http-nio-0.0.0.0-8002-exec-9]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 13:07:36.607|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 13:07:36.608|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,activity_id,create_time,update_time,service_period FROM activity_child WHERE id=?
+2022-03-25 13:07:36.608|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 12(Integer)
+2022-03-25 13:07:36.672|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 13:07:36.672|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,start_time,end_time,address,recruiting,recruited,act_chi_id,act_id,vol_time FROM activity_times WHERE id=?
+2022-03-25 13:07:36.672|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 3(Integer)
+2022-03-25 13:07:36.756|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 13:07:36.756|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,identifier,is_pass,creater_id,create_time,pass_time,organizer,headcount,remarks,total_number,attention,act_image,qq_number,name,address,deadline,content,vol_time_desc,vol_time_period,organizer_contact FROM activity WHERE id=?
+2022-03-25 13:07:36.757|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 15(Integer)
+2022-03-25 13:07:37.251|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 13:07:37.252|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,activity_id,create_time,update_time,service_period FROM activity_child WHERE id=?
+2022-03-25 13:07:37.252|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 10(Integer)
+2022-03-25 13:07:37.352|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 13:07:37.352|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,start_time,end_time,address,recruiting,recruited,act_chi_id,act_id,vol_time FROM activity_times WHERE id=?
+2022-03-25 13:07:37.352|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 7(Integer)
+2022-03-25 13:07:37.419|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 13:07:37.420|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,identifier,is_pass,creater_id,create_time,pass_time,organizer,headcount,remarks,total_number,attention,act_image,qq_number,name,address,deadline,content,vol_time_desc,vol_time_period,organizer_contact FROM activity WHERE id=?
+2022-03-25 13:07:37.420|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 14(Integer)
+2022-03-25 13:07:37.706|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 13:07:37.707|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,activity_id,create_time,update_time,service_period FROM activity_child WHERE id=?
+2022-03-25 13:07:37.707|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 13(Integer)
+2022-03-25 13:07:37.745|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 13:07:37.745|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,start_time,end_time,address,recruiting,recruited,act_chi_id,act_id,vol_time FROM activity_times WHERE id=?
+2022-03-25 13:07:37.745|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 3(Integer)
+2022-03-25 13:07:37.783|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 13:07:45.013|[http-nio-0.0.0.0-8002-exec-4]|DEBUG|c.t.a.m.I.selectList-==>  Preparing: SELECT id,url,imp_id FROM imp_images WHERE (imp_id = ?)
+2022-03-25 13:07:45.013|[http-nio-0.0.0.0-8002-exec-4]|DEBUG|c.t.a.m.I.selectList-==> Parameters: 33(Integer)
+2022-03-25 13:07:45.052|[http-nio-0.0.0.0-8002-exec-4]|DEBUG|c.t.a.m.I.selectList-<==      Total: 2
+2022-03-25 13:07:49.809|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.I.selectList-==>  Preparing: SELECT id,url,imp_id FROM imp_images WHERE (imp_id = ?)
+2022-03-25 13:07:49.809|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.I.selectList-==> Parameters: 35(Integer)
+2022-03-25 13:07:49.848|[http-nio-0.0.0.0-8002-exec-5]|DEBUG|c.t.a.m.I.selectList-<==      Total: 1
+2022-03-25 13:09:06.192|[http-nio-0.0.0.0-8002-exec-7]|DEBUG|c.t.a.m.UserMapper.selectOne-==>  Preparing: SELECT id,name,phone,qq,email,school,grade,is_active,level,account,password,vol_account,openid,nick_name,avatar_image,sex,self_intro,total_time FROM user WHERE (openid = ?)
+2022-03-25 13:09:06.192|[http-nio-0.0.0.0-8002-exec-7]|DEBUG|c.t.a.m.UserMapper.selectOne-==> Parameters: oBfby4h_1hj7bP3cNTnPesDkZYU0(String)
+2022-03-25 13:09:06.232|[http-nio-0.0.0.0-8002-exec-7]|DEBUG|c.t.a.m.UserMapper.selectOne-<==      Total: 1
+2022-03-25 13:09:06.322|[http-nio-0.0.0.0-8002-exec-8]|DEBUG|c.t.a.m.A.selectPage_mpCount-==>  Preparing: SELECT COUNT(*) FROM activity WHERE (is_pass = ?)
+2022-03-25 13:09:06.322|[http-nio-0.0.0.0-8002-exec-8]|DEBUG|c.t.a.m.A.selectPage_mpCount-==> Parameters: 1(Integer)
+2022-03-25 13:09:06.361|[http-nio-0.0.0.0-8002-exec-8]|DEBUG|c.t.a.m.A.selectPage_mpCount-<==      Total: 1
+2022-03-25 13:09:06.361|[http-nio-0.0.0.0-8002-exec-8]|DEBUG|c.t.a.m.A.selectPage-==>  Preparing: SELECT id,identifier,is_pass,creater_id,create_time,pass_time,organizer,headcount,remarks,total_number,attention,act_image,qq_number,name,address,deadline,content,vol_time_desc,vol_time_period,organizer_contact FROM activity WHERE (is_pass = ?) ORDER BY create_time DESC LIMIT ?
+2022-03-25 13:09:06.361|[http-nio-0.0.0.0-8002-exec-8]|DEBUG|c.t.a.m.A.selectPage-==> Parameters: 1(Integer), 4(Long)
+2022-03-25 13:09:06.666|[http-nio-0.0.0.0-8002-exec-8]|DEBUG|c.t.a.m.A.selectPage-<==      Total: 4
+2022-03-25 13:09:07.857|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.S.selectList-==>  Preparing: SELECT id,user_id,act_chi_id,create_time,is_over,act_id,act_times_id,imp_wrote FROM sign_up WHERE (user_id = ? AND is_over = ?) ORDER BY create_time DESC
+2022-03-25 13:09:07.857|[http-nio-0.0.0.0-8002-exec-3]|DEBUG|c.t.a.m.S.selectList-==>  Preparing: SELECT id,user_id,act_chi_id,create_time,is_over,act_id,act_times_id,imp_wrote FROM sign_up WHERE (user_id = ? AND is_over = ?) ORDER BY create_time DESC
+2022-03-25 13:09:07.858|[http-nio-0.0.0.0-8002-exec-3]|DEBUG|c.t.a.m.S.selectList-==> Parameters: 4(Integer), 1(Integer)
+2022-03-25 13:09:07.858|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.S.selectList-==> Parameters: 4(Integer), 0(Integer)
+2022-03-25 13:09:07.902|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.S.selectList-<==      Total: 4
+2022-03-25 13:09:07.902|[http-nio-0.0.0.0-8002-exec-3]|DEBUG|c.t.a.m.S.selectList-<==      Total: 5
+2022-03-25 13:09:07.902|[http-nio-0.0.0.0-8002-exec-3]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,identifier,is_pass,creater_id,create_time,pass_time,organizer,headcount,remarks,total_number,attention,act_image,qq_number,name,address,deadline,content,vol_time_desc,vol_time_period,organizer_contact FROM activity WHERE id=?
+2022-03-25 13:09:07.902|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,identifier,is_pass,creater_id,create_time,pass_time,organizer,headcount,remarks,total_number,attention,act_image,qq_number,name,address,deadline,content,vol_time_desc,vol_time_period,organizer_contact FROM activity WHERE id=?
+2022-03-25 13:09:07.902|[http-nio-0.0.0.0-8002-exec-3]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 11(Integer)
+2022-03-25 13:09:07.902|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 11(Integer)
+2022-03-25 13:09:08.125|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 13:09:08.126|[http-nio-0.0.0.0-8002-exec-3]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 13:09:08.126|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,activity_id,create_time,update_time,service_period FROM activity_child WHERE id=?
+2022-03-25 13:09:08.126|[http-nio-0.0.0.0-8002-exec-3]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,activity_id,create_time,update_time,service_period FROM activity_child WHERE id=?
+2022-03-25 13:09:08.126|[http-nio-0.0.0.0-8002-exec-3]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 10(Integer)
+2022-03-25 13:09:08.126|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 11(Integer)
+2022-03-25 13:09:08.164|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 13:09:08.164|[http-nio-0.0.0.0-8002-exec-3]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 13:09:08.164|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,start_time,end_time,address,recruiting,recruited,act_chi_id,act_id,vol_time FROM activity_times WHERE id=?
+2022-03-25 13:09:08.164|[http-nio-0.0.0.0-8002-exec-3]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,start_time,end_time,address,recruiting,recruited,act_chi_id,act_id,vol_time FROM activity_times WHERE id=?
+2022-03-25 13:09:08.164|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 4(Integer)
+2022-03-25 13:09:08.164|[http-nio-0.0.0.0-8002-exec-3]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 1(Integer)
+2022-03-25 13:09:08.202|[http-nio-0.0.0.0-8002-exec-3]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 13:09:08.202|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 13:09:08.202|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,identifier,is_pass,creater_id,create_time,pass_time,organizer,headcount,remarks,total_number,attention,act_image,qq_number,name,address,deadline,content,vol_time_desc,vol_time_period,organizer_contact FROM activity WHERE id=?
+2022-03-25 13:09:08.202|[http-nio-0.0.0.0-8002-exec-3]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,identifier,is_pass,creater_id,create_time,pass_time,organizer,headcount,remarks,total_number,attention,act_image,qq_number,name,address,deadline,content,vol_time_desc,vol_time_period,organizer_contact FROM activity WHERE id=?
+2022-03-25 13:09:08.202|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 11(Integer)
+2022-03-25 13:09:08.202|[http-nio-0.0.0.0-8002-exec-3]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 12(Integer)
+2022-03-25 13:09:08.499|[http-nio-0.0.0.0-8002-exec-3]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 13:09:08.500|[http-nio-0.0.0.0-8002-exec-3]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,activity_id,create_time,update_time,service_period FROM activity_child WHERE id=?
+2022-03-25 13:09:08.500|[http-nio-0.0.0.0-8002-exec-3]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 11(Integer)
+2022-03-25 13:09:08.538|[http-nio-0.0.0.0-8002-exec-3]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 13:09:08.538|[http-nio-0.0.0.0-8002-exec-3]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,start_time,end_time,address,recruiting,recruited,act_chi_id,act_id,vol_time FROM activity_times WHERE id=?
+2022-03-25 13:09:08.538|[http-nio-0.0.0.0-8002-exec-3]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 2(Integer)
+2022-03-25 13:09:08.576|[http-nio-0.0.0.0-8002-exec-3]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 13:09:08.577|[http-nio-0.0.0.0-8002-exec-3]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,identifier,is_pass,creater_id,create_time,pass_time,organizer,headcount,remarks,total_number,attention,act_image,qq_number,name,address,deadline,content,vol_time_desc,vol_time_period,organizer_contact FROM activity WHERE id=?
+2022-03-25 13:09:08.577|[http-nio-0.0.0.0-8002-exec-3]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 13(Integer)
+2022-03-25 13:09:08.783|[http-nio-0.0.0.0-8002-exec-3]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 13:09:08.784|[http-nio-0.0.0.0-8002-exec-3]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,activity_id,create_time,update_time,service_period FROM activity_child WHERE id=?
+2022-03-25 13:09:08.784|[http-nio-0.0.0.0-8002-exec-3]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 12(Integer)
+2022-03-25 13:09:08.832|[http-nio-0.0.0.0-8002-exec-3]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 13:09:08.832|[http-nio-0.0.0.0-8002-exec-3]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,start_time,end_time,address,recruiting,recruited,act_chi_id,act_id,vol_time FROM activity_times WHERE id=?
+2022-03-25 13:09:08.832|[http-nio-0.0.0.0-8002-exec-3]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 3(Integer)
+2022-03-25 13:09:08.873|[http-nio-0.0.0.0-8002-exec-3]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 13:09:08.873|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 13:09:08.873|[http-nio-0.0.0.0-8002-exec-3]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,identifier,is_pass,creater_id,create_time,pass_time,organizer,headcount,remarks,total_number,attention,act_image,qq_number,name,address,deadline,content,vol_time_desc,vol_time_period,organizer_contact FROM activity WHERE id=?
+2022-03-25 13:09:08.873|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,activity_id,create_time,update_time,service_period FROM activity_child WHERE id=?
+2022-03-25 13:09:08.873|[http-nio-0.0.0.0-8002-exec-3]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 15(Integer)
+2022-03-25 13:09:08.873|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 12(Integer)
+2022-03-25 13:09:08.911|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 13:09:08.911|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,start_time,end_time,address,recruiting,recruited,act_chi_id,act_id,vol_time FROM activity_times WHERE id=?
+2022-03-25 13:09:08.911|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 5(Integer)
+2022-03-25 13:09:08.948|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 13:09:08.949|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,identifier,is_pass,creater_id,create_time,pass_time,organizer,headcount,remarks,total_number,attention,act_image,qq_number,name,address,deadline,content,vol_time_desc,vol_time_period,organizer_contact FROM activity WHERE id=?
+2022-03-25 13:09:08.949|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 11(Integer)
+2022-03-25 13:09:09.349|[http-nio-0.0.0.0-8002-exec-3]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 13:09:09.349|[http-nio-0.0.0.0-8002-exec-3]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,activity_id,create_time,update_time,service_period FROM activity_child WHERE id=?
+2022-03-25 13:09:09.349|[http-nio-0.0.0.0-8002-exec-3]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 10(Integer)
+2022-03-25 13:09:09.392|[http-nio-0.0.0.0-8002-exec-3]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 13:09:09.393|[http-nio-0.0.0.0-8002-exec-3]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,start_time,end_time,address,recruiting,recruited,act_chi_id,act_id,vol_time FROM activity_times WHERE id=?
+2022-03-25 13:09:09.393|[http-nio-0.0.0.0-8002-exec-3]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 7(Integer)
+2022-03-25 13:09:09.430|[http-nio-0.0.0.0-8002-exec-3]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 13:09:09.430|[http-nio-0.0.0.0-8002-exec-3]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,identifier,is_pass,creater_id,create_time,pass_time,organizer,headcount,remarks,total_number,attention,act_image,qq_number,name,address,deadline,content,vol_time_desc,vol_time_period,organizer_contact FROM activity WHERE id=?
+2022-03-25 13:09:09.430|[http-nio-0.0.0.0-8002-exec-3]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 14(Integer)
+2022-03-25 13:09:10.077|[http-nio-0.0.0.0-8002-exec-3]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 13:09:10.077|[http-nio-0.0.0.0-8002-exec-3]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,activity_id,create_time,update_time,service_period FROM activity_child WHERE id=?
+2022-03-25 13:09:10.077|[http-nio-0.0.0.0-8002-exec-3]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 13(Integer)
+2022-03-25 13:09:10.244|[http-nio-0.0.0.0-8002-exec-3]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 13:09:10.244|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 13:09:10.245|[http-nio-0.0.0.0-8002-exec-3]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,start_time,end_time,address,recruiting,recruited,act_chi_id,act_id,vol_time FROM activity_times WHERE id=?
+2022-03-25 13:09:10.245|[http-nio-0.0.0.0-8002-exec-3]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 3(Integer)
+2022-03-25 13:09:10.245|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,activity_id,create_time,update_time,service_period FROM activity_child WHERE id=?
+2022-03-25 13:09:10.245|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 10(Integer)
+2022-03-25 13:09:10.320|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 13:09:10.320|[http-nio-0.0.0.0-8002-exec-3]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 13:09:10.320|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,start_time,end_time,address,recruiting,recruited,act_chi_id,act_id,vol_time FROM activity_times WHERE id=?
+2022-03-25 13:09:10.320|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 2(Integer)
+2022-03-25 13:09:10.436|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 13:09:10.437|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,identifier,is_pass,creater_id,create_time,pass_time,organizer,headcount,remarks,total_number,attention,act_image,qq_number,name,address,deadline,content,vol_time_desc,vol_time_period,organizer_contact FROM activity WHERE id=?
+2022-03-25 13:09:10.437|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 11(Integer)
+2022-03-25 13:09:10.894|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 13:09:10.894|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,activity_id,create_time,update_time,service_period FROM activity_child WHERE id=?
+2022-03-25 13:09:10.895|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 10(Integer)
+2022-03-25 13:09:10.932|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 13:09:10.933|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectById-==>  Preparing: SELECT id,start_time,end_time,address,recruiting,recruited,act_chi_id,act_id,vol_time FROM activity_times WHERE id=?
+2022-03-25 13:09:10.933|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectById-==> Parameters: 1(Integer)
+2022-03-25 13:09:10.972|[http-nio-0.0.0.0-8002-exec-10]|DEBUG|c.t.a.m.A.selectById-<==      Total: 1
+2022-03-25 13:09:14.301|[http-nio-0.0.0.0-8002-exec-2]|DEBUG|c.t.a.m.I.selectList-==>  Preparing: SELECT id,url,imp_id FROM imp_images WHERE (imp_id = ?)
+2022-03-25 13:09:14.301|[http-nio-0.0.0.0-8002-exec-2]|DEBUG|c.t.a.m.I.selectList-==> Parameters: 35(Integer)
+2022-03-25 13:09:14.341|[http-nio-0.0.0.0-8002-exec-2]|DEBUG|c.t.a.m.I.selectList-<==      Total: 1
+2022-03-25 13:09:49.732|[http-nio-0.0.0.0-8002-exec-1]|DEBUG|c.t.a.m.I.selectList-==>  Preparing: SELECT id,url,imp_id FROM imp_images WHERE (imp_id = ?)
+2022-03-25 13:09:49.732|[http-nio-0.0.0.0-8002-exec-1]|DEBUG|c.t.a.m.I.selectList-==> Parameters: 33(Integer)
+2022-03-25 13:09:49.772|[http-nio-0.0.0.0-8002-exec-1]|DEBUG|c.t.a.m.I.selectList-<==      Total: 2
+2022-03-25 13:10:00.711|[http-nio-0.0.0.0-8002-exec-4]|DEBUG|c.t.a.m.I.selectList-==>  Preparing: SELECT id,url,imp_id FROM imp_images WHERE (imp_id = ?)
+2022-03-25 13:10:00.712|[http-nio-0.0.0.0-8002-exec-4]|DEBUG|c.t.a.m.I.selectList-==> Parameters: 37(Integer)
+2022-03-25 13:10:00.756|[http-nio-0.0.0.0-8002-exec-4]|DEBUG|c.t.a.m.I.selectList-<==      Total: 0
+2022-03-25 13:10:10.058|[http-nio-0.0.0.0-8002-exec-6]|DEBUG|c.t.a.m.I.selectList-==>  Preparing: SELECT id,url,imp_id FROM imp_images WHERE (imp_id = ?)
+2022-03-25 13:10:10.058|[http-nio-0.0.0.0-8002-exec-6]|DEBUG|c.t.a.m.I.selectList-==> Parameters: 37(Integer)
+2022-03-25 13:10:10.105|[http-nio-0.0.0.0-8002-exec-6]|DEBUG|c.t.a.m.I.selectList-<==      Total: 0
+2022-03-25 13:10:13.780|[http-nio-0.0.0.0-8002-exec-8]|DEBUG|c.t.a.m.I.selectById-==>  Preparing: SELECT id,user_id,act_id,act_chi_id,act_times_id,content,create_time,update_time,act_stars FROM impressions WHERE id=?
+2022-03-25 13:10:13.780|[http-nio-0.0.0.0-8002-exec-8]|DEBUG|c.t.a.m.I.selectById-==> Parameters: 37(Integer)
+2022-03-25 13:10:13.821|[http-nio-0.0.0.0-8002-exec-8]|DEBUG|c.t.a.m.I.selectById-<==      Total: 1
+2022-03-25 13:10:13.824|[http-nio-0.0.0.0-8002-exec-8]|DEBUG|c.t.a.m.I.updateById-==>  Preparing: UPDATE impressions SET user_id=?, act_id=?, content=?, create_time=?, update_time=?, act_stars=? WHERE id=?
+2022-03-25 13:10:13.824|[http-nio-0.0.0.0-8002-exec-8]|DEBUG|c.t.a.m.I.updateById-==> Parameters: 4(Integer), 15(Integer), 4(String), 1648133708789(Long), 1648185013822(Long), 5(Integer), 37(Integer)
+2022-03-25 13:10:13.864|[http-nio-0.0.0.0-8002-exec-8]|DEBUG|c.t.a.m.I.updateById-<==    Updates: 1
+2022-03-25 13:10:13.865|[http-nio-0.0.0.0-8002-exec-8]|DEBUG|c.t.a.m.ImpImagesMapper.delete-==>  Preparing: DELETE FROM imp_images WHERE (imp_id = ?)
+2022-03-25 13:10:13.865|[http-nio-0.0.0.0-8002-exec-8]|DEBUG|c.t.a.m.ImpImagesMapper.delete-==> Parameters: 37(Integer)
+2022-03-25 13:10:13.904|[http-nio-0.0.0.0-8002-exec-8]|DEBUG|c.t.a.m.ImpImagesMapper.delete-<==    Updates: 0
+2022-03-25 13:10:15.687|[http-nio-0.0.0.0-8002-exec-9]|DEBUG|c.t.a.m.I.selectList-==>  Preparing: SELECT id,url,imp_id FROM imp_images WHERE (imp_id = ?)
+2022-03-25 13:10:15.687|[http-nio-0.0.0.0-8002-exec-9]|DEBUG|c.t.a.m.I.selectList-==> Parameters: 37(Integer)
+2022-03-25 13:10:15.761|[http-nio-0.0.0.0-8002-exec-9]|DEBUG|c.t.a.m.I.selectList-<==      Total: 0

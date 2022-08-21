@@ -5,5 +5,7 @@
 
 
 <mapper namespace="com.torch.server.mapper.UserMapper">
+    <insert id="">
 
+    </insert>
 </mapper>

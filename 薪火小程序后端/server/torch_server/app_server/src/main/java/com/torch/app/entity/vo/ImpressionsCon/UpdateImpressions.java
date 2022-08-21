@@ -13,8 +13,6 @@ public class UpdateImpressions implements Serializable {
     private String[] imagesUrls;
     @ApiModelProperty(name = "actStars",value = "对志愿活动的评级，一星两星。。")
     private Integer actStars;
-//    @ApiModelProperty(name = "actId",value = "活动id")
-//    private Integer actId;
     @ApiModelProperty(name = "id",value = "心得id")
     private Integer id;
 }
