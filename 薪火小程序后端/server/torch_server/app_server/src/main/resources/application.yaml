@@ -4,9 +4,9 @@ server:
 spring:
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://www.torchcqs.cn:3306/torch?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8
-    username: root
-    password: cjsd10-3
+    url: jdbc:mariadb://www..:3306/torch?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8
+    username: 
+    password: 
     hikari:
       minimum-idle : 3
       maximum-pool-size: 5
@@ -16,9 +16,9 @@ spring:
 #    time-zone: GMT+8
   #邮件发送配置，目前是小码
   mail:
-    host: 120.241.186.196 #smtp.qq.com,linux服务器上要配置为ip地址
-    username: 3057179865@qq.com
-    password: lyduypdnolpodcfj
+    host:  #smtp.qq.com,linux服务器上要配置为ip地址
+    username: @qq.com
+    password: 
     default-encoding: utf-8
     properties:
       mail:
@@ -52,8 +52,8 @@ swagger:
     password: torchapp
 
 wx:
-  appid: wx340fc38eece916c2
-  secret: ad527c3572bd15f95a47df54aa47e25c
+  appid: 
+  secret: 
 logging:
   config: classpath:log/logback-spring.xml
   level:
